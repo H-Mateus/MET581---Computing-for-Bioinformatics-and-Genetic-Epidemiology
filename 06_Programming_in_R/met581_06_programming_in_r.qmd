@@ -1,0 +1,510 @@
+---
+title: "Programming in R"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+    orcid: 0000-0001-6075-3619
+    email: bernardo-harringtong@cardiff.ac.uk
+    affiliations: 
+      - ref: cardiff
+      - ref: dri
+    degrees: 
+      - PhD
+affiliations:
+  - id: cardiff
+    name: Cardiff University
+    city: Cardiff
+    url: www.cardiff.ac.uk
+  - id: dri
+    name: UK Dementia Research Institue
+    url: https://ukdri.ac.uk/
+format: 
+  revealjs:
+    logo: /images/combined_logos.png
+    footer: "MET581 - Programming in R"
+    theme: [dark, ../styles.scss]
+execute: 
+  echo: true
+---
+
+## Programming {.center}
+
+> The implementation of logic to facilitate specified computing operations and functionality {.center}
+
+## What we will cover
+
+::: columns
+::: {.column width="50%"}
+-   Conditional Execution
+-   Defining Function Arguments
+-   Explicit Constraints
+-   Dot-dot-dot (...)
+-   Pipes
+-   Iterations with purr
+:::
+
+::: {.column width="50%"}
+-   While loops
+-   Other loops – purrr functions
+-   The map family
+-   Shortcuts
+-   Multiple arguments
+-   walk
+:::
+:::
+
+## Package load and conflicts
+
+-   We'll load our packages early as is good practise!
+-   As an aide, you may notice a verbose message when loading the tidyverse mentioning conflicts
+-   If we load the `conflicted` package it will force an error if you use a function that has multiple sources (`filter` is commonly guilty of this!)
+
+```{r}
+#| message: true
+library(tidyverse)
+library(conflicted)
+```
+
+## Package load and conflicts
+
+```{r}
+#| error: true
+# conflicted will make this error
+mtcars |>
+  filter(gear == 4)
+```
+
+```{r}
+# We can explicitly state which filter we prefer just once
+conflicts_prefer(dplyr::filter)
+
+mtcars[1:3,] |>
+  filter(gear == 4)
+```
+
+## Conditional Execution
+
+-   In R, the conditional execution of statements are performed within `if()` and `{}` blocks of code.
+-   To start with, code is easier to understand (by you and everyone!) if you separate the lines and use indentations. Not like this:
+
+``` r
+myFunction <- function(x) {if (x > 3) {return(x - 3)} else {return(x)}} 
+```
+
+-   Note that RStudio has a shortcut for auto-formatting highlighted code: ctrl+shift+A
+
+``` r
+myFunction <- function(x) {
+  if (x > 3) {
+    return(x - 3)
+  } else {
+    return(x)
+  }
+}
+```
+
+## Defining Function Arguments
+
+-   There are two types of arguments: **Mandatory** and **Optional**
+-   The mandatory arguments are **always at the beginning** of the list of arguments, followed by **optional arguments** and their **default values**.
+-   Example:
+
+``` r
+pow <- function(x, y = 2) {
+return(x ** y)
+}
+```
+
+-   What do you think will happen if you try `pow(3)` and `pow(3,3)` in the console? Try it!
+
+## Defining Function Arguments
+
+-   There are two ways of passing the values to a function: by order and by name.
+-   Check the description of `mean()` by typing `?mean`
+-   This is [**bad programming!**]{style="color:#cc0000"} X because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!).
+-   Passing them by name means you can change the order:
+-   Best practice is to define include the first argument (can be without name) of the function as the input data to be processed:
+
+```{r}
+#| eval: false
+#| code-line-numbers: "1|2|3"
+mean(1:101, ,TRUE) # bad!
+mean(na.rm = TRUE, x = 1:101) # better
+mean(1:101, na.rm = TRUE) # best :)
+```
+
+## Defining Function Arguments
+
+-   Adding restrictions to the function means they can be more efficient
+-   For example:
+
+```{r}
+midValue <- function(x) {
+  if (length(x) %% 2 == 0) {
+    stop("'x' has an even number of elements", call. = FALSE)
+  }
+  midIndex <- (length(x) + 1) / 2
+  return (x[midIndex])
+}
+```
+
+-   The stop function is executed when the modulus (remainder from division) is zero. A good error checking mechanism (even gives a message!)
+
+## Defining Function Arguments
+
+-   The previous code can be simplified by using: `stopifnot()`
+
+```{r}
+midValue <- function(x) {
+  stopifnot("'x' has an even number of elements" = length(x) %% 2 == 1)
+  midIndex <- (length(x) + 1) / 2
+  return (x[midIndex])
+}
+```
+
+-   And we can add multiple expressions in one go
+
+```{r}
+calMean = function(x) {
+  stopifnot(exprs = {
+    "'x' has to have a mean of 4 for some reason..." = mean(x) == 4
+    "'x' has to have length 4, don't ask why..." = length(x) == 4
+  })
+}
+```
+
+## Dot-Dot-Dot (...)
+
+-   An ellipsis means that the function can take any number of named or unnamed arguments (run `?print()` for an example)
+-   For example: We can use ... to pass those additional arguments on to another function. Essentially, placeholders for other arguments.
+
+```{r}
+i01 <- function(y, z) {
+  list(y = y, z = z)
+}
+i02 <- function(a, ...) {
+  # Add 'a' to all elements in the list
+  lapply(i01(...), function(x) x + a)
+}
+str(i02(a = 1, y = 2, z = 3))
+```
+
+## Dot-Dot-Dot (...)
+
+-   By adding numbers at the end, it is possible to refer to elements of ... by position (what position the generic arguments will sit in).
+
+```{r}
+i03 <- function(...) {
+  list(first = ..1, third = ..3)
+}
+str(i03(1, 2, 3))
+```
+
+-   More useful is `list(...)`, which evaluates the arguments and stores them in a list. Very useful when working with data!
+
+```{r}
+i04 <- function(...) {
+  list(...)
+}
+str(i04(a = 1, b = 2))
+```
+
+## Pipes |>
+
+-   There are two types of pipeable functions: **transformations** and **side-effects**.
+-   **Transformations** are where an object is passed to the function’s first argument and a modified object is returned.
+-   With **side-effects**, the passed object is not transformed. Instead, the function performs a function on that object, such as drawing a plot or saving a file.
+
+```{r}
+print_missings <- function(df) {
+  n <- sum(is.na(df))
+  cat("Missing values: ", n, "\n", sep = "")
+  invisible(df)
+}
+```
+
+## Pipes |>
+
+-   If we use our newly created `print_missings()` function, the `invisible()` command means that the input data frame will not get printed out but we can still use it in a pipe.
+
+```{r}
+library(tidyverse)
+diamonds |>
+  print_missings() |>
+  mutate(carat = ifelse(carat < 0.25, NA, carat)) |>
+  print_missings()
+```
+
+## Iterations with purrr
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   We want to keep code **efficient** and **less repetitive**: performing the same thing on multiple inputs, repeating the operation on multiple columns, or on different datasets.
+-   To help achieve this, **iterations** are used. For example:
+
+```{r}
+rescale <- function(x) {
+  y <- min(x, na.rm = TRUE)
+  return((x - y) / (max(x, na.rm = TRUE) - y))
+}
+```
+
+. . .
+
+```{r}
+df <- data.frame(a = rnorm(10), b = rnorm(10), c = rnorm(10), d = rnorm(10))
+df$a <- rescale(df$a)
+df$b <- rescale(df$b)
+df$c <- rescale(df$c)
+df$d <- rescale(df$d) # Wow this is tedious...
+```
+
+## Iterations with purrr
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   This can be simplified with a for loop
+
+```{r}
+for (i in seq_along(df)) {
+  df[[i]] <- rescale(df[[i]])
+} # This is much shorter (and less error prone)!
+```
+
+-   A breif note, it's generally better to vectorise your R code as it's faster and often more succinct code, see [here](https://www.r-bloggers.com/2018/06/why-loops-are-slow-in-r/) and [here](https://adv-r.hadley.nz/perf-improve.html#vectorise) for more details
+-   However it is said that [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization=), so don't stress to much if you're analysing smaller datasets
+-   If you're writing a pipeline that'll be rerun many times by lots of people, then optimisation is more important
+
+## Other loops - purr functions
+
+-   **`purrr`** is a package that helps to enhance R's functional programming toolkit
+-   **`purrr`** functions help to break common challenges in list manipulation into independent pieces.
+-   Base R has family of functions known as **"apply family"**, that eliminates the need for many common for loops, `apply()`, `lapply()`, `tapply()`
+-   **`purrr`** has a family of functions called the **"map family"**.
+-   Each function takes a vector as input, applies a function to each piece, and then returns a new vector that has the same length as the input.
+
+## The map family
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   Essentially, map() is the tidyverse equivalent of the base R apply family of functions.
+-   The basic syntax is map(.x, .f, ...) where:
+    -   .x is a list, vector or dataframe
+    -   .f is a function
+    -   map() will then apply .f to each element of .x in turn.
+
+![](/images/purrr_map_cartoon.png){fig-align="center" width="600px"}
+
+## The map family
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   We can use the `map` function to compute the mean and standard deviation of previous dataset.
+
+```{r}
+# I'm using round here so we don't get so many decimal places printed
+map_dbl(df, mean) |> round(digits = 2)
+map_dbl(df, sd) |> round(digits = 2)
+# And here's the native R sapply equivalent
+sapply(df, mean) |> round(digits = 2)
+```
+
+. . .
+
+-   And if you see the help page for `map_dbl()` you'll notice the `...` which allows us to pass function arguments:
+
+```{r}
+map_dbl(df, mean, na.rm = TRUE) |> round(digits = 2)
+```
+
+## The map family
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   We can even use a string or a position (integer) to extract components from the input data - very useful when working with big datasets!
+
+```{r}
+x <- list(
+  x = list(a = 1, b = 2, c = 3),
+  y = list(a = 4, b = 5, c = 6),
+  z = list(a = 7, b = 8, c = 9)
+)
+x |> map_dbl("a")
+x |> map_dbl(2)
+```
+
+## map_ functions
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   One property of the `map()` function is that it will always return a list.
+-   To change the output data type, we can use multiple versions of `map_*()`:
+    -   `map_lgl()` returns a logical.
+    -   `map_int()` returns a integer vector.
+    -   `map_dbl()` returns a double vector.
+    -   `map_chr()` returns a character vector.
+    -   `map_df()` returns a data frame.
+
+## Shortcuts
+
+-   Fit a linear model to each group in a dataset. This example splits up the mtcars dataset into three pieces and fits the linear model to each piece.
+
+```{r}
+#| code-line-numbers: "1-6|7-10|11-14"
+models <- mtcars %>%
+  # note this is an example where the native R pipe won't work!
+  split(.$cyl) |>
+  map(function(df) {
+    lm(mpg ~ wt, data = df)
+  })
+# Using tidyverse annonymous function syntax
+models2 <- mtcars %>%
+  split(.$cyl) |>
+  map( ~ lm(mpg ~ wt, data = .))
+# And here is the the native R equivalent
+models3 <- mtcars %>%
+  split(.$cyl) |>
+  map(\(df) lm(mpg ~ wt, data = df))
+```
+
+## Shortcuts
+
+-   The `.` used in the second example is a placeholder for the dataset we’ve piped in (`mtcars`) so we can access parts of it (via `$`)
+-   Note that the placeholder for the native R pipe (`|>`) is a `_`, but it doesn't have the same functionality as the `magritter` pipe! See [here](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/) for more info on differences
+-   Example: we want to get the $R^2$ from our models
+
+```{r}
+models |>
+  map(summary) %>%
+  map_dbl( ~ .$r.squared)
+models |>
+  map(summary) |>
+  map_dbl(\(model) model$r.squared)
+```
+
+## Multiple Arguments
+
+![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+
+-   `purrr` gives us the option to include more than one input in parallel with `map2()` and `pmap()`.
+-   Imagine we would like to simulate some random normal distributions with different means, and each vary, we could do:
+
+```{r}
+# Define input lists
+mu <- list(5, 10, -3)
+sigma <- list(1, 5, 10)
+# Generate distributions
+map2(mu, sigma, rnorm, n = 5) |>
+  str()
+```
+
+## Multiple Arguments
+
+-   The code can be understood by the following figure:
+
+![](/images/purrr_map2_cartoon.png){fig-align="center" width="600px"}
+
+## Multiple Arguments
+
+-   There is no map3 or map4, so what if we want more than 2 arguments? `purrr` has the function `pmap()` for an arbitrary number of args.
+
+```{r}
+#| eval: false
+n <- list(1, 3, 5)
+arguments <- list(n, mu, sigma)
+
+arguments |>
+  pmap(rnorm) |>
+  str()
+```
+
+-   We can go even further by increasing the complexity of the problem using the `exec()` function.
+
+```{r}
+funcs <- c("runif", "rnorm", "rpois")
+params <- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))
+
+map2(funcs, params, \(fn, args) exec(fn, !!!args, n = 5)) |>
+  str()
+```
+
+## walk
+
+-   `walk()` is an alternative to map that we use we call a function for its side effects, disregarding its return value.
+
+```{r}
+x <- list(1, "a", 3)
+x |>
+  walk(print)
+```
+
+-   Really useful when outputting datasets in lists! (such as microarray data)
+-   Similar to `map()`, purrr also has `walk2()` and `pwalk()`
+
+## walk2
+
+```{r}
+#| eval: false
+df0 <- tibble(x = 1:3, y = rnorm(3))
+df1 <- tibble(x = 1:3, y = rnorm(3))
+df2 <- tibble(x = 1:3, y = rnorm(3))
+animalFrames <- tibble(animals = c('sheep', 'cow', 'horse'),
+                       frames =
+                         list(df0, df1, df2))
+# Save a list of dataframes
+animalFrames %>%
+  walk2(
+    .x = .$animals,
+    .y = .$frames,
+    .f = ~ write_csv(.y, str_c("test_", .x, ".csv"))
+  )
+```
+
+## pwalk
+
+-   `pmap()` and `pwalk()` allow you to provide any number of arguments in a list.
+
+```{r}
+#| code-line-numbers: "1-10|11-14"
+# Let's set-up a dataframe and function to use with pwalk
+ds_mt <-
+  mtcars |>
+  rownames_to_column("model") |>
+  mutate(am = factor(am, labels = c("auto", "manual"))) |>
+  select(model, mpg, wt, cyl, am) |>
+  sample_n(3)
+foo <- function(model, am, mpg) {
+  print(paste("The", model, "has a", am, "transmission and gets", mpg, "mpgs."))
+}
+# Now we can use pwalk
+ds_mt |>
+  select(model, am, mpg) |>
+  pwalk(.l = _, .f = foo)
+```
+
+## While loops
+
+-   You're unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met
+-   **Example**: see how many times we need to flip a coin to get three heads in a row:
+
+```{r}
+#| eval: false
+flip_coin <- function() {
+  sample(c("T", "H"), 1)
+}
+numFlips <- 0
+numHeads <- 0
+while (numHeads < 3) {
+  if (flip_coin() == "H") {
+    numHeads <- numHeads + 1
+  } else {
+    numHeads <- 0
+  }
+  numFlips <- numFlips + 1
+}
+cat("Number of flips to get 3 heads in a row: ", numFlips)
+```
+
+-   [**Beware**]{style="color:#cc0000"} that while loops can crash if the condition being evaluated never becomes false!
+
+## Workshop time! {.center}
+

@@ -1,0 +1,534 @@
+---
+title: "Modelling in R"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+    orcid: 0000-0001-6075-3619
+    email: bernardo-harringtong@cardiff.ac.uk
+    affiliations: 
+      - ref: cardiff
+      - ref: dri
+    degrees: 
+      - PhD
+affiliations:
+  - id: cardiff
+    name: Cardiff University
+    city: Cardiff
+    url: www.cardiff.ac.uk
+  - id: dri
+    name: UK Dementia Research Institue
+    url: https://ukdri.ac.uk/
+format: 
+  revealjs:
+    logo: /images/combined_logos.png
+    footer: "MET581 - Modelling in R"
+    theme: [dark, ../styles.scss]
+    output-location: column
+    scrollable: true
+    include-in-header: 
+      text: |
+        <style>
+        .center-xy {
+          margin: 0;
+          position: absolute;
+          top: 40%;
+          left: 40%;
+          -ms-transform: translateY(-50%), translateX(-50%);
+          transform: translateY(-50%), translateX(-50%);
+        }
+        </style>
+execute: 
+  echo: true
+---
+
+## Objectives
+
+-   Look at the basics of modelling in R, focusing on the R package `tidymodels` and the “linear” class of models
+-   Learn to build, interact with and visualise these models
+-   Learn how to qualitatively assess models
+-   Importantly, get used to the formula notation in R!
+
+## Question: what is a model? {.center}
+
+## Broad types of models
+
+-   Descriptive models
+    -   Is there a trend in my data? Is it linear?
+-   Inferential models
+    -   Hypothesis lead - does my therapy improve outcomes?
+-   Predictive models
+    -   How many people will buy product X next month?
+
+## Modelling in R - An Overview
+
+-   Statistical models are complementary tools to visualisation
+-   Models help you to extract patterns out of data you input to it
+-   The overall goal of a model:
+    -   Provide a simple, low-dimensional summary of a dataset
+
+## Setting Up!
+
+-   `tidymodels` describes itself thusly: "The tidymodels framework is a collection of packages for modelling and machine learning using tidyverse principles."
+
+```{r}
+#| output-location: default
+library(tidymodels)  # for the parsnip package, along with the rest of tidymodels
+
+# Helper packages
+library(tidyverse) # for data manipulations
+library(conflicted) # for helping with conflicts
+library(skimr) # for nice data summaries
+library(ranger) # needed for our random forests
+library(gt) # for tables
+library(usemodels) # for generating nice boilerplate code
+library(vip) # for variable importance of random forest
+
+conflicts_prefer(dplyr::filter)
+```
+
+## Starting Simple
+
+-   Let's start with our old friend, `mtcars`
+
+```{r}
+#| output-location: default
+skimr::skim(mtcars)
+```
+
+## Plot data
+
+-   Plotting our data is always a good first step
+-   Do you see an obvious trend?
+
+```{r}
+mtcars |>
+  ggplot(aes(x = hp, y = mpg)) +
+  geom_point()
+```
+
+## Models - line of best fit
+
+-   You've seen how we can add a line to the data before, but what does it mean?
+
+```{r}
+mtcars |>
+  ggplot(aes(x = hp, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+## Establishing a Model
+
+1. Selection: Defining a family of models
+    -   A precise, but generic, pattern that you want to capture within your data (such as a straight line or a quadratic curve
+    -   Express the model family as an equation for a line/curve, such as:
+        -   $Y = a_1 + a_2 \times X$
+    -   $X$ and $Y$ are known variables from your data
+    -   $a_1$ and $a_2$ are parameters that can vary depending on the pattern that is captured
+2. **Fitting: Generate a fitted model (model fit)**
+    -   Find the model from the family you’ve chosen that is closes to your data
+    -   Then, taking the generic model and making it specific to your data, like:
+        -   $Y = 7 + 2 \times X$
+
+## Visualising Model Fitness
+
+```{r}
+y_model <- 34 + -0.1 * mtcars$hp # A guess of a1 and a2
+y_diff <- mtcars$mpg - y_model
+ggplot(mtcars, aes(x = hp, mpg)) +
+  geom_point() +
+  geom_abline(aes(intercept =34, 
+                  slope = -0.1)) +
+  geom_segment(aes(
+    x = hp,
+    y = mpg,
+    xend = hp,
+    yend = y_model
+  ), color = "blue")
+```
+
+## Fitness of Models
+
+-   A good statistical model is expected to be **close** to the data
+-   To calculate the fitness of a model, we quantify the distance between data and the model to produce a score
+-   We repeatedly trail $a_1$ and $a_2$ to find the model with the smallest distance
+-   We can therefore define the fitness of the model as the sum of all vertical distances to each data point from the model we’ve picked
+-   The distance between these is equivalent to the difference between the $Y$ value given by the model (the **prediction**) and the $Y$ value in the data (the **response**)
+
+## Linear models and `lm()`
+
+-   Alternatively, we can use a broader family of models called linear models
+-   A linear model has the general form:
+    -   $y = a_1 + a_2 \times x_1 + a_3 \times x_2 + ... + an \times x_{(n-1)}$
+-   The previous simple model is equivalent to a general linear model where $n = 2$ and $x_1 = x$
+-   Function for fitting a linear model: `lm()`
+-   `lm()` comes with a special syntax to specify the model family: formula
+-   Formulas look like `y ~ x` which translate to a function like $y = a_1 + a_2 \times x$
+
+```{r}
+# A manual base R model with lm
+model <- lm(hp ~ mpg, data = mtcars)
+# Extract model coefficients
+coef(model) |> round(3)
+```
+
+## An example with the Palmer penguins dataset
+
+-   Observations of Antarctic penguins who live on the Palmer Archipelago
+-   Let's have a quick look at the data 
+    -   It looks like there's a slight negative correlation between bill length and depth right...?
+
+```{r}
+penguins |>
+ggplot(aes(x = bill_length_mm, 
+           y = bill_depth_mm)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+## Think carefully about your data!
+
+-   We have 3 different species in this data, what happens if we check those?
+-   A nice example of [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
+
+```{r}
+penguins |>
+ggplot(aes(x = bill_length_mm, 
+           y = bill_depth_mm)) +
+  geom_point(aes(color = species, 
+                 shape = species),
+             size = 2) + 
+  geom_smooth(method = "lm", se = FALSE, 
+              aes(color = species)) +
+  scale_color_manual(values = c(
+    "darkorange","darkorchid","cyan4")
+    )
+```
+
+## Building a model with tidymodels
+
+-   Let's say we want to try and predict the sex of a penguin based on it's physical characteristics
+
+```{r}
+penguins |>
+  filter(!is.na(sex)) |>
+  ggplot(aes(flipper_length_mm, 
+             bill_length_mm, 
+             color = sex, 
+             size = body_mass_g)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~species)
+
+# Removed unneeded columns and filter NAs
+penguins_df <- penguins |>
+  filter(!is.na(sex)) |>
+  select(-island)
+```
+
+## How do we know how good our model is? {.center}
+
+## Splitting our data
+
+-   We want to split our data into testing and training datasets prior to modelling
+-   **NOTE that our testing data is precious!**  We don't want to squander it and so should only let our final model see it once at the very end
+-   But many models require hyperparameter tuning, and what if we want to compare the performance of different models?
+
+```{r}
+#| output-location: default
+set.seed(123) # set seed to make sure our results don't change!
+# split data making sure we have sex balanced groups
+penguin_split <- initial_split(penguins_df, strata = sex)
+penguin_train <- training(penguin_split)
+penguin_test <- testing(penguin_split)
+penguin_split
+```
+
+## Internal resamping
+
+-   The prior step gave us our training and final testing set, but we want to compare models so we'll need some internal testing within the training set
+-   There are several approaches but two common ones are:
+    -   **Cross-fold** validation - split the data several times (typically 10) and run the model against those splits
+    -   **Bootstrap** validation - resample with replacement, so the same sample can appear multiple times in the training set of each iteration (this approach can be better when you've smaller datasets)
+
+```{r}
+set.seed(123)
+# Makes 25 version by default
+penguin_boot <- bootstraps(penguin_train)
+head(penguin_boot, n = 3)
+```
+
+## Comparing two modelling appraoches
+
+-   Let's compare a logistic regression model and a random forest model
+-   In tidymodels we specify the type of model we want and the computational engine to be used
+-   In the case of random forest we also have to specify that's we want a classification model since random forest can model both continuous and categorical outcomes
+
+```{r}
+#| results: hold
+glm_spec <- logistic_reg() |>
+  set_engine("glm")
+
+glm_spec
+```
+
+## Aside - hyperparameter tuning
+
+-   Model hyperparameters are model variables we can set for some modelling approaches that can be very important for how that model performs
+-   It can also be difficult to know what values to use for some of these and so we might want to iterate over several values to see which performs the best
+
+```{r}
+# make some nice boilerplate code
+usemodels::use_ranger(sex ~ ., 
+                      data = penguin_train)
+```
+
+## Testing hyperparameters
+
+```{r}
+#| cache: true
+ranger_recipe <- 
+  recipe(formula = sex ~ ., 
+         data = penguin_train)  |>
+  # impute the mean if any values are missing
+  step_impute_mean(all_numeric_predictors()) |>
+  # apply hot-one encoding to factors
+  step_dummy(all_nominal_predictors()) |>
+  # remove any predictors that have 0 variance
+  step_nzv(all_numeric_predictors())
+
+ranger_spec <- 
+  rand_forest(mtry = tune(), 
+              min_n = tune(), 
+              trees = 1000) %>% 
+  set_mode("classification") %>% 
+  set_engine("ranger") 
+
+ranger_workflow <- 
+  workflow() %>% 
+  add_recipe(ranger_recipe) %>% 
+  add_model(ranger_spec) 
+
+set.seed(70081)
+doParallel::registerDoParallel()
+ranger_tune <-
+  tune_grid(ranger_workflow, 
+            resamples = penguin_boot, 
+            grid = 10)
+```
+
+## Visualising different hyperparameters
+
+```{r}
+show_best(ranger_tune, metric = "accuracy")
+show_best(ranger_tune, metric = "roc_auc")
+```
+
+```{r}
+autoplot(ranger_tune)
+```
+
+## Finalise our random forest workflow
+
+-   We can easily just take the best parameters from our best using `select_best`, though note that what you might want to optimise your model for may depend on your goal!
+
+```{r}
+final_rf <- ranger_workflow %>%
+  finalize_workflow(select_best(ranger_tune))
+
+final_rf
+```
+
+## Model formula and pre-processing with recipes
+
+-   There are many processing steps we might want to perform on our data when modelling it, so `tidymodels` provides a framework for this
+-   This gives us lots of function for imputing missing data, scaling and centring and much more
+
+```{r}
+#| output-location: default
+#| code-line-numbers: "1-4|5-10|12-15"
+# Set sex as the outcome and use all other 
+# variables as predictors with the "." shorthand
+recipe <- recipe(sex ~ ., 
+                 data = penguin_train) |>
+  # impute the mean if any values are missing
+  step_impute_mean(all_numeric_predictors()) |>
+  # apply hot-one encoding to factors
+  step_dummy(all_nominal_predictors()) |>
+  # remove any predictors that have 0 variance
+  step_nzv(all_numeric_predictors())
+
+# Add this to a workflow
+penguin_wf <- workflow() |>
+  add_recipe(recipe)
+penguin_wf
+```
+
+## Aside - formula options - interactions
+
+-   We often might be interested in interactions between variables, so we can use the `*` to assess this in the formula
+
+```{r}
+lm(body_mass_g ~ bill_length_mm * bill_depth_mm, 
+   data = penguins_df) |>
+  tidy()
+```
+
+## Aside - formula options - multilevel modelling
+
+-   There are multilevel modelling approaches that allow us to set random effects for variables using a `|` syntax
+-   This in package dependant though, so we need to add the formula in a engine specific way
+
+```{r}
+library(multilevelmod)
+
+multilevel_spec <- linear_reg() |> 
+  set_engine("lmer")
+
+multilevel_workflow <- 
+  workflow() |>
+  # Pass the data along as-is: 
+  add_variables(outcome = body_mass_g, 
+                predictors = c(species, 
+                               bill_depth_mm, sex)) |>
+  add_model(multilevel_spec, 
+            # This formula is given to the model
+            formula = body_mass_g ~ sex + (bill_depth_mm | species))
+
+multilevel_fit <- fit(multilevel_workflow, data = penguins_df)
+multilevel_fit
+```
+
+## Checking our recipe
+
+-   Might be wise to make sure our recipe is doing what we think it is!
+
+```{r}
+prep(recipe)
+```
+
+## Running our logistic regression model
+ 
+```{r}
+#| warning: false
+glm_rs <- penguin_wf |>
+  add_model(glm_spec) |>
+  fit_resamples(
+    resamples = penguin_boot,
+    control = control_resamples(save_pred = TRUE)
+  )
+
+glm_rs
+```
+ 
+## Running our random forest model
+
+```{r}
+rf_rs <- final_rf |>
+  fit_resamples(
+    resamples = penguin_boot,
+    control = control_resamples(save_pred = TRUE)
+  )
+
+rf_rs
+```
+
+## Evaluating our models
+
+-   Which performed better?
+
+```{r}
+#| results: hold
+collect_metrics(glm_rs) |>
+  mutate(across(where(is.numeric), round, digits = 3)) |>
+  gt()
+collect_metrics(rf_rs) |>
+  mutate(across(where(is.numeric), round, digits = 3)) |>
+  gt()
+```
+
+## Random forest variable importance
+
+```{r}
+imp_spec <- ranger_spec %>%
+  finalize_model(select_best(ranger_tune)) %>%
+  set_engine("ranger", importance = "permutation")
+
+workflow() %>%
+  add_recipe(ranger_recipe) %>%
+  add_model(imp_spec) %>%
+  fit(penguin_train) %>%
+  extract_fit_parsnip() %>%
+  vip(aesthetics = list(alpha = 0.8, fill = "midnightblue"))
+```
+
+## Confusion matrix
+
+-   A confusion matrix tells us how many time our model predicts a correct category
+
+```{r}
+glm_rs |>
+  conf_mat_resampled()
+```
+
+## ROC curve
+
+```{r}
+glm_rs |>
+  collect_predictions() |>
+  group_by(id) |>
+  roc_curve(sex, .pred_female) |>
+  ggplot(aes(1 - specificity, sensitivity, color = id)) +
+  geom_abline(lty = 2, color = "gray80", linewidth = 1.5) +
+  geom_path(show.legend = FALSE, alpha = 0.6, linewidth = 1.2) +
+  coord_equal()
+```
+
+## Using our precious testing data
+
+-   Having decided on our best model we can finally use our testing set to evaluate our performance using all of our training data
+
+```{r}
+penguin_final <- penguin_wf %>%
+  add_model(glm_spec) %>%
+  last_fit(penguin_split)
+
+penguin_final
+```
+
+## Final model performance
+
+```{r}
+collect_metrics(penguin_final)
+collect_predictions(penguin_final) |>
+  conf_mat(sex, .pred_class)
+```
+
+## Odds ratios
+
+-   We can check our coefficients to see what variables are predictive of sex
+
+```{r}
+penguin_final$.workflow[[1]] %>%
+  tidy(exponentiate = TRUE) |>
+  arrange(estimate)
+```
+
+## Final plot
+
+-   Having learnt that bill depth is our strongest predictor by far (an increase of 1mm for bill depth corresponds to an over 8x higher odds of being male!), we can plot this variable to see how well is segregates
+
+```{r}
+penguins %>%
+  filter(!is.na(sex)) %>%
+  ggplot(aes(bill_depth_mm, bill_length_mm, 
+             color = sex, 
+             size = body_mass_g)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~species)
+```
+
+## Links and Resources
+
+-   A great book on modelling with R that focuses on using tidymodels: <https://www.tmwr.org/>
+-   A nice YouTube channel with lots of modelling examples: <https://www.youtube.com/@JuliaSilge/featured>
+
+## Workshop time! {.center}
