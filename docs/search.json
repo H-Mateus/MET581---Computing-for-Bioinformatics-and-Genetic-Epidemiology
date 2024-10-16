@@ -1,0 +1,1347 @@
+[
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#section",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#section",
+    "title": "Data Visualisation in R",
+    "section": "",
+    "text": "Visualisation\nMaking you data come to life!",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#objectives",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#objectives",
+    "title": "Data Visualisation in R",
+    "section": "Objectives",
+    "text": "Objectives\n\nHow data can be visualised in R\nLearn how to adjust graphics\nGet familiar with ggplot2 and it’s grammar of graphics to create amazing figures",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#data-visualisation---an-overview",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#data-visualisation---an-overview",
+    "title": "Data Visualisation in R",
+    "section": "Data Visualisation - An Overview",
+    "text": "Data Visualisation - An Overview\n\nThe overall aim of visualising data:\n\nMake all your plots as self explanatory as possible!\n\nFor these lectures, we will focus on ggplot2, a tidyverse package\n\nInspired on the Grammer of Graphics, a book that aims to formalise visualisations into layers\n\nHas multiple add-ons, such as ggrepel (for text labels) and ggpubr (for publication-ready plots) or patchwork (for combining multiple plots)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#base-r-plots",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#base-r-plots",
+    "title": "Data Visualisation in R",
+    "section": "Base R plots",
+    "text": "Base R plots\n\nGraphs can be easily generated with the base R syntax\n\n\n\ndata &lt;- c(2,3,6,4,9)\nplot(data)\n\nplot(data, type = \"l\")",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#base-r-plots-1",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#base-r-plots-1",
+    "title": "Data Visualisation in R",
+    "section": "Base R plots",
+    "text": "Base R plots\n\nGraphs can be easily generated with the base R syntax\n\n\n\nplot(data, type = \"o\", col = \"blue\")\n\nbarplot(data)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggplot2",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggplot2",
+    "title": "Data Visualisation in R",
+    "section": "ggplot2",
+    "text": "ggplot2\n\nggplot2 is a lot more useful and user friendly than base R, making plots look a lot nicer and with more options for building and displaying graphics\nWe’ll start with an old favourite, the mtcars dataset!\n\n\n\n# Load packages\n# ggplot2 is in the tidyverse\nlibrary(tidyverse) \nlibrary(conflicted)\nlibrary(ggrepel)\nlibrary(ggstatsplot)\nlibrary(plotly)\nconflicts_prefer(dplyr::filter)\n\nmtcars |&gt;\n  ggplot(aes(x = mpg, y = hp)) +\n  geom_point()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggplot2---layers",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggplot2---layers",
+    "title": "Data Visualisation in R",
+    "section": "ggplot2 - layers",
+    "text": "ggplot2 - layers\n\nggplot() is the main function, and this creates the initial ggplot object where we then add multiple layers\nA layer is a collection of geometric elements (geoms) and statistical transformations\nAn easy example of a “geom” element layer is geom_point(), which adds a scatter plot\nAesthetic mappings (aes) are specified with aes(). This is how variables (columns) in the input data are mapped to visual, or “aesthetic”, properties.\nYou can give global “aesthetics” to a plot (will appear in every layer) by specifying this in the ggplot() function, or local aesthetics in individual layers (such as in geom_point()).",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#themes",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#themes",
+    "title": "Data Visualisation in R",
+    "section": "Themes",
+    "text": "Themes\n\nA “theme” controls the finer points of the plot, like the font size and background colour\nThis is essentially customising the non-data elements\nFor example, change the default grey background to white background1\n\n\n\nmtcars |&gt;\n  ggplot(aes(x = mpg, y = hp)) +\n  geom_point() +\n  theme_bw()\n\n\n\n\n\n\n\n\n\nthe default is theme_grey()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#themes---global",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#themes---global",
+    "title": "Data Visualisation in R",
+    "section": "Themes - Global",
+    "text": "Themes - Global\n\nThese themes can be set globally, so for all plots, using the theme_set() function\n\n\n\ntheme_set(theme_bw())\n\nmtcars |&gt;\n  ggplot(aes(x = mpg, y = hp)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nYou can see some more themes provided by ggplot2 here",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#quick-plots-with-qplot",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#quick-plots-with-qplot",
+    "title": "Data Visualisation in R",
+    "section": "Quick plots with qplot",
+    "text": "Quick plots with qplot\n\nA quicker version of ggplot! Good for very basic figures\n\n\n\nqplot(mpg, hp, data = mtcars)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-colour",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-colour",
+    "title": "Data Visualisation in R",
+    "section": "Aesthetics: Colour",
+    "text": "Aesthetics: Colour\n\nWe can visualise more information by colouring the data points by another variable\nFor example, in mtcars we can map the number of cylinders to the colour aesthetic (or color if you want to spell it wrong…)\n\n\n\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp, \n                     colour = factor(cyl))) +\n  geom_point()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-size-and-shape",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-size-and-shape",
+    "title": "Data Visualisation in R",
+    "section": "Aesthetics: Size and Shape",
+    "text": "Aesthetics: Size and Shape\n\nWe can also map the number of cylinders to the size or shape aesthetic\n\n\n\n# Using size\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp, \n                     size = cyl)) +\n  geom_point()\n\n# Using shape\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp, \n                     shape = factor(cyl))) +\n  geom_point()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-shape-colour",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-shape-colour",
+    "title": "Data Visualisation in R",
+    "section": "Aesthetics: Shape & Colour",
+    "text": "Aesthetics: Shape & Colour\n\nWe can combine aesthetics as we like too!\n\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp, \n                     shape = factor(cyl),\n                     colour = factor(cyl))) +\n  geom_point()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-conditional-colour",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-conditional-colour",
+    "title": "Data Visualisation in R",
+    "section": "Aesthetics: Conditional Colour",
+    "text": "Aesthetics: Conditional Colour\n\nWe can even map an aesthetic to a datapoint based on a condition, i.e. only change colour when a certain condition is met.\nFor example here, the colour varies depending on whether the car has 4 cylinders or not (cyl == 4 being TRUE or FALSE)\n\n\n\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp,\n                     colour = cyl == 4)) +\n    geom_point()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-fill",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#aesthetics-fill",
+    "title": "Data Visualisation in R",
+    "section": "Aesthetics: Fill",
+    "text": "Aesthetics: Fill\n\nFill is yet another aesthetic\n\n\n\nggplot(data = diamonds) +\n    geom_bar(mapping = aes(x = cut,\n                           fill = cut))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#facets",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#facets",
+    "title": "Data Visualisation in R",
+    "section": "Facets",
+    "text": "Facets\n\nA “facet” is one section of something that has many sections.\nA “facet” in ggplot allows you to break up the data into different subsets and plot individual panels based on it\nCreates “subplots” or panel-like figures\nReally useful when you’ve got categorical variables (such as gender)\n\n\n\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp,\n                     colour = factor(cyl))) +\n  geom_point() +\n  facet_wrap(~ cyl)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#facets-layout",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#facets-layout",
+    "title": "Data Visualisation in R",
+    "section": "Facets: layout",
+    "text": "Facets: layout\n\nWe can change the layout of the “facets” locally:\n\n\n\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp,\n                     colour = factor(cyl))) +\n  geom_point() +\n  facet_wrap(~ cyl, ncol = 1)\n  # Note the following is equivalent\n  # facet_wrap(~ cyl, dir = \"v\")",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#facet-grids",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#facet-grids",
+    "title": "Data Visualisation in R",
+    "section": "Facet grids",
+    "text": "Facet grids\n\nWe can combine 2 variables with facet_grid()\n\n\n\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp,\n                     colour = factor(cyl))) +\n  geom_point() +\n  facet_grid(am ~ cyl)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#additional-geoms",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#additional-geoms",
+    "title": "Data Visualisation in R",
+    "section": "Additional Geoms",
+    "text": "Additional Geoms\n\nSo far we’ve only used geom_point(), but there are naturally many more geoms we can use\ngeom_smooth() draws a smoothed line based on the trend of the provided data\nThey can be used individually, or layered on top of one another, which is the core of the grammer of graphics\n\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_smooth()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#combining-geoms",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#combining-geoms",
+    "title": "Data Visualisation in R",
+    "section": "Combining geoms",
+    "text": "Combining geoms\n\nHere we layer two geoms\n\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_smooth() +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\nNote that the order of geoms can matter! (though in this case it doesn’t :P)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#layering-geoms-and-additional-aesthetics",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#layering-geoms-and-additional-aesthetics",
+    "title": "Data Visualisation in R",
+    "section": "Layering geoms and additional aesthetics",
+    "text": "Layering geoms and additional aesthetics\n\nThe order in which we give aesthetics can also matter\n\n\n\nggplot(data = mtcars, \n    mapping = aes(x = mpg,\n                  y = hp,\n                  colour = factor(cyl))) +\n    geom_smooth() +\n    geom_point()\n\n# A more sensible order?\nggplot(data = mtcars, \n    mapping = aes(x = mpg,\n                  y = hp)) +\n    geom_smooth() +\n    geom_point(aes(colour = factor(cyl)))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#statistical-transformations-count",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#statistical-transformations-count",
+    "title": "Data Visualisation in R",
+    "section": "Statistical Transformations: count",
+    "text": "Statistical Transformations: count\n\nSome plots transform your data internally and plot those new values instead of raw values\nThe stat argument of different plot types (geom functions) specifies the statistical transformation\nFor example, geom_bar() uses stat = \"count\" as it’s default to create counts of the mapped variable (as in what a bar chart does):\n\n\n\nggplot(data = diamonds) +\n  geom_bar(mapping = aes(x = cut))\n\n# Worth noting: geom and stats are often interchangeable\nggplot(data = diamonds) +\n  stat_count(mapping = aes(x = cut))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#statistical-transformations-identity",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#statistical-transformations-identity",
+    "title": "Data Visualisation in R",
+    "section": "Statistical Transformations: identity",
+    "text": "Statistical Transformations: identity\n\nAnother commonly used stat is “identity” when plotting bars with heights based on raw values\n\n\n\n## example tibble\ndemo &lt;- tribble(\n  ~cut,            ~value, \n  \"Fair\",          1610, \n  \"Good\",          4906, \n  \"Very Good\",     12082, \n  \"Premium\",       13791,\n  \"Ideal\",         21551 )\n\nggplot(data = demo) +\n  geom_bar(mapping = aes(x = cut, \n                         y = value), \n           stat = \"identity\")",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#break",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#break",
+    "title": "Data Visualisation in R",
+    "section": "Break",
+    "text": "Break",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#positional-adjustments",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#positional-adjustments",
+    "title": "Data Visualisation in R",
+    "section": "Positional Adjustments",
+    "text": "Positional Adjustments\n\nThe position argument can control how geoms occupy space\n\n\n\n# stacked \nggplot(data = diamonds) +\n    geom_bar(mapping = aes(x = cut, \n                           fill = clarity))\n  \n# side by side \nggplot(data = diamonds) +\n    geom_bar(mapping = aes(x = cut, \n                           fill = clarity),\n             position = \"dodge\") \n# Note the default is position = \"stack\"",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#labels-titles-and-captions",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#labels-titles-and-captions",
+    "title": "Data Visualisation in R",
+    "section": "Labels: Titles and Captions",
+    "text": "Labels: Titles and Captions\n\nAnother editable part of a plot are the text labels, which we can add or modify using labs()\n\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(colour = factor(cyl))) +\n  labs(title = \"Title\",\n       subtitle = \"Subtitle\",\n       caption = \"Small Caption\"\n        )",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#labels-axis-and-legends",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#labels-axis-and-legends",
+    "title": "Data Visualisation in R",
+    "section": "Labels: Axis and legends",
+    "text": "Labels: Axis and legends\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(colour = factor(cyl))) +\n  labs(x = \"Miles per gallon (mpg)\", \n  y = \"Horsepower (hp)\", \n  colour = \"Cylinders\"\n         )",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#labels-axis-alternative",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#labels-axis-alternative",
+    "title": "Data Visualisation in R",
+    "section": "Labels: Axis alternative",
+    "text": "Labels: Axis alternative\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(colour = factor(cyl))) +\n  xlab(\"Miles per gallon\") +\n  ylab(\"Horsepower\")",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#annotations",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#annotations",
+    "title": "Data Visualisation in R",
+    "section": "Annotations",
+    "text": "Annotations\n\nTo add annotation to data points, we can use geom_text() and geom_label()\n\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_text(aes(label = rownames(mtcars)))\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_label(aes(label = rownames(mtcars)), \n             alpha = 0)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#annotations-ggrepl",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#annotations-ggrepl",
+    "title": "Data Visualisation in R",
+    "section": "Annotations: ggrepl",
+    "text": "Annotations: ggrepl\n\nThe ggrepl package can help make more legible labels\n\n\n\nggplot(data = mtcars, \n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  ggrepel::geom_text_repel(aes(\n    label = rownames(mtcars)), \n    max.overlaps = 100)\n# Label only a subset\nggplot(data = mtcars,\n       mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  ggrepel::geom_text_repel(aes(\n    label = rownames(mtcars[1:3, ])),\n    data = mtcars[1:3, ])",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#zooming",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#zooming",
+    "title": "Data Visualisation in R",
+    "section": "Zooming",
+    "text": "Zooming\n\nTo control the plot limits, you have 3 methods:\n\nAdjusting the data that’s plotted\nSetting xlim and ylim in coord_cartesian() (do this!!)\nSetting the limits in each scale\n\n\n\n\n# Not ideal - need strong justification!\nmtcars |&gt;\n  filter(mpg &gt;= 20, hp &lt;= 150) |&gt;\n  ggplot(mapping = aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_smooth()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#zooming---coord_cartesian",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#zooming---coord_cartesian",
+    "title": "Data Visualisation in R",
+    "section": "Zooming - coord_cartesian",
+    "text": "Zooming - coord_cartesian\n\n\nggplot(data = mtcars, mapping = \n         aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_smooth() +\n  coord_cartesian(xlim = c(20, 35), \n                  ylim = c(0, 150))\n\n\n\n\n\n\n\n\n\nThis is the RIGHT WAY, using coord_cartesian()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#zooming---lims",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#zooming---lims",
+    "title": "Data Visualisation in R",
+    "section": "Zooming - lims",
+    "text": "Zooming - lims\n\n\nggplot(data = mtcars, mapping = \n         aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  geom_smooth() +\n  lims(x = c(20, 40),\n       y = c(0, 150))\n\n\n\n\n\n\n\n\n\nThis is also not ideal, as it removes data outside the limits!",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales",
+    "title": "Data Visualisation in R",
+    "section": "Scales",
+    "text": "Scales\n\n“scale” allows you control mapping things like colour, size and shape to data values\n“scale” draws a legend or axes\nggplot2 automatically adds default scales behind the scenes\n\n\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl)))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales---defaults",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales---defaults",
+    "title": "Data Visualisation in R",
+    "section": "Scales - defaults",
+    "text": "Scales - defaults\n\nIs the same as:\n\n\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_x_continuous() +\n  scale_y_continuous() +\n  scale_colour_discrete()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales---axis-breaks",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales---axis-breaks",
+    "title": "Data Visualisation in R",
+    "section": "Scales - axis breaks",
+    "text": "Scales - axis breaks\n\nThe naming scheme tells you the aesthetic (x_, y_, colour_, etc) and the name of the scale (continuous, discrete)\n\n\n\n# Change the breaks on the axis\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_y_continuous(\n    breaks = seq(0, 350, by = 50)\n    )",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales---axis-labels",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#scales---axis-labels",
+    "title": "Data Visualisation in R",
+    "section": "Scales - axis labels",
+    "text": "Scales - axis labels\n\n\n# Adding text to labels\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_y_continuous(\n    breaks = seq(0, 350, by = 50),\n    labels = paste0(\n      \"HP \", seq(0, 350, by = 50)\n      )\n    )\n\n# No labels\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_y_continuous(\n    breaks = seq(0, 350, by = 50), \n    labels = NULL)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#legend-layout---position",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#legend-layout---position",
+    "title": "Data Visualisation in R",
+    "section": "Legend Layout - position",
+    "text": "Legend Layout - position\n\nThe legend can of course also be modified in lots of ways\n\n\n\np &lt;- ggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl)))\n\n# Legend at the top\np + theme(legend.position = \"top\")\n# No legend\np + theme(legend.position = \"none\")\n# Note - the default is \"right\"",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#legend-layout---guides",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#legend-layout---guides",
+    "title": "Data Visualisation in R",
+    "section": "Legend Layout - guides",
+    "text": "Legend Layout - guides\n\nWe can use the guides() function to control the legend display\n\n\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(colour = factor(cyl)), \n             alpha = 0.5) +\n  guides(colour = guide_legend(\n    ncol = 2, \n    override.aes = list(size = 3, \n                        alpha = 1))\n    )",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#controlling-the-colour-scale---alt-palettes",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#controlling-the-colour-scale---alt-palettes",
+    "title": "Data Visualisation in R",
+    "section": "Controlling the Colour Scale - alt palettes",
+    "text": "Controlling the Colour Scale - alt palettes\n\nThe default ggplot2 colours we get are a bit rubbish\nMany pre-defined colour palettes are available to change that\nSuch as from the RColorBrewer package\nPalette explainer here and interactive browser here\n\n\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_colour_brewer(palette = \"Set1\")",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#controlling-the-colour-scale---manually",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#controlling-the-colour-scale---manually",
+    "title": "Data Visualisation in R",
+    "section": "Controlling the Colour Scale - manually",
+    "text": "Controlling the Colour Scale - manually\n\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_colour_manual(values =\n                        c(\"black\", \n                          \"pink\", \n                          \"turquoise\"))\n\n# Explicitly setting the values to colours\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl))) +\n  scale_colour_manual(values =\n                        c(\n                          `4` = \"black\",\n                          `6` = \"pink\",\n                          `8` = \"red\"\n                        ))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#saving-plot---the-ggplot2-way",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#saving-plot---the-ggplot2-way",
+    "title": "Data Visualisation in R",
+    "section": "Saving plot - the ggplot2 way",
+    "text": "Saving plot - the ggplot2 way\n\nWe of course want to be able to save the beautiful plots we make! We can do this using ggsave()\nIf not specified, it will save the most recent plot we create to our disk\nThe format of the plot is defined in the filename extension (.pdf or .png for example)\n\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl)))\n# Save the last printed plot\nggsave(filename = \"my_plot_1.pdf\")\n# Save the plot to a variable first\nplot &lt;- ggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl)))\nggsave(filename = \"my_plot_1.png\", plot)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#saving-plot---the-base-r-way",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#saving-plot---the-base-r-way",
+    "title": "Data Visualisation in R",
+    "section": "Saving plot - the base R way",
+    "text": "Saving plot - the base R way\n\nWith base R we need to set the device we want to save with first, then print the plot, and then close the device\n\n\n# Save to png\npng(filename = \"my_plot.png\", width = 500, height = 400)\n# Print the plot\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl)))\n# Close the device\ndev.off()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#compound-plots",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#compound-plots",
+    "title": "Data Visualisation in R",
+    "section": "Compound plots",
+    "text": "Compound plots\n\nWhat if you want to put two or more plots together to save?\n\n\n\nplot1 &lt;- ggplot(mtcars, \n                aes(x = mpg, y = hp)) +\n  geom_point(aes(color = factor(cyl)))\nplot2 &lt;- ggplot(mtcars, \n                aes(x = qsec, y = hp)) +\n  geom_point(aes(color = factor(cyl)))\nplot1 + plot2\n\n\n\n\n\n\n\n\n\n\nSee the patchwork or cowplot packages for more info",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots",
+    "title": "Data Visualisation in R",
+    "section": "Boxplots and Violin Plots",
+    "text": "Boxplots and Violin Plots\n\nBoxplots and Violin Plots are very common within biolosciences(protein levels, patient data, SNP frequency etc.)\nBe warned that boxplots can sometimes be misleading and so it’s always good to check the raw data too! See here for more info\nHave a go at creating your own boxplots and violin plots using the mtcars/diamonds/other datasets!\n\n\n\nmtcars$cyl &lt;- as.factor(mtcars$cyl)\n# Make base plot\np &lt;- ggplot(mtcars, aes(cyl, mpg))\n\np + geom_boxplot(aes(colour = cyl))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots---examples",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots---examples",
+    "title": "Data Visualisation in R",
+    "section": "Boxplots and Violin Plots - examples",
+    "text": "Boxplots and Violin Plots - examples\n\ngeom_jitter is like geom_point, but adds noise so point aren’t on top of each other, handy for mapping the raw data onto other geoms!\n\n\n\np + geom_boxplot(aes(fill = cyl), \n                 alpha = 0.3) +\n  geom_jitter(size = 0.8)\n# Violin\np + geom_violin(aes(fill = cyl))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots---combining-geoms",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots---combining-geoms",
+    "title": "Data Visualisation in R",
+    "section": "Boxplots and Violin Plots - combining geoms",
+    "text": "Boxplots and Violin Plots - combining geoms\n\nWe can of course layer them on top too!\n\n\n\n# All three!\np + geom_violin(aes(fill = cyl), \n                width = 1.4) +\n  geom_boxplot(width = 0.1, \n               colour = \"grey\", \n               alpha = 0.3) +\n  geom_jitter(size = 0.8, \n              width = 0.1, \n              colour = \"grey\") +\n  scale_fill_viridis_d() +\n  theme_minimal()",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots---numeric-to-categorical",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#boxplots-and-violin-plots---numeric-to-categorical",
+    "title": "Data Visualisation in R",
+    "section": "Boxplots and Violin Plots - numeric to categorical",
+    "text": "Boxplots and Violin Plots - numeric to categorical\n\n\n# discretise numeric data into categorical\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_boxplot(aes(\n    group = cut_width(carat, 0.2)\n    ))\nggplot(diamonds, aes(x = carat, y = price)) +\n  geom_boxplot(aes(\n    group = cut_number(carat, 20)\n    ))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots",
+    "title": "Data Visualisation in R",
+    "section": "3D Plots",
+    "text": "3D Plots\n\nplotly can be used to make 3D plots, but this is very situational and should probably only be done in cases where the plot is intended to be interactive\n\n\n\nmtcars$gear &lt;- as.factor(mtcars$gear)\n\nplot_ly(\n  mtcars,\n  x = ~ wt,\n  y = ~ hp,\n  z = ~ qsec,\n  color = ~ gear\n) |&gt;\n  add_markers() |&gt;\n  plotly::layout(scene = list(\n    xaxis = list(title = 'Weight'),\n    yaxis = list(title = 'Gross horsepower'),\n    zaxis = list(title = '1/4 mile time')\n  ))",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggstatsplot",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggstatsplot",
+    "title": "Data Visualisation in R",
+    "section": "ggstatsplot",
+    "text": "ggstatsplot\n\nA handy way to quickly look at correlations!\n\n\nggstatsplot::ggscatterstats(mtcars, x = hp, y = qsec)",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#links-and-resources",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#links-and-resources",
+    "title": "Data Visualisation in R",
+    "section": "Links and Resources",
+    "text": "Links and Resources\n\nDon’t try to memorise everything, look stuff up!\nggplot2 cheat sheet: http://rstudio.com/resources/cheatsheets\nA book on ggplot2 by the authors: https://ggplot2-book.org\nhttps://exts.ggplot2.tidyverse.org/gallery/\nhttps://www.r-graph-gallery.com\nhttps://github.com/jrnold/ggthemes",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#workshop-time",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#workshop-time",
+    "title": "Data Visualisation in R",
+    "section": "Workshop time!",
+    "text": "Workshop time!\n\n\n\n\nMET581 - Data Visualisation in R",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#programming",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#programming",
+    "title": "Programming in R",
+    "section": "Programming",
+    "text": "Programming\n\nThe implementation of logic to facilitate specified computing operations and functionality {.center}",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#what-we-will-cover",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#what-we-will-cover",
+    "title": "Programming in R",
+    "section": "What we will cover",
+    "text": "What we will cover\n\n\n\nConditional Execution\nDefining Function Arguments\nExplicit Constraints\nDot-dot-dot (…)\nPipes\nIterations with purr\n\n\n\nWhile loops\nOther loops – purrr functions\nThe map family\nShortcuts\nMultiple arguments\nwalk",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#package-load-and-conflicts",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#package-load-and-conflicts",
+    "title": "Programming in R",
+    "section": "Package load and conflicts",
+    "text": "Package load and conflicts\n\nWe’ll load our packages early as is good practise!\nAs an aide, you may notice a verbose message when loading the tidyverse mentioning conflicts\nIf we load the conflicted package it will force an error if you use a function that has multiple sources (filter is commonly guilty of this!)\n\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(conflicted)",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#package-load-and-conflicts-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#package-load-and-conflicts-1",
+    "title": "Programming in R",
+    "section": "Package load and conflicts",
+    "text": "Package load and conflicts\n\n# conflicted will make this error\nmtcars |&gt;\n  filter(gear == 4)\n\nError:\n! [conflicted] filter found in 2 packages.\nEither pick the one you want with `::`:\n• dplyr::filter\n• stats::filter\nOr declare a preference with `conflicts_prefer()`:\n• `conflicts_prefer(dplyr::filter)`\n• `conflicts_prefer(stats::filter)`\n\n\n\n# We can explicitly state which filter we prefer just once\nconflicts_prefer(dplyr::filter)\n\nmtcars[1:3,] |&gt;\n  filter(gear == 4)\n\n               mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#conditional-execution",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#conditional-execution",
+    "title": "Programming in R",
+    "section": "Conditional Execution",
+    "text": "Conditional Execution\n\nIn R, the conditional execution of statements are performed within if() and {} blocks of code.\nTo start with, code is easier to understand (by you and everyone!) if you separate the lines and use indentations. Not like this:\n\nmyFunction &lt;- function(x) {if (x &gt; 3) {return(x - 3)} else {return(x)}} \n\nNote that RStudio has a shortcut for auto-formatting highlighted code: ctrl+shift+A\n\nmyFunction &lt;- function(x) {\n  if (x &gt; 3) {\n    return(x - 3)\n  } else {\n    return(x)\n  }\n}",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments",
+    "title": "Programming in R",
+    "section": "Defining Function Arguments",
+    "text": "Defining Function Arguments\n\nThere are two types of arguments: Mandatory and Optional\nThe mandatory arguments are always at the beginning of the list of arguments, followed by optional arguments and their default values.\nExample:\n\npow &lt;- function(x, y = 2) {\nreturn(x ** y)\n}\n\nWhat do you think will happen if you try pow(3) and pow(3,3) in the console? Try it!",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-1",
+    "title": "Programming in R",
+    "section": "Defining Function Arguments",
+    "text": "Defining Function Arguments\n\nThere are two ways of passing the values to a function: by order and by name.\nCheck the description of mean() by typing ?mean\nThis is bad programming! X because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!).\nPassing them by name means you can change the order:\nBest practice is to define include the first argument (can be without name) of the function as the input data to be processed:\n\n\nmean(1:101, ,TRUE) # bad!\nmean(na.rm = TRUE, x = 1:101) # better\nmean(1:101, na.rm = TRUE) # best :)",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-2",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-2",
+    "title": "Programming in R",
+    "section": "Defining Function Arguments",
+    "text": "Defining Function Arguments\n\nAdding restrictions to the function means they can be more efficient\nFor example:\n\n\nmidValue &lt;- function(x) {\n  if (length(x) %% 2 == 0) {\n    stop(\"'x' has an even number of elements\", call. = FALSE)\n  }\n  midIndex &lt;- (length(x) + 1) / 2\n  return (x[midIndex])\n}\n\n\nThe stop function is executed when the modulus (remainder from division) is zero. A good error checking mechanism (even gives a message!)",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-3",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-3",
+    "title": "Programming in R",
+    "section": "Defining Function Arguments",
+    "text": "Defining Function Arguments\n\nThe previous code can be simplified by using: stopifnot()\n\n\nmidValue &lt;- function(x) {\n  stopifnot(\"'x' has an even number of elements\" = length(x) %% 2 == 1)\n  midIndex &lt;- (length(x) + 1) / 2\n  return (x[midIndex])\n}\n\n\nAnd we can add multiple expressions in one go\n\n\ncalMean = function(x) {\n  stopifnot(exprs = {\n    \"'x' has to have a mean of 4 for some reason...\" = mean(x) == 4\n    \"'x' has to have length 4, don't ask why...\" = length(x) == 4\n  })\n}",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#dot-dot-dot",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#dot-dot-dot",
+    "title": "Programming in R",
+    "section": "Dot-Dot-Dot (…)",
+    "text": "Dot-Dot-Dot (…)\n\nAn ellipsis means that the function can take any number of named or unnamed arguments (run ?print() for an example)\nFor example: We can use … to pass those additional arguments on to another function. Essentially, placeholders for other arguments.\n\n\ni01 &lt;- function(y, z) {\n  list(y = y, z = z)\n}\ni02 &lt;- function(a, ...) {\n  # Add 'a' to all elements in the list\n  lapply(i01(...), function(x) x + a)\n}\nstr(i02(a = 1, y = 2, z = 3))\n\nList of 2\n $ y: num 3\n $ z: num 4",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#dot-dot-dot-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#dot-dot-dot-1",
+    "title": "Programming in R",
+    "section": "Dot-Dot-Dot (…)",
+    "text": "Dot-Dot-Dot (…)\n\nBy adding numbers at the end, it is possible to refer to elements of … by position (what position the generic arguments will sit in).\n\n\ni03 &lt;- function(...) {\n  list(first = ..1, third = ..3)\n}\nstr(i03(1, 2, 3))\n\nList of 2\n $ first: num 1\n $ third: num 3\n\n\n\nMore useful is list(...), which evaluates the arguments and stores them in a list. Very useful when working with data!\n\n\ni04 &lt;- function(...) {\n  list(...)\n}\nstr(i04(a = 1, b = 2))\n\nList of 2\n $ a: num 1\n $ b: num 2",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#pipes",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#pipes",
+    "title": "Programming in R",
+    "section": "Pipes |>",
+    "text": "Pipes |&gt;\n\nThere are two types of pipeable functions: transformations and side-effects.\nTransformations are where an object is passed to the function’s first argument and a modified object is returned.\nWith side-effects, the passed object is not transformed. Instead, the function performs a function on that object, such as drawing a plot or saving a file.\n\n\nprint_missings &lt;- function(df) {\n  n &lt;- sum(is.na(df))\n  cat(\"Missing values: \", n, \"\\n\", sep = \"\")\n  invisible(df)\n}",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#pipes-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#pipes-1",
+    "title": "Programming in R",
+    "section": "Pipes |>",
+    "text": "Pipes |&gt;\n\nIf we use our newly created print_missings() function, the invisible() command means that the input data frame will not get printed out but we can still use it in a pipe.\n\n\nlibrary(tidyverse)\ndiamonds |&gt;\n  print_missings() |&gt;\n  mutate(carat = ifelse(carat &lt; 0.25, NA, carat)) |&gt;\n  print_missings()\n\nMissing values: 0\nMissing values: 573",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#iterations-with-purrr",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#iterations-with-purrr",
+    "title": "Programming in R",
+    "section": "Iterations with purrr",
+    "text": "Iterations with purrr\n\n\nWe want to keep code efficient and less repetitive: performing the same thing on multiple inputs, repeating the operation on multiple columns, or on different datasets.\nTo help achieve this, iterations are used. For example:\n\n\nrescale &lt;- function(x) {\n  y &lt;- min(x, na.rm = TRUE)\n  return((x - y) / (max(x, na.rm = TRUE) - y))\n}\n\n\n\ndf &lt;- data.frame(a = rnorm(10), b = rnorm(10), c = rnorm(10), d = rnorm(10))\ndf$a &lt;- rescale(df$a)\ndf$b &lt;- rescale(df$b)\ndf$c &lt;- rescale(df$c)\ndf$d &lt;- rescale(df$d) # Wow this is tedious...",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#iterations-with-purrr-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#iterations-with-purrr-1",
+    "title": "Programming in R",
+    "section": "Iterations with purrr",
+    "text": "Iterations with purrr\n\n\nThis can be simplified with a for loop\n\n\nfor (i in seq_along(df)) {\n  df[[i]] &lt;- rescale(df[[i]])\n} # This is much shorter (and less error prone)!\n\n\nA breif note, it’s generally better to vectorise your R code as it’s faster and often more succinct code, see here and here for more details\nHowever it is said that premature optimization is the root of all evil, so don’t stress to much if you’re analysing smaller datasets\nIf you’re writing a pipeline that’ll be rerun many times by lots of people, then optimisation is more important",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#other-loops---purr-functions",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#other-loops---purr-functions",
+    "title": "Programming in R",
+    "section": "Other loops - purr functions",
+    "text": "Other loops - purr functions\n\npurrr is a package that helps to enhance R’s functional programming toolkit\npurrr functions help to break common challenges in list manipulation into independent pieces.\nBase R has family of functions known as “apply family”, that eliminates the need for many common for loops, apply(), lapply(), tapply()\npurrr has a family of functions called the “map family”.\nEach function takes a vector as input, applies a function to each piece, and then returns a new vector that has the same length as the input.",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family",
+    "title": "Programming in R",
+    "section": "The map family",
+    "text": "The map family\n\n\nEssentially, map() is the tidyverse equivalent of the base R apply family of functions.\nThe basic syntax is map(.x, .f, …) where:\n\n.x is a list, vector or dataframe\n.f is a function\nmap() will then apply .f to each element of .x in turn.",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
+    "title": "Programming in R",
+    "section": "The map family",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.65 0.46 0.54 0.48 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.28 0.42 0.35 0.36 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.65 0.46 0.54 0.48 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.65 0.46 0.54 0.48",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-2",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-2",
+    "title": "Programming in R",
+    "section": "The map family",
+    "text": "The map family\n\n\nWe can even use a string or a position (integer) to extract components from the input data - very useful when working with big datasets!\n\n\nx &lt;- list(\n  x = list(a = 1, b = 2, c = 3),\n  y = list(a = 4, b = 5, c = 6),\n  z = list(a = 7, b = 8, c = 9)\n)\nx |&gt; map_dbl(\"a\")\n\nx y z \n1 4 7 \n\nx |&gt; map_dbl(2)\n\nx y z \n2 5 8",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#map_-functions",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#map_-functions",
+    "title": "Programming in R",
+    "section": "map_ functions",
+    "text": "map_ functions\n\n\nOne property of the map() function is that it will always return a list.\nTo change the output data type, we can use multiple versions of map_*():\n\nmap_lgl() returns a logical.\nmap_int() returns a integer vector.\nmap_dbl() returns a double vector.\nmap_chr() returns a character vector.\nmap_df() returns a data frame.",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#shortcuts",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#shortcuts",
+    "title": "Programming in R",
+    "section": "Shortcuts",
+    "text": "Shortcuts\n\nFit a linear model to each group in a dataset. This example splits up the mtcars dataset into three pieces and fits the linear model to each piece.\n\n\nmodels &lt;- mtcars %&gt;%\n  # note this is an example where the native R pipe won't work!\n  split(.$cyl) |&gt;\n  map(function(df) {\n    lm(mpg ~ wt, data = df)\n  })\n# Using tidyverse annonymous function syntax\nmodels2 &lt;- mtcars %&gt;%\n  split(.$cyl) |&gt;\n  map( ~ lm(mpg ~ wt, data = .))\n# And here is the the native R equivalent\nmodels3 &lt;- mtcars %&gt;%\n  split(.$cyl) |&gt;\n  map(\\(df) lm(mpg ~ wt, data = df))",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#shortcuts-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#shortcuts-1",
+    "title": "Programming in R",
+    "section": "Shortcuts",
+    "text": "Shortcuts\n\nThe . used in the second example is a placeholder for the dataset we’ve piped in (mtcars) so we can access parts of it (via $)\nNote that the placeholder for the native R pipe (|&gt;) is a _, but it doesn’t have the same functionality as the magritter pipe! See here for more info on differences\nExample: we want to get the \\(R^2\\) from our models\n\n\nmodels |&gt;\n  map(summary) %&gt;%\n  map_dbl( ~ .$r.squared)\n\n             4              6              8 \n0.508632596323 0.464510150551 0.422965536496 \n\nmodels |&gt;\n  map(summary) |&gt;\n  map_dbl(\\(model) model$r.squared)\n\n             4              6              8 \n0.508632596323 0.464510150551 0.422965536496",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
+    "title": "Programming in R",
+    "section": "Multiple Arguments",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 6.22 4.84 5.09 6.11 3.34\n $ : num [1:5] 15.79 9.61 5.07 12.95 14.2\n $ : num [1:5] -17.48 -1.71 -9.79 2.34 1.79",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-1",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-1",
+    "title": "Programming in R",
+    "section": "Multiple Arguments",
+    "text": "Multiple Arguments\n\nThe code can be understood by the following figure:",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
+    "title": "Programming in R",
+    "section": "Multiple Arguments",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] -0.4625 -0.8242 -0.8423 0.0808 -0.0411\n $ : num [1:5] -2.37 -3.53 5.93 8.6 4.46\n $ : int [1:5] 6 8 7 14 8",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#walk",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#walk",
+    "title": "Programming in R",
+    "section": "walk",
+    "text": "walk\n\nwalk() is an alternative to map that we use we call a function for its side effects, disregarding its return value.\n\n\nx &lt;- list(1, \"a\", 3)\nx |&gt;\n  walk(print)\n\n[1] 1\n[1] \"a\"\n[1] 3\n\n\n\nReally useful when outputting datasets in lists! (such as microarray data)\nSimilar to map(), purrr also has walk2() and pwalk()",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#walk2",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#walk2",
+    "title": "Programming in R",
+    "section": "walk2",
+    "text": "walk2\n\ndf0 &lt;- tibble(x = 1:3, y = rnorm(3))\ndf1 &lt;- tibble(x = 1:3, y = rnorm(3))\ndf2 &lt;- tibble(x = 1:3, y = rnorm(3))\nanimalFrames &lt;- tibble(animals = c('sheep', 'cow', 'horse'),\n                       frames =\n                         list(df0, df1, df2))\n# Save a list of dataframes\nanimalFrames %&gt;%\n  walk2(\n    .x = .$animals,\n    .y = .$frames,\n    .f = ~ write_csv(.y, str_c(\"test_\", .x, \".csv\"))\n  )",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
+    "title": "Programming in R",
+    "section": "pwalk",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Merc 450SLC has a auto transmission and gets 15.2 mpgs.\"\n[1] \"The AMC Javelin has a auto transmission and gets 15.2 mpgs.\"\n[1] \"The Merc 230 has a auto transmission and gets 22.8 mpgs.\"",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
+    "title": "Programming in R",
+    "section": "While loops",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_06_programming_in_r.html#workshop-time",
+    "href": "06_Programming_in_R/met581_06_programming_in_r.html#workshop-time",
+    "title": "Programming in R",
+    "section": "Workshop time!",
+    "text": "Workshop time!\n\n\n\n\nMET581 - Programming in R",
+    "crumbs": [
+      "Home",
+      "Programming in R"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This is a website to list the R lecture material that is part of MET581"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cardiff Univeristy Bioinformatics MSc MET581 R lectures",
+    "section": "",
+    "text": "Welcome!\nUse the side bar to navigate to lecture materials"
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#objectives",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#objectives",
+    "title": "Modelling in R",
+    "section": "Objectives",
+    "text": "Objectives\n\nLook at the basics of modelling in R, focusing on the R package tidymodels and the “linear” class of models\nLearn to build, interact with and visualise these models\nLearn how to qualitatively assess models\nImportantly, get used to the formula notation in R!",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#question-what-is-a-model",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#question-what-is-a-model",
+    "title": "Modelling in R",
+    "section": "Question: what is a model?",
+    "text": "Question: what is a model?",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#broad-types-of-models",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#broad-types-of-models",
+    "title": "Modelling in R",
+    "section": "Broad types of models",
+    "text": "Broad types of models\n\nDescriptive models\n\nIs there a trend in my data? Is it linear?\n\nInferential models\n\nHypothesis lead - does my therapy improve outcomes?\n\nPredictive models\n\nHow many people will buy product X next month?",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#modelling-in-r---an-overview",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#modelling-in-r---an-overview",
+    "title": "Modelling in R",
+    "section": "Modelling in R - An Overview",
+    "text": "Modelling in R - An Overview\n\nStatistical models are complementary tools to visualisation\nModels help you to extract patterns out of data you input to it\nThe overall goal of a model:\n\nProvide a simple, low-dimensional summary of a dataset",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#setting-up",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#setting-up",
+    "title": "Modelling in R",
+    "section": "Setting Up!",
+    "text": "Setting Up!\n\ntidymodels describes itself thusly: “The tidymodels framework is a collection of packages for modelling and machine learning using tidyverse principles.”\n\n\nlibrary(tidymodels)  # for the parsnip package, along with the rest of tidymodels\n\n# Helper packages\nlibrary(tidyverse) # for data manipulations\nlibrary(conflicted) # for helping with conflicts\nlibrary(skimr) # for nice data summaries\nlibrary(ranger) # needed for our random forests\nlibrary(gt) # for tables\nlibrary(usemodels) # for generating nice boilerplate code\nlibrary(vip) # for variable importance of random forest\n\nconflicts_prefer(dplyr::filter)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#starting-simple",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#starting-simple",
+    "title": "Modelling in R",
+    "section": "Starting Simple",
+    "text": "Starting Simple\n\nLet’s start with our old friend, mtcars\n\n\nskimr::skim(mtcars)\n\n\nData summary\n\n\nName\nmtcars\n\n\nNumber of rows\n32\n\n\nNumber of columns\n11\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nnumeric\n11\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nmpg\n0\n1\n20.09\n6.03\n10.40\n15.43\n19.20\n22.80\n33.90\n▃▇▅▁▂\n\n\ncyl\n0\n1\n6.19\n1.79\n4.00\n4.00\n6.00\n8.00\n8.00\n▆▁▃▁▇\n\n\ndisp\n0\n1\n230.72\n123.94\n71.10\n120.83\n196.30\n326.00\n472.00\n▇▃▃▃▂\n\n\nhp\n0\n1\n146.69\n68.56\n52.00\n96.50\n123.00\n180.00\n335.00\n▇▇▆▃▁\n\n\ndrat\n0\n1\n3.60\n0.53\n2.76\n3.08\n3.70\n3.92\n4.93\n▇▃▇▅▁\n\n\nwt\n0\n1\n3.22\n0.98\n1.51\n2.58\n3.33\n3.61\n5.42\n▃▃▇▁▂\n\n\nqsec\n0\n1\n17.85\n1.79\n14.50\n16.89\n17.71\n18.90\n22.90\n▃▇▇▂▁\n\n\nvs\n0\n1\n0.44\n0.50\n0.00\n0.00\n0.00\n1.00\n1.00\n▇▁▁▁▆\n\n\nam\n0\n1\n0.41\n0.50\n0.00\n0.00\n0.00\n1.00\n1.00\n▇▁▁▁▆\n\n\ngear\n0\n1\n3.69\n0.74\n3.00\n3.00\n4.00\n4.00\n5.00\n▇▁▆▁▂\n\n\ncarb\n0\n1\n2.81\n1.62\n1.00\n2.00\n2.00\n4.00\n8.00\n▇▂▅▁▁",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#plot-data",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#plot-data",
+    "title": "Modelling in R",
+    "section": "Plot data",
+    "text": "Plot data\n\nPlotting our data is always a good first step\nDo you see an obvious trend?\n\n\n\nmtcars |&gt;\n  ggplot(aes(x = hp, y = mpg)) +\n  geom_point()",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#models---line-of-best-fit",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#models---line-of-best-fit",
+    "title": "Modelling in R",
+    "section": "Models - line of best fit",
+    "text": "Models - line of best fit\n\nYou’ve seen how we can add a line to the data before, but what does it mean?\n\n\n\nmtcars |&gt;\n  ggplot(aes(x = hp, y = mpg)) +\n  geom_point() +\n  geom_smooth(method = \"lm\")",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#establishing-a-model",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#establishing-a-model",
+    "title": "Modelling in R",
+    "section": "Establishing a Model",
+    "text": "Establishing a Model\n\nSelection: Defining a family of models\n\nA precise, but generic, pattern that you want to capture within your data (such as a straight line or a quadratic curve\nExpress the model family as an equation for a line/curve, such as:\n\n\\(Y = a_1 + a_2 \\times X\\)\n\n\\(X\\) and \\(Y\\) are known variables from your data\n\\(a_1\\) and \\(a_2\\) are parameters that can vary depending on the pattern that is captured\n\nFitting: Generate a fitted model (model fit)\n\nFind the model from the family you’ve chosen that is closes to your data\nThen, taking the generic model and making it specific to your data, like:\n\n\\(Y = 7 + 2 \\times X\\)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#visualising-model-fitness",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#visualising-model-fitness",
+    "title": "Modelling in R",
+    "section": "Visualising Model Fitness",
+    "text": "Visualising Model Fitness\n\n\ny_model &lt;- 34 + -0.1 * mtcars$hp # A guess of a1 and a2\ny_diff &lt;- mtcars$mpg - y_model\nggplot(mtcars, aes(x = hp, mpg)) +\n  geom_point() +\n  geom_abline(aes(intercept =34, \n                  slope = -0.1)) +\n  geom_segment(aes(\n    x = hp,\n    y = mpg,\n    xend = hp,\n    yend = y_model\n  ), color = \"blue\")",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#fitness-of-models",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#fitness-of-models",
+    "title": "Modelling in R",
+    "section": "Fitness of Models",
+    "text": "Fitness of Models\n\nA good statistical model is expected to be close to the data\nTo calculate the fitness of a model, we quantify the distance between data and the model to produce a score\nWe repeatedly trail \\(a_1\\) and \\(a_2\\) to find the model with the smallest distance\nWe can therefore define the fitness of the model as the sum of all vertical distances to each data point from the model we’ve picked\nThe distance between these is equivalent to the difference between the \\(Y\\) value given by the model (the prediction) and the \\(Y\\) value in the data (the response)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#linear-models-and-lm",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#linear-models-and-lm",
+    "title": "Modelling in R",
+    "section": "Linear models and lm()",
+    "text": "Linear models and lm()\n\nAlternatively, we can use a broader family of models called linear models\nA linear model has the general form:\n\n\\(y = a_1 + a_2 \\times x_1 + a_3 \\times x_2 + ... + an \\times x_{(n-1)}\\)\n\nThe previous simple model is equivalent to a general linear model where \\(n = 2\\) and \\(x_1 = x\\)\nFunction for fitting a linear model: lm()\nlm() comes with a special syntax to specify the model family: formula\nFormulas look like y ~ x which translate to a function like \\(y = a_1 + a_2 \\times x\\)\n\n\n\n# A manual base R model with lm\nmodel &lt;- lm(hp ~ mpg, data = mtcars)\n# Extract model coefficients\ncoef(model) |&gt; round(3)\n\n\n(Intercept)         mpg \n    324.082      -8.830",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#an-example-with-the-palmer-penguins-dataset",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#an-example-with-the-palmer-penguins-dataset",
+    "title": "Modelling in R",
+    "section": "An example with the Palmer penguins dataset",
+    "text": "An example with the Palmer penguins dataset\n\nObservations of Antarctic penguins who live on the Palmer Archipelago\nLet’s have a quick look at the data\n\nIt looks like there’s a slight negative correlation between bill length and depth right…?\n\n\n\n\npenguins |&gt;\nggplot(aes(x = bill_length_mm, \n           y = bill_depth_mm)) +\n  geom_point(size = 2) +\n  geom_smooth(method = \"lm\", se = FALSE)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#think-carefully-about-your-data",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#think-carefully-about-your-data",
+    "title": "Modelling in R",
+    "section": "Think carefully about your data!",
+    "text": "Think carefully about your data!\n\nWe have 3 different species in this data, what happens if we check those?\nA nice example of Simpson’s paradox\n\n\n\npenguins |&gt;\nggplot(aes(x = bill_length_mm, \n           y = bill_depth_mm)) +\n  geom_point(aes(color = species, \n                 shape = species),\n             size = 2) + \n  geom_smooth(method = \"lm\", se = FALSE, \n              aes(color = species)) +\n  scale_color_manual(values = c(\n    \"darkorange\",\"darkorchid\",\"cyan4\")\n    )",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#building-a-model-with-tidymodels",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#building-a-model-with-tidymodels",
+    "title": "Modelling in R",
+    "section": "Building a model with tidymodels",
+    "text": "Building a model with tidymodels\n\nLet’s say we want to try and predict the sex of a penguin based on it’s physical characteristics\n\n\n\npenguins |&gt;\n  filter(!is.na(sex)) |&gt;\n  ggplot(aes(flipper_length_mm, \n             bill_length_mm, \n             color = sex, \n             size = body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  facet_wrap(~species)\n\n\n\n\n\n\n\n\n# Removed unneeded columns and filter NAs\npenguins_df &lt;- penguins |&gt;\n  filter(!is.na(sex)) |&gt;\n  select(-island)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#how-do-we-know-how-good-our-model-is",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#how-do-we-know-how-good-our-model-is",
+    "title": "Modelling in R",
+    "section": "How do we know how good our model is?",
+    "text": "How do we know how good our model is?",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#splitting-our-data",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#splitting-our-data",
+    "title": "Modelling in R",
+    "section": "Splitting our data",
+    "text": "Splitting our data\n\nWe want to split our data into testing and training datasets prior to modelling\nNOTE that our testing data is precious! We don’t want to squander it and so should only let our final model see it once at the very end\nBut many models require hyperparameter tuning, and what if we want to compare the performance of different models?\n\n\nset.seed(123) # set seed to make sure our results don't change!\n# split data making sure we have sex balanced groups\npenguin_split &lt;- initial_split(penguins_df, strata = sex)\npenguin_train &lt;- training(penguin_split)\npenguin_test &lt;- testing(penguin_split)\npenguin_split\n\n&lt;Training/Testing/Total&gt;\n&lt;249/84/333&gt;",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#internal-resamping",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#internal-resamping",
+    "title": "Modelling in R",
+    "section": "Internal resamping",
+    "text": "Internal resamping\n\nThe prior step gave us our training and final testing set, but we want to compare models so we’ll need some internal testing within the training set\nThere are several approaches but two common ones are:\n\nCross-fold validation - split the data several times (typically 10) and run the model against those splits\nBootstrap validation - resample with replacement, so the same sample can appear multiple times in the training set of each iteration (this approach can be better when you’ve smaller datasets)\n\n\n\n\nset.seed(123)\n# Makes 25 version by default\npenguin_boot &lt;- bootstraps(penguin_train)\nhead(penguin_boot, n = 3)\n\n\n# A tibble: 3 × 2\n  splits           id         \n  &lt;list&gt;           &lt;chr&gt;      \n1 &lt;split [249/93]&gt; Bootstrap01\n2 &lt;split [249/91]&gt; Bootstrap02\n3 &lt;split [249/90]&gt; Bootstrap03",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#comparing-two-modelling-appraoches",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#comparing-two-modelling-appraoches",
+    "title": "Modelling in R",
+    "section": "Comparing two modelling appraoches",
+    "text": "Comparing two modelling appraoches\n\nLet’s compare a logistic regression model and a random forest model\nIn tidymodels we specify the type of model we want and the computational engine to be used\nIn the case of random forest we also have to specify that’s we want a classification model since random forest can model both continuous and categorical outcomes\n\n\n\nglm_spec &lt;- logistic_reg() |&gt;\n  set_engine(\"glm\")\n\nglm_spec\n\n\nLogistic Regression Model Specification (classification)\n\nComputational engine: glm",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#aside---hyperparameter-tuning",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#aside---hyperparameter-tuning",
+    "title": "Modelling in R",
+    "section": "Aside - hyperparameter tuning",
+    "text": "Aside - hyperparameter tuning\n\nModel hyperparameters are model variables we can set for some modelling approaches that can be very important for how that model performs\nIt can also be difficult to know what values to use for some of these and so we might want to iterate over several values to see which performs the best\n\n\n\n# make some nice boilerplate code\nusemodels::use_ranger(sex ~ ., \n                      data = penguin_train)\n\n\nranger_recipe &lt;- \n  recipe(formula = sex ~ ., data = penguin_train) \n\nranger_spec &lt;- \n  rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %&gt;% \n  set_mode(\"classification\") %&gt;% \n  set_engine(\"ranger\") \n\nranger_workflow &lt;- \n  workflow() %&gt;% \n  add_recipe(ranger_recipe) %&gt;% \n  add_model(ranger_spec) \n\nset.seed(12151)\nranger_tune &lt;-\n  tune_grid(ranger_workflow, resamples = stop(\"add your rsample object\"), grid = stop(\"add number of candidate points\"))",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#testing-hyperparameters",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#testing-hyperparameters",
+    "title": "Modelling in R",
+    "section": "Testing hyperparameters",
+    "text": "Testing hyperparameters\n\n\nranger_recipe &lt;- \n  recipe(formula = sex ~ ., \n         data = penguin_train)  |&gt;\n  # impute the mean if any values are missing\n  step_impute_mean(all_numeric_predictors()) |&gt;\n  # apply hot-one encoding to factors\n  step_dummy(all_nominal_predictors()) |&gt;\n  # remove any predictors that have 0 variance\n  step_nzv(all_numeric_predictors())\n\nranger_spec &lt;- \n  rand_forest(mtry = tune(), \n              min_n = tune(), \n              trees = 1000) %&gt;% \n  set_mode(\"classification\") %&gt;% \n  set_engine(\"ranger\") \n\nranger_workflow &lt;- \n  workflow() %&gt;% \n  add_recipe(ranger_recipe) %&gt;% \n  add_model(ranger_spec) \n\nset.seed(70081)\ndoParallel::registerDoParallel()\nranger_tune &lt;-\n  tune_grid(ranger_workflow, \n            resamples = penguin_boot, \n            grid = 10)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#visualising-different-hyperparameters",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#visualising-different-hyperparameters",
+    "title": "Modelling in R",
+    "section": "Visualising different hyperparameters",
+    "text": "Visualising different hyperparameters\n\n\nshow_best(ranger_tune, metric = \"accuracy\")\n\n\n# A tibble: 5 × 8\n   mtry min_n .metric  .estimator  mean     n std_err .config              \n  &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                \n1     2     6 accuracy binary     0.918    25 0.00534 Preprocessor1_Model08\n2     1     3 accuracy binary     0.917    25 0.00568 Preprocessor1_Model04\n3     2    13 accuracy binary     0.915    25 0.00566 Preprocessor1_Model05\n4     3    38 accuracy binary     0.905    25 0.00566 Preprocessor1_Model06\n5     3    30 accuracy binary     0.904    25 0.00520 Preprocessor1_Model01\n\nshow_best(ranger_tune, metric = \"roc_auc\")\n\n# A tibble: 5 × 8\n   mtry min_n .metric .estimator  mean     n std_err .config              \n  &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                \n1     2     6 roc_auc binary     0.979    25 0.00194 Preprocessor1_Model08\n2     1     3 roc_auc binary     0.978    25 0.00204 Preprocessor1_Model04\n3     2    13 roc_auc binary     0.977    25 0.00206 Preprocessor1_Model05\n4     3    30 roc_auc binary     0.971    25 0.00230 Preprocessor1_Model01\n5     4    19 roc_auc binary     0.971    25 0.00243 Preprocessor1_Model07\n\n\n\n\nautoplot(ranger_tune)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#finalise-our-random-forest-workflow",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#finalise-our-random-forest-workflow",
+    "title": "Modelling in R",
+    "section": "Finalise our random forest workflow",
+    "text": "Finalise our random forest workflow\n\nWe can easily just take the best parameters from our best using select_best, though note that what you might want to optimise your model for may depend on your goal!\n\n\n\nfinal_rf &lt;- ranger_workflow %&gt;%\n  finalize_workflow(select_best(ranger_tune))\n\nfinal_rf\n\n\n══ Workflow ════════════════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: rand_forest()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n3 Recipe Steps\n\n• step_impute_mean()\n• step_dummy()\n• step_nzv()\n\n── Model ───────────────────────────────────────────────────────────────────────\nRandom Forest Model Specification (classification)\n\nMain Arguments:\n  mtry = 2\n  trees = 1000\n  min_n = 6\n\nComputational engine: ranger",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#model-formula-and-pre-processing-with-recipes",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#model-formula-and-pre-processing-with-recipes",
+    "title": "Modelling in R",
+    "section": "Model formula and pre-processing with recipes",
+    "text": "Model formula and pre-processing with recipes\n\nThere are many processing steps we might want to perform on our data when modelling it, so tidymodels provides a framework for this\nThis gives us lots of function for imputing missing data, scaling and centring and much more\n\n\n# Set sex as the outcome and use all other \n# variables as predictors with the \".\" shorthand\nrecipe &lt;- recipe(sex ~ ., \n                 data = penguin_train) |&gt;\n  # impute the mean if any values are missing\n  step_impute_mean(all_numeric_predictors()) |&gt;\n  # apply hot-one encoding to factors\n  step_dummy(all_nominal_predictors()) |&gt;\n  # remove any predictors that have 0 variance\n  step_nzv(all_numeric_predictors())\n\n# Add this to a workflow\npenguin_wf &lt;- workflow() |&gt;\n  add_recipe(recipe)\npenguin_wf\n\n══ Workflow ════════════════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: None\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n3 Recipe Steps\n\n• step_impute_mean()\n• step_dummy()\n• step_nzv()",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#aside---formula-options---interactions",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#aside---formula-options---interactions",
+    "title": "Modelling in R",
+    "section": "Aside - formula options - interactions",
+    "text": "Aside - formula options - interactions\n\nWe often might be interested in interactions between variables, so we can use the * to assess this in the formula\n\n\n\nlm(body_mass_g ~ bill_length_mm * bill_depth_mm, \n   data = penguins_df) |&gt;\n  tidy()\n\n\n# A tibble: 4 × 5\n  term                         estimate std.error statistic  p.value\n  &lt;chr&gt;                           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;\n1 (Intercept)                  -25718.    2696.       -9.54 3.37e-19\n2 bill_length_mm                  719.      59.3      12.1  3.03e-28\n3 bill_depth_mm                  1493.     151.        9.90 2.19e-20\n4 bill_length_mm:bill_depth_mm    -36.3      3.33    -10.9  7.28e-24",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#aside---formula-options---multilevel-modelling",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#aside---formula-options---multilevel-modelling",
+    "title": "Modelling in R",
+    "section": "Aside - formula options - multilevel modelling",
+    "text": "Aside - formula options - multilevel modelling\n\nThere are multilevel modelling approaches that allow us to set random effects for variables using a | syntax\nThis in package dependant though, so we need to add the formula in a engine specific way\n\n\n\nlibrary(multilevelmod)\n\nmultilevel_spec &lt;- linear_reg() |&gt; \n  set_engine(\"lmer\")\n\nmultilevel_workflow &lt;- \n  workflow() |&gt;\n  # Pass the data along as-is: \n  add_variables(outcome = body_mass_g, \n                predictors = c(species, \n                               bill_depth_mm, sex)) |&gt;\n  add_model(multilevel_spec, \n            # This formula is given to the model\n            formula = body_mass_g ~ sex + (bill_depth_mm | species))\n\nmultilevel_fit &lt;- fit(multilevel_workflow, data = penguins_df)\nmultilevel_fit\n\n\n══ Workflow [trained] ══════════════════════════════════════════════════════════\nPreprocessor: Variables\nModel: linear_reg()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\nOutcomes: body_mass_g\nPredictors: c(species, bill_depth_mm, sex)\n\n── Model ───────────────────────────────────────────────────────────────────────\nLinear mixed model fit by REML ['lmerMod']\nFormula: body_mass_g ~ sex + (bill_depth_mm | species)\n   Data: data\nREML criterion at convergence: 4748.6697\nRandom effects:\n Groups   Name          Std.Dev.   Corr      \n species  (Intercept)   405.449987           \n          bill_depth_mm 115.493570 -0.5680926\n Residual               301.509172           \nNumber of obs: 333, groups:  species, 3\nFixed Effects:\n(Intercept)      sexmale  \n2470.016038   510.401317",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#checking-our-recipe",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#checking-our-recipe",
+    "title": "Modelling in R",
+    "section": "Checking our recipe",
+    "text": "Checking our recipe\n\nMight be wise to make sure our recipe is doing what we think it is!\n\n\n\nprep(recipe)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#running-our-logistic-regression-model",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#running-our-logistic-regression-model",
+    "title": "Modelling in R",
+    "section": "Running our logistic regression model",
+    "text": "Running our logistic regression model\n\n\nglm_rs &lt;- penguin_wf |&gt;\n  add_model(glm_spec) |&gt;\n  fit_resamples(\n    resamples = penguin_boot,\n    control = control_resamples(save_pred = TRUE)\n  )\n\nglm_rs\n\n\n# Resampling results\n# Bootstrap sampling \n# A tibble: 25 × 5\n   splits           id          .metrics         .notes           .predictions\n   &lt;list&gt;           &lt;chr&gt;       &lt;list&gt;           &lt;list&gt;           &lt;list&gt;      \n 1 &lt;split [249/93]&gt; Bootstrap01 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 2 &lt;split [249/91]&gt; Bootstrap02 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 3 &lt;split [249/90]&gt; Bootstrap03 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 4 &lt;split [249/91]&gt; Bootstrap04 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 5 &lt;split [249/85]&gt; Bootstrap05 &lt;tibble [3 × 4]&gt; &lt;tibble [1 × 3]&gt; &lt;tibble&gt;    \n 6 &lt;split [249/87]&gt; Bootstrap06 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 7 &lt;split [249/94]&gt; Bootstrap07 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 8 &lt;split [249/88]&gt; Bootstrap08 &lt;tibble [3 × 4]&gt; &lt;tibble [1 × 3]&gt; &lt;tibble&gt;    \n 9 &lt;split [249/95]&gt; Bootstrap09 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n10 &lt;split [249/89]&gt; Bootstrap10 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n# ℹ 15 more rows\n\nThere were issues with some computations:\n\n  - Warning(s) x3: glm.fit: fitted probabilities numerically 0 or 1 occurred\n\nRun `show_notes(.Last.tune.result)` for more information.",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#running-our-random-forest-model",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#running-our-random-forest-model",
+    "title": "Modelling in R",
+    "section": "Running our random forest model",
+    "text": "Running our random forest model\n\n\nrf_rs &lt;- final_rf |&gt;\n  fit_resamples(\n    resamples = penguin_boot,\n    control = control_resamples(save_pred = TRUE)\n  )\n\nrf_rs\n\n\n# Resampling results\n# Bootstrap sampling \n# A tibble: 25 × 5\n   splits           id          .metrics         .notes           .predictions\n   &lt;list&gt;           &lt;chr&gt;       &lt;list&gt;           &lt;list&gt;           &lt;list&gt;      \n 1 &lt;split [249/93]&gt; Bootstrap01 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 2 &lt;split [249/91]&gt; Bootstrap02 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 3 &lt;split [249/90]&gt; Bootstrap03 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 4 &lt;split [249/91]&gt; Bootstrap04 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 5 &lt;split [249/85]&gt; Bootstrap05 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 6 &lt;split [249/87]&gt; Bootstrap06 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 7 &lt;split [249/94]&gt; Bootstrap07 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 8 &lt;split [249/88]&gt; Bootstrap08 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n 9 &lt;split [249/95]&gt; Bootstrap09 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n10 &lt;split [249/89]&gt; Bootstrap10 &lt;tibble [3 × 4]&gt; &lt;tibble [0 × 3]&gt; &lt;tibble&gt;    \n# ℹ 15 more rows",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#evaluating-our-models",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#evaluating-our-models",
+    "title": "Modelling in R",
+    "section": "Evaluating our models",
+    "text": "Evaluating our models\n\nWhich performed better?\n\n\n\ncollect_metrics(glm_rs) |&gt;\n  mutate(across(where(is.numeric), round, digits = 3)) |&gt;\n  gt()\ncollect_metrics(rf_rs) |&gt;\n  mutate(across(where(is.numeric), round, digits = 3)) |&gt;\n  gt()\n\n\n\n\n\n\n\n\n.metric\n.estimator\nmean\nn\nstd_err\n.config\n\n\n\n\naccuracy\nbinary\n0.918\n25\n0.006\nPreprocessor1_Model1\n\n\nbrier_class\nbinary\n0.059\n25\n0.004\nPreprocessor1_Model1\n\n\nroc_auc\nbinary\n0.979\n25\n0.003\nPreprocessor1_Model1\n\n\n\n\n\n\n\n\n\n\n\n.metric\n.estimator\nmean\nn\nstd_err\n.config\n\n\n\n\naccuracy\nbinary\n0.919\n25\n0.006\nPreprocessor1_Model1\n\n\nbrier_class\nbinary\n0.065\n25\n0.002\nPreprocessor1_Model1\n\n\nroc_auc\nbinary\n0.978\n25\n0.002\nPreprocessor1_Model1",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#random-forest-variable-importance",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#random-forest-variable-importance",
+    "title": "Modelling in R",
+    "section": "Random forest variable importance",
+    "text": "Random forest variable importance\n\n\nimp_spec &lt;- ranger_spec %&gt;%\n  finalize_model(select_best(ranger_tune)) %&gt;%\n  set_engine(\"ranger\", importance = \"permutation\")\n\nworkflow() %&gt;%\n  add_recipe(ranger_recipe) %&gt;%\n  add_model(imp_spec) %&gt;%\n  fit(penguin_train) %&gt;%\n  extract_fit_parsnip() %&gt;%\n  vip(aesthetics = list(alpha = 0.8, fill = \"midnightblue\"))",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#confusion-matrix",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#confusion-matrix",
+    "title": "Modelling in R",
+    "section": "Confusion matrix",
+    "text": "Confusion matrix\n\nA confusion matrix tells us how many time our model predicts a correct category\n\n\n\nglm_rs |&gt;\n  conf_mat_resampled()\n\n\n# A tibble: 4 × 3\n  Prediction Truth   Freq\n  &lt;fct&gt;      &lt;fct&gt;  &lt;dbl&gt;\n1 female     female  41.1\n2 female     male     3  \n3 male       female   4.4\n4 male       male    42.3",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#roc-curve",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#roc-curve",
+    "title": "Modelling in R",
+    "section": "ROC curve",
+    "text": "ROC curve\n\n\nglm_rs |&gt;\n  collect_predictions() |&gt;\n  group_by(id) |&gt;\n  roc_curve(sex, .pred_female) |&gt;\n  ggplot(aes(1 - specificity, sensitivity, color = id)) +\n  geom_abline(lty = 2, color = \"gray80\", linewidth = 1.5) +\n  geom_path(show.legend = FALSE, alpha = 0.6, linewidth = 1.2) +\n  coord_equal()",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#using-our-precious-testing-data",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#using-our-precious-testing-data",
+    "title": "Modelling in R",
+    "section": "Using our precious testing data",
+    "text": "Using our precious testing data\n\nHaving decided on our best model we can finally use our testing set to evaluate our performance using all of our training data\n\n\n\npenguin_final &lt;- penguin_wf %&gt;%\n  add_model(glm_spec) %&gt;%\n  last_fit(penguin_split)\n\npenguin_final\n\n\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [249/84]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#final-model-performance",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#final-model-performance",
+    "title": "Modelling in R",
+    "section": "Final model performance",
+    "text": "Final model performance\n\n\ncollect_metrics(penguin_final)\n\n\n# A tibble: 3 × 4\n  .metric     .estimator .estimate .config             \n  &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               \n1 accuracy    binary         0.857 Preprocessor1_Model1\n2 roc_auc     binary         0.938 Preprocessor1_Model1\n3 brier_class binary         0.101 Preprocessor1_Model1\n\ncollect_predictions(penguin_final) |&gt;\n  conf_mat(sex, .pred_class)\n\n          Truth\nPrediction female male\n    female     37    7\n    male        5   35",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#odds-ratios",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#odds-ratios",
+    "title": "Modelling in R",
+    "section": "Odds ratios",
+    "text": "Odds ratios\n\nWe can check our coefficients to see what variables are predictive of sex\n\n\n\npenguin_final$.workflow[[1]] %&gt;%\n  tidy(exponentiate = TRUE) |&gt;\n  arrange(estimate)\n\n\n# A tibble: 7 × 5\n  term              estimate std.error statistic     p.value\n  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;\n1 (Intercept)       5.75e-46  19.6        -5.31  0.000000110\n2 species_Gentoo    1.14e- 5   3.75       -3.03  0.00243    \n3 species_Chinstrap 1.37e- 4   2.34       -3.79  0.000148   \n4 body_mass_g       1.01e+ 0   0.00176     4.59  0.00000442 \n5 flipper_length_mm 1.06e+ 0   0.0611      0.926 0.355      \n6 bill_length_mm    1.91e+ 0   0.180       3.60  0.000321   \n7 bill_depth_mm     8.36e+ 0   0.478       4.45  0.00000868",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#final-plot",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#final-plot",
+    "title": "Modelling in R",
+    "section": "Final plot",
+    "text": "Final plot\n\nHaving learnt that bill depth is our strongest predictor by far (an increase of 1mm for bill depth corresponds to an over 8x higher odds of being male!), we can plot this variable to see how well is segregates\n\n\n\npenguins %&gt;%\n  filter(!is.na(sex)) %&gt;%\n  ggplot(aes(bill_depth_mm, bill_length_mm, \n             color = sex, \n             size = body_mass_g)) +\n  geom_point(alpha = 0.5) +\n  facet_wrap(~species)",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#links-and-resources",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#links-and-resources",
+    "title": "Modelling in R",
+    "section": "Links and Resources",
+    "text": "Links and Resources\n\nA great book on modelling with R that focuses on using tidymodels: https://www.tmwr.org/\nA nice YouTube channel with lots of modelling examples: https://www.youtube.com/@JuliaSilge/featured",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  },
+  {
+    "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#workshop-time",
+    "href": "08_Modelling_in_R/met581_08_modelling_r.html#workshop-time",
+    "title": "Modelling in R",
+    "section": "Workshop time!",
+    "text": "Workshop time!\n\n\n\n\nMET581 - Modelling in R",
+    "crumbs": [
+      "Home",
+      "Modelling in R"
+    ]
+  }
+]

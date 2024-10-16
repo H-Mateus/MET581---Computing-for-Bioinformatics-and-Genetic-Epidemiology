@@ -1,0 +1,6 @@
+---
+title: "About"
+author: Gabriel Mateus Bernardo Harrington
+---
+
+This is a website to list the R lecture material that is part of MET581
