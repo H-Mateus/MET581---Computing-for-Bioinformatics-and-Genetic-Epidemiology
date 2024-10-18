@@ -753,18 +753,18 @@ Missing values: 573</code></pre>
 <span id="cb27-2"><a></a><span class="fu">map_dbl</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.34 0.47 0.62 0.35 </code></pre>
+0.42 0.27 0.49 0.51 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">map_dbl</span>(df, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.32 0.35 0.29 0.32 </code></pre>
+0.33 0.29 0.34 0.30 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># And here's the native R sapply equivalent</span></span>
 <span id="cb31-2"><a></a><span class="fu">sapply</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.34 0.47 0.62 0.35 </code></pre>
+0.42 0.27 0.49 0.51 </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -775,7 +775,7 @@ Missing values: 573</code></pre>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">map_dbl</span>(df, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.34 0.47 0.62 0.35 </code></pre>
+0.42 0.27 0.49 0.51 </code></pre>
 </div>
 </div>
 </div>
@@ -881,9 +881,9 @@ Missing values: 573</code></pre>
 <span id="cb44-6"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 7.95 5.61 3.12 4.14 4.77
- $ : num [1:5] 3.03 1.44 13.05 17.21 14.1
- $ : num [1:5] 7.2835 -18.8086 -8.3601 -4.5737 -0.0673</code></pre>
+ $ : num [1:5] 4.97 5.57 4.01 3.29 7.02
+ $ : num [1:5] 8.57 8.23 4.27 15.56 16.39
+ $ : num [1:5] -2.12 7.92 -7.29 7.93 -1.55</code></pre>
 </div>
 </div>
 </section>
@@ -910,9 +910,9 @@ Missing values: 573</code></pre>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num 4.88
- $ : num [1:3] 18.42 9.56 18.31
- $ : num [1:5] -13.2 -2.98 -2.05 -31.84 -11.14</code></pre>
+ $ : num 4.62
+ $ : num [1:3] 3.48 7.68 13.25
+ $ : num [1:5] -24.39 -4.02 -6.78 3.05 -17.94</code></pre>
 </div>
 </div></div>
 <ul>
@@ -926,9 +926,9 @@ Missing values: 573</code></pre>
 <span id="cb48-5"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 0.902 -0.755 0.201 0.374 0.181
- $ : num [1:5] 1.59 1.68 -11.73 1.13 -7.38
- $ : int [1:5] 13 4 13 8 6</code></pre>
+ $ : num [1:5] -0.9343 -0.2771 -0.7889 -0.0709 -0.1751
+ $ : num [1:5] -1.7 5.78 -3 -7.25 6.3
+ $ : int [1:5] 11 11 12 9 8</code></pre>
 </div>
 </div>
 </section>
@@ -991,9 +991,9 @@ Missing values: 573</code></pre>
 <span id="cb53-13"><a></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
 <span id="cb53-14"><a></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The Mazda RX4 Wag has a manual transmission and gets 21 mpgs."
-[1] "The Volvo 142E has a manual transmission and gets 21.4 mpgs."
-[1] "The Ferrari Dino has a manual transmission and gets 19.7 mpgs."</code></pre>
+<pre><code>[1] "The Merc 240D has a auto transmission and gets 24.4 mpgs."
+[1] "The Dodge Challenger has a auto transmission and gets 15.5 mpgs."
+[1] "The Honda Civic has a manual transmission and gets 30.4 mpgs."</code></pre>
 </div>
 </div>
 </section>
@@ -1021,7 +1021,7 @@ Missing values: 573</code></pre>
 <span id="cb55-14"><a></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of flips to get 3 heads in a row:  17</code></pre>
+<pre><code>Number of flips to get 3 heads in a row:  7</code></pre>
 </div>
 </div></div>
 <ul>

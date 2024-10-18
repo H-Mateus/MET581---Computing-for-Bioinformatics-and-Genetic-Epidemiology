@@ -1,0 +1,196 @@
+---
+title: "Programming in R Workshop"
+author: "Dr. Sumukh Deshpande"
+date: "20 October 2020"
+format:
+  html:
+    theme: united
+    toc: true
+    toc_float: yes
+    code-fold: true
+    code-link: true
+  pdf:
+    toc: true
+execute: 
+  echo: true
+---
+
+## Load packages
+
+Load `purrr`, `tidyverse` and `dplyr` packages.
+
+```{r}
+#| label: cars
+#| results: hide
+#| message: false
+#| warning: false
+library(purrr)
+library(tidyverse)
+library(conflicted)
+library(dplyr)
+```
+
+Load the Eukaryotes dataset - only have to run this once to get the data
+
+```{r}
+#| eval: false
+eukaryotes <- read_tsv(
+  file = "ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt", 
+  na = c("", "na", "-")
+)
+
+# Reformat dataset headers
+names_new <- names(eukaryotes) |> 
+  str_replace_all("[#%()]", "") |> 
+  str_replace_all("[ /]", "_") |>
+  str_to_lower()
+
+eukaryotes <- eukaryotes |> 
+  set_names(names_new)
+
+# Save tibble
+write_tsv(eukaryotes, "eukaryotes.tsv")
+```
+
+Load the saved dataset
+
+```{r}
+eukaryotes <- read_tsv("https://raw.githubusercontent.com/swuyts/purrr_tutorial/master/data/eukaryotes.tsv")
+```
+
+How many different organisms are there in our dataset?
+
+```{r}
+eukaryotes |> 
+  pull(organism_name) |> 
+  n_distinct()
+```
+
+Subset dataframe by selecting variables for the analysis:
+
+```{r}
+eukaryotes_subset <- eukaryotes |> 
+     select(organism_name, group, subgroup)
+```
+
+Using `n_distinct` to each variable of eukaryotes_subset
+
+```{r}
+map(eukaryotes_subset, n_distinct)
+
+eukaryotes_subset |> 
+  map(n_distinct)
+```
+
+## Nested Tibbles
+
+Split the eukaryotes dataset according to groups defined in the group variable:
+
+```{r}
+eukaryotes |> pull(group) |> unique()
+
+eukaryotes_nested <- eukaryotes |> 
+  group_by(group) |> 
+  nest()
+
+eukaryotes_nested
+```
+
+Split the "eukaryotes_nested" into 5 smaller dataframes.
+
+```{r}
+eukaryotes_nested |> pull(data)
+```
+
+## Combine nested tibbles and map
+
+Count number of rows for each sub data frames
+
+```{r}
+map(eukaryotes_nested$data, nrow)
+```
+
+Create a new column using `mutate()`
+
+```{r}
+eukaryotes_nested |> 
+  mutate(n_row = map_int(data, nrow))
+```
+
+How many different organisms are there per group ? 
+
+There are two different ways:
+
+```{r}
+# Define a custom function
+n_distinct_organisms <- function(data) {
+
+  data |> 
+    pull(organism_name) |> 
+    n_distinct()
+
+}
+
+# Define a custom function as a formula
+# .x is the notation for the object that is given as an input to this function.
+n_distinct_organisms2 <- ~ .x |>
+  pull(organism_name) |> 
+  n_distinct()
+```
+
+Apply the function to our nested data:
+
+```{r}
+eukaryotes_nested |> 
+  mutate(n_organisms = map_dbl(data,
+                               n_distinct_organisms
+                     ),
+         n_organisms2 = map_dbl(data,
+                               n_distinct_organisms2
+                     )
+         )
+```
+
+We can define the functions on the fly:
+
+```{r}
+eukaryotes_nested |> 
+  mutate(n_organisms = map_dbl(data,
+                               ~ .x |> pull(organism_name) |> n_distinct()),
+         n_centers = map_dbl(data,
+                             ~ .x |> pull(center) |> n_distinct()),
+         n_subgroups = map_dbl(data,
+                               ~ .x |> pull(subgroup) |>  n_distinct()))
+```
+
+## pmap and walk2 functions
+
+We will explain by the following example for `pmap`:
+
+```{r}
+df <- data.frame(
+  x = c("ATTTTACTGGGAGGGAA", "TATTTTTTAAAGGGCCC", "GCGCGCCCCAAATTATAGGC", "TGCCACATTTTATCCGCGCA"),
+  pattern = c("A", "T", "G", "C"),
+  replacement = c("a", "t", "g", "c"),
+  stringsAsFactors = FALSE
+  )
+
+pmap(df, gsub)
+```
+
+Example for `walk2`:
+
+```{r}
+df1 <- data.frame(
+  index = c(1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10),
+  value = c(40,20,10,5,50,80,30,20,80,90,33,21,56,66,43,89,66,80,30,10),
+  category = c("A","A","A","A","A","A","A","A","A","A","B","B","B","B","B","B","B","B","B","B")
+)
+
+df1 %>%
+  split(.$category) %>%
+  .[order(names(.))] %>%
+  walk2(paste('Plot', names(.)), 
+        ~plot(value ~ index, data = .x, type = "l", main = .y))
+
+```

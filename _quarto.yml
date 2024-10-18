@@ -16,11 +16,18 @@ website:
     style: "docked"
     search: true
     contents:
-      - text: "Programming in R"
-        href: 06_Programming_in_R/met581_06_programming_in_r.qmd
+      - section: "Programming in R"
+        contents: 
+          - text: "Slides"
+            href: 06_Programming_in_R/met581_06_programming_in_r.qmd
+          - text: "Workshop"
+            href: 10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.qmd
       - text: "Data Visualisation in R"
         href: 07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.qmd
       - 08_Modelling_in_R/met581_08_modelling_r.qmd
+      
+execute: 
+  freeze: auto
 
 format:
   html:
@@ -29,6 +36,3 @@ format:
       dark: darkly
     css: styles.css
     toc: true
-
-
-

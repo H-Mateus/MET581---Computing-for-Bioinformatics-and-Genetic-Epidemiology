@@ -579,7 +579,8 @@
     "text": "Programming\n\nThe implementation of logic to facilitate specified computing operations and functionality",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -590,7 +591,8 @@
     "text": "What we will cover\n\n\n\nConditional Execution\nDefining Function Arguments\nExplicit Constraints\nDot-dot-dot (…)\nPipes\nIterations with purr\n\n\n\nWhile loops\nOther loops – purrr functions\nThe map family\nShortcuts\nMultiple arguments\nwalk",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -601,7 +603,8 @@
     "text": "Package load and conflicts\n\nWe’ll load our packages early as is good practise!\nAs an aide, you may notice a verbose message when loading the tidyverse mentioning conflicts\nIf we load the conflicted package it will force an error if you use a function that has multiple sources (filter is commonly guilty of this!)\n\n\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\nlibrary(conflicted)",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -612,7 +615,8 @@
     "text": "Package load and conflicts\n\n# conflicted will make this error\nmtcars |&gt;\n  filter(gear == 4)\n\nError:\n! [conflicted] filter found in 2 packages.\nEither pick the one you want with `::`:\n• dplyr::filter\n• stats::filter\nOr declare a preference with `conflicts_prefer()`:\n• `conflicts_prefer(dplyr::filter)`\n• `conflicts_prefer(stats::filter)`\n\n\n\n# We can explicitly state which filter we prefer just once\nconflicts_prefer(dplyr::filter)\n\nmtcars[1:3,] |&gt;\n  filter(gear == 4)\n\n               mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4     21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -623,7 +627,8 @@
     "text": "Conditional Execution\n\nIn R, the conditional execution of statements are performed within if() and {} blocks of code.\nTo start with, code is easier to understand (by you and everyone!) if you separate the lines and use indentations. Not like this:\n\nmyFunction &lt;- function(x) {if (x &gt; 3) {return(x - 3)} else {return(x)}} \n\nNote that RStudio has a shortcut for auto-formatting highlighted code: ctrl+shift+A\n\nmyFunction &lt;- function(x) {\n  if (x &gt; 3) {\n    return(x - 3)\n  } else {\n    return(x)\n  }\n}",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -634,7 +639,8 @@
     "text": "Defining Function Arguments\n\nThere are two types of arguments: Mandatory and Optional\nThe mandatory arguments are always at the beginning of the list of arguments, followed by optional arguments and their default values.\nExample:\n\npow &lt;- function(x, y = 2) {\nreturn(x ** y)\n}\n\nWhat do you think will happen if you try pow(3) and pow(3,3) in the console? Try it!",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -645,7 +651,8 @@
     "text": "Defining Function Arguments\n\nThere are two ways of passing the values to a function: by order and by name.\nCheck the description of mean() by typing ?mean\nPassing unnamed arguments by order is bad programming because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!), and it makes your code much less clear!\nPassing them by name means you can change the order\nBest practice is to define include the first argument (can be without name) of the function as the input data to be processed:\n\n\nmean(1:101, ,TRUE) # bad!\nmean(na.rm = TRUE, x = 1:101) # better\nmean(1:101, na.rm = TRUE) # best :)",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -656,7 +663,8 @@
     "text": "Defining Function Arguments\n\nAdding restrictions to the function means they can be more efficient\nFor example:\n\n\nmidValue &lt;- function(x) {\n  if (length(x) %% 2 == 0) {\n    stop(\"'x' has an even number of elements\", call. = FALSE)\n  }\n  midIndex &lt;- (length(x) + 1) / 2\n  return (x[midIndex])\n}\n\n\nThe stop function is executed when the modulus (remainder from division) is zero. A good error checking mechanism (even gives a message!)",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -667,7 +675,8 @@
     "text": "Defining Function Arguments\n\nThe previous code can be simplified by using: stopifnot()\n\n\nmidValue &lt;- function(x) {\n  stopifnot(\"'x' has an even number of elements\" = length(x) %% 2 == 1)\n  midIndex &lt;- (length(x) + 1) / 2\n  return (x[midIndex])\n}\n\n\nAnd we can add multiple expressions in one go\n\n\ncalMean = function(x) {\n  stopifnot(exprs = {\n    \"'x' has to have a mean of 4 for some reason...\" = mean(x) == 4\n    \"'x' has to have length 4, don't ask why...\" = length(x) == 4\n  })\n  mean(x)\n}",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -678,7 +687,8 @@
     "text": "Dot-Dot-Dot (…)\n\nAn ellipsis means that the function can take any number of named or unnamed arguments (run ?print() for an example)\nFor example: We can use … to pass those additional arguments on to another function. Essentially, placeholders for other arguments.\n\n\ni01 &lt;- function(y, z) {\n  list(y = y, z = z)\n}\ni02 &lt;- function(a, ...) {\n  # Add 'a' to all elements in the list\n  lapply(i01(...), function(x) x + a)\n}\nstr(i02(a = 1, y = 2, z = 3))\n\nList of 2\n $ y: num 3\n $ z: num 4",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -689,7 +699,8 @@
     "text": "Dot-Dot-Dot (…)\n\nBy adding numbers at the end, it is possible to refer to elements of … by position (what position the generic arguments will sit in).\n\n\ni03 &lt;- function(...) {\n  list(first = ..1, third = ..3)\n}\nstr(i03(1, 2, 3))\n\nList of 2\n $ first: num 1\n $ third: num 3\n\n\n\nMore useful is list(...), which evaluates the arguments and stores them in a list. Very useful when working with data!\n\n\ni04 &lt;- function(...) {\n  list(...)\n}\nstr(i04(a = 1, b = 2))\n\nList of 2\n $ a: num 1\n $ b: num 2",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -700,7 +711,8 @@
     "text": "Pipes |&gt;\n\nThere are two types of pipeable functions: transformations and side-effects.\nTransformations are where an object is passed to the function’s first argument and a modified object is returned.\nWith side-effects, the passed object is not transformed. Instead, the function performs a function on that object, such as drawing a plot or saving a file.\n\n\nprint_missings &lt;- function(df) {\n  n &lt;- sum(is.na(df))\n  cat(\"Missing values: \", n, \"\\n\", sep = \"\")\n  invisible(df)\n}",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -711,7 +723,8 @@
     "text": "Pipes |&gt;\n\nIf we use our newly created print_missings() function, the invisible() command means that the input data frame will not get printed out but we can still use it in a pipe.\n\n\ndiamonds |&gt;\n  print_missings() |&gt;\n  mutate(carat = ifelse(carat &lt; 0.25, NA, carat)) |&gt;\n  print_missings()\n\nMissing values: 0\nMissing values: 573",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -722,7 +735,8 @@
     "text": "Iterations with purrr\n\n\nWe want to keep code efficient and less repetitive: performing the same thing on multiple inputs, repeating the operation on multiple columns, or on different datasets.\nTo help achieve this, iterations are used. For example:\n\n\nrescale &lt;- function(x) {\n  y &lt;- min(x, na.rm = TRUE)\n  return((x - y) / (max(x, na.rm = TRUE) - y))\n}\n\n\n\ndf &lt;- data.frame(a = rnorm(10), b = rnorm(10), c = rnorm(10), d = rnorm(10))\ndf$a &lt;- rescale(df$a)\ndf$b &lt;- rescale(df$b)\ndf$c &lt;- rescale(df$c)\ndf$d &lt;- rescale(df$d) # Wow this is tedious...",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -733,7 +747,8 @@
     "text": "Iterations with purrr\n\n\nThis can be simplified with a for loop\n\n\nfor (i in seq_along(df)) {\n  df[[i]] &lt;- rescale(df[[i]])\n} # This is much shorter (and less error prone)!\n\n\nA breif note, it’s generally better to vectorise your R code as it’s faster and often more succinct code, see here and here for more details\nHowever it is said that premature optimization is the root of all evil, so don’t stress to much if you’re analysing smaller datasets\nIf you’re writing a pipeline that’ll be rerun many times by lots of people, then optimisation is more important",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -744,7 +759,8 @@
     "text": "Other loops - purr functions\n\npurrr is a package that helps to enhance R’s functional programming toolkit\npurrr functions help to break common challenges in list manipulation into independent pieces.\nBase R has family of functions known as “apply family”, that eliminates the need for many common for loops, apply(), lapply(), tapply()\npurrr has a family of functions called the “map family”.\nEach function takes a vector as input, applies a function to each piece, and then returns a new vector that has the same length as the input.",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -755,7 +771,8 @@
     "text": "The map family\n\n\nEssentially, map() is the tidyverse equivalent of the base R apply family of functions.\nThe basic syntax is map(.x, .f, ...) where:\n\n.x is a list, vector or dataframe\n.f is a function\nmap() will then apply .f to each element of .x in turn.",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -763,10 +780,11 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.34 0.47 0.62 0.35 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.32 0.35 0.29 0.32 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.34 0.47 0.62 0.35 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.34 0.47 0.62 0.35",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.42 0.27 0.49 0.51 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.33 0.29 0.34 0.30 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.42 0.27 0.49 0.51 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.42 0.27 0.49 0.51",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -777,7 +795,8 @@
     "text": "The map family\n\n\nWe can even use a string or a position (integer) to extract components from the input data - very useful when working with big datasets!\n\n\nx &lt;- list(\n  x = list(a = 1, b = 2, c = 3),\n  y = list(a = 4, b = 5, c = 6),\n  z = list(a = 7, b = 8, c = 9)\n)\nx |&gt; map_dbl(\"a\")\n\nx y z \n1 4 7 \n\nx |&gt; map_dbl(2)\n\nx y z \n2 5 8",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -788,7 +807,8 @@
     "text": "map_ functions\n\n\nOne property of the map() function is that it will always return a list.\nTo change the output data type, we can use multiple versions of map_*():\n\nmap_lgl() returns a logical.\nmap_int() returns a integer vector.\nmap_dbl() returns a double vector.\nmap_chr() returns a character vector.\nmap_df() returns a data frame.",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -799,7 +819,8 @@
     "text": "Shortcuts\n\nFit a linear model to each group in a dataset. This example splits up the mtcars dataset into three pieces and fits the linear model to each piece.\n\n\nmodels &lt;- mtcars %&gt;%\n  # note this is an example where the native R pipe won't work!\n  split(.$cyl) |&gt;\n  map(function(df) {\n    lm(mpg ~ wt, data = df)\n  })\n# Using tidyverse annonymous function syntax\nmodels2 &lt;- mtcars %&gt;%\n  split(.$cyl) |&gt;\n  map( ~ lm(mpg ~ wt, data = .))\n# And here is the the native R equivalent\nmodels3 &lt;- mtcars %&gt;%\n  split(.$cyl) |&gt;\n  map(\\(df) lm(mpg ~ wt, data = df))",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -810,7 +831,8 @@
     "text": "Shortcuts\n\nThe . used in the second example is a placeholder for the dataset we’ve piped in (mtcars) so we can access parts of it (via $)\nNote that the placeholder for the native R pipe (|&gt;) is a _, but it doesn’t have the same functionality as the magritter pipe! See here for more info on differences\nExample: we want to get the \\(R^2\\) from our models\n\n\nmodels |&gt;\n  map(summary) %&gt;%\n  map_dbl( ~ .$r.squared)\n\n             4              6              8 \n0.508632596323 0.464510150551 0.422965536496 \n\nmodels |&gt;\n  map(summary) |&gt;\n  map_dbl(\\(model) model$r.squared)\n\n             4              6              8 \n0.508632596323 0.464510150551 0.422965536496",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -818,10 +840,11 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 7.95 5.61 3.12 4.14 4.77\n $ : num [1:5] 3.03 1.44 13.05 17.21 14.1\n $ : num [1:5] 7.2835 -18.8086 -8.3601 -4.5737 -0.0673",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 4.97 5.57 4.01 3.29 7.02\n $ : num [1:5] 8.57 8.23 4.27 15.56 16.39\n $ : num [1:5] -2.12 7.92 -7.29 7.93 -1.55",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -832,7 +855,8 @@
     "text": "Multiple Arguments\n\nThe code can be understood by the following figure:",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -840,10 +864,11 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 4.88\n $ : num [1:3] 18.42 9.56 18.31\n $ : num [1:5] -13.2 -2.98 -2.05 -31.84 -11.14\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.902 -0.755 0.201 0.374 0.181\n $ : num [1:5] 1.59 1.68 -11.73 1.13 -7.38\n $ : int [1:5] 13 4 13 8 6",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 4.62\n $ : num [1:3] 3.48 7.68 13.25\n $ : num [1:5] -24.39 -4.02 -6.78 3.05 -17.94\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] -0.9343 -0.2771 -0.7889 -0.0709 -0.1751\n $ : num [1:5] -1.7 5.78 -3 -7.25 6.3\n $ : int [1:5] 11 11 12 9 8",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -854,7 +879,8 @@
     "text": "walk\n\nwalk() is an alternative to map that we use we call a function for its side effects, disregarding its return value.\n\n\nx &lt;- list(1, \"a\", 3)\nx |&gt;\n  walk(print)\n\n[1] 1\n[1] \"a\"\n[1] 3\n\n\n\nReally useful when outputting datasets in lists! (such as microarray data)\nSimilar to map(), purrr also has walk2() and pwalk()",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -865,7 +891,8 @@
     "text": "walk2\n\ndf0 &lt;- tibble(x = 1:3, y = rnorm(3))\ndf1 &lt;- tibble(x = 1:3, y = rnorm(3))\ndf2 &lt;- tibble(x = 1:3, y = rnorm(3))\nanimalFrames &lt;- tibble(animals = c('sheep', 'cow', 'horse'),\n                       frames =\n                         list(df0, df1, df2))\n# Save a list of dataframes\nanimalFrames %&gt;%\n  walk2(\n    .x = .$animals,\n    .y = .$frames,\n    .f = ~ write_csv(.y, str_c(\"test_\", .x, \".csv\"))\n  )",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -873,10 +900,11 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
     "title": "Programming in R",
     "section": "pwalk",
-    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Mazda RX4 Wag has a manual transmission and gets 21 mpgs.\"\n[1] \"The Volvo 142E has a manual transmission and gets 21.4 mpgs.\"\n[1] \"The Ferrari Dino has a manual transmission and gets 19.7 mpgs.\"",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Merc 240D has a auto transmission and gets 24.4 mpgs.\"\n[1] \"The Dodge Challenger has a auto transmission and gets 15.5 mpgs.\"\n[1] \"The Honda Civic has a manual transmission and gets 30.4 mpgs.\"",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -884,10 +912,11 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
     "title": "Programming in R",
     "section": "While loops",
-    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  17\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  7\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
   },
   {
@@ -898,8 +927,44 @@
     "text": "Workshop time!\n\n\n\n\nMET581 - Programming in R",
     "crumbs": [
       "Home",
-      "Programming in R"
+      "Programming in R",
+      "Slides"
     ]
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_programming_in_r_workshop.html",
+    "href": "06_Programming_in_R/met581_programming_in_r_workshop.html",
+    "title": "Programming in R Workshop",
+    "section": "",
+    "text": "Load purrr, tidyverse and dplyr packages.\n\nCodelibrary(purrr)\nlibrary(tidyverse)\nlibrary(conflicted)\nlibrary(dplyr)\n\n\nLoad the Eukaryotes dataset - only have to run this once to get the data\n\nCodeeukaryotes &lt;- read_tsv(\n  file = \"ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt\", \n  na = c(\"\", \"na\", \"-\")\n)\n\n# Reformat dataset headers\nnames_new &lt;- names(eukaryotes) |&gt; \n  str_replace_all(\"[#%()]\", \"\") |&gt; \n  str_replace_all(\"[ /]\", \"_\") |&gt;\n  str_to_lower()\n\neukaryotes &lt;- eukaryotes |&gt; \n  set_names(names_new)\n\n# Save tibble\nwrite_tsv(eukaryotes, \"eukaryotes.tsv\")\n\n\nLoad the saved dataset\n\nCodeeukaryotes &lt;- read_tsv(\"https://raw.githubusercontent.com/swuyts/purrr_tutorial/master/data/eukaryotes.tsv\")\n\nRows: 11508 Columns: 19\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"\\t\"\nchr  (10): organism_name, bioproject_accession, group, subgroup, assembly_ac...\ndbl   (7): taxid, bioproject_id, size_mb, gc, scaffolds, genes, proteins\ndate  (2): release_date, modify_date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nHow many different organisms are there in our dataset?\n\nCode# Put your answer here\n\n\nSubset dataframe by selecting variables for the analysis:\nUsing n_distinct to each variable of eukaryotes_subset"
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_programming_in_r_workshop.html#load-packages",
+    "href": "06_Programming_in_R/met581_programming_in_r_workshop.html#load-packages",
+    "title": "Programming in R Workshop",
+    "section": "",
+    "text": "Load purrr, tidyverse and dplyr packages.\n\nCodelibrary(purrr)\nlibrary(tidyverse)\nlibrary(conflicted)\nlibrary(dplyr)\n\n\nLoad the Eukaryotes dataset - only have to run this once to get the data\n\nCodeeukaryotes &lt;- read_tsv(\n  file = \"ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt\", \n  na = c(\"\", \"na\", \"-\")\n)\n\n# Reformat dataset headers\nnames_new &lt;- names(eukaryotes) |&gt; \n  str_replace_all(\"[#%()]\", \"\") |&gt; \n  str_replace_all(\"[ /]\", \"_\") |&gt;\n  str_to_lower()\n\neukaryotes &lt;- eukaryotes |&gt; \n  set_names(names_new)\n\n# Save tibble\nwrite_tsv(eukaryotes, \"eukaryotes.tsv\")\n\n\nLoad the saved dataset\n\nCodeeukaryotes &lt;- read_tsv(\"https://raw.githubusercontent.com/swuyts/purrr_tutorial/master/data/eukaryotes.tsv\")\n\nRows: 11508 Columns: 19\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"\\t\"\nchr  (10): organism_name, bioproject_accession, group, subgroup, assembly_ac...\ndbl   (7): taxid, bioproject_id, size_mb, gc, scaffolds, genes, proteins\ndate  (2): release_date, modify_date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nHow many different organisms are there in our dataset?\n\nCode# Put your answer here\n\n\nSubset dataframe by selecting variables for the analysis:\nUsing n_distinct to each variable of eukaryotes_subset"
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_programming_in_r_workshop.html#nested-tibbles",
+    "href": "06_Programming_in_R/met581_programming_in_r_workshop.html#nested-tibbles",
+    "title": "Programming in R Workshop",
+    "section": "Nested Tibbles",
+    "text": "Nested Tibbles\nSplit the eukaryotes dataset according to groups defined in the group variable:\nSplit the “eukaryotes_nested” into 5 smaller dataframes."
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_programming_in_r_workshop.html#combine-nested-tibbles-and-map",
+    "href": "06_Programming_in_R/met581_programming_in_r_workshop.html#combine-nested-tibbles-and-map",
+    "title": "Programming in R Workshop",
+    "section": "Combine nested tibbles and map",
+    "text": "Combine nested tibbles and map\nCount number of rows for each sub data frames\nCreate a new column using mutate()\nHow many different organisms are there per group ?\nThere are two different ways:\nApply the function to our nested data:\nWe can define the functions on the fly:"
+  },
+  {
+    "objectID": "06_Programming_in_R/met581_programming_in_r_workshop.html#pmap-and-walk2-functions",
+    "href": "06_Programming_in_R/met581_programming_in_r_workshop.html#pmap-and-walk2-functions",
+    "title": "Programming in R Workshop",
+    "section": "pmap and walk2 functions",
+    "text": "pmap and walk2 functions\nThis about the following example for pmap, what will it do?:\n\nCodedf &lt;- data.frame(\n  x = c(\"ATTTTACTGGGAGGGAA\", \"TATTTTTTAAAGGGCCC\", \"GCGCGCCCCAAATTATAGGC\", \"TGCCACATTTTATCCGCGCA\"),\n  pattern = c(\"A\", \"T\", \"G\", \"C\"),\n  replacement = c(\"a\", \"t\", \"g\", \"c\"),\n  stringsAsFactors = FALSE\n  )\n\npmap(df, gsub)\n\n[[1]]\n[1] \"aTTTTaCTGGGaGGGaa\"\n\n[[2]]\n[1] \"tAttttttAAAGGGCCC\"\n\n[[3]]\n[1] \"gCgCgCCCCAAATTATAggC\"\n\n[[4]]\n[1] \"TGccAcATTTTATccGcGcA\"\n\n\nExample for walk2:\n\nCodedf1 &lt;- data.frame(\n  index = c(1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10),\n  value = c(40,20,10,5,50,80,30,20,80,90,33,21,56,66,43,89,66,80,30,10),\n  category = c(\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\")\n)\n\ndf1 %&gt;%\n  split(.$category) %&gt;%\n  .[order(names(.))] %&gt;%\n  walk2(paste('Plot', names(.)), \n        ~plot(value ~ index, data = .x, type = \"l\", main = .y))"
   },
   {
     "objectID": "about.html",
@@ -914,6 +979,66 @@
     "title": "Cardiff Univeristy Bioinformatics MSc MET581 R lectures",
     "section": "",
     "text": "Welcome!\nUse the side bar to navigate to lecture materials"
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html",
+    "href": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html",
+    "title": "Programming in R Workshop",
+    "section": "",
+    "text": "Load purrr, tidyverse and dplyr packages.\n\nCodelibrary(purrr)\nlibrary(tidyverse)\nlibrary(conflicted)\nlibrary(dplyr)\n\n\nLoad the Eukaryotes dataset - only have to run this once to get the data\n\nCodeeukaryotes &lt;- read_tsv(\n  file = \"ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt\", \n  na = c(\"\", \"na\", \"-\")\n)\n\n# Reformat dataset headers\nnames_new &lt;- names(eukaryotes) |&gt; \n  str_replace_all(\"[#%()]\", \"\") |&gt; \n  str_replace_all(\"[ /]\", \"_\") |&gt;\n  str_to_lower()\n\neukaryotes &lt;- eukaryotes |&gt; \n  set_names(names_new)\n\n# Save tibble\nwrite_tsv(eukaryotes, \"eukaryotes.tsv\")\n\n\nLoad the saved dataset\n\nCodeeukaryotes &lt;- read_tsv(\"https://raw.githubusercontent.com/swuyts/purrr_tutorial/master/data/eukaryotes.tsv\")\n\nRows: 11508 Columns: 19\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"\\t\"\nchr  (10): organism_name, bioproject_accession, group, subgroup, assembly_ac...\ndbl   (7): taxid, bioproject_id, size_mb, gc, scaffolds, genes, proteins\ndate  (2): release_date, modify_date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nHow many different organisms are there in our dataset?\n\nCodeeukaryotes |&gt; \n  pull(organism_name) |&gt; \n  n_distinct()\n\n[1] 6111\n\n\nSubset dataframe by selecting variables for the analysis:\n\nCodeeukaryotes_subset &lt;- eukaryotes |&gt; \n     select(organism_name, group, subgroup)\n\n\nUsing n_distinct to each variable of eukaryotes_subset\n\nCodemap(eukaryotes_subset, n_distinct)\n\n$organism_name\n[1] 6111\n\n$group\n[1] 5\n\n$subgroup\n[1] 19\n\nCodeeukaryotes_subset |&gt; \n  map(n_distinct)\n\n$organism_name\n[1] 6111\n\n$group\n[1] 5\n\n$subgroup\n[1] 19",
+    "crumbs": [
+      "Home",
+      "Programming in R",
+      "Workshop"
+    ]
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#load-packages",
+    "href": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#load-packages",
+    "title": "Programming in R Workshop",
+    "section": "",
+    "text": "Load purrr, tidyverse and dplyr packages.\n\nCodelibrary(purrr)\nlibrary(tidyverse)\nlibrary(conflicted)\nlibrary(dplyr)\n\n\nLoad the Eukaryotes dataset - only have to run this once to get the data\n\nCodeeukaryotes &lt;- read_tsv(\n  file = \"ftp://ftp.ncbi.nlm.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt\", \n  na = c(\"\", \"na\", \"-\")\n)\n\n# Reformat dataset headers\nnames_new &lt;- names(eukaryotes) |&gt; \n  str_replace_all(\"[#%()]\", \"\") |&gt; \n  str_replace_all(\"[ /]\", \"_\") |&gt;\n  str_to_lower()\n\neukaryotes &lt;- eukaryotes |&gt; \n  set_names(names_new)\n\n# Save tibble\nwrite_tsv(eukaryotes, \"eukaryotes.tsv\")\n\n\nLoad the saved dataset\n\nCodeeukaryotes &lt;- read_tsv(\"https://raw.githubusercontent.com/swuyts/purrr_tutorial/master/data/eukaryotes.tsv\")\n\nRows: 11508 Columns: 19\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \"\\t\"\nchr  (10): organism_name, bioproject_accession, group, subgroup, assembly_ac...\ndbl   (7): taxid, bioproject_id, size_mb, gc, scaffolds, genes, proteins\ndate  (2): release_date, modify_date\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\nHow many different organisms are there in our dataset?\n\nCodeeukaryotes |&gt; \n  pull(organism_name) |&gt; \n  n_distinct()\n\n[1] 6111\n\n\nSubset dataframe by selecting variables for the analysis:\n\nCodeeukaryotes_subset &lt;- eukaryotes |&gt; \n     select(organism_name, group, subgroup)\n\n\nUsing n_distinct to each variable of eukaryotes_subset\n\nCodemap(eukaryotes_subset, n_distinct)\n\n$organism_name\n[1] 6111\n\n$group\n[1] 5\n\n$subgroup\n[1] 19\n\nCodeeukaryotes_subset |&gt; \n  map(n_distinct)\n\n$organism_name\n[1] 6111\n\n$group\n[1] 5\n\n$subgroup\n[1] 19",
+    "crumbs": [
+      "Home",
+      "Programming in R",
+      "Workshop"
+    ]
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#nested-tibbles",
+    "href": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#nested-tibbles",
+    "title": "Programming in R Workshop",
+    "section": "Nested Tibbles",
+    "text": "Nested Tibbles\nSplit the eukaryotes dataset according to groups defined in the group variable:\n\nCodeeukaryotes |&gt; pull(group) |&gt; unique()\n\n[1] \"Other\"    \"Protists\" \"Plants\"   \"Fungi\"    \"Animals\" \n\nCodeeukaryotes_nested &lt;- eukaryotes |&gt; \n  group_by(group) |&gt; \n  nest()\n\neukaryotes_nested\n\n# A tibble: 5 × 2\n# Groups:   group [5]\n  group    data                 \n  &lt;chr&gt;    &lt;list&gt;               \n1 Other    &lt;tibble [51 × 18]&gt;   \n2 Protists &lt;tibble [888 × 18]&gt;  \n3 Plants   &lt;tibble [1,304 × 18]&gt;\n4 Fungi    &lt;tibble [6,064 × 18]&gt;\n5 Animals  &lt;tibble [3,201 × 18]&gt;\n\n\nSplit the “eukaryotes_nested” into 5 smaller dataframes.\n\nCodeeukaryotes_nested |&gt; pull(data)\n\n[[1]]\n# A tibble: 51 × 18\n   organism_name       taxid bioproject_accession bioproject_id subgroup size_mb\n   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;\n 1 Pyropia yezoensis    2788 PRJNA589917                 589917 Other      108. \n 2 Thalassiosira pse… 296543 PRJNA191                       191 Other       32.4\n 3 Guillardia theta … 905079 PRJNA53577                   53577 Other       87.1\n 4 Cyanidioschyzon m… 280699 PRJNA10792                   10792 Other       16.5\n 5 Galdieria sulphur… 130081 PRJNA13023                   13023 Other       13.7\n 6 Phaeodactylum tri… 556484 PRJNA13152                   13152 Other       27.5\n 7 Bigelowiella nata… 753081 PRJNA47111                   47111 Other       91.4\n 8 Ectocarpus silicu…   2880 PRJEA42625                   42625 Other      196. \n 9 Thalassiosira oce… 159749 PRJNA36595                   36595 Other       92.2\n10 Fragilariopsis cy… 635003 PRJNA32761                   32761 Other       80.5\n# ℹ 41 more rows\n# ℹ 12 more variables: gc &lt;dbl&gt;, assembly_accession &lt;chr&gt;, replicons &lt;chr&gt;,\n#   wgs &lt;chr&gt;, scaffolds &lt;dbl&gt;, genes &lt;dbl&gt;, proteins &lt;dbl&gt;,\n#   release_date &lt;date&gt;, modify_date &lt;date&gt;, status &lt;chr&gt;, center &lt;chr&gt;,\n#   biosample_accession &lt;chr&gt;\n\n[[2]]\n# A tibble: 888 × 18\n   organism_name       taxid bioproject_accession bioproject_id subgroup size_mb\n   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;\n 1 Emiliania huxleyi… 280463 PRJNA77753                   77753 Other P…  168.  \n 2 Leishmania major … 347515 PRJNA10724                   10724 Kinetop…   32.9 \n 3 Trypanosoma bruce… 679716 PRJEA40697                   40697 Kinetop…   22.1 \n 4 Trypanosoma cruzi    5693 PRJNA11755                   11755 Kinetop…   89.9 \n 5 Entamoeba histoly… 294381 PRJNA142                       142 Other P…   20.8 \n 6 Giardia intestina…   5741 PRJNA561185                 561185 Other P…   11.5 \n 7 Eimeria tenella      5802 PRJEB4863                   224694 Apicomp…   51.9 \n 8 Cryptosporidium p… 353152 PRJNA144                       144 Apicomp…    9.10\n 9 Toxoplasma gondii… 508771 PRJNA28893                   28893 Apicomp…   65.7 \n10 Plasmodium berghei   5821 PRJEB11993                  305111 Apicomp…   18.8 \n# ℹ 878 more rows\n# ℹ 12 more variables: gc &lt;dbl&gt;, assembly_accession &lt;chr&gt;, replicons &lt;chr&gt;,\n#   wgs &lt;chr&gt;, scaffolds &lt;dbl&gt;, genes &lt;dbl&gt;, proteins &lt;dbl&gt;,\n#   release_date &lt;date&gt;, modify_date &lt;date&gt;, status &lt;chr&gt;, center &lt;chr&gt;,\n#   biosample_accession &lt;chr&gt;\n\n[[3]]\n# A tibble: 1,304 × 18\n   organism_name       taxid bioproject_accession bioproject_id subgroup size_mb\n   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;\n 1 Arabidopsis thali…   3702 PRJNA10719                   10719 Land Pl…    120.\n 2 Glycine max          3847 PRJNA19861                   19861 Land Pl…    979.\n 3 Medicago truncatu…   3880 PRJNA10791                   10791 Land Pl…    413.\n 4 Solanum lycopersi…   4081 PRJNA119                       119 Land Pl…    828.\n 5 Hordeum vulgare s… 112509 PRJEB34217                  576847 Land Pl…   4341.\n 6 Oryza sativa Japo…  39947 PRJNA12269                   12269 Land Pl…    374.\n 7 Triticum aestivum    4565 PRJNA392179                 392179 Land Pl…  15419.\n 8 Zea mays             4577 PRJNA10769                   10769 Land Pl…   2135.\n 9 Coffea arabica      13443 PRJNA506972                 506972 Land Pl…   1094.\n10 Lotus japonicus     34305 PRJDA28941                   28941 Land Pl…    394.\n# ℹ 1,294 more rows\n# ℹ 12 more variables: gc &lt;dbl&gt;, assembly_accession &lt;chr&gt;, replicons &lt;chr&gt;,\n#   wgs &lt;chr&gt;, scaffolds &lt;dbl&gt;, genes &lt;dbl&gt;, proteins &lt;dbl&gt;,\n#   release_date &lt;date&gt;, modify_date &lt;date&gt;, status &lt;chr&gt;, center &lt;chr&gt;,\n#   biosample_accession &lt;chr&gt;\n\n[[4]]\n# A tibble: 6,064 × 18\n   organism_name       taxid bioproject_accession bioproject_id subgroup size_mb\n   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;\n 1 Pneumocystis cari… 1.41e6 PRJNA223511                 223511 Ascomyc…    7.66\n 2 Schizosaccharomyc… 4.90e3 PRJNA13836                   13836 Ascomyc…   12.6 \n 3 Saccharomyces cer… 5.59e5 PRJNA43747                   43747 Ascomyc…   12.2 \n 4 Aspergillus nidul… 2.27e5 PRJNA130                       130 Ascomyc…   30.3 \n 5 Aspergillus fumig… 3.31e5 PRJNA131                       131 Ascomyc…   29.4 \n 6 Neurospora crassa… 3.67e5 PRJNA13841                   13841 Ascomyc…   41.1 \n 7 Phanerochaete chr… 5.31e3 PRJNA343563                 343563 Basidio…   39.2 \n 8 Candida albicans … 2.38e5 PRJNA10701                   10701 Ascomyc…   14.3 \n 9 Encephalitozoon c… 2.85e5 PRJNA13833                   13833 Other F…    2.50\n10 Aspergillus terre… 3.42e5 PRJNA15631                   15631 Ascomyc…   29.4 \n# ℹ 6,054 more rows\n# ℹ 12 more variables: gc &lt;dbl&gt;, assembly_accession &lt;chr&gt;, replicons &lt;chr&gt;,\n#   wgs &lt;chr&gt;, scaffolds &lt;dbl&gt;, genes &lt;dbl&gt;, proteins &lt;dbl&gt;,\n#   release_date &lt;date&gt;, modify_date &lt;date&gt;, status &lt;chr&gt;, center &lt;chr&gt;,\n#   biosample_accession &lt;chr&gt;\n\n[[5]]\n# A tibble: 3,201 × 18\n   organism_name       taxid bioproject_accession bioproject_id subgroup size_mb\n   &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;\n 1 Caenorhabditis br…   6238 PRJNA10731                   10731 Roundwo…   108. \n 2 Caenorhabditis el…   6239 PRJNA13758                   13758 Roundwo…   100. \n 3 Brugia malayi        6279 PRJNA10729                   10729 Roundwo…    93.7\n 4 Aedes aegypti        7159 PRJNA392114                 392114 Insects   1279. \n 5 Aedes albopictus     7160 PRJNA552090                 552090 Insects   2538. \n 6 Anopheles gambiae… 180454 PRJNA1438                     1438 Insects    265. \n 7 Drosophila melano…   7227 PRJNA13669                   13669 Insects    144. \n 8 Apis mellifera       7460 PRJNA477511                 477511 Insects    225. \n 9 Ciona intestinalis   7719 PRJDA65419                   65419 Other A…   115. \n10 Danio rerio          7955 PRJNA11776                   11776 Fishes    1679. \n# ℹ 3,191 more rows\n# ℹ 12 more variables: gc &lt;dbl&gt;, assembly_accession &lt;chr&gt;, replicons &lt;chr&gt;,\n#   wgs &lt;chr&gt;, scaffolds &lt;dbl&gt;, genes &lt;dbl&gt;, proteins &lt;dbl&gt;,\n#   release_date &lt;date&gt;, modify_date &lt;date&gt;, status &lt;chr&gt;, center &lt;chr&gt;,\n#   biosample_accession &lt;chr&gt;",
+    "crumbs": [
+      "Home",
+      "Programming in R",
+      "Workshop"
+    ]
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#combine-nested-tibbles-and-map",
+    "href": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#combine-nested-tibbles-and-map",
+    "title": "Programming in R Workshop",
+    "section": "Combine nested tibbles and map",
+    "text": "Combine nested tibbles and map\nCount number of rows for each sub data frames\n\nCodemap(eukaryotes_nested$data, nrow)\n\n[[1]]\n[1] 51\n\n[[2]]\n[1] 888\n\n[[3]]\n[1] 1304\n\n[[4]]\n[1] 6064\n\n[[5]]\n[1] 3201\n\n\nCreate a new column using mutate()\n\nCodeeukaryotes_nested |&gt; \n  mutate(n_row = map_int(data, nrow))\n\n# A tibble: 5 × 3\n# Groups:   group [5]\n  group    data                  n_row\n  &lt;chr&gt;    &lt;list&gt;                &lt;int&gt;\n1 Other    &lt;tibble [51 × 18]&gt;       51\n2 Protists &lt;tibble [888 × 18]&gt;     888\n3 Plants   &lt;tibble [1,304 × 18]&gt;  1304\n4 Fungi    &lt;tibble [6,064 × 18]&gt;  6064\n5 Animals  &lt;tibble [3,201 × 18]&gt;  3201\n\n\nHow many different organisms are there per group ?\nThere are two different ways:\n\nCode# Define a custom function\nn_distinct_organisms &lt;- function(data) {\n\n  data |&gt; \n    pull(organism_name) |&gt; \n    n_distinct()\n\n}\n\n# Define a custom function as a formula\n# .x is the notation for the object that is given as an input to this function.\nn_distinct_organisms2 &lt;- ~ .x |&gt;\n  pull(organism_name) |&gt; \n  n_distinct()\n\n\nApply the function to our nested data:\n\nCodeeukaryotes_nested |&gt; \n  mutate(n_organisms = map_dbl(data,\n                               n_distinct_organisms\n                     ),\n         n_organisms2 = map_dbl(data,\n                               n_distinct_organisms2\n                     )\n         )\n\n# A tibble: 5 × 4\n# Groups:   group [5]\n  group    data                  n_organisms n_organisms2\n  &lt;chr&gt;    &lt;list&gt;                      &lt;dbl&gt;        &lt;dbl&gt;\n1 Other    &lt;tibble [51 × 18]&gt;             35           35\n2 Protists &lt;tibble [888 × 18]&gt;           490          490\n3 Plants   &lt;tibble [1,304 × 18]&gt;         673          673\n4 Fungi    &lt;tibble [6,064 × 18]&gt;        2926         2926\n5 Animals  &lt;tibble [3,201 × 18]&gt;        1987         1987\n\n\nWe can define the functions on the fly:\n\nCodeeukaryotes_nested |&gt; \n  mutate(n_organisms = map_dbl(data,\n                               ~ .x |&gt; pull(organism_name) |&gt; n_distinct()),\n         n_centers = map_dbl(data,\n                             ~ .x |&gt; pull(center) |&gt; n_distinct()),\n         n_subgroups = map_dbl(data,\n                               ~ .x |&gt; pull(subgroup) |&gt;  n_distinct()))\n\n# A tibble: 5 × 5\n# Groups:   group [5]\n  group    data                  n_organisms n_centers n_subgroups\n  &lt;chr&gt;    &lt;list&gt;                      &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;\n1 Other    &lt;tibble [51 × 18]&gt;             35        34           1\n2 Protists &lt;tibble [888 × 18]&gt;           490       265           3\n3 Plants   &lt;tibble [1,304 × 18]&gt;         673       492           3\n4 Fungi    &lt;tibble [6,064 × 18]&gt;        2926       950           3\n5 Animals  &lt;tibble [3,201 × 18]&gt;        1987       769           9",
+    "crumbs": [
+      "Home",
+      "Programming in R",
+      "Workshop"
+    ]
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#pmap-and-walk2-functions",
+    "href": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html#pmap-and-walk2-functions",
+    "title": "Programming in R Workshop",
+    "section": "pmap and walk2 functions",
+    "text": "pmap and walk2 functions\nWe will explain by the following example for pmap:\n\nCodedf &lt;- data.frame(\n  x = c(\"ATTTTACTGGGAGGGAA\", \"TATTTTTTAAAGGGCCC\", \"GCGCGCCCCAAATTATAGGC\", \"TGCCACATTTTATCCGCGCA\"),\n  pattern = c(\"A\", \"T\", \"G\", \"C\"),\n  replacement = c(\"a\", \"t\", \"g\", \"c\"),\n  stringsAsFactors = FALSE\n  )\n\npmap(df, gsub)\n\n[[1]]\n[1] \"aTTTTaCTGGGaGGGaa\"\n\n[[2]]\n[1] \"tAttttttAAAGGGCCC\"\n\n[[3]]\n[1] \"gCgCgCCCCAAATTATAggC\"\n\n[[4]]\n[1] \"TGccAcATTTTATccGcGcA\"\n\n\nExample for walk2:\n\nCodedf1 &lt;- data.frame(\n  index = c(1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10),\n  value = c(40,20,10,5,50,80,30,20,80,90,33,21,56,66,43,89,66,80,30,10),\n  category = c(\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\")\n)\n\ndf1 %&gt;%\n  split(.$category) %&gt;%\n  .[order(names(.))] %&gt;%\n  walk2(paste('Plot', names(.)), \n        ~plot(value ~ index, data = .x, type = \"l\", main = .y))",
+    "crumbs": [
+      "Home",
+      "Programming in R",
+      "Workshop"
+    ]
   },
   {
     "objectID": "08_Modelling_in_R/met581_08_modelling_r.html#objectives",
