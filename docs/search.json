@@ -576,7 +576,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#programming",
     "title": "Programming in R",
     "section": "Programming",
-    "text": "Programming\n\nThe implementation of logic to facilitate specified computing operations and functionality {.center}",
+    "text": "Programming\n\nThe implementation of logic to facilitate specified computing operations and functionality",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -642,7 +642,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-1",
     "title": "Programming in R",
     "section": "Defining Function Arguments",
-    "text": "Defining Function Arguments\n\nThere are two ways of passing the values to a function: by order and by name.\nCheck the description of mean() by typing ?mean\nThis is bad programming! X because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!).\nPassing them by name means you can change the order:\nBest practice is to define include the first argument (can be without name) of the function as the input data to be processed:\n\n\nmean(1:101, ,TRUE) # bad!\nmean(na.rm = TRUE, x = 1:101) # better\nmean(1:101, na.rm = TRUE) # best :)",
+    "text": "Defining Function Arguments\n\nThere are two ways of passing the values to a function: by order and by name.\nCheck the description of mean() by typing ?mean\nPassing unnamed arguments by order is bad programming because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!), and it makes your code much less clear!\nPassing them by name means you can change the order\nBest practice is to define include the first argument (can be without name) of the function as the input data to be processed:\n\n\nmean(1:101, ,TRUE) # bad!\nmean(na.rm = TRUE, x = 1:101) # better\nmean(1:101, na.rm = TRUE) # best :)",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -664,7 +664,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#defining-function-arguments-3",
     "title": "Programming in R",
     "section": "Defining Function Arguments",
-    "text": "Defining Function Arguments\n\nThe previous code can be simplified by using: stopifnot()\n\n\nmidValue &lt;- function(x) {\n  stopifnot(\"'x' has an even number of elements\" = length(x) %% 2 == 1)\n  midIndex &lt;- (length(x) + 1) / 2\n  return (x[midIndex])\n}\n\n\nAnd we can add multiple expressions in one go\n\n\ncalMean = function(x) {\n  stopifnot(exprs = {\n    \"'x' has to have a mean of 4 for some reason...\" = mean(x) == 4\n    \"'x' has to have length 4, don't ask why...\" = length(x) == 4\n  })\n}",
+    "text": "Defining Function Arguments\n\nThe previous code can be simplified by using: stopifnot()\n\n\nmidValue &lt;- function(x) {\n  stopifnot(\"'x' has an even number of elements\" = length(x) %% 2 == 1)\n  midIndex &lt;- (length(x) + 1) / 2\n  return (x[midIndex])\n}\n\n\nAnd we can add multiple expressions in one go\n\n\ncalMean = function(x) {\n  stopifnot(exprs = {\n    \"'x' has to have a mean of 4 for some reason...\" = mean(x) == 4\n    \"'x' has to have length 4, don't ask why...\" = length(x) == 4\n  })\n  mean(x)\n}",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -708,7 +708,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pipes-1",
     "title": "Programming in R",
     "section": "Pipes |>",
-    "text": "Pipes |&gt;\n\nIf we use our newly created print_missings() function, the invisible() command means that the input data frame will not get printed out but we can still use it in a pipe.\n\n\nlibrary(tidyverse)\ndiamonds |&gt;\n  print_missings() |&gt;\n  mutate(carat = ifelse(carat &lt; 0.25, NA, carat)) |&gt;\n  print_missings()\n\nMissing values: 0\nMissing values: 573",
+    "text": "Pipes |&gt;\n\nIf we use our newly created print_missings() function, the invisible() command means that the input data frame will not get printed out but we can still use it in a pipe.\n\n\ndiamonds |&gt;\n  print_missings() |&gt;\n  mutate(carat = ifelse(carat &lt; 0.25, NA, carat)) |&gt;\n  print_missings()\n\nMissing values: 0\nMissing values: 573",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -752,7 +752,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nEssentially, map() is the tidyverse equivalent of the base R apply family of functions.\nThe basic syntax is map(.x, .f, …) where:\n\n.x is a list, vector or dataframe\n.f is a function\nmap() will then apply .f to each element of .x in turn.",
+    "text": "The map family\n\n\nEssentially, map() is the tidyverse equivalent of the base R apply family of functions.\nThe basic syntax is map(.x, .f, ...) where:\n\n.x is a list, vector or dataframe\n.f is a function\nmap() will then apply .f to each element of .x in turn.",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -763,7 +763,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.65 0.46 0.54 0.48 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.28 0.42 0.35 0.36 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.65 0.46 0.54 0.48 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.65 0.46 0.54 0.48",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.34 0.47 0.62 0.35 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.32 0.35 0.29 0.32 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.34 0.47 0.62 0.35 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.34 0.47 0.62 0.35",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -818,7 +818,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 6.22 4.84 5.09 6.11 3.34\n $ : num [1:5] 15.79 9.61 5.07 12.95 14.2\n $ : num [1:5] -17.48 -1.71 -9.79 2.34 1.79",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 7.95 5.61 3.12 4.14 4.77\n $ : num [1:5] 3.03 1.44 13.05 17.21 14.1\n $ : num [1:5] 7.2835 -18.8086 -8.3601 -4.5737 -0.0673",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -840,7 +840,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] -0.4625 -0.8242 -0.8423 0.0808 -0.0411\n $ : num [1:5] -2.37 -3.53 5.93 8.6 4.46\n $ : int [1:5] 6 8 7 14 8",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 4.88\n $ : num [1:3] 18.42 9.56 18.31\n $ : num [1:5] -13.2 -2.98 -2.05 -31.84 -11.14\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.902 -0.755 0.201 0.374 0.181\n $ : num [1:5] 1.59 1.68 -11.73 1.13 -7.38\n $ : int [1:5] 13 4 13 8 6",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -873,7 +873,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
     "title": "Programming in R",
     "section": "pwalk",
-    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Merc 450SLC has a auto transmission and gets 15.2 mpgs.\"\n[1] \"The AMC Javelin has a auto transmission and gets 15.2 mpgs.\"\n[1] \"The Merc 230 has a auto transmission and gets 22.8 mpgs.\"",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Mazda RX4 Wag has a manual transmission and gets 21 mpgs.\"\n[1] \"The Volvo 142E has a manual transmission and gets 21.4 mpgs.\"\n[1] \"The Ferrari Dino has a manual transmission and gets 19.7 mpgs.\"",
     "crumbs": [
       "Home",
       "Programming in R"
@@ -884,7 +884,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
     "title": "Programming in R",
     "section": "While loops",
-    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  17\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
     "crumbs": [
       "Home",
       "Programming in R"

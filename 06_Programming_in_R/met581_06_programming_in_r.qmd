@@ -28,7 +28,7 @@ execute:
 
 ## Programming {.center}
 
-> The implementation of logic to facilitate specified computing operations and functionality {.center}
+> The implementation of logic to facilitate specified computing operations and functionality
 
 ## What we will cover
 
@@ -120,8 +120,8 @@ return(x ** y)
 
 -   There are two ways of passing the values to a function: by order and by name.
 -   Check the description of `mean()` by typing `?mean`
--   This is [**bad programming!**]{style="color:#cc0000"} X because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!).
--   Passing them by name means you can change the order:
+-   Passing unnamed arguments by order is [**bad programming**]{style="color:#cc0000"} because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!), and it makes your code much less clear!
+-   Passing them by name means you can change the order
 -   Best practice is to define include the first argument (can be without name) of the function as the input data to be processed:
 
 ```{r}
@@ -169,6 +169,7 @@ calMean = function(x) {
     "'x' has to have a mean of 4 for some reason..." = mean(x) == 4
     "'x' has to have length 4, don't ask why..." = length(x) == 4
   })
+  mean(x)
 }
 ```
 
@@ -227,7 +228,6 @@ print_missings <- function(df) {
 -   If we use our newly created `print_missings()` function, the `invisible()` command means that the input data frame will not get printed out but we can still use it in a pipe.
 
 ```{r}
-library(tidyverse)
 diamonds |>
   print_missings() |>
   mutate(carat = ifelse(carat < 0.25, NA, carat)) |>
@@ -287,10 +287,10 @@ for (i in seq_along(df)) {
 ![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   Essentially, map() is the tidyverse equivalent of the base R apply family of functions.
--   The basic syntax is map(.x, .f, ...) where:
-    -   .x is a list, vector or dataframe
-    -   .f is a function
-    -   map() will then apply .f to each element of .x in turn.
+-   The basic syntax is `map(.x, .f, ...)` where:
+    -   `.x` is a list, vector or dataframe
+    -   `.f` is a function
+    -   `map()` will then apply `.f` to each element of `.x` in turn.
 
 ![](/images/purrr_map_cartoon.png){fig-align="center" width="600px"}
 
@@ -408,7 +408,7 @@ map2(mu, sigma, rnorm, n = 5) |>
 -   There is no map3 or map4, so what if we want more than 2 arguments? `purrr` has the function `pmap()` for an arbitrary number of args.
 
 ```{r}
-#| eval: false
+#| output-location: column
 n <- list(1, 3, 5)
 arguments <- list(n, mu, sigma)
 
@@ -487,7 +487,7 @@ ds_mt |>
 -   **Example**: see how many times we need to flip a coin to get three heads in a row:
 
 ```{r}
-#| eval: false
+#| output-location: column
 flip_coin <- function() {
   sample(c("T", "H"), 1)
 }

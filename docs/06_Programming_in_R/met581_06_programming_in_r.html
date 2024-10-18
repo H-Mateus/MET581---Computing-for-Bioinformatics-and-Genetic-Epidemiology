@@ -418,7 +418,7 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <section id="programming" class="slide level2 center">
 <h2>Programming</h2>
 <blockquote>
-<p>The implementation of logic to facilitate specified computing operations and functionality {.center}</p>
+<p>The implementation of logic to facilitate specified computing operations and functionality</p>
 </blockquote>
 </section>
 <section id="what-we-will-cover" class="slide level2">
@@ -536,8 +536,8 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</code></pre>
 <ul>
 <li>There are two ways of passing the values to a function: by order and by name.</li>
 <li>Check the description of <code>mean()</code> by typing <code>?mean</code></li>
-<li>This is <span style="color:#cc0000"><strong>bad programming!</strong></span> X because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!).</li>
-<li>Passing them by name means you can change the order:</li>
+<li>Passing unnamed arguments by order is <span style="color:#cc0000"><strong>bad programming</strong></span> because it means you have to remember the command and each of its arguments (try doing that for 1000 functions!), and it makes your code much less clear!</li>
+<li>Passing them by name means you can change the order</li>
 <li>Best practice is to define include the first argument (can be without name) of the function as the input data to be processed:</li>
 </ul>
 <div class="cell">
@@ -586,7 +586,8 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</code></pre>
 <span id="cb14-3"><a></a>    <span class="st">"'x' has to have a mean of 4 for some reason..."</span> <span class="ot">=</span> <span class="fu">mean</span>(x) <span class="sc">==</span> <span class="dv">4</span></span>
 <span id="cb14-4"><a></a>    <span class="st">"'x' has to have length 4, don't ask why..."</span> <span class="ot">=</span> <span class="fu">length</span>(x) <span class="sc">==</span> <span class="dv">4</span></span>
 <span id="cb14-5"><a></a>  })</span>
-<span id="cb14-6"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-6"><a></a>  <span class="fu">mean</span>(x)</span>
+<span id="cb14-7"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="dot-dot-dot" class="slide level2">
@@ -663,11 +664,10 @@ Datsun 710    22.8   4  108  93 3.85 2.320 18.61  1  1    4    1</code></pre>
 <li>If we use our newly created <code>print_missings()</code> function, the <code>invisible()</code> command means that the input data frame will not get printed out but we can still use it in a pipe.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb22-2"><a></a>diamonds <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a></a>  <span class="fu">print_missings</span>() <span class="sc">|&gt;</span></span>
-<span id="cb22-4"><a></a>  <span class="fu">mutate</span>(<span class="at">carat =</span> <span class="fu">ifelse</span>(carat <span class="sc">&lt;</span> <span class="fl">0.25</span>, <span class="cn">NA</span>, carat)) <span class="sc">|&gt;</span></span>
-<span id="cb22-5"><a></a>  <span class="fu">print_missings</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a>diamonds <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">print_missings</span>() <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a></a>  <span class="fu">mutate</span>(<span class="at">carat =</span> <span class="fu">ifelse</span>(carat <span class="sc">&lt;</span> <span class="fl">0.25</span>, <span class="cn">NA</span>, carat)) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a></a>  <span class="fu">print_missings</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Missing values: 0
 Missing values: 573</code></pre>
@@ -729,11 +729,11 @@ Missing values: 573</code></pre>
 <p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>Essentially, map() is the tidyverse equivalent of the base R apply family of functions.</li>
-<li>The basic syntax is map(.x, .f, …) where:
+<li>The basic syntax is <code>map(.x, .f, ...)</code> where:
 <ul>
-<li>.x is a list, vector or dataframe</li>
-<li>.f is a function</li>
-<li>map() will then apply .f to each element of .x in turn.</li>
+<li><code>.x</code> is a list, vector or dataframe</li>
+<li><code>.f</code> is a function</li>
+<li><code>map()</code> will then apply <code>.f</code> to each element of <code>.x</code> in turn.</li>
 </ul></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -753,18 +753,18 @@ Missing values: 573</code></pre>
 <span id="cb27-2"><a></a><span class="fu">map_dbl</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.65 0.46 0.54 0.48 </code></pre>
+0.34 0.47 0.62 0.35 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">map_dbl</span>(df, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.28 0.42 0.35 0.36 </code></pre>
+0.32 0.35 0.29 0.32 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># And here's the native R sapply equivalent</span></span>
 <span id="cb31-2"><a></a><span class="fu">sapply</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.65 0.46 0.54 0.48 </code></pre>
+0.34 0.47 0.62 0.35 </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -775,7 +775,7 @@ Missing values: 573</code></pre>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">map_dbl</span>(df, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.65 0.46 0.54 0.48 </code></pre>
+0.34 0.47 0.62 0.35 </code></pre>
 </div>
 </div>
 </div>
@@ -881,9 +881,9 @@ Missing values: 573</code></pre>
 <span id="cb44-6"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 6.22 4.84 5.09 6.11 3.34
- $ : num [1:5] 15.79 9.61 5.07 12.95 14.2
- $ : num [1:5] -17.48 -1.71 -9.79 2.34 1.79</code></pre>
+ $ : num [1:5] 7.95 5.61 3.12 4.14 4.77
+ $ : num [1:5] 3.03 1.44 13.05 17.21 14.1
+ $ : num [1:5] 7.2835 -18.8086 -8.3601 -4.5737 -0.0673</code></pre>
 </div>
 </div>
 </section>
@@ -899,28 +899,36 @@ Missing values: 573</code></pre>
 <ul>
 <li>There is no map3 or map4, so what if we want more than 2 arguments? <code>purrr</code> has the function <code>pmap()</code> for an arbitrary number of args.</li>
 </ul>
-<div class="cell">
+<div class="cell columns column-output-location">
+<div class="column">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>n <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
 <span id="cb46-2"><a></a>arguments <span class="ot">&lt;-</span> <span class="fu">list</span>(n, mu, sigma)</span>
 <span id="cb46-3"><a></a></span>
 <span id="cb46-4"><a></a>arguments <span class="sc">|&gt;</span></span>
 <span id="cb46-5"><a></a>  <span class="fu">pmap</span>(rnorm) <span class="sc">|&gt;</span></span>
 <span id="cb46-6"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ : num 4.88
+ $ : num [1:3] 18.42 9.56 18.31
+ $ : num [1:5] -13.2 -2.98 -2.05 -31.84 -11.14</code></pre>
 </div>
+</div></div>
 <ul>
 <li>We can go even further by increasing the complexity of the problem using the <code>exec()</code> function.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>funcs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"runif"</span>, <span class="st">"rnorm"</span>, <span class="st">"rpois"</span>)</span>
-<span id="cb47-2"><a></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>), <span class="fu">list</span>(<span class="at">sd =</span> <span class="dv">5</span>), <span class="fu">list</span>(<span class="at">lambda =</span> <span class="dv">10</span>))</span>
-<span id="cb47-3"><a></a></span>
-<span id="cb47-4"><a></a><span class="fu">map2</span>(funcs, params, \(fn, args) <span class="fu">exec</span>(fn, <span class="sc">!!!</span>args, <span class="at">n =</span> <span class="dv">5</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb47-5"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>funcs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"runif"</span>, <span class="st">"rnorm"</span>, <span class="st">"rpois"</span>)</span>
+<span id="cb48-2"><a></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">list</span>(<span class="at">min =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">max =</span> <span class="dv">1</span>), <span class="fu">list</span>(<span class="at">sd =</span> <span class="dv">5</span>), <span class="fu">list</span>(<span class="at">lambda =</span> <span class="dv">10</span>))</span>
+<span id="cb48-3"><a></a></span>
+<span id="cb48-4"><a></a><span class="fu">map2</span>(funcs, params, \(fn, args) <span class="fu">exec</span>(fn, <span class="sc">!!!</span>args, <span class="at">n =</span> <span class="dv">5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb48-5"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] -0.4625 -0.8242 -0.8423 0.0808 -0.0411
- $ : num [1:5] -2.37 -3.53 5.93 8.6 4.46
- $ : int [1:5] 6 8 7 14 8</code></pre>
+ $ : num [1:5] 0.902 -0.755 0.201 0.374 0.181
+ $ : num [1:5] 1.59 1.68 -11.73 1.13 -7.38
+ $ : int [1:5] 13 4 13 8 6</code></pre>
 </div>
 </div>
 </section>
@@ -930,9 +938,9 @@ Missing values: 573</code></pre>
 <li><code>walk()</code> is an alternative to map that we use we call a function for its side effects, disregarding its return value.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">"a"</span>, <span class="dv">3</span>)</span>
-<span id="cb49-2"><a></a>x <span class="sc">|&gt;</span></span>
-<span id="cb49-3"><a></a>  <span class="fu">walk</span>(print)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="dv">1</span>, <span class="st">"a"</span>, <span class="dv">3</span>)</span>
+<span id="cb50-2"><a></a>x <span class="sc">|&gt;</span></span>
+<span id="cb50-3"><a></a>  <span class="fu">walk</span>(print)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1
 [1] "a"
@@ -947,19 +955,19 @@ Missing values: 573</code></pre>
 <section id="walk2" class="slide level2">
 <h2>walk2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a></a>df0 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>))</span>
-<span id="cb51-2"><a></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>))</span>
-<span id="cb51-3"><a></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>))</span>
-<span id="cb51-4"><a></a>animalFrames <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">animals =</span> <span class="fu">c</span>(<span class="st">'sheep'</span>, <span class="st">'cow'</span>, <span class="st">'horse'</span>),</span>
-<span id="cb51-5"><a></a>                       <span class="at">frames =</span></span>
-<span id="cb51-6"><a></a>                         <span class="fu">list</span>(df0, df1, df2))</span>
-<span id="cb51-7"><a></a><span class="co"># Save a list of dataframes</span></span>
-<span id="cb51-8"><a></a>animalFrames <span class="sc">%&gt;%</span></span>
-<span id="cb51-9"><a></a>  <span class="fu">walk2</span>(</span>
-<span id="cb51-10"><a></a>    <span class="at">.x =</span> .<span class="sc">$</span>animals,</span>
-<span id="cb51-11"><a></a>    <span class="at">.y =</span> .<span class="sc">$</span>frames,</span>
-<span id="cb51-12"><a></a>    <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">write_csv</span>(.y, <span class="fu">str_c</span>(<span class="st">"test_"</span>, .x, <span class="st">".csv"</span>))</span>
-<span id="cb51-13"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>df0 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>))</span>
+<span id="cb52-2"><a></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>))</span>
+<span id="cb52-3"><a></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">3</span>))</span>
+<span id="cb52-4"><a></a>animalFrames <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">animals =</span> <span class="fu">c</span>(<span class="st">'sheep'</span>, <span class="st">'cow'</span>, <span class="st">'horse'</span>),</span>
+<span id="cb52-5"><a></a>                       <span class="at">frames =</span></span>
+<span id="cb52-6"><a></a>                         <span class="fu">list</span>(df0, df1, df2))</span>
+<span id="cb52-7"><a></a><span class="co"># Save a list of dataframes</span></span>
+<span id="cb52-8"><a></a>animalFrames <span class="sc">%&gt;%</span></span>
+<span id="cb52-9"><a></a>  <span class="fu">walk2</span>(</span>
+<span id="cb52-10"><a></a>    <span class="at">.x =</span> .<span class="sc">$</span>animals,</span>
+<span id="cb52-11"><a></a>    <span class="at">.y =</span> .<span class="sc">$</span>frames,</span>
+<span id="cb52-12"><a></a>    <span class="at">.f =</span> <span class="sc">~</span> <span class="fu">write_csv</span>(.y, <span class="fu">str_c</span>(<span class="st">"test_"</span>, .x, <span class="st">".csv"</span>))</span>
+<span id="cb52-13"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="pwalk" class="slide level2">
@@ -968,24 +976,24 @@ Missing values: 573</code></pre>
 <li><code>pmap()</code> and <code>pwalk()</code> allow you to provide any number of arguments in a list.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52" data-code-line-numbers="1-10|11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a><span class="co"># Let's set-up a dataframe and function to use with pwalk</span></span>
-<span id="cb52-2"><a></a>ds_mt <span class="ot">&lt;-</span></span>
-<span id="cb52-3"><a></a>  mtcars <span class="sc">|&gt;</span></span>
-<span id="cb52-4"><a></a>  <span class="fu">rownames_to_column</span>(<span class="st">"model"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb52-5"><a></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"auto"</span>, <span class="st">"manual"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb52-6"><a></a>  <span class="fu">select</span>(model, mpg, wt, cyl, am) <span class="sc">|&gt;</span></span>
-<span id="cb52-7"><a></a>  <span class="fu">sample_n</span>(<span class="dv">3</span>)</span>
-<span id="cb52-8"><a></a>foo <span class="ot">&lt;-</span> <span class="cf">function</span>(model, am, mpg) {</span>
-<span id="cb52-9"><a></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The"</span>, model, <span class="st">"has a"</span>, am, <span class="st">"transmission and gets"</span>, mpg, <span class="st">"mpgs."</span>))</span>
-<span id="cb52-10"><a></a>}</span>
-<span id="cb52-11"><a></a><span class="co"># Now we can use pwalk</span></span>
-<span id="cb52-12"><a></a>ds_mt <span class="sc">|&gt;</span></span>
-<span id="cb52-13"><a></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
-<span id="cb52-14"><a></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53" data-code-line-numbers="1-10|11-14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a></a><span class="co"># Let's set-up a dataframe and function to use with pwalk</span></span>
+<span id="cb53-2"><a></a>ds_mt <span class="ot">&lt;-</span></span>
+<span id="cb53-3"><a></a>  mtcars <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a></a>  <span class="fu">rownames_to_column</span>(<span class="st">"model"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-5"><a></a>  <span class="fu">mutate</span>(<span class="at">am =</span> <span class="fu">factor</span>(am, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"auto"</span>, <span class="st">"manual"</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb53-6"><a></a>  <span class="fu">select</span>(model, mpg, wt, cyl, am) <span class="sc">|&gt;</span></span>
+<span id="cb53-7"><a></a>  <span class="fu">sample_n</span>(<span class="dv">3</span>)</span>
+<span id="cb53-8"><a></a>foo <span class="ot">&lt;-</span> <span class="cf">function</span>(model, am, mpg) {</span>
+<span id="cb53-9"><a></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The"</span>, model, <span class="st">"has a"</span>, am, <span class="st">"transmission and gets"</span>, mpg, <span class="st">"mpgs."</span>))</span>
+<span id="cb53-10"><a></a>}</span>
+<span id="cb53-11"><a></a><span class="co"># Now we can use pwalk</span></span>
+<span id="cb53-12"><a></a>ds_mt <span class="sc">|&gt;</span></span>
+<span id="cb53-13"><a></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
+<span id="cb53-14"><a></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The Merc 450SLC has a auto transmission and gets 15.2 mpgs."
-[1] "The AMC Javelin has a auto transmission and gets 15.2 mpgs."
-[1] "The Merc 230 has a auto transmission and gets 22.8 mpgs."</code></pre>
+<pre><code>[1] "The Mazda RX4 Wag has a manual transmission and gets 21 mpgs."
+[1] "The Volvo 142E has a manual transmission and gets 21.4 mpgs."
+[1] "The Ferrari Dino has a manual transmission and gets 19.7 mpgs."</code></pre>
 </div>
 </div>
 </section>
@@ -995,22 +1003,27 @@ Missing values: 573</code></pre>
 <li>You’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met</li>
 <li><strong>Example</strong>: see how many times we need to flip a coin to get three heads in a row:</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a></a>flip_coin <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb54-2"><a></a>  <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"T"</span>, <span class="st">"H"</span>), <span class="dv">1</span>)</span>
-<span id="cb54-3"><a></a>}</span>
-<span id="cb54-4"><a></a>numFlips <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb54-5"><a></a>numHeads <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb54-6"><a></a><span class="cf">while</span> (numHeads <span class="sc">&lt;</span> <span class="dv">3</span>) {</span>
-<span id="cb54-7"><a></a>  <span class="cf">if</span> (<span class="fu">flip_coin</span>() <span class="sc">==</span> <span class="st">"H"</span>) {</span>
-<span id="cb54-8"><a></a>    numHeads <span class="ot">&lt;-</span> numHeads <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb54-9"><a></a>  } <span class="cf">else</span> {</span>
-<span id="cb54-10"><a></a>    numHeads <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb54-11"><a></a>  }</span>
-<span id="cb54-12"><a></a>  numFlips <span class="ot">&lt;-</span> numFlips <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb54-13"><a></a>}</span>
-<span id="cb54-14"><a></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a></a>flip_coin <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb55-2"><a></a>  <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"T"</span>, <span class="st">"H"</span>), <span class="dv">1</span>)</span>
+<span id="cb55-3"><a></a>}</span>
+<span id="cb55-4"><a></a>numFlips <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb55-5"><a></a>numHeads <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb55-6"><a></a><span class="cf">while</span> (numHeads <span class="sc">&lt;</span> <span class="dv">3</span>) {</span>
+<span id="cb55-7"><a></a>  <span class="cf">if</span> (<span class="fu">flip_coin</span>() <span class="sc">==</span> <span class="st">"H"</span>) {</span>
+<span id="cb55-8"><a></a>    numHeads <span class="ot">&lt;-</span> numHeads <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb55-9"><a></a>  } <span class="cf">else</span> {</span>
+<span id="cb55-10"><a></a>    numHeads <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb55-11"><a></a>  }</span>
+<span id="cb55-12"><a></a>  numFlips <span class="ot">&lt;-</span> numFlips <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb55-13"><a></a>}</span>
+<span id="cb55-14"><a></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of flips to get 3 heads in a row:  17</code></pre>
 </div>
+</div></div>
 <ul>
 <li><span style="color:#cc0000"><strong>Beware</strong></span> that while loops can crash if the condition being evaluated never becomes false!</li>
 </ul>
