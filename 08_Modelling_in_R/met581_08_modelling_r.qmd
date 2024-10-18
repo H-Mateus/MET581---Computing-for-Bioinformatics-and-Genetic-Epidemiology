@@ -532,3 +532,7 @@ penguins %>%
 -   A nice YouTube channel with lots of modelling examples: <https://www.youtube.com/@JuliaSilge/featured>
 
 ## Workshop time! {.center}
+
+-   These slides and the workshop can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
+
+![](/images/website_qrcode.svg){fig-align="center"}

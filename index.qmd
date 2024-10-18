@@ -1,7 +1,10 @@
 ---
-title: "Cardiff Univeristy Bioinformatics MSc MET581 R lectures"
+title: "Welcome!"
+author: "Gabriel Mateus Bernardo Harrington"
 ---
 
-Welcome!
+This website houses the lecture materials associated with the MET581 module R lectures.
 
-Use the side bar to navigate to lecture materials
+Use the side bar to navigate to lecture materials.
+
+You can find the source files for this website and the lecture materials in GitHub [here](https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology).

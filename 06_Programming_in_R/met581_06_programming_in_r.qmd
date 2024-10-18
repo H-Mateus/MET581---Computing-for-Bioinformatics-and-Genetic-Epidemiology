@@ -20,7 +20,7 @@ affiliations:
 format: 
   revealjs:
     logo: /images/combined_logos.png
-    footer: "MET581 - Programming in R"
+    footer: "MET581 - Programming in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     theme: [dark, ../styles.scss]
 execute: 
   echo: true
@@ -507,4 +507,15 @@ cat("Number of flips to get 3 heads in a row: ", numFlips)
 -   [**Beware**]{style="color:#cc0000"} that while loops can crash if the condition being evaluated never becomes false!
 
 ## Workshop time! {.center}
+
+-   These slides and the workshop can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
+
+```{r}
+#| eval: false
+#| include: false
+qr <- qrcode::qr_code("https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/")
+qrcode::generate_svg(qr, here::here("images/website_qrcode.svg"))
+```
+
+![](/images/website_qrcode.svg){fig-align="center"}
 

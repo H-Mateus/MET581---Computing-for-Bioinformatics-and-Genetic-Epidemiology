@@ -6,12 +6,17 @@ project:
     - "!*.rmd"
 
 website:
-  title: "Cardiff Univeristy Bioinformatics MSc R lectures"
+  title: "MET581 - R lecture material"
+  repo-url: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology
+  issue-url: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose
+  repo-actions: [edit, issue]
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+    right: 
+      - icon: github
+        href: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology
   sidebar:
     style: "docked"
     search: true
@@ -22,9 +27,16 @@ website:
             href: 06_Programming_in_R/met581_06_programming_in_r.qmd
           - text: "Workshop"
             href: 10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.qmd
-      - text: "Data Visualisation in R"
-        href: 07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.qmd
-      - 08_Modelling_in_R/met581_08_modelling_r.qmd
+      - section: "Data Visualisation in R"
+        contents: 
+          - text: "Slides"
+            href: 07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.qmd
+      - section: "Modelling in R"
+        contents: 
+          - text: "Slides"
+            href: 08_Modelling_in_R/met581_08_modelling_r.qmd
+          - text: "Practice"
+            href: 08_Modelling_in_R/modelling_in_r_practice.qmd
       
 execute: 
   freeze: auto

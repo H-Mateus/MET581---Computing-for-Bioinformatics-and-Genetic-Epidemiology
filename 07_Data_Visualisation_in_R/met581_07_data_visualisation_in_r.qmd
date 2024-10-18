@@ -800,4 +800,9 @@ ggstatsplot::ggscatterstats(mtcars, x = hp, y = qsec)
 
 -   <https://github.com/jrnold/ggthemes>
 
-## Workshop time! {.center}
+## That's all folks! {.center}
+
+-   These slides can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
+
+![](/images/website_qrcode.svg){fig-align="center"}
+

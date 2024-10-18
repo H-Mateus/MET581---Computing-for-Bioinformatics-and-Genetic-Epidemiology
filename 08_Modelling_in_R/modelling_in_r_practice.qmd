@@ -1,0 +1,122 @@
+---
+title: "Modelling in R - Practice"
+author: "Gabriel Mateus Bernardo Harrington"
+format: 
+  html:
+    code-fold: true
+    code-tools: true
+execute:
+  echo: true
+  warning: false
+---
+
+## Introduction
+
+This homework assignment is designed to reinforce your understanding of the tidymodels framework and its application in bioinformatics, note that it isn't a formal assessment and so isn't required, is just here to support your learning. 
+Please complete all questions and code challenges. 
+Remember to document your code and explain your reasoning where appropriate.
+
+## Setup
+
+First, load the necessary libraries and dataset. We'll be using a simulated gene expression dataset.
+
+```{r}
+#| label: setup
+#| message: false
+library(tidymodels)
+library(ggplot2)
+library(dplyr)
+
+# Set seed for reproducibility
+set.seed(42)
+
+# Create a simulated gene expression dataset
+n_samples <- 1000
+n_genes <- 50
+
+gene_expression_data <- tibble(
+  sample_id = 1:n_samples,
+  condition = factor(sample(c("Control", "Treatment"), n_samples, replace = TRUE)),
+  gene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)
+)
+
+colnames(gene_expression_data)[3:ncol(gene_expression_data)] <- paste0("gene_", 1:n_genes)
+```
+
+## Questions and Challenges
+
+### 1. Data Exploration
+
+Explore the `gene_expression_data` dataset. 
+
+a) How many samples and genes are in the dataset?
+b) Create a boxplot comparing the expression levels of the first 5 genes between the Control and Treatment conditions.
+
+```{r}
+# Your code here
+```
+
+### 2. Data Preprocessing with recipes
+
+Create a recipe that does the following:
+- Uses `condition` as the outcome variable
+- Normalizes all gene expression variables
+- Performs PCA on the normalized gene expression data, keeping enough principal components to explain 90% of the variance
+
+```{r}
+# Your code here
+```
+
+### 3. Data Splitting
+
+Split the data into training (80%) and testing (20%) sets. Use stratified sampling based on the `condition` variable.
+
+```{r}
+# Your code here
+```
+
+### 4. Model Specification
+
+Specify a random forest model using the `rand_forest()` function from parsnip. Set it up for a classification task and use the "ranger" engine. Choose at least two hyperparameters to tune.
+
+```{r}
+# Your code here
+```
+
+### 5. Create a Workflow
+
+Combine your recipe and model specification into a workflow.
+
+```{r}
+# Your code here
+```
+
+### 6. Model Tuning
+
+Set up a grid for tuning your chosen hyperparameters. Use `tune_grid()` to perform 5-fold cross-validation on the training data. Visualize the results of your tuning process.
+
+```{r}
+# Your code here
+```
+
+### 7. Final Model and Evaluation
+
+Select the best model from your tuning results, finalize the workflow, and fit it to the entire training set. Then, use this final model to make predictions on the test set. Calculate and visualize at least two performance metrics of your choice.
+
+```{r}
+# Your code here
+```
+
+### 8. Interpretation
+
+a) Which genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the `vip` package for variable importance)
+
+b) How well does your model perform? Discuss potential biological implications of your findings.
+
+c) Suggest at least two ways you might improve this analysis pipeline.
+
+### Bonus Challenge
+
+Create a custom `step_*()` function for your recipe that performs a simple transformation specific to gene expression data (e.g., log transformation or handling of zero values). Incorporate this custom step into your preprocessing recipe.
+
+Good luck!
