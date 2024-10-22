@@ -8,7 +8,7 @@
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.5.54">
+  <meta name="generator" content="quarto-1.5.55">
 
   <meta name="author" content="Gabriel Mateus Bernardo Harrington">
   <title>MET581 - R lecture material – Modelling in R</title>
@@ -99,6 +99,7 @@
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-drop/drop-runtime.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
@@ -1234,16 +1235,16 @@ Predictors: c(species, bill_depth_mm, sex)
 Linear mixed model fit by REML ['lmerMod']
 Formula: body_mass_g ~ sex + (bill_depth_mm | species)
    Data: data
-REML criterion at convergence: 4748.6697
+REML criterion at convergence: 4748.67
 Random effects:
- Groups   Name          Std.Dev.   Corr      
- species  (Intercept)   405.449987           
-          bill_depth_mm 115.493570 -0.5680926
- Residual               301.509172           
+ Groups   Name          Std.Dev. Corr 
+ species  (Intercept)   405.4         
+          bill_depth_mm 115.5    -0.57
+ Residual               301.5         
 Number of obs: 333, groups:  species, 3
 Fixed Effects:
 (Intercept)      sexmale  
-2470.016038   510.401317  </code></pre>
+     2469.9        510.4  </code></pre>
 </div>
 </div></div>
 </section>
@@ -2300,7 +2301,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
 <tr class="odd">
 <td class="gt_row gt_left" headers=".metric">accuracy</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.919</td>
+<td class="gt_row gt_right" headers="mean">0.918</td>
 <td class="gt_row gt_right" headers="n">25</td>
 <td class="gt_row gt_right" headers="std_err">0.006</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
@@ -2526,6 +2527,7 @@ Prediction female male
   <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-drop/drop-runtime.js"></script>
   <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -2547,6 +2549,7 @@ Prediction female male
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'drop': {"button":true,"shortcut":"`","engine":"webr","webr":{"packages":["tidyverse","conflicted"]},"pyodide":{"packages":[]}},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -2717,7 +2720,7 @@ Prediction female male
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealDrop, QuartoSupport,
 
           RevealMath,
           RevealNotes,

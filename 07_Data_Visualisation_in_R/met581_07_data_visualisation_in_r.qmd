@@ -34,6 +34,14 @@ format:
           transform: translateY(-50%), translateX(-50%);
         }
         </style>
+    drop:
+      engine: webr
+      webr:
+        packages:
+          - tidyverse
+          - conflicted
+revealjs-plugins:
+  - drop        
 execute: 
   echo: true
 ---

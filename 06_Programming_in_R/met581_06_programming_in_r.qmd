@@ -17,11 +17,19 @@ affiliations:
   - id: dri
     name: UK Dementia Research Institue
     url: https://ukdri.ac.uk/
-format: 
+format:
   revealjs:
     logo: /images/combined_logos.png
     footer: "MET581 - Programming in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     theme: [dark, ../styles.scss]
+    drop:
+      engine: webr
+      webr:
+        packages:
+          - tidyverse
+          - conflicted
+revealjs-plugins:
+  - drop
 execute: 
   echo: true
 ---

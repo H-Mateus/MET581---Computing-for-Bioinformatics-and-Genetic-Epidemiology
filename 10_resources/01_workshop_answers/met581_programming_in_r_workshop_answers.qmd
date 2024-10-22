@@ -4,7 +4,6 @@ author: "Dr. Sumukh Deshpande"
 date: "20 October 2020"
 format:
   html:
-    theme: united
     toc: true
     toc_float: yes
     code-fold: true
