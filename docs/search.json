@@ -28,7 +28,7 @@
     "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#data-visualisation---an-overview",
     "title": "Data Visualisation in R",
     "section": "Data Visualisation - An Overview",
-    "text": "Data Visualisation - An Overview\n\nThe overall aim of visualising data:\n\nMake all your plots as self explanatory as possible!\n\nFor these lectures, we will focus on ggplot2, a tidyverse package\n\nInspired on the Grammer of Graphics, a book that aims to formalise visualisations into layers\n\nHas multiple add-ons, such as ggrepel (for text labels) and ggpubr (for publication-ready plots) or patchwork (for combining multiple plots)",
+    "text": "Data Visualisation - An Overview\n\nThe overall aim of visualising data:\n\nMake all your plots as self explanatory as possible!\n\nFor this lecture, we will focus on ggplot2, a tidyverse package\n\nInspired on the Grammer of Graphics, a book that aims to formalise visualisations into layers\n\nHas multiple add-ons, such as ggrepel (for text labels) and ggpubr (for publication-ready plots) or patchwork (for combining multiple plots)",
     "crumbs": [
       "Home",
       "Data Visualisation in R",
@@ -580,7 +580,7 @@
     "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots",
     "title": "Data Visualisation in R",
     "section": "3D Plots",
-    "text": "3D Plots\n\nplotly can be used to make 3D plots, but this is very situational and should probably only be done in cases where the plot is intended to be interactive\n\n\n\nmtcars$gear &lt;- as.factor(mtcars$gear)\n\nplot_ly(\n  mtcars,\n  x = ~ wt,\n  y = ~ hp,\n  z = ~ qsec,\n  color = ~ gear\n) |&gt;\n  add_markers() |&gt;\n  plotly::layout(scene = list(\n    xaxis = list(title = 'Weight'),\n    yaxis = list(title = 'Gross horsepower'),\n    zaxis = list(title = '1/4 mile time')\n  ))",
+    "text": "3D Plots\n\nplotly can be used to make 3D plots, but this is very situational and should probably only be done in cases where the plot is intended to be interactive\n\n\nmtcars$gear &lt;- as.factor(mtcars$gear)\n\nplot_ly(\n  mtcars,\n  x = ~ wt,\n  y = ~ hp,\n  z = ~ qsec,\n  color = ~ gear\n) |&gt;\n  add_markers() |&gt;\n  plotly::layout(scene = list(\n    xaxis = list(title = 'Weight'),\n    yaxis = list(title = 'Gross horsepower'),\n    zaxis = list(title = '1/4 mile time')\n  ))",
     "crumbs": [
       "Home",
       "Data Visualisation in R",
@@ -616,7 +616,7 @@
     "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#thats-all-folks",
     "title": "Data Visualisation in R",
     "section": "That’s all folks!",
-    "text": "That’s all folks!\n\nThese slides can be found on the website here:\n\n\n\n\n\n\n\n\n\n\nMET581 - Data Visualisation in R",
+    "text": "That’s all folks!\n\nThese slides can be found on the website here:\n\n\n\n\n\n\n\n\n\n\nMET581 - Data Visualisation in R - Slides and code avilable here",
     "crumbs": [
       "Home",
       "Data Visualisation in R",
@@ -1598,6 +1598,18 @@
     "crumbs": [
       "Home",
       "Modelling in R",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots-output",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots-output",
+    "title": "Data Visualisation in R",
+    "section": "3D Plots",
+    "text": "3D Plots",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R",
       "Slides"
     ]
   }

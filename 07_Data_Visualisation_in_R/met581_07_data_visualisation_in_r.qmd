@@ -20,7 +20,7 @@ affiliations:
 format: 
   revealjs:
     logo: /10_resources/00_images/combined_logos.png
-    footer: "MET581 - Data Visualisation in R"
+    footer: "MET581 - Data Visualisation in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     theme: [dark, ../styles.scss]
     include-in-header: 
       text: |
@@ -64,7 +64,7 @@ execute:
 
 -   The overall aim of visualising data:
     -   Make all your plots as self explanatory as possible!
--   For these lectures, we will focus on `ggplot2`, a tidyverse package
+-   For this lecture, we will focus on `ggplot2`, a tidyverse package
     -   Inspired on the [Grammer of Graphics](https://link.springer.com/book/10.1007/0-387-28695-0), a book that aims to formalise visualisations into layers
 -   Has multiple add-ons, such as `ggrepel` (for text labels) and `ggpubr` (for publication-ready plots) or `patchwork` (for combining multiple plots)
 
@@ -766,9 +766,7 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 -   `plotly` can be used to make 3D plots, but this is very situational and should probably only be done in cases where the plot is intended to be interactive
 
 ```{r}
-#| output-location: column
-#| fig-height: 5
-#| fig-width: 5
+#| output-location: slide
 mtcars$gear <- as.factor(mtcars$gear)
 
 plot_ly(
