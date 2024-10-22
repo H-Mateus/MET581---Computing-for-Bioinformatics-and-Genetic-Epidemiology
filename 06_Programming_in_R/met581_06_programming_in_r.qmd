@@ -19,7 +19,7 @@ affiliations:
     url: https://ukdri.ac.uk/
 format:
   revealjs:
-    logo: /images/combined_logos.png
+    logo: /10_resources/00_images/combined_logos.png
     footer: "MET581 - Programming in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     theme: [dark, ../styles.scss]
     drop:
@@ -244,7 +244,7 @@ diamonds |>
 
 ## Iterations with purrr
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   We want to keep code **efficient** and **less repetitive**: performing the same thing on multiple inputs, repeating the operation on multiple columns, or on different datasets.
 -   To help achieve this, **iterations** are used. For example:
@@ -268,7 +268,7 @@ df$d <- rescale(df$d) # Wow this is tedious...
 
 ## Iterations with purrr
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   This can be simplified with a for loop
 
@@ -292,7 +292,7 @@ for (i in seq_along(df)) {
 
 ## The map family
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   Essentially, map() is the tidyverse equivalent of the base R apply family of functions.
 -   The basic syntax is `map(.x, .f, ...)` where:
@@ -300,11 +300,11 @@ for (i in seq_along(df)) {
     -   `.f` is a function
     -   `map()` will then apply `.f` to each element of `.x` in turn.
 
-![](/images/purrr_map_cartoon.png){fig-align="center" width="600px"}
+![](/10_resources/00_images/purrr_map_cartoon.png){fig-align="center" width="600px"}
 
 ## The map family
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   We can use the `map` function to compute the mean and standard deviation of previous dataset.
 
@@ -326,7 +326,7 @@ map_dbl(df, mean, na.rm = TRUE) |> round(digits = 2)
 
 ## The map family
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   We can even use a string or a position (integer) to extract components from the input data - very useful when working with big datasets!
 
@@ -342,7 +342,7 @@ x |> map_dbl(2)
 
 ## map_ functions
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   One property of the `map()` function is that it will always return a list.
 -   To change the output data type, we can use multiple versions of `map_*()`:
@@ -391,7 +391,7 @@ models |>
 
 ## Multiple Arguments
 
-![](/images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
+![](/10_resources/00_images/purrr_logo.png){.absolute top=-20 right=50 width="80" height="80"}
 
 -   `purrr` gives us the option to include more than one input in parallel with `map2()` and `pmap()`.
 -   Imagine we would like to simulate some random normal distributions with different means, and each vary, we could do:
@@ -409,7 +409,7 @@ map2(mu, sigma, rnorm, n = 5) |>
 
 -   The code can be understood by the following figure:
 
-![](/images/purrr_map2_cartoon.png){fig-align="center" width="600px"}
+![](/10_resources/00_images/purrr_map2_cartoon.png){fig-align="center" width="600px"}
 
 ## Multiple Arguments
 
@@ -525,5 +525,5 @@ qr <- qrcode::qr_code("https://h-mateus.github.io/MET581---Computing-for-Bioinfo
 qrcode::generate_svg(qr, here::here("images/website_qrcode.svg"))
 ```
 
-![](/images/website_qrcode.svg){fig-align="center"}
+![](/10_resources/00_images/website_qrcode.svg){fig-align="center"}
 

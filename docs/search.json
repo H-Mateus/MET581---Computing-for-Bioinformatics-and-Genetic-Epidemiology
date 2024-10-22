@@ -832,7 +832,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.57 0.54 0.41 0.55 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.28 0.28 0.29 0.35 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.57 0.54 0.41 0.55 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.57 0.54 0.41 0.55",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.54 0.51 0.57 0.46 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.31 0.39 0.37 0.31 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.54 0.51 0.57 0.46 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.54 0.51 0.57 0.46",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -892,7 +892,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 5.02 3.78 5.74 4.15 3.78\n $ : num [1:5] 7.57 18.54 19.99 7.1 13.23\n $ : num [1:5] -3.58 7.39 -2.88 14.52 4.34",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 2.38 4.39 3.78 5.9 3.91\n $ : num [1:5] 11.99 11.67 7.05 12.97 6.73\n $ : num [1:5] 17.649 -2.993 8.66 -10.82 0.831",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -916,7 +916,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 4.31\n $ : num [1:3] 11.93 9.45 18.95\n $ : num [1:5] 6.68 -4.88 -10.64 -1.32 -3.07\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.315 -0.689 0.937 -0.994 0.206\n $ : num [1:5] 7.214 0.893 8.042 -3.03 -6.308\n $ : int [1:5] 19 7 11 14 13",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 6.36\n $ : num [1:3] 13.47 8.43 19.6\n $ : num [1:5] 1.38 -16.04 -11.14 -14.45 1.97\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.0428 0.5661 0.66 -0.2062 0.8389\n $ : num [1:5] 2.405 -0.353 -6.163 -3.41 -1.423\n $ : int [1:5] 10 9 12 6 9",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -952,7 +952,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
     "title": "Programming in R",
     "section": "pwalk",
-    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Merc 280 has a auto transmission and gets 19.2 mpgs.\"\n[1] \"The Porsche 914-2 has a manual transmission and gets 26 mpgs.\"\n[1] \"The Ford Pantera L has a manual transmission and gets 15.8 mpgs.\"",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Cadillac Fleetwood has a auto transmission and gets 10.4 mpgs.\"\n[1] \"The Camaro Z28 has a auto transmission and gets 13.3 mpgs.\"\n[1] \"The Maserati Bora has a manual transmission and gets 15 mpgs.\"",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -964,7 +964,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
     "title": "Programming in R",
     "section": "While loops",
-    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  23\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  4\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
     "crumbs": [
       "Home",
       "Programming in R",

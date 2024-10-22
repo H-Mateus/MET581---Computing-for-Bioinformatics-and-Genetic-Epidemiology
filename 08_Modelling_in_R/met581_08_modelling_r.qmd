@@ -19,7 +19,7 @@ affiliations:
     url: https://ukdri.ac.uk/
 format: 
   revealjs:
-    logo: /images/combined_logos.png
+    logo: /10_resources/00_images/combined_logos.png
     footer: "MET581 - Modelling in R"
     theme: [dark, ../styles.scss]
     output-location: column
@@ -543,4 +543,4 @@ penguins %>%
 
 -   These slides and the workshop can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
 
-![](/images/website_qrcode.svg){fig-align="center"}
+![](/10_resources/00_images/website_qrcode.svg){fig-align="center"}

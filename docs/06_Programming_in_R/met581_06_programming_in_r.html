@@ -677,7 +677,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="iterations-with-purrr" class="slide level2">
 <h2>Iterations with purrr</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>We want to keep code <strong>efficient</strong> and <strong>less repetitive</strong>: performing the same thing on multiple inputs, repeating the operation on multiple columns, or on different datasets.</li>
 <li>To help achieve this, <strong>iterations</strong> are used. For example:</li>
@@ -700,7 +700,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="iterations-with-purrr-1" class="slide level2">
 <h2>Iterations with purrr</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>This can be simplified with a for loop</li>
 </ul>
@@ -727,7 +727,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="the-map-family" class="slide level2">
 <h2>The map family</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>Essentially, map() is the tidyverse equivalent of the base R apply family of functions.</li>
 <li>The basic syntax is <code>map(.x, .f, ...)</code> where:
@@ -739,13 +739,13 @@ Missing values: 573</code></pre>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../images/purrr_map_cartoon.png" class="quarto-figure quarto-figure-center" width="600"></p>
+<p><img data-src="../10_resources/00_images/purrr_map_cartoon.png" class="quarto-figure quarto-figure-center" width="600"></p>
 </figure>
 </div>
 </section>
 <section id="the-map-family-1" class="slide level2">
 <h2>The map family</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>We can use the <code>map</code> function to compute the mean and standard deviation of previous dataset.</li>
 </ul>
@@ -754,18 +754,18 @@ Missing values: 573</code></pre>
 <span id="cb27-2"><a></a><span class="fu">map_dbl</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.57 0.54 0.41 0.55 </code></pre>
+0.54 0.51 0.57 0.46 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">map_dbl</span>(df, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.28 0.28 0.29 0.35 </code></pre>
+0.31 0.39 0.37 0.31 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># And here's the native R sapply equivalent</span></span>
 <span id="cb31-2"><a></a><span class="fu">sapply</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.57 0.54 0.41 0.55 </code></pre>
+0.54 0.51 0.57 0.46 </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -776,14 +776,14 @@ Missing values: 573</code></pre>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">map_dbl</span>(df, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.57 0.54 0.41 0.55 </code></pre>
+0.54 0.51 0.57 0.46 </code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="the-map-family-2" class="slide level2">
 <h2>The map family</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>We can even use a string or a position (integer) to extract components from the input data - very useful when working with big datasets!</li>
 </ul>
@@ -807,7 +807,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="map_-functions" class="slide level2">
 <h2>map_ functions</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>One property of the <code>map()</code> function is that it will always return a list.</li>
 <li>To change the output data type, we can use multiple versions of <code>map_*()</code>:
@@ -868,7 +868,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="multiple-arguments" class="slide level2">
 <h2>Multiple Arguments</h2>
-<p><img data-src="../images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li><code>purrr</code> gives us the option to include more than one input in parallel with <code>map2()</code> and <code>pmap()</code>.</li>
 <li>Imagine we would like to simulate some random normal distributions with different means, and each vary, we could do:</li>
@@ -882,9 +882,9 @@ Missing values: 573</code></pre>
 <span id="cb44-6"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 5.02 3.78 5.74 4.15 3.78
- $ : num [1:5] 7.57 18.54 19.99 7.1 13.23
- $ : num [1:5] -3.58 7.39 -2.88 14.52 4.34</code></pre>
+ $ : num [1:5] 2.38 4.39 3.78 5.9 3.91
+ $ : num [1:5] 11.99 11.67 7.05 12.97 6.73
+ $ : num [1:5] 17.649 -2.993 8.66 -10.82 0.831</code></pre>
 </div>
 </div>
 </section>
@@ -894,7 +894,7 @@ Missing values: 573</code></pre>
 <li>The code can be understood by the following figure:</li>
 </ul>
 
-<img data-src="../images/purrr_map2_cartoon.png" class="quarto-figure quarto-figure-center r-stretch" width="600"></section>
+<img data-src="../10_resources/00_images/purrr_map2_cartoon.png" class="quarto-figure quarto-figure-center r-stretch" width="600"></section>
 <section id="multiple-arguments-2" class="slide level2">
 <h2>Multiple Arguments</h2>
 <ul>
@@ -911,9 +911,9 @@ Missing values: 573</code></pre>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num 4.31
- $ : num [1:3] 11.93 9.45 18.95
- $ : num [1:5] 6.68 -4.88 -10.64 -1.32 -3.07</code></pre>
+ $ : num 6.36
+ $ : num [1:3] 13.47 8.43 19.6
+ $ : num [1:5] 1.38 -16.04 -11.14 -14.45 1.97</code></pre>
 </div>
 </div></div>
 <ul>
@@ -927,9 +927,9 @@ Missing values: 573</code></pre>
 <span id="cb48-5"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 0.315 -0.689 0.937 -0.994 0.206
- $ : num [1:5] 7.214 0.893 8.042 -3.03 -6.308
- $ : int [1:5] 19 7 11 14 13</code></pre>
+ $ : num [1:5] 0.0428 0.5661 0.66 -0.2062 0.8389
+ $ : num [1:5] 2.405 -0.353 -6.163 -3.41 -1.423
+ $ : int [1:5] 10 9 12 6 9</code></pre>
 </div>
 </div>
 </section>
@@ -992,9 +992,9 @@ Missing values: 573</code></pre>
 <span id="cb53-13"><a></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
 <span id="cb53-14"><a></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The Merc 280 has a auto transmission and gets 19.2 mpgs."
-[1] "The Porsche 914-2 has a manual transmission and gets 26 mpgs."
-[1] "The Ford Pantera L has a manual transmission and gets 15.8 mpgs."</code></pre>
+<pre><code>[1] "The Cadillac Fleetwood has a auto transmission and gets 10.4 mpgs."
+[1] "The Camaro Z28 has a auto transmission and gets 13.3 mpgs."
+[1] "The Maserati Bora has a manual transmission and gets 15 mpgs."</code></pre>
 </div>
 </div>
 </section>
@@ -1022,7 +1022,7 @@ Missing values: 573</code></pre>
 <span id="cb55-14"><a></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of flips to get 3 heads in a row:  23</code></pre>
+<pre><code>Number of flips to get 3 heads in a row:  4</code></pre>
 </div>
 </div></div>
 <ul>
@@ -1036,12 +1036,12 @@ Missing values: 573</code></pre>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../images/website_qrcode.svg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="../10_resources/00_images/website_qrcode.svg" class="quarto-figure quarto-figure-center"></p>
 </figure>
 </div>
 
 <div class="quarto-auto-generated-content">
-<p><img src="../images/combined_logos.png" class="slide-logo"></p>
+<p><img src="../10_resources/00_images/combined_logos.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>MET581 - Programming in R - Slides and code avilable <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
 </div>

@@ -19,7 +19,7 @@ affiliations:
     url: https://ukdri.ac.uk/
 format: 
   revealjs:
-    logo: /images/combined_logos.png
+    logo: /10_resources/00_images/combined_logos.png
     footer: "MET581 - Data Visualisation in R"
     theme: [dark, ../styles.scss]
     include-in-header: 
@@ -46,7 +46,7 @@ execute:
   echo: true
 ---
 
-##  {.center background-color="black" background-image="/images/02_visualisation.png" background-size="contain"}
+##  {.center background-color="black" background-image="/10_resources/00_images/02_visualisation.png" background-size="contain"}
 
 ::: center-xy
 ### [Visualisation]{style="background-color:#000000;"}
@@ -812,5 +812,5 @@ ggstatsplot::ggscatterstats(mtcars, x = hp, y = qsec)
 
 -   These slides can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
 
-![](/images/website_qrcode.svg){fig-align="center"}
+![](/10_resources/00_images/website_qrcode.svg){fig-align="center"}
 
