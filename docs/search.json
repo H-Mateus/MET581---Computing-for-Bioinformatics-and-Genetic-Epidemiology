@@ -1054,7 +1054,7 @@
     "href": "08_Modelling_in_R/modelling_in_r_practice.html#setup",
     "title": "Modelling in R - Practice",
     "section": "Setup",
-    "text": "Setup\nFirst, load the necessary libraries and dataset. We’ll be using a simulated gene expression dataset.\n\n\nCode\nlibrary(tidymodels)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# Set seed for reproducibility\nset.seed(42)\n\n# Create a simulated gene expression dataset\nn_samples &lt;- 1000\nn_genes &lt;- 50\n\ngene_expression_data &lt;- tibble(\n  sample_id = 1:n_samples,\n  condition = factor(sample(c(\"Control\", \"Treatment\"), n_samples, replace = TRUE)),\n  gene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)\n)\n\ncolnames(gene_expression_data)[3:ncol(gene_expression_data)] &lt;- paste0(\"gene_\", 1:n_genes)",
+    "text": "Setup\nFirst, load the necessary libraries and dataset. We’ll be using a simulated gene expression dataset.\n\n\nCode\nlibrary(tidymodels)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# Set seed for reproducibility\nset.seed(42)\n\n# Create a simulated gene expression dataset\nn_samples &lt;- 1000\nn_genes &lt;- 50\n\ngene_expression_data &lt;- tibble(\n  sample_id = 1:n_samples,\n  condition = factor(sample(c(\"Control\", \"Treatment\"), n_samples, replace = TRUE)),\n)\n\ngene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)\ncolnames(gene_expression) &lt;- paste0(\"gene_\", 1:n_genes)\n\ngene_expression_data &lt;- cbind(gene_expression_data, gene_expression)",
     "crumbs": [
       "Home",
       "Modelling in R",

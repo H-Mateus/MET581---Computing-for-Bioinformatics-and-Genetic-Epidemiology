@@ -37,10 +37,12 @@ n_genes <- 50
 gene_expression_data <- tibble(
   sample_id = 1:n_samples,
   condition = factor(sample(c("Control", "Treatment"), n_samples, replace = TRUE)),
-  gene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)
 )
 
-colnames(gene_expression_data)[3:ncol(gene_expression_data)] <- paste0("gene_", 1:n_genes)
+gene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)
+colnames(gene_expression) <- paste0("gene_", 1:n_genes)
+
+gene_expression_data <- cbind(gene_expression_data, gene_expression)
 ```
 
 ## Questions and Challenges
