@@ -588,6 +588,18 @@
     ]
   },
   {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots-output",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots-output",
+    "title": "Data Visualisation in R",
+    "section": "3D Plots",
+    "text": "3D Plots",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R",
+      "Slides"
+    ]
+  },
+  {
     "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggstatsplot",
     "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#ggstatsplot",
     "title": "Data Visualisation in R",
@@ -1019,13 +1031,6 @@
     "text": "pmap and walk2 functions\nThis about the following example for pmap, what will it do?:\n\nCodedf &lt;- data.frame(\n  x = c(\"ATTTTACTGGGAGGGAA\", \"TATTTTTTAAAGGGCCC\", \"GCGCGCCCCAAATTATAGGC\", \"TGCCACATTTTATCCGCGCA\"),\n  pattern = c(\"A\", \"T\", \"G\", \"C\"),\n  replacement = c(\"a\", \"t\", \"g\", \"c\"),\n  stringsAsFactors = FALSE\n  )\n\npmap(df, gsub)\n\n[[1]]\n[1] \"aTTTTaCTGGGaGGGaa\"\n\n[[2]]\n[1] \"tAttttttAAAGGGCCC\"\n\n[[3]]\n[1] \"gCgCgCCCCAAATTATAggC\"\n\n[[4]]\n[1] \"TGccAcATTTTATccGcGcA\"\n\n\nExample for walk2:\n\nCodedf1 &lt;- data.frame(\n  index = c(1,2,3,4,5,6,7,8,9,10,1,2,3,4,5,6,7,8,9,10),\n  value = c(40,20,10,5,50,80,30,20,80,90,33,21,56,66,43,89,66,80,30,10),\n  category = c(\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"A\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\",\"B\")\n)\n\ndf1 %&gt;%\n  split(.$category) %&gt;%\n  .[order(names(.))] %&gt;%\n  walk2(paste('Plot', names(.)), \n        ~plot(value ~ index, data = .x, type = \"l\", main = .y))"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome!",
-    "section": "",
-    "text": "This website houses the lecture materials associated with the MET581 module R lectures.\nUse the side bar to navigate to lecture materials.\nYou can find the source files for this website and the lecture materials in GitHub here."
-  },
-  {
     "objectID": "08_Modelling_in_R/modelling_in_r_practice.html",
     "href": "08_Modelling_in_R/modelling_in_r_practice.html",
     "title": "Modelling in R - Practice",
@@ -1066,12 +1071,47 @@
     "href": "08_Modelling_in_R/modelling_in_r_practice.html#questions-and-challenges",
     "title": "Modelling in R - Practice",
     "section": "Questions and Challenges",
-    "text": "Questions and Challenges\n\n1. Data Exploration\nExplore the gene_expression_data dataset.\n\nHow many samples and genes are in the dataset?\nCreate a boxplot comparing the expression levels of the first 5 genes between the Control and Treatment conditions.\n\n\n\nCode\n# Your code here\n\n\n\n\n2. Data Preprocessing with recipes\nCreate a recipe that does the following: - Uses condition as the outcome variable - Normalizes all gene expression variables - Performs PCA on the normalized gene expression data, keeping enough principal components to explain 90% of the variance\n\n\nCode\n# Your code here\n\n\n\n\n3. Data Splitting\nSplit the data into training (80%) and testing (20%) sets. Use stratified sampling based on the condition variable.\n\n\nCode\n# Your code here\n\n\n\n\n4. Model Specification\nSpecify a random forest model using the rand_forest() function from parsnip. Set it up for a classification task and use the “ranger” engine. Choose at least two hyperparameters to tune.\n\n\nCode\n# Your code here\n\n\n\n\n5. Create a Workflow\nCombine your recipe and model specification into a workflow.\n\n\nCode\n# Your code here\n\n\n\n\n6. Model Tuning\nSet up a grid for tuning your chosen hyperparameters. Use tune_grid() to perform 5-fold cross-validation on the training data. Visualize the results of your tuning process.\n\n\nCode\n# Your code here\n\n\n\n\n7. Final Model and Evaluation\nSelect the best model from your tuning results, finalize the workflow, and fit it to the entire training set. Then, use this final model to make predictions on the test set. Calculate and visualize at least two performance metrics of your choice.\n\n\nCode\n# Your code here\n\n\n\n\n8. Interpretation\n\nWhich genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the vip package for variable importance)\nHow well does your model perform? Discuss potential biological implications of your findings.\nSuggest at least two ways you might improve this analysis pipeline.\n\n\n\nBonus Challenge\nCreate a custom step_*() function for your recipe that performs a simple transformation specific to gene expression data (e.g., log transformation or handling of zero values). Incorporate this custom step into your preprocessing recipe.\nGood luck!",
+    "text": "Questions and Challenges\n\n1. Data Exploration\nExplore the gene_expression_data dataset.\n\nHow many samples and genes are in the dataset?\nCreate a boxplot comparing the expression levels of the first 5 genes between the Control and Treatment conditions.\n\n\n\nCode\n# Your code here\n\n\n\n\n2. Data Preprocessing with recipes\nCreate a recipe that does the following: - Uses condition as the outcome variable - Normalizes all gene expression variables - Performs PCA on the normalized gene expression data, keeping enough principal components to explain 90% of the variance\n\n\nCode\n# Your code here\n\n\n\n\n3. Data Splitting\nSplit the data into training (80%) and testing (20%) sets. Use stratified sampling based on the condition variable.\n\n\nCode\n# Your code here\n\n\n\n\n4. Model Specification\nSpecify a random forest model using the rand_forest() function from parsnip. Set it up for a classification task and use the “ranger” engine. Choose at least two hyperparameters to tune.\n\n\nCode\n# Your code here\n\n\n\n\n5. Create a Workflow\nCombine your recipe and model specification into a workflow.\n\n\nCode\n# Your code here\n\n\n\n\n6. Model Tuning\nSet up a grid for tuning your chosen hyperparameters. Use tune_grid() to perform 5-fold cross-validation on the training data. Visualize the results of your tuning process.\n\n\nCode\n# Your code here\n\n\n\n\n7. Final Model and Evaluation\nSelect the best model from your tuning results, finalize the workflow, and fit it to the entire training set. Then, use this final model to make predictions on the test set. Calculate and visualize at least two performance metrics of your choice.\n\n\nCode\n# Your code here\n\n\n\n\n8. Interpretation\n\nWhich genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the vip package for variable importance)\nHow well does your model perform?\nSuggest at least two ways you might improve this analysis pipeline.",
     "crumbs": [
       "Home",
       "Modelling in R",
       "Practice"
     ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome!",
+    "section": "",
+    "text": "This website houses the lecture materials associated with the MET581 module R lectures.\nUse the side bar to navigate to lecture materials.\nYou can find the source files for this website and the lecture materials in GitHub here."
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html",
+    "href": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html",
+    "title": "Modelling in R - Practice",
+    "section": "",
+    "text": "This homework assignment is designed to reinforce your understanding of the tidymodels framework and its application in bioinformatics, note that it isn’t a formal assessment and so isn’t required, is just here to support your learning. Please complete all questions and code challenges. Remember to document your code and explain your reasoning where appropriate."
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html#introduction",
+    "href": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html#introduction",
+    "title": "Modelling in R - Practice",
+    "section": "",
+    "text": "This homework assignment is designed to reinforce your understanding of the tidymodels framework and its application in bioinformatics, note that it isn’t a formal assessment and so isn’t required, is just here to support your learning. Please complete all questions and code challenges. Remember to document your code and explain your reasoning where appropriate."
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html#setup",
+    "href": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html#setup",
+    "title": "Modelling in R - Practice",
+    "section": "Setup",
+    "text": "Setup\nFirst, load the necessary libraries and dataset. We’ll be using a simulated gene expression dataset.\n\n\nCode\nlibrary(tidymodels)\nlibrary(ggplot2)\nlibrary(dplyr)\n\n# Set seed for reproducibility\nset.seed(42)\n\n# Create a simulated gene expression dataset\nn_samples &lt;- 1000\nn_genes &lt;- 50\n\ngene_expression_data &lt;- tibble(\n  sample_id = 1:n_samples,\n  condition = factor(sample(c(\"Control\", \"Treatment\"), n_samples, replace = TRUE)),\n)\n\ngene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)\ncolnames(gene_expression) &lt;- paste0(\"gene_\", 1:n_genes)\n\ngene_expression_data &lt;- cbind(gene_expression_data, gene_expression)"
+  },
+  {
+    "objectID": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html#questions-and-challenges",
+    "href": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html#questions-and-challenges",
+    "title": "Modelling in R - Practice",
+    "section": "Questions and Challenges",
+    "text": "Questions and Challenges\n\n1. Data Exploration\nExplore the gene_expression_data dataset.\n\nHow many samples and genes are in the dataset?\nCreate a boxplot comparing the expression levels of the first 5 genes between the Control and Treatment conditions.\n\n\n\nCode\n# Check dimensions - in this case the number of rows is the number of samples\ncat(\"Number of samples:\", nrow(gene_expression_data), \"\\n\")\n# But in other cases there might not be one row per sample\nunique(gene_expression_data$sample_id) |&gt; length()\n\ncat(\"Number of genes:\", ncol(gene_expression_data) - 2, \"\\n\") # Subtract sample_id and condition columns\n# or we could count the strings since they all have part of the name in common\ncolnames(gene_expression_data) |&gt;\n  # grepl returns a boolean for if it detects the given string\n  grepl(\"gene_\", x = _) |&gt;\n  sum()\n\n# View structure\nglimpse(gene_expression_data)\n\n\n\n\nCode\n# Reshape data for first 5 genes\nfirst_5_genes &lt;- gene_expression_data |&gt;\n  select(condition, starts_with(\"gene_\")[1:5]) |&gt;\n  pivot_longer(\n    cols = starts_with(\"gene_\"),\n    names_to = \"gene\",\n    values_to = \"expression\"\n  )\n\n# Create boxplot\nggplot(first_5_genes, aes(x = gene, y = expression, fill = condition)) +\n  geom_boxplot() +\n  theme_minimal() +\n  labs(\n    title = \"Expression Levels of First 5 Genes by Condition\",\n    x = \"Gene\",\n    y = \"Expression Level\"\n  ) +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n2. Data Preprocessing with recipes\nCreate a recipe that does the following: - Uses condition as the outcome variable - Normalizes all gene expression variables - Performs PCA on the normalized gene expression data, keeping enough principal components to explain 90% of the variance\n\n\nCode\n# Create recipe\ngene_recipe &lt;- recipe(condition ~ ., data = gene_expression_data) %&gt;%\n  # Remove sample_id as it shouldn't be used for prediction\n  step_rm(sample_id) %&gt;%\n  # Normalize all predictors (genes)\n  step_normalize(all_predictors()) %&gt;%\n  # Perform PCA\n  step_pca(all_predictors(), threshold = 0.9)\n\n# Print recipe\ngene_recipe\n\n\n\n\n3. Data Splitting\nSplit the data into training (80%) and testing (20%) sets. Use stratified sampling based on the condition variable.\n\n\nCode\n# Split data\nset.seed(123)\ndata_split &lt;- initial_split(gene_expression_data, prop = 0.8, strata = condition)\ntrain_data &lt;- training(data_split)\ntest_data &lt;- testing(data_split)\n\n# Print split information\ncat(\"Training set size:\", nrow(train_data), \"\\n\")\ncat(\"Testing set size:\", nrow(test_data), \"\\n\")\n\n# Verify stratification\ncat(\"\\nCondition proportions in training set:\\n\")\nprop.table(table(train_data$condition))\ncat(\"\\nCondition proportions in testing set:\\n\")\nprop.table(table(test_data$condition))\n\n\n\n\n4. Model Specification\nSpecify a random forest model using the rand_forest() function from parsnip. Set it up for a classification task and use the “ranger” engine. Choose at least two hyperparameters to tune.\n\n\nCode\n# Specify random forest model\nrf_spec &lt;- rand_forest(\n  mtry = tune(),        # Number of variables to sample at each split\n  min_n = tune(),       # Minimum node size\n  trees = 1000          # Number of trees (fixed)\n) %&gt;%\n  set_engine(\"ranger\", importance = \"permutation\") %&gt;%\n  set_mode(\"classification\")\n\n# Print specification\nrf_spec\n\n\n\n\n5. Create a Workflow\nCombine your recipe and model specification into a workflow.\n\n\nCode\n# Create workflow\nrf_workflow &lt;- workflow() %&gt;%\n  add_recipe(gene_recipe) %&gt;%\n  add_model(rf_spec)\n\n# Print workflow\nrf_workflow\n\n\n\n\n6. Model Tuning\nSet up a grid for tuning your chosen hyperparameters. Use tune_grid() to perform 5-fold cross-validation on the training data. Visualize the results of your tuning process.\n\n\nCode\n# Create cross-validation folds\nset.seed(234)\ncv_folds &lt;- vfold_cv(train_data, v = 5, strata = condition)\n\n# Create tuning grid\nrf_grid &lt;- grid_regular(\n  mtry(range = c(5, 20)),\n  min_n(range = c(2, 10)),\n  levels = 5\n)\n\n# Tune model\nrf_tuning &lt;- rf_workflow %&gt;%\n  tune_grid(\n    resamples = cv_folds,\n    grid = rf_grid,\n    metrics = metric_set(accuracy, roc_auc)\n  )\n\n# Visualize tuning results\nrf_tuning %&gt;%\n  collect_metrics() %&gt;%\n  ggplot(aes(x = mtry, y = mean, color = factor(min_n))) +\n  geom_line() +\n  geom_point() +\n  facet_wrap(~.metric, scales = \"free_y\") +\n  labs(\n    title = \"Model Performance Across Hyperparameters\",\n    color = \"min_n\"\n  ) +\n  theme_minimal()\n\n\n\n\n7. Final Model and Evaluation\nSelect the best model from your tuning results, finalize the workflow, and fit it to the entire training set. Then, use this final model to make predictions on the test set. Calculate and visualize at least two performance metrics of your choice.\n\n\nCode\n# Select best hyperparameters\nbest_params &lt;- rf_tuning %&gt;%\n  select_best(metric = \"roc_auc\")\n\n# Finalize workflow\nfinal_workflow &lt;- rf_workflow %&gt;%\n  finalize_workflow(best_params)\n\n# Fit final model\nfinal_fit &lt;- final_workflow %&gt;%\n  fit(train_data)\n\n# Make predictions on test set\npredictions &lt;- final_fit %&gt;%\n  predict(test_data) %&gt;%\n  bind_cols(\n    predict(final_fit, test_data, type = \"prob\"),\n    test_data\n  )\n\n# Calculate metrics\nmetrics &lt;- predictions %&gt;%\n  metrics(truth = condition, estimate = .pred_class)\n\n# Create ROC curve\nroc_curve &lt;- predictions %&gt;%\n  roc_curve(condition, .pred_Control) %&gt;%\n  autoplot()\n\n# Create confusion matrix\nconf_mat &lt;- predictions %&gt;%\n  conf_mat(truth = condition, estimate = .pred_class) %&gt;%\n  autoplot(type = \"heatmap\")\n\n# Display results\ncat(\"Model Performance Metrics:\\n\")\nprint(metrics)\n\nprint(roc_curve)\nprint(conf_mat)\n\n\n\n\n8. Interpretation\n\nWhich genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the vip package for variable importance)\nHow well does your model perform?\nSuggest at least two ways you might improve this analysis pipeline.\n\n\n\nCode\n# Extract variable importance\nfinal_fit %&gt;%\n  extract_fit_parsnip() %&gt;%\n  vip(num_features = 10) +\n  labs(title = \"Top 10 Most Important Genes\")\n\n\n\nPotential Improvements:\n\nFeature selection: We could implement a pre-processing step to select the most relevant genes before modeling. Try different algorithms: Compare random forest performance with other algorithms like XGBoost or elastic net. Could try using bootstrap validation instead of cross-fold\nGood luck!"
   },
   {
     "objectID": "10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html",
@@ -1598,18 +1638,6 @@
     "crumbs": [
       "Home",
       "Modelling in R",
-      "Slides"
-    ]
-  },
-  {
-    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots-output",
-    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#d-plots-output",
-    "title": "Data Visualisation in R",
-    "section": "3D Plots",
-    "text": "3D Plots",
-    "crumbs": [
-      "Home",
-      "Data Visualisation in R",
       "Slides"
     ]
   }

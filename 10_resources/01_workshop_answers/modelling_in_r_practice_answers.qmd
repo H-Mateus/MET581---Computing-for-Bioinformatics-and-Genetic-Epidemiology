@@ -1,0 +1,280 @@
+---
+title: "Modelling in R - Practice"
+author: "Gabriel Mateus Bernardo Harrington"
+format: 
+  html:
+    code-fold: true
+    code-tools: true
+execute:
+  echo: true
+  warning: false
+  eval: false
+---
+
+## Introduction
+
+This homework assignment is designed to reinforce your understanding of the tidymodels framework and its application in bioinformatics, note that it isn't a formal assessment and so isn't required, is just here to support your learning. 
+Please complete all questions and code challenges. 
+Remember to document your code and explain your reasoning where appropriate.
+
+## Setup
+
+First, load the necessary libraries and dataset. We'll be using a simulated gene expression dataset.
+
+```{r}
+#| label: setup
+#| message: false
+library(tidymodels)
+library(ggplot2)
+library(dplyr)
+
+# Set seed for reproducibility
+set.seed(42)
+
+# Create a simulated gene expression dataset
+n_samples <- 1000
+n_genes <- 50
+
+gene_expression_data <- tibble(
+  sample_id = 1:n_samples,
+  condition = factor(sample(c("Control", "Treatment"), n_samples, replace = TRUE)),
+)
+
+gene_expression = matrix(rnorm(n_samples * n_genes), nrow = n_samples)
+colnames(gene_expression) <- paste0("gene_", 1:n_genes)
+
+gene_expression_data <- cbind(gene_expression_data, gene_expression)
+```
+
+## Questions and Challenges
+
+### 1. Data Exploration
+
+Explore the `gene_expression_data` dataset. 
+
+a) How many samples and genes are in the dataset?
+b) Create a boxplot comparing the expression levels of the first 5 genes between the Control and Treatment conditions.
+
+```{r}
+# Check dimensions - in this case the number of rows is the number of samples
+cat("Number of samples:", nrow(gene_expression_data), "\n")
+# But in other cases there might not be one row per sample
+unique(gene_expression_data$sample_id) |> length()
+
+cat("Number of genes:", ncol(gene_expression_data) - 2, "\n") # Subtract sample_id and condition columns
+# or we could count the strings since they all have part of the name in common
+colnames(gene_expression_data) |>
+  # grepl returns a boolean for if it detects the given string
+  grepl("gene_", x = _) |>
+  sum()
+
+# View structure
+glimpse(gene_expression_data)
+```
+
+```{r}
+# Reshape data for first 5 genes
+first_5_genes <- gene_expression_data |>
+  select(condition, starts_with("gene_")[1:5]) |>
+  pivot_longer(
+    cols = starts_with("gene_"),
+    names_to = "gene",
+    values_to = "expression"
+  )
+
+# Create boxplot
+ggplot(first_5_genes, aes(x = gene, y = expression, fill = condition)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(
+    title = "Expression Levels of First 5 Genes by Condition",
+    x = "Gene",
+    y = "Expression Level"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+### 2. Data Preprocessing with recipes
+
+Create a recipe that does the following:
+- Uses `condition` as the outcome variable
+- Normalizes all gene expression variables
+- Performs PCA on the normalized gene expression data, keeping enough principal components to explain 90% of the variance
+
+```{r}
+# Create recipe
+gene_recipe <- recipe(condition ~ ., data = gene_expression_data) %>%
+  # Remove sample_id as it shouldn't be used for prediction
+  step_rm(sample_id) %>%
+  # Normalize all predictors (genes)
+  step_normalize(all_predictors()) %>%
+  # Perform PCA
+  step_pca(all_predictors(), threshold = 0.9)
+
+# Print recipe
+gene_recipe
+```
+
+### 3. Data Splitting
+
+Split the data into training (80%) and testing (20%) sets. Use stratified sampling based on the `condition` variable.
+
+```{r}
+# Split data
+set.seed(123)
+data_split <- initial_split(gene_expression_data, prop = 0.8, strata = condition)
+train_data <- training(data_split)
+test_data <- testing(data_split)
+
+# Print split information
+cat("Training set size:", nrow(train_data), "\n")
+cat("Testing set size:", nrow(test_data), "\n")
+
+# Verify stratification
+cat("\nCondition proportions in training set:\n")
+prop.table(table(train_data$condition))
+cat("\nCondition proportions in testing set:\n")
+prop.table(table(test_data$condition))
+```
+
+### 4. Model Specification
+
+Specify a random forest model using the `rand_forest()` function from parsnip. Set it up for a classification task and use the "ranger" engine. Choose at least two hyperparameters to tune.
+
+```{r}
+# Specify random forest model
+rf_spec <- rand_forest(
+  mtry = tune(),        # Number of variables to sample at each split
+  min_n = tune(),       # Minimum node size
+  trees = 1000          # Number of trees (fixed)
+) %>%
+  set_engine("ranger", importance = "permutation") %>%
+  set_mode("classification")
+
+# Print specification
+rf_spec
+```
+
+### 5. Create a Workflow
+
+Combine your recipe and model specification into a workflow.
+
+```{r}
+# Create workflow
+rf_workflow <- workflow() %>%
+  add_recipe(gene_recipe) %>%
+  add_model(rf_spec)
+
+# Print workflow
+rf_workflow
+```
+
+### 6. Model Tuning
+
+Set up a grid for tuning your chosen hyperparameters. Use `tune_grid()` to perform 5-fold cross-validation on the training data. Visualize the results of your tuning process.
+
+```{r}
+# Create cross-validation folds
+set.seed(234)
+cv_folds <- vfold_cv(train_data, v = 5, strata = condition)
+
+# Create tuning grid
+rf_grid <- grid_regular(
+  mtry(range = c(5, 20)),
+  min_n(range = c(2, 10)),
+  levels = 5
+)
+
+# Tune model
+rf_tuning <- rf_workflow %>%
+  tune_grid(
+    resamples = cv_folds,
+    grid = rf_grid,
+    metrics = metric_set(accuracy, roc_auc)
+  )
+
+# Visualize tuning results
+rf_tuning %>%
+  collect_metrics() %>%
+  ggplot(aes(x = mtry, y = mean, color = factor(min_n))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~.metric, scales = "free_y") +
+  labs(
+    title = "Model Performance Across Hyperparameters",
+    color = "min_n"
+  ) +
+  theme_minimal()
+```
+
+### 7. Final Model and Evaluation
+
+Select the best model from your tuning results, finalize the workflow, and fit it to the entire training set. Then, use this final model to make predictions on the test set. Calculate and visualize at least two performance metrics of your choice.
+
+```{r}
+# Select best hyperparameters
+best_params <- rf_tuning %>%
+  select_best(metric = "roc_auc")
+
+# Finalize workflow
+final_workflow <- rf_workflow %>%
+  finalize_workflow(best_params)
+
+# Fit final model
+final_fit <- final_workflow %>%
+  fit(train_data)
+
+# Make predictions on test set
+predictions <- final_fit %>%
+  predict(test_data) %>%
+  bind_cols(
+    predict(final_fit, test_data, type = "prob"),
+    test_data
+  )
+
+# Calculate metrics
+metrics <- predictions %>%
+  metrics(truth = condition, estimate = .pred_class)
+
+# Create ROC curve
+roc_curve <- predictions %>%
+  roc_curve(condition, .pred_Control) %>%
+  autoplot()
+
+# Create confusion matrix
+conf_mat <- predictions %>%
+  conf_mat(truth = condition, estimate = .pred_class) %>%
+  autoplot(type = "heatmap")
+
+# Display results
+cat("Model Performance Metrics:\n")
+print(metrics)
+
+print(roc_curve)
+print(conf_mat)
+```
+
+### 8. Interpretation
+
+a) Which genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the `vip` package for variable importance)
+
+b) How well does your model perform?
+
+c) Suggest at least two ways you might improve this analysis pipeline.
+
+```{r}
+# Extract variable importance
+final_fit %>%
+  extract_fit_parsnip() %>%
+  vip(num_features = 10) +
+  labs(title = "Top 10 Most Important Genes")
+```
+
+c) Potential Improvements:
+
+Feature selection: We could implement a pre-processing step to select the most relevant genes before modeling.
+Try different algorithms: Compare random forest performance with other algorithms like XGBoost or elastic net.
+Could try using bootstrap validation instead of cross-fold
+
+Good luck!

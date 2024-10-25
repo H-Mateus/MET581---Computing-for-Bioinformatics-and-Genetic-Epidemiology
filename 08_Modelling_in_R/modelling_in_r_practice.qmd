@@ -113,12 +113,6 @@ Select the best model from your tuning results, finalize the workflow, and fit i
 
 a) Which genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the `vip` package for variable importance)
 
-b) How well does your model perform? Discuss potential biological implications of your findings.
+b) How well does your model perform?
 
 c) Suggest at least two ways you might improve this analysis pipeline.
-
-### Bonus Challenge
-
-Create a custom `step_*()` function for your recipe that performs a simple transformation specific to gene expression data (e.g., log transformation or handling of zero values). Incorporate this custom step into your preprocessing recipe.
-
-Good luck!

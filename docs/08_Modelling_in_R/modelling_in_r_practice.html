@@ -253,7 +253,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#model-tuning" id="toc-model-tuning" class="nav-link" data-scroll-target="#model-tuning">6. Model Tuning</a></li>
   <li><a href="#final-model-and-evaluation" id="toc-final-model-and-evaluation" class="nav-link" data-scroll-target="#final-model-and-evaluation">7. Final Model and Evaluation</a></li>
   <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">8. Interpretation</a></li>
-  <li><a href="#bonus-challenge" id="toc-bonus-challenge" class="nav-link" data-scroll-target="#bonus-challenge">Bonus Challenge</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/08_Modelling_in_R/modelling_in_r_practice.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -399,14 +398,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="interpretation">8. Interpretation</h3>
 <ol type="a">
 <li><p>Which genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the <code>vip</code> package for variable importance)</p></li>
-<li><p>How well does your model perform? Discuss potential biological implications of your findings.</p></li>
+<li><p>How well does your model perform?</p></li>
 <li><p>Suggest at least two ways you might improve this analysis pipeline.</p></li>
 </ol>
-</section>
-<section id="bonus-challenge" class="level3">
-<h3 class="anchored" data-anchor-id="bonus-challenge">Bonus Challenge</h3>
-<p>Create a custom <code>step_*()</code> function for your recipe that performs a simple transformation specific to gene expression data (e.g., log transformation or handling of zero values). Incorporate this custom step into your preprocessing recipe.</p>
-<p>Good luck!</p>
 
 
 <!-- -->
@@ -1145,15 +1139,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a>a) Which genes appear to be most important in distinguishing between Control and Treatment conditions? (Hint: Look into the <span class="in">`vip`</span> package for variable importance)</span>
 <span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>b) How well does your model perform? Discuss potential biological implications of your findings.</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>b) How well does your model perform?</span>
 <span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a>c) Suggest at least two ways you might improve this analysis pipeline.</span>
-<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="fu">### Bonus Challenge</span></span>
-<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a>Create a custom <span class="in">`step_*()`</span> function for your recipe that performs a simple transformation specific to gene expression data (e.g., log transformation or handling of zero values). Incorporate this custom step into your preprocessing recipe.</span>
-<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>Good luck!</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
