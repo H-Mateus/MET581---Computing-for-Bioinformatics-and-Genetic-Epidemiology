@@ -27,6 +27,14 @@ execute:
 
 I'll include all the shiny code examples below for easy copying
 
+You'll need to have the shiny package installed for this!
+
+```{r}
+# Install them with the following:
+install.packages("shiny")
+install.packages("shinythemes")
+```
+
 # Lecture 1 examples
 
 ## 00_starthere.R

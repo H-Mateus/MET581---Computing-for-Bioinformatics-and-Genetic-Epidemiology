@@ -1090,7 +1090,7 @@
     "href": "09_ShinyApp/met581_09_shiny_code_examples.html",
     "title": "Shiny Code examples",
     "section": "",
-    "text": "I’ll include all the shiny code examples below for easy copying",
+    "text": "I’ll include all the shiny code examples below for easy copying\nYou’ll need to have the shiny package installed for this!\n# Install them with the following:\ninstall.packages(\"shiny\")\ninstall.packages(\"shinythemes\")",
     "crumbs": [
       "Home",
       "R Shiny",
