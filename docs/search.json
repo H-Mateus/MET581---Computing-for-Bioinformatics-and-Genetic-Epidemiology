@@ -1086,6 +1086,66 @@
     "text": "This website houses the lecture materials associated with the MET581 module R lectures.\nUse the side bar to navigate to lecture materials.\nYou can find the source files for this website and the lecture materials in GitHub here."
   },
   {
+    "objectID": "09_ShinyApp/met581_09_shiny_code_examples.html",
+    "href": "09_ShinyApp/met581_09_shiny_code_examples.html",
+    "title": "Shiny Code examples",
+    "section": "",
+    "text": "I’ll include all the shiny code examples below for easy copying",
+    "crumbs": [
+      "Home",
+      "R Shiny",
+      "Code examples"
+    ]
+  },
+  {
+    "objectID": "09_ShinyApp/met581_09_shiny_code_examples.html#starthere.r",
+    "href": "09_ShinyApp/met581_09_shiny_code_examples.html#starthere.r",
+    "title": "Shiny Code examples",
+    "section": "00_starthere.R",
+    "text": "00_starthere.R\n\n# This is the code to make the 01_hello example app\n\nlibrary(shiny)\nlibrary(bslib)\n\n# Define UI for app that draws a histogram ----\nui &lt;- page_sidebar(\n  # App title ----\n  title = \"Hello Shiny!\",\n  # Sidebar panel for inputs ----\n  sidebar = sidebar(\n    # Input: Slider for the number of bins ----\n    sliderInput(\n      inputId = \"bins\",\n      label = \"Number of bins:\",\n      min = 1,\n      max = 50,\n      value = 30\n    )\n  ),\n  # Output: Histogram ----\n  card(plotOutput(outputId = \"distPlot\"))\n)\n\n# Define server logic required to draw a histogram ----\nserver &lt;- function(input, output) {\n  \n  # Histogram of the Old Faithful Geyser Data ----\n  # with requested number of bins\n  # This expression that generates a histogram is wrapped in a call\n  # to renderPlot to indicate that:\n  #\n  # 1. It is \"reactive\" and therefore should be automatically\n  #    re-executed when inputs (input$bins) change\n  # 2. Its output type is a plot\n  output$distPlot &lt;- renderPlot({\n    \n    x    &lt;- faithful$waiting\n    bins &lt;- seq(min(x), max(x), length.out = input$bins + 1)\n    \n    hist(x, breaks = bins, col = \"#007bc2\", border = \"white\",\n         xlab = \"Waiting time to next eruption (in mins)\",\n         main = \"Histogram of waiting times\")\n    \n  })\n  \n}\n\nshinyApp(ui = ui, server = server)",
+    "crumbs": [
+      "Home",
+      "R Shiny",
+      "Code examples"
+    ]
+  },
+  {
+    "objectID": "09_ShinyApp/met581_09_shiny_code_examples.html#template.r",
+    "href": "09_ShinyApp/met581_09_shiny_code_examples.html#template.r",
+    "title": "Shiny Code examples",
+    "section": "01_template.R",
+    "text": "01_template.R\n\nlibrary(shiny)\n\nui &lt;- fluidPage()\n\nserver &lt;- function(input, output) {\n}\n\nshinyApp(ui = ui, server = server)\n\nlibrary(shiny)",
+    "crumbs": [
+      "Home",
+      "R Shiny",
+      "Code examples"
+    ]
+  },
+  {
+    "objectID": "09_ShinyApp/met581_09_shiny_code_examples.html#rnom_example.r",
+    "href": "09_ShinyApp/met581_09_shiny_code_examples.html#rnom_example.r",
+    "title": "Shiny Code examples",
+    "section": "02_rnom_example.R",
+    "text": "02_rnom_example.R\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  sidebarLayout(\n    sidebarPanel(\n      radioButtons(inputId=\"radio\",label=\"Radio Buttons:\",\n                   choices=list(\"red\"=\"red\",\"blue\"=\"blue\")),\n      numericInput(inputId=\"numeric\",label=\"Data\",value=1)\n      ),\n    mainPanel(\n      plotOutput(\"distPlot\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n  output$distPlot &lt;- renderPlot({\n    set.seed(1)\n    x&lt;-rnorm(input$numeric)\n    colour&lt;-input$radio\n    plot(x,type=\"o\",col=colour)\n  })\n}\n\nshinyApp(ui = ui, server = server)",
+    "crumbs": [
+      "Home",
+      "R Shiny",
+      "Code examples"
+    ]
+  },
+  {
+    "objectID": "09_ShinyApp/met581_09_shiny_code_examples.html#kmeansexample.r",
+    "href": "09_ShinyApp/met581_09_shiny_code_examples.html#kmeansexample.r",
+    "title": "Shiny Code examples",
+    "section": "03_kmeansexample.R",
+    "text": "03_kmeansexample.R\n\n# 01-kmeans-app\n\npalette(c(\"#E41A1C\", \"#377EB8\", \"#4DAF4A\", \"#984EA3\",\n  \"#FF7F00\", \"#FFFF33\", \"#A65628\", \"#F781BF\", \"#999999\"))\n\nlibrary(shiny)\n\nui &lt;- fluidPage(\n  headerPanel('Iris k-means clustering'),\n  sidebarPanel(\n    selectInput('xcol', 'X Variable', names(iris)),\n    selectInput('ycol', 'Y Variable', names(iris),\n      selected = names(iris)[[2]]),\n    numericInput('clusters', 'Cluster count', 3,\n      min = 1, max = 9)\n  ),\n  mainPanel(\n    plotOutput('plot1')\n  )\n)\n\nserver &lt;- function(input, output) {\n\n  selectedData &lt;- reactive({\n    iris[, c(input$xcol, input$ycol)]\n  })\n\n  clusters &lt;- reactive({\n    kmeans(selectedData(), input$clusters)\n  })\n\n  output$plot1 &lt;- renderPlot({\n    par(mar = c(5.1, 4.1, 0, 1))\n    plot(selectedData(),\n         col = clusters()$cluster,\n         pch = 20, cex = 3)\n    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)\n  })\n\n}\n\nshinyApp(ui = ui, server = server)",
+    "crumbs": [
+      "Home",
+      "R Shiny",
+      "Code examples"
+    ]
+  },
+  {
     "objectID": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html",
     "href": "10_resources/01_workshop_answers/modelling_in_r_practice_answers.html",
     "title": "Modelling in R - Practice",
