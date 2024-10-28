@@ -37,6 +37,12 @@ website:
             href: 08_Modelling_in_R/met581_08_modelling_r.qmd
           - text: "Practice"
             href: 08_Modelling_in_R/modelling_in_r_practice.qmd
+      - section: "R Shiny"
+        contents: 
+          - text: "Code examples"
+            href: 09_ShinyApp/met581_09_shiny_code_examples.qmd
+          - text: "Code example solutions"
+            href: 09_ShinyApp/met581_09_shiny_code_examples_answers.qmd
       
 execute: 
   freeze: auto

@@ -1,0 +1,252 @@
+---
+title: "Shiny Code example answers"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+    orcid: 0000-0001-6075-3619
+    email: bernardo-harringtong@cardiff.ac.uk
+    affiliations: 
+      - ref: cardiff
+      - ref: dri
+    degrees: 
+      - PhD
+affiliations:
+  - id: cardiff
+    name: Cardiff University
+    city: Cardiff
+    url: www.cardiff.ac.uk
+  - id: dri
+    name: UK Dementia Research Institue
+    url: https://ukdri.ac.uk/
+format: 
+  html: 
+    toc: true
+execute: 
+  echo: true
+  eval: false
+---
+
+Here're solutions to the challenges in the lectures
+
+# Lecture 1 examples
+
+## 01_template.R
+
+Here we add a slider input, note that a `min`, `max` and `value` argument is required
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput("blah", "blah again", min = 0, max = 10, value = 5)
+)
+
+server <- function(input, output) {
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+## 02_rnom_example.R
+
+Here we add a radio button and a numeric input to control a plot
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+      radioButtons(inputId="radio",label="Radio Buttons:",
+                   choices=list("red"="red","blue"="blue")),
+      numericInput(inputId="numeric",label="Data",value=1)
+      ),
+    mainPanel(
+      plotOutput("distPlot")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+    set.seed(1)
+    x<-rnorm(input$numeric)
+    colour<-input$radio
+    plot(x,type="o",col=colour)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+## 03_kmeansexample.R
+
+This solution uses a more modern style with cards.
+I also added another row.
+
+I find it simpler to lay things out with cards, and the modern `bslid` driven approach makes the code simpler for me, but both styles are perfectly valid!
+
+```{r}
+# 01-kmeans-app
+
+palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+  "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999"))
+
+library(shiny)
+library(ggplot2)
+library(bslib)
+
+# UI logic
+ui <- page_sidebar(
+  title = "mtcars k-means clustering",
+  sidebar = sidebar(
+    selectInput('xcol', 'X Variable', names(mtcars)),
+    selectInput('ycol', 'Y Variable', names(mtcars),
+      selected = names(mtcars)[[2]]),
+    numericInput('clusters', 'Cluster count', 3,
+      min = 1, max = 9)
+  ),
+  layout_columns(
+    card(
+      card_header("A dynamically rendered plot"),
+      plotOutput('plot1')
+    ),
+    card(
+      card_header("Another random plot"),
+      plotOutput('plot2')
+    )
+  ),
+  card(
+    card_header("Heres a new row!"),
+    "We can just have some text too!"
+  )
+)
+
+# Server logic
+server <- function(input, output, session) {
+  output$plot1 <- renderPlot({
+    # filter mtcars to selected variables
+    data <- mtcars[, c(input$xcol, input$ycol)]
+    # cluster data
+    clusters <- kmeans(data, input$clusters)
+    # make plot 
+    par(mar = c(5.1, 4.1, 0, 1))
+    plot(data,
+         col = clusters$cluster,
+         pch = 20, cex = 3)
+    points(clusters$centers, pch = 4, cex = 4, lwd = 4)
+  })
+  
+  output$plot2 <- renderPlot({
+    # make plot 
+    iris |>
+      ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
+      geom_point()
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+# Lecture 2 examples
+
+## Observe event
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(
+  sliderInput(inputId = "num", 
+              label = "Choose a number",
+              min = 1, max = 100, value = 25),
+  actionButton(inputId = "go",label = "Action!"),
+  # Add the output to the ui
+  verbatimTextOutput("print")
+)
+
+server <- function(input, output) {
+  
+  # observe responds to the print button
+  # but not the slider
+  observeEvent(input$go, {
+    # Add an output with a render function
+   output$print <- renderPrint(print(as.numeric(input$num)))
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+## Add a sidebar
+
+```{r}
+library(shiny)
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(sliderInput(inputId = 'num',label = 'myfirstslider',min=1,max=100,value=25),
+    ),
+    mainPanel(plotOutput("hist")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$hist <- renderPlot({
+    hist(main='test',rnorm(input$num))})
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+## Tab/Nav panels
+
+```{r}
+library(shiny)
+
+ui <- fluidPage(title = "Random generator",
+  navlistPanel(              
+    tabPanel(title = "Normal data",
+      plotOutput("norm"),
+      actionButton("renorm", "Resample")
+    ),
+    tabPanel(title = "Uniform data",
+      plotOutput("unif"),
+      actionButton("reunif", "Resample")
+    ),
+    tabPanel(title = "Chi Squared data",
+      plotOutput("chisq"),
+      actionButton("rechisq", "Resample"),
+      tags$h1("helloworld"),
+      HTML("<h1>helloworld</h1>")
+    )
+  )
+)
+
+server <- function(input, output) {
+  
+  rv <- reactiveValues(
+    norm = rnorm(500), 
+    unif = runif(500),
+    chisq = rchisq(500, 2))
+  
+  observeEvent(input$renorm, { rv$norm <- rnorm(500) })
+  observeEvent(input$reunif, { rv$unif <- runif(500) })
+  observeEvent(input$rechisq, { rv$chisq <- rchisq(500, 2) })
+  
+  output$norm <- renderPlot({
+    hist(rv$norm, breaks = 30, col = "grey", border = "white",
+      main = "500 random draws from a standard normal distribution")
+  })
+  output$unif <- renderPlot({
+    hist(rv$unif, breaks = 30, col = "grey", border = "white",
+      main = "500 random draws from a standard uniform distribution")
+  })
+  output$chisq <- renderPlot({
+    hist(rv$chisq, breaks = 30, col = "grey", border = "white",
+       main = "500 random draws from a Chi Square distribution with two degree of freedom")
+  })
+}
+
+shinyApp(server = server, ui = ui)
+```
+
