@@ -49,6 +49,6 @@ For your homework, you will answer the questions below using Quarto. Make sure t
 
 5. List some of the most important options provided by the readr package.
 
-6. Import the pheno_unclean.txt file using readr.
+6. Import the pheno_unclean.txt file (find it [here](https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/blob/main/data/pheno_unclean.txt) using readr.
 
 7. Identify any errors in the pheno_unclean.txt file using R code.

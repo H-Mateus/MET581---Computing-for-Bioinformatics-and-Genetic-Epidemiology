@@ -514,7 +514,7 @@ df[, "xyz"]
 
 ## Readr exercises
 
-1.    Use the base R function `read.table()` to import the [pheno.txt](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/data/pheno.txt) file. Then repeat this with `read_tsv()` from Readr, what is the difference? 
+1.    Use the base R function `read.table()` to import the [pheno.txt](https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/blob/main/data/pheno.txt) file. Then repeat this with `read_tsv()` from Readr, what is the difference? 
 
 You may notice that `read_csv` automatically assumes your first row is your column headers, you may wish to alter this behaviour is your file comes with a header of information on the top row.
 

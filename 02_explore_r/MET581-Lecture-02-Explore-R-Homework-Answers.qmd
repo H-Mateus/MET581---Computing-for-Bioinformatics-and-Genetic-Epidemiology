@@ -116,6 +116,7 @@ iris_tib
 
 ```{r}
 library(readr)
+# This version has been manually cleaned
 pheno <- read_tsv(here::here("data/pheno.txt"))
 pheno
 ```
