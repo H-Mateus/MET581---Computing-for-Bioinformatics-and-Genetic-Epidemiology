@@ -1,0 +1,552 @@
+---
+title: "Explore R"
+subtitle: "Slides inherited from Dr. Georgina Menzies, Dr. Nicos Angelopoulos & Matthew Bracher-Smith"
+#date: "16/10/2023"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+    orcid: 0000-0001-6075-3619
+    email: bernardo-harringtong@cardiff.ac.uk
+    affiliations:
+      - ref: cardiff
+      - ref: dri
+    degrees:
+      - PhD
+affiliations:
+  - id: cardiff
+    name: Cardiff University
+    city: Cardiff
+    url: www.cardiff.ac.uk
+  - id: dri
+    name: UK Dementia Research Institue
+    url: https://ukdri.ac.uk/
+format:
+  revealjs:
+    logo: /10_resources/00_images/combined_logos.png
+    footer: "MET581 - Programming in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
+    theme: [dark, ../styles.scss]
+    drop:
+      engine: webr
+      webr:
+        packages:
+          - tidyverse
+          - conflicted
+revealjs-plugins:
+  - drop
+execute:
+  echo: true
+---
+
+## Todays Aims
+
+-   Basics of Quarto
+-   Using Quarto to create pdf’s
+-   The R package tibble
+-   The R package readr
+
+## Learning Objectives
+
+-   Get familiar and comfortable with Quarto and creating pdf’s
+-   Understand the differences between Rmarkdown and Quarto
+-   Understand how to use tibble to make tables of data
+-   Understand how to use readr to read in different formats of data
+
+## Homework
+
+-   For the first homework you may have just used R scripts
+-   For future homework you'll learn how to make pdf's or html files from *R* code, which look like the pdf file for the homework
+
+## Homework answers
+
+-   Question 1
+
+```{r}
+sqrt(6 * 2)
+
+4 + 3 - 2
+
+1046 * 934
+```
+
+-   Question 2
+
+```{r}
+library(MASS)
+nrow(women)
+
+colnames(women)
+```
+
+## Homework answers - continued
+
+```{r}
+women$ages <- sample(18:90, nrow(women), replace = TRUE)
+head(women)
+```
+
+```{r}
+sum(women$height)
+sum(women$weight)
+sum(women$ages)
+
+# A more elegant way to apply a function to all columns!
+sapply(women, mean)
+```
+
+## Homework answers - continued
+
+-   Question 3
+
+```{r}
+cohort <- read.table(
+  "http://tbb.bio.uu.nl/BDA/fig4.tsv",
+  sep = "\t",
+  header = TRUE,
+  stringsAsFactors = FALSE
+)
+
+females <- cohort[cohort$Gender == "F", ]
+head(females)
+```
+
+```{r}
+#| eval: false
+write.csv(x = females, file = "fig4-females.csv")
+```
+
+## Homework answers - continued
+
+-   Question 4
+
+```{r}
+a <- c(1, 2, 5.3, 6, -2, 4) # numeric vector
+b <- c("one", "two", "three") # character vector
+c <- c(TRUE, TRUE, TRUE, FALSE, TRUE, FALSE) #logical vector
+a
+b
+c
+c[c(1, 3)]
+```
+
+## Homework answers - continued
+
+```{r}
+# generates 4 x 4 numeric matrix
+y <- matrix(1:20, nrow = 4, ncol = 4)
+rnames <- c("R1", "R2", "R3", "R4")
+cnames <- c("C1", "C2", "C3", "C4")
+mymatrix <- matrix(
+  y,
+  nrow = 4,
+  ncol = 4,
+  byrow = TRUE,
+  dimnames = list(rnames, cnames)
+)
+mymatrix
+```
+
+-   "A dimnames attribute for the matrix: NULL or a list of length 2 giving the row and column names respectively. An empty list is treated as NULL, and a list of length one as row names. The list can be named, and the list names will be used as names for the dimensions."
+
+## Homework answers - continued
+
+```{r}
+d <- c(1:4)
+e <- c("red", "white", "red", NA)
+f <- c(TRUE, TRUE, TRUE, FALSE)
+mydata <- data.frame(d, e, f)
+names(mydata) <- c("id", "color", "passed")
+mydata
+```
+
+
+## Quarto
+
+Today we’re going to talk about [Quarto](https://quarto.org/), which we can use to make pdf and html files (and much more!) that integrate plain language, code and output (images etc.). 
+This is excellent because it’s a dynamic document (and so more reproducible), and hugely flexible - various languages and engines, and outputs are supported.
+
+![](MET581_lecture_02-Explore-R-img/250619-145634.avif){fig-align="center" height="100px"}
+
+##
+
+But before Quarto, there was Rmarkdown...
+
+## Some background on Rmarkdown
+
+:::: {.columns}
+
+::: {.column width="60%"}
+Today we will be working on a .qmd (Quarto) file, but first, we need to talk about `.rmd` files.
+
+This (an `.rmd` file) is an Rmarkdown file. 
+You should remember a little about markdown from your Unix lectures. 
+You will be completing your homework in this file, so let's have a look at it now.
+
+RMarkdown is a way to make documents which include R code. 
+You can use this to write html documents, pdf’s and PowerPoints to show answers to coding problems, or the code themselves.
+
+Can you think of any reasons for using this?
+:::
+
+::: {.column width="40%"}
+![](MET581_lecture_02-Explore-R-img/250619-145914.avif){fig-align="center" height="400px"}
+:::
+
+::::
+
+## Some background on Quarto
+
+-   Announced in 2022 and becoming more widely adopted only last year, based on [pandoc](https://pandoc.org/)
+-   Actually a separate software that we run within RStudio
+-   The successor to Rmarkdown in many ways (made by the same devs), using `.qmd` files, made to support more languages (Python, Julia, etc.) and be more consistent in formatting
+-   Can be used to make documents in Rstudio, or Jupyter notebooks or elsewhere (i.e. it’s both multi-language and multi-engine)
+
+![](MET581_lecture_02-Explore-R-img/250619-150153.avif){fig-align="center" height="200px"}
+
+::: {.notes}
+-   Combines R Markdown, `bookdown`, `distill`, `xaringian`, and others "into a single consistent system"
+:::
+
+## Some background on Quarto
+
+![](MET581_lecture_02-Explore-R-img/250619-150717.avif)
+
+## A note on Quarto
+
+-   Fundamental usage for reports is the same as creating in Rmarkdown
+-   It's also what's used to make many of the R books you may read online (including R for Data Science 2nd edition!)
+-   Recommended that you use Quarto by default, because:
+    -   You will be easily be able to swap-in other languages besides R
+    -   You will more easily be able to use other Quarto features like those for making blogs and journal articles if you’re already familiar
+    -   It’s highly compatible - you can render most Rmarkdown or jupyter notebooks in Quarto easily, so you can still make normal Rmarkdown documents with your knowledge if needed.
+    -   You’re up to date with the latest in reproducible research
+    -   Newest features will likely be added to Quarto over Rmarkdown
+
+## Making your first .qmd file
+
+:::: {.columns}
+
+::: {.column width="80%"}
+-   Use the menu bar to create a new Quarto document, we will focus on html today
+
+-   Notice that the file contains three types of content:
+    -   A YAML header surrounded by `- - -`
+    -   R code chunks surrounded by ```
+    -   Text mixed with simple markdown formatting
+
+What do each of the bits of your new file do?
+
+-   Let's work through these now and create a knitted document!
+-   Create your own with code/data you have, or download an example file from quarto from [here](https://quarto.org/docs/get-started/computations/_computations.qmd)
+
+:::
+
+::: {.column width="20%"}
+![](MET581_lecture_02-Explore-R-img/250619-151102.avif){fig-align="center" height="500px"}
+:::
+::::
+
+## Elements of Quarto | The YAML header
+
+-   Quarto documents start with a YAML header that sets metadata and configurations for the document.
+-   YAML is a data serialisation language which aims to be useful for computers (often config files) and humans (it's relatively easy to read)
+-   Typical YAML options:
+    -   title: Title of the document
+    -   author: Author’s name
+    -   date: Document date
+    -   format: Specifies the output format (html, pdf, etc.)
+    -   theme: Defines a theme for visual style
+
+There are [a lot](https://quarto.org/docs/reference/formats/html.html) of options we won’t cover today and they differ by document type!
+
+## Elements of Quarto | Code chunks
+
+When you open the file in the RStudio IDE, it becomes a notebook interface for R. 
+You can run each code chunk by clicking the green arrow icon. 
+RStudio executes the code and display the results in line with your file.
+
+There are three ways to insert R code into the file:
+
+1.    The keyboard shortcut Ctrl + Alt + I (OS X: Cmd + Option + I)
+1.    The +option in the menu bar
+1.    Or by typing the chunk delimiters \``` {r} ```
+
+![](MET581_lecture_02-Explore-R-img/250619-152627.avif)
+
+## Elements of Quarto | Code chunks
+
+In Quarto, chunk output can be customized with options prefixed by `#|` inside the chunk header. 
+Here are some common options:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+-   #| include: false
+    -   Excludes code and results from the rendered document but runs the code.
+-   #| echo: false
+    -   Excludes code but displays results. Useful for embedding figures.
+:::
+
+::: {.column width="50%"}
+-   #| message: false
+    -   Suppresses messages generated by code.
+-   #| warning: false
+    -   Suppresses warnings generated by code.
+-   #| fig-cap: “This is a caption”
+    -   Adds a caption to figures.
+:::
+::::
+
+In html documents, adding code-tools and using code-folding are usually preferred over include/echo
+
+## Elements of Quarto | Inline code
+
+Code results can be inserted directly into the text of a .qmd file by enclosing the code using single \` like so:
+
+-   The mean of the data was `{{r}} mean(mtcars$gear)`
+    -   Which renders as:
+    -   The mean of the data was `{r} mean(mtcars$gear)`
+
+## Elements of Quarto | Multiple languages
+
+Quarto allows the use of multiple languages in code chunks. 
+Specify the language using `{}` after the chunk delimiter, like python, julia, or r.
+
+![](MET581_lecture_02-Explore-R-img/250619-154055.avif)
+
+## Elements of Quarto | Text Options
+
+-   Do you remember your markdown formatting?
+-   The main body is just normal markdown, so all the same stuff works
+-   Examples on the website [here](https://quarto.org/docs/authoring/markdown-basics.html)
+
+## Creating documents | Previewing and Rendering
+
+-   In RStudio, you can preview and render Quarto documents easily
+    -   Render by clicking the 'Render' button
+    -   Preview by toggling the visual button
+
+![](MET581_lecture_02-Explore-R-img/250619-160005.avif)
+
+-   Quarto provides a command-line interface as well, which allows rendering with: `quarto render myfile.qmd`
+-   You can specify output formats in the YAML header or when rendering
+
+## Creating documents | Quarto output formats
+
+-   Quarto supports various output formats:
+    -   `html`: Web format with dynamic features
+    -   `pdf`: Portable document format for printing
+    -   `docx`: Microsoft Word format
+    -   `revealjs`: HTML presentations (for slides, this is what these slide are made with!)
+    -   `beamer`: PDF presentations (for slides)
+-   Specify these in the YAML or use them with the quarto render command, more details [here](https://quarto.org/docs/output-formats/all-formats.html)
+
+## Creating documents | Practice
+
+-   [Here](https://quarto.org/docs/get-started/computations/_computations-complete.qmd) is a version of the document with other elements added
+-   See if you can make an ordered list with sub items that contain at least one example of bold, italic, superscript and strikethrough text, as well as a 2x2 table with headers
+
+## Now make an .rmd file
+
+:::: {.columns}
+
+::: {.column width="50%"}
+-   Compare it to a `.rmd` document
+-   What do you notice that's different?
+:::
+
+::: {.column width="50%"}
+![](MET581_lecture_02-Explore-R-img/250619-160623.avif)
+:::
+::::
+
+## Quarto (.qmd) and Rmarkdown (.rmd): Differences you need to know
+
+-   It's pretty much mainly the syntax of the YAML options (`html` VS `html_document`), code chunk option formats (although Quarto is compatible with the rmd format), and the language support
+-   Rmarkdown is wedded to R, even if you use other languages like Python, it's still actually being run through R (via the `reticulate` package in the case of Python)
+-   Quarto is language and engine agnostic, and thus more more versatile
+
+## Final Quarto links
+
+-   The Quarto site, is very good: [https://quarto.org/](https://quarto.org/)
+-   Cheatsheet [here](https://rstudio.github.io/cheatsheets/quarto.pdf)
+
+For PDFs:
+
+-   You'll need latex installed to create pdfs
+    -   See options [here](https://quarto.org/docs/output-formats/pdf-engine.html) (TinyTex is probably best bet)
+    -   The pdf YAML reference is [here](https://quarto.org/docs/reference/formats/pdf.html)
+-   You can output to multiple formats and use the quarto package directly
+    -   See tutorial on authoring [here](https://quarto.org/docs/get-started/authoring/rstudio.html)
+
+## Break
+
+## Tibbles!
+
+:::: {.columns}
+
+::: {.column width="60%"}
+"Tibbles" are a new modern data frame. 
+It keeps many important features of the original data frame. 
+It removes many of the outdated features. 
+They are another amazing feature added to R by Hadley Wickham.
+We will use them in the tidyverse to replace the older dataframe that we just learned about.
+:::
+
+::: {.column width="40%"}
+![](MET581_lecture_02-Explore-R-img/250619-162539.avif){fig-align="center" height="200px"}
+
+![](MET581_lecture_02-Explore-R-img/250619-162550.avif){fig-align="center" height="200px"}
+:::
+::::
+
+## Tibbles! - continued
+
+:::: {.columns}
+
+::: {.column width="60%"}
+Compared to Data Frames:
+
+1.    A tibble never changes the input type. 
+1.    A tibble can have columns that are lists.
+1.    A tibble can have non-standard variable names.
+      -   can start with a number or contain spaces.
+      -   To use this refer to these in a backtick.
+1.    It only recycles vectors of length 1.
+1.    It never creates row names.
+1.    Enhanced `print()` behaviour
+:::
+
+::: {.column width="40%"}
+![](MET581_lecture_02-Explore-R-img/250619-162539.avif){fig-align="center" height="200px"}
+
+![](MET581_lecture_02-Explore-R-img/250619-162550.avif){fig-align="center" height="200px"}
+:::
+::::
+
+## Tibbles! - continued
+
+:::: {.columns}
+
+::: {.column width="30%"}
+-   The syntax to make a tibble is nearly identical to data frames 
+:::
+
+::: {.column width="70%"}
+```{r}
+library(tibble)
+test <- tibble(x = 1:3, y = list(1:5, 1:10, 1:20))
+test
+```
+:::
+::::
+
+:::: {.columns}
+
+::: {.column width="30%"}
+-   Whereas if we try this as a dataframe
+:::
+
+::: {.column width="70%"}
+```{r}
+test <- as.data.frame(c(x = 1:3, y = list(1:5, 1:10, 1:20)))
+head(test)
+```
+:::
+::::
+
+## Tibbles! - continued
+
+We can easily coerce dataframes to tibbles with `as_tibble()`
+
+Try the following, what differences do you notice:
+
+```{r}
+#| eval: false
+data(iris)
+as_tibble(iris)
+```
+
+. . .
+
+-   Tibbles on print the first 10 rows and all the columns that fit on the screen
+-   You will not accidentally print too much!
+-   Each column displays its data type
+
+## Tribble
+
+-   Sometimes you might need to make a small table in R
+-   `tribble()` allows you make a tibble and fill it row wise
+-   The `~` is used to define column headers
+
+```{r}
+tribble(~x, ~y, ~z, "a", 2, 3.6, "b", 1, 8.5)
+```
+
+## Tibble exercises
+
+1.    How can you tell if an object is a tibble?
+2.    Compare and contrast the following operations on a data.frame and equivalent tibble. What is different?
+
+```{r}
+#| eval: false
+df <- data.frame(abc = 1, xyz = "a")
+df$x
+df[, "xyz"]
+```
+
+3.    If you have the name of a column stored in an object, e.g. `var <- "mpg"`, how can you extract the column from a tibble?
+
+## Readr
+
+-   There are many ways to import data into R, from inputting the data yourself to reading it in using the traditional R tools we used in lesson one.
+-   The tidyverse way is to use a package called readr, there are several functions within this package you can use to read in different types of data.
+
+![](MET581_lecture_02-Explore-R-img/250620-122125.avif){fig-align="center" height="200px"}
+
+## Readr functions
+
+-   `read_csv()` reads comma delimited files
+-   `read_csv2()` reads semicolon separated files (common in countries where , is used as the decimal place)
+-   `read_tsv()` reads tab delimited files
+-   `read_delim()` reads in files with any delimiter.
+-   `read_fwf()` reads fixed width files. You can specify fields either by their widths with `fwf_widths()` or their position with `fwf_positions()`. 
+-   `read_table()` reads a common variation of fixed width files where columns are separated by white space.
+-   `read_log()` reads Apache style log files.
+
+## Readr exercises
+
+1.    Use the base R function `read.table()` to import the [pheno.txt](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/data/pheno.txt) file. Then repeat this with `read_tsv()` from Readr, what is the difference? 
+
+You may notice that `read_csv` automatically assumes your first row is your column headers, you may wish to alter this behaviour is your file comes with a header of information on the top row.
+
+2.    Open the "pheno.txt" in a text editor (can use notepad on Windows), and add a header to the file
+3.    What happens when you open this using `read_csv`?
+
+## Readr exercises continued
+
+Let's try again, but skipping this header.
+
+4.    You can use `skip = n` to skip the first n lines; or use `comment = "#"` to drop all lines that start with "#"
+5.    You may not have column names, in that case you can use `col_names = FALSE` to tell `read_csv()` not to treat the first row as headings, and instead label them sequentially from X1 to Xn
+
+## Readr VS base R
+
+Why use the readr functions?
+
+-   They are typically much faster (~10x) than their base equivalents. Long running jobs have a progress bar, so you can see what’s happening. If you're looking for raw speed, try `fread()` from the `data.table` package. It doesn't fit quite so well into the tidyverse, but it can be quite a bit faster.
+-   They produce tibbles, they don't convert character vectors to factors, use row names, or munge the column names. These are common sources of frustration with the base R functions.
+-   They are more reproducible. Base R functions inherit some behaviour from your operating system and environment variables, so code that works on your computer might not work on someone else's.
+
+
+## Additional Resources
+
+-   Extra reading from [R for Data Science](https://r4ds.hadley.nz/):
+    -   Chapter 8: Data import
+    -   Chapter 29: Quarto
+    -   Chapter 30: Quarto formats
+-   Advanced reading:
+    -   Chapter 21-25 (importing data)
+
+-   These slides and the workshop can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
+
+![](/10_resources/00_images/website_qrcode.svg){fig-align="center"}
+

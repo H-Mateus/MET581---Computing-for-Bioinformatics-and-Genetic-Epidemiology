@@ -1,0 +1,133 @@
+---
+title: "MET581-Lecture-02-Explore-R-homework-answers"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+  - name: "Matthew Bracher-Smith"
+date: "2024-10-15"
+format: html
+editor: source
+---
+
+# Exploring Data in R - Answers
+
+## Overview
+
+Quarto is a document format that allows you to create and render documents in multiple formats including HTML, PDF, and MS Word. For more details on using Quarto, see [the Quarto website](https://quarto.org). When you render this document, it will generate output that includes both the content and the results of any embedded R code chunks. You can embed an R code chunk like this:
+
+```{r}
+#| eval: false
+summary(cars)
+```
+
+This will display a summary of the cars dataset like shown below:
+
+```{r}
+#| echo: false
+summary(cars)
+```
+
+For your homework, you will answer the questions below using Quarto. Make sure to include both the code and results in your knitted PDF or html file.
+
+## Questions
+
+1.  Use Quarto to write a paragraph explaining the tidyverse concept. Your paragraph should include:
+
+2. Create a tibble with columns labeled: name, age, height, gender. Your tibble should contain at least 13 rows of data.
+
+```{r}
+#| echo: true
+#| warning: false
+library(tibble)
+library(dplyr)
+
+tib <- tibble(
+  "name" = c(
+    "Luke",
+    "Julia",
+    "Matt",
+    "Simon",
+    "Laura",
+    "Paul",
+    "Frank",
+    "Chris",
+    "Pam",
+    "Sue",
+    "Sim",
+    "Tom",
+    "Ben"
+  ),
+  "age" = c(22, 21, 18, 19, 20, 16, 17, 26, 23, 25, 28, 18, 19),
+  "height" = c(182, 180, 178, 183, 180, 179, 176, 175, 180, 181, 182, 170, 175),
+  "gender" = c("M", "F", "M", "M", "F", "M", "M", "M", "F", "F", "M", "M", "M")
+)
+
+tib
+```
+
+   -  2a: Use tibble code to select the data for row 4. 
+   
+```{r}
+slice(tib, 4)
+```
+
+Or
+
+```{r}
+tib[4, ]
+```
+
+   -  2b: Retrieve the height of a person based on their name. 
+
+```{r}
+tib[tib$name == "Luke", ]$height
+```
+
+Or
+
+```{r}
+filter(tib, name == "Luke")$height
+```
+
+   -  2c: Calculate the ratio of men to women. 
+
+```{r}
+nrow(tib[tib$gender == "M", ]) / nrow(tib[tib$gender == "F", ])
+```
+
+   -  2d: Calculate the average age and the standard deviation. 
+   
+```{r}
+mean(tib[['age']])
+sd(tib[['age']])
+```
+  
+3. Turn the dataset iris into a tibble.
+
+```{r}
+iris_tib <- as_tibble(iris)
+iris_tib
+```
+
+4. Why might tibbles be preferable to traditional R data frames for data scientists?
+
+5. List some of the most important options provided by the readr package.
+
+6. Import the pheno_unclean.txt file using readr.
+
+```{r}
+library(readr)
+pheno <- read_tsv(here::here("data/pheno.txt"))
+pheno
+```
+
+7. Identify any errors in the pheno_unclean.txt file using R code.
+
+```{r}
+pheno[pheno$Phenotype > 1, ]
+```
+
+Or
+
+```{r}
+filter(pheno, Phenotype > 1)
+```
