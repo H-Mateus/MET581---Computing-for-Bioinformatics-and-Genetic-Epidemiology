@@ -19,7 +19,7 @@ affiliations:
     url: https://ukdri.ac.uk/
 format: 
   revealjs:
-    logo: /10_resources/00_images/combined_logos.png
+    logo: /./10_resources/00_images/combined_logos.png
     footer: "MET581 - Modelling in R"
     theme: [dark, ../styles.scss]
     output-location: column
@@ -79,7 +79,7 @@ execute:
 
 ```{r}
 #| output-location: default
-library(tidymodels)  # for the parsnip package, along with the rest of tidymodels
+library(tidymodels) # for the parsnip package, along with the rest of tidymodels
 
 # Helper packages
 library(tidyverse) # for data manipulations
@@ -91,6 +91,7 @@ library(usemodels) # for generating nice boilerplate code
 library(vip) # for variable importance of random forest
 
 conflicts_prefer(dplyr::filter)
+conflicts_prefer(modeldata::penguins)
 ```
 
 ## Starting Simple
@@ -144,14 +145,16 @@ y_model <- 34 + -0.1 * mtcars$hp # A guess of a1 and a2
 y_diff <- mtcars$mpg - y_model
 ggplot(mtcars, aes(x = hp, mpg)) +
   geom_point() +
-  geom_abline(aes(intercept =34, 
-                  slope = -0.1)) +
-  geom_segment(aes(
-    x = hp,
-    y = mpg,
-    xend = hp,
-    yend = y_model
-  ), color = "blue")
+  geom_abline(aes(intercept = 34, slope = -0.1)) +
+  geom_segment(
+    aes(
+      x = hp,
+      y = mpg,
+      xend = hp,
+      yend = y_model
+    ),
+    color = "blue"
+  )
 ```
 
 ## Fitness of Models
@@ -187,8 +190,7 @@ coef(model) |> round(3)
 
 ```{r}
 penguins |>
-ggplot(aes(x = bill_length_mm, 
-           y = bill_depth_mm)) +
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) +
   geom_point(size = 2) +
   geom_smooth(method = "lm", se = FALSE)
 ```
@@ -200,16 +202,16 @@ ggplot(aes(x = bill_length_mm,
 
 ```{r}
 penguins |>
-ggplot(aes(x = bill_length_mm, 
-           y = bill_depth_mm)) +
-  geom_point(aes(color = species, 
-                 shape = species),
-             size = 2) + 
-  geom_smooth(method = "lm", se = FALSE, 
-              aes(color = species)) +
-  scale_color_manual(values = c(
-    "darkorange","darkorchid","cyan4")
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm)) +
+  geom_point(aes(color = species, shape = species), size = 2) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+  scale_color_manual(
+    values = c(
+      "darkorange",
+      "darkorchid",
+      "cyan4"
     )
+  )
 ```
 
 ## Building a model with tidymodels
@@ -219,10 +221,12 @@ ggplot(aes(x = bill_length_mm,
 ```{r}
 penguins |>
   filter(!is.na(sex)) |>
-  ggplot(aes(flipper_length_mm, 
-             bill_length_mm, 
-             color = sex, 
-             size = body_mass_g)) +
+  ggplot(aes(
+    flipper_length_mm,
+    bill_length_mm,
+    color = sex,
+    size = body_mass_g
+  )) +
   geom_point(alpha = 0.5) +
   facet_wrap(~species)
 
@@ -285,17 +289,15 @@ glm_spec
 
 ```{r}
 # make some nice boilerplate code
-usemodels::use_ranger(sex ~ ., 
-                      data = penguin_train)
+usemodels::use_ranger(sex ~ ., data = penguin_train)
 ```
 
 ## Testing hyperparameters
 
 ```{r}
 #| cache: true
-ranger_recipe <- 
-  recipe(formula = sex ~ ., 
-         data = penguin_train)  |>
+ranger_recipe <-
+  recipe(formula = sex ~ ., data = penguin_train) |>
   # impute the mean if any values are missing
   step_impute_mean(all_numeric_predictors()) |>
   # apply hot-one encoding to factors
@@ -303,24 +305,20 @@ ranger_recipe <-
   # remove any predictors that have 0 variance
   step_nzv(all_numeric_predictors())
 
-ranger_spec <- 
-  rand_forest(mtry = tune(), 
-              min_n = tune(), 
-              trees = 1000) %>% 
-  set_mode("classification") %>% 
-  set_engine("ranger") 
+ranger_spec <-
+  rand_forest(mtry = tune(), min_n = tune(), trees = 1000) %>%
+  set_mode("classification") %>%
+  set_engine("ranger")
 
-ranger_workflow <- 
-  workflow() %>% 
-  add_recipe(ranger_recipe) %>% 
-  add_model(ranger_spec) 
+ranger_workflow <-
+  workflow() %>%
+  add_recipe(ranger_recipe) %>%
+  add_model(ranger_spec)
 
 set.seed(70081)
 doParallel::registerDoParallel()
 ranger_tune <-
-  tune_grid(ranger_workflow, 
-            resamples = penguin_boot, 
-            grid = 10)
+  tune_grid(ranger_workflow, resamples = penguin_boot, grid = 10)
 ```
 
 ## Visualising different hyperparameters
@@ -353,10 +351,9 @@ final_rf
 ```{r}
 #| output-location: default
 #| code-line-numbers: "1-4|5-10|12-15"
-# Set sex as the outcome and use all other 
+# Set sex as the outcome and use all other
 # variables as predictors with the "." shorthand
-recipe <- recipe(sex ~ ., 
-                 data = penguin_train) |>
+recipe <- recipe(sex ~ ., data = penguin_train) |>
   # impute the mean if any values are missing
   step_impute_mean(all_numeric_predictors()) |>
   # apply hot-one encoding to factors
@@ -375,8 +372,7 @@ penguin_wf
 -   We often might be interested in interactions between variables, so we can use the `*` to assess this in the formula
 
 ```{r}
-lm(body_mass_g ~ bill_length_mm * bill_depth_mm, 
-   data = penguins_df) |>
+lm(body_mass_g ~ bill_length_mm * bill_depth_mm, data = penguins_df) |>
   tidy()
 ```
 
@@ -388,18 +384,21 @@ lm(body_mass_g ~ bill_length_mm * bill_depth_mm,
 ```{r}
 library(multilevelmod)
 
-multilevel_spec <- linear_reg() |> 
+multilevel_spec <- linear_reg() |>
   set_engine("lmer")
 
-multilevel_workflow <- 
+multilevel_workflow <-
   workflow() |>
-  # Pass the data along as-is: 
-  add_variables(outcome = body_mass_g, 
-                predictors = c(species, 
-                               bill_depth_mm, sex)) |>
-  add_model(multilevel_spec, 
-            # This formula is given to the model
-            formula = body_mass_g ~ sex + (bill_depth_mm | species))
+  # Pass the data along as-is:
+  add_variables(
+    outcome = body_mass_g,
+    predictors = c(species, bill_depth_mm, sex)
+  ) |>
+  add_model(
+    multilevel_spec,
+    # This formula is given to the model
+    formula = body_mass_g ~ sex + (bill_depth_mm | species)
+  )
 
 multilevel_fit <- fit(multilevel_workflow, data = penguins_df)
 multilevel_fit
@@ -527,9 +526,7 @@ penguin_final$.workflow[[1]] %>%
 ```{r}
 penguins %>%
   filter(!is.na(sex)) %>%
-  ggplot(aes(bill_depth_mm, bill_length_mm, 
-             color = sex, 
-             size = body_mass_g)) +
+  ggplot(aes(bill_depth_mm, bill_length_mm, color = sex, size = body_mass_g)) +
   geom_point(alpha = 0.5) +
   facet_wrap(~species)
 ```
@@ -543,4 +540,4 @@ penguins %>%
 
 -   These slides and the workshop can be found on the website [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/):
 
-![](/10_resources/00_images/website_qrcode.svg){fig-align="center"}
+![](/./10_resources/00_images/website_qrcode.svg){fig-align="center"}

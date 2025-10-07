@@ -1,0 +1,570 @@
+---
+title: "MET581 Lecture 04"
+subtitle: "Wrangling Data 2: tidying, strings and joins"
+author: "Matthew Bracher-Smith"
+date: "2024-10-18"
+editor: source
+format: 
+  revealjs:
+    theme: dark
+    font: Ubuntu
+    autosize: true
+    df-print: kable
+    css: styles.css
+    embed-resources: true
+    self-contained: true
+execute:
+  echo: true
+  output: true
+---
+
+## Overview
+
+<div class="image-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: -5px;">
+  <img src="/10_resources/00_images/dplyr_hex.png" style="width:150px;">
+  <img src="/10_resources/00_images/stringr_hex.png" style="width:150px;">
+  <img src="/10_resources/00_images/tidyr_hex.png" style="width:150px;">
+</div>
+
+## Review
+- The verbs of dplyr
+- Homework
+
+## First, Load everything
+
+```{r}
+#| output: false
+#| warning: false
+library(stringr)
+library(tidyr)
+library(dplyr)
+library(gapminder)
+library(nycflights13)
+library(ggplot2)
+```
+
+# Homework Tips
+
+## Basic organisation
+
+- By now there should be some structure to your work
+- This might be R scripts or literate programming (Quarto files)
+- It's worth creating a new project for each class, and a new .qmd file for each homework
+- Test in the console to build up parts of a query and transfer to the .qmd file
+
+## Scoped verbs vs. pick and across
+
+- We mainly talked about applying functions to individual columns
+- But we often want to apply functions to multiple columns
+- We can use `pick()` and `across()` to do this
+- The scoped variants of dplyr verbs like `select_if()` have been [superseded](https://lifecycle.r-lib.org/articles/stages.html#superseded) (but you will see them everywhere!)
+
+## `pick()` in masked environments {.smaller}
+
+- in functions like `mutate()`, `summarise()`, and `group_by()` we can refer to columns directly by their names instead of needing quotation marks - why is this?
+- they "mask" the overall data frame, meaning they provide direct access to column names without needing to explicitly reference the full data frame.
+- you will see this referred to as a "data masking environment" in the docs
+- `pick()` is like `select()`, but can refer to columns directly in a masked environment, e.g.
+
+```{r}
+#| output: false
+gapminder |> 
+  mutate(rank = dense_rank(pick(lifeExp, gdpPercap)))
+```
+
+## `across` for applying functions
+
+- You will cover functional programming in detail with `purrr` in later lectures
+- Functional programming refers to functions which can take other functions as arguments for iteration
+- `across` can be used in this way to apply functions to multiple columns
+- see [the R4DS book, ch. 26](https://r4ds.hadley.nz/iteration) for more
+
+## `across` for applying functions {.smaller}
+- for example, we can apply a function to every column that's an integer
+- with the more recent `across` syntax, this looks like:
+
+```{r}
+#| output: false
+gapminder |>
+  mutate(across(where(is.numeric), round))
+```
+
+- this is equivalent to the now superseded "scoped variant" syntax:
+
+```{r}
+#| output: false
+gapminder |>
+  mutate_if(is.numeric, round)
+```
+
+## `across` for applying functions {.smaller}
+- one of the more frustrating things is manually writing out calls to summarise
+- with `across`, the code fo doing something manual, like:
+
+```{r}
+gapminder |>
+  summarise(
+    mean_lifeExp = mean(lifeExp),
+    mean_pop = mean(pop),
+    mean_gdpPercap = mean(gdpPercap)
+  )
+```
+
+- can now be simplified to:
+
+```{r}
+gapminder |>
+  summarise(across(c(lifeExp, pop, gdpPercap), mean))
+```
+
+## How to plan a query {.smaller}
+
+**For smaller queries:**
+
+- sketch out the the "bones" of the query with dplyr verbs
+- start with from the end and work backwards
+
+**For bigger queries:**
+
+- manually or electronically sketch out the data flow
+- think about the order of operations (ETL)
+- break the query up into manageable chunks if it's long
+- test queries on a small batch of data e.g. read n_max=10 rows for testing
+
+## The Plan
+- introduce wide and long formats
+- begin converting between wide and long data
+- join data frames together with dplyr
+- introduce manipulating data with strings in stringr
+
+# Tidyr
+
+## Wide and Long Data
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/wide_long.png" style="max-width: 100%; height: auto;">
+</div>
+
+## What's the problem?
+  - we want data to be tidy
+  - we often need to convert to wide or long for different applications
+
+**We usually have one of two problems**
+
+  1. a variable is spread over several columns
+  2. an observation is spread over several rows
+
+## tidyr::pivot_longer()
+
+**Solves the 'variables as columns' problem**
+
+```{r}
+table4a |> 
+  pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
+```
+
+
+## tidyr::pivot_longer()
+
+**select columns as per dplyr::select()**
+
+```{r}
+table4a |> 
+  pivot_longer(-country, names_to = "year", values_to = "cases")
+```
+
+## tidyr::pivot_wider()
+
+**Solves the 'observations over rows' problem**
+
+```{r}
+table2 |>
+    pivot_wider(names_from = type, values_from = count)
+```
+
+## tidyr::practice() {.smaller}
+
+**Using fish_encounters**
+
+- change the variable 'station' to be column names, and populate with values from 'seen'
+
+**Using starwars** - load with `data("starwars")`
+
+- pivot all columns ending with 'color' to long format as new columns 'attribute' and 'colour'
+
+**Using flights** - load with library(nycflights13)
+
+- pivot all columns ending with 'time' to long format as new columns 'time_type' and 'time_value' then select only columns beginning with 'time'
+
+## tidyr::practice_more() {.smaller}
+
+- replace `tidyr::some_function()` with the correct call to convert the height and mass columns into 'characteristic' and 'measurement' columns for plotting below
+```{r}
+#| eval: false
+starwars |> 
+  tidyr::some_function() |>
+  ggplot(aes(characteristic, measurement)) +
+    geom_jitter()
+```
+
+- replace `tidyr::some_function()` with the correct call to convert the temp, dewp and humid columns into 'condition' and 'measurement' columns for plotting below
+```{r}
+#| eval: false
+weather |> 
+  head(1000) |>
+  tidyr::some_function() |>
+  ggplot(aes(measurement, condition)) +
+    geom_jitter(alpha=0.6)
+```
+
+# Joins
+
+## Relational data
+
+- when our data is spread over several tables
+- we need to know the *relations* between pairs of tables
+- to do this, we need to think about *keys*
+
+## Keys
+
+A key is a *variable* (or set of variables) that uniquely identifies an observation. It is the backbone of each dataset or set of datasets.
+
+You generally have two types of key:
+
+- Primary key: identifies observations in its own data frame (eg: planes$tailnum)
+- Foreign key: identifies observations in another data frame (eg: flights$tailnum)
+
+## Keys
+
+It is generally good idea to test whether or not you do have a unique primary key for the data frames you are working with, and may help you eliminate duplications in your data:
+
+```{r}
+#| eval: false
+planes |> 
+  count(tailnum) |> 
+  filter(n > 1) 
+```
+
+## Joins
+
+- datasets must share at least one key for joining
+- may be one or more columns, but **must** uniquely identify each row
+- if it doesn't, and there are multiple matches, all combination of the matches will occur
+- here are a variety of different joins: inner, left, right and full
+
+**All follow the same format:**
+
+- join(x, y, by)
+
+## Joins
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px; background-color: #FFFFFF;">
+  <img src="/10_resources/00_images/joins.png" style="max-width: 100%; height: auto;">
+</div>
+
+## Inner Join
+
+**inner_join(x, y, by = "key")**
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/inner_join.gif" style="max-width: 100%; height: auto;">
+</div>
+
+## Left Join
+
+**left_join(x, y, by = "key")**
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/left_join.gif" style="max-width: 100%; height: auto;">
+</div>
+
+## Joins - Practice
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/nycflights_relations.png" style="max-width: 100%; height: auto;">
+</div>
+
+## Joins - Practice {.smaller}
+
+**Using library(nycflights13)**
+
+- Use a left_join to join the flights and planes datasets together
+- Combine the airline information from the "airlines" dataset with the flights dataset using left_join, filter for flights from 2013 and select only the columns to do with arrivals
+
+**Using band_members and band_instruments which are loaded with dplyr**
+
+- Join the band_members and band_instruments datasets keep all columns and only those people in both
+
+## Right Join
+
+**right_join(x, y, by = "key")**
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/right_join.gif" style="max-width: 100%; height: auto;">
+</div>
+
+## Full Join
+
+**full_join(x, y, by = "key")**
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/full_join.gif" style="max-width: 100%; height: auto;">
+</div>
+
+## Joins - More Practice {.smaller}
+
+**Using library(nycflights13)**
+
+- Add data from the weather dataset to flights with a left_join
+
+**Using band_members and band_instruments which are loaded with dplyr**
+
+- Join the band_members and band_instruments datasets; keep only the people in the right-hand dataset (band_instruments)
+- Join the band_members and band_instruments datasets; keep everything
+
+## Final Tips on Joins
+
+- take the time to learn the different types of joins and choose carefully each time
+- anti-joins can be useful to find rows that don't match between datasets, e.g. to exclude rows with IDs that aren't in an expected ID list
+- there is now a relationships argument in `dplyr::join()` - use this to give the expected relationships between data frames (it will stop you making many mistakes)
+
+# Strings
+
+## But what *is* a string? {.smaller}
+
+- Strings are a sequence of characters which has to be represented in memory in binary
+- This was first widely done using ASCII (American Standard Code for Information Interchange)
+- But, ASCII only allows for 128 characters, so not nearly enough for all languages
+- Now we represent strings using Unicode (which didn't appear in it's current form till the 90s!), which allows for a lot (>1m) characters
+- UTF-8 is the most common encoding for Unicode - uses a variable number of bytes (8-bit) units to represent characters
+- R uses UTF-8 encoding by default (though will use the label "unknown" unless non-ASCII characters appear), and stringr fully supports Unicode
+
+## Stringr
+
+- removes inconsistencies found in base R
+- built on top of the stringi package
+- starts all functions with "str_"
+- more advanced use requires regular expressions (regex)
+
+## Regex
+
+As quoted by [R for Data Science 1st edition](http://r4ds.had.co.nz/strings.html):
+
+> _"When you first look at a regexp, you’ll think a cat walked across your keyboard, but as your understanding improves they will soon start to make sense."_
+
+If you've read about regex before, you will also have come across the quotation:
+
+> _"Some people, when confronted with a problem, think "I know, I'll use regular expressions." Now they have two problems."_
+
+## Whistle-stop regex review {.smaller}
+
+- Allow you to match patterns in strings
+- Most basic matches an actual chunk of text, e.g. 'hag' in 'hagrid'
+- We can match multiple types of characters with `\s`, `\d`, `\w`, `[abc]` and `[^abc]`
+- Because we're in R, we have to use `\\` instead of `\`, e.g. `\\w` or `\\d`
+- We can match any character with `.`
+- We can expand these with `?`, `+`, `*` or `{n,m}`
+- We can anchor them to the start `^` or the end `$`
+- e.g. `^\\w+_\\d{4}$` would match "hagrid_2020", but not "hagrid_120"
+
+## Whistle-stop regex review
+
+- Allow you to match patterns in strings
+- Most basic matches an actual chunk of text
+
+```{r}
+my_string <- c('Hagrid', 'Hermione', 'Harry.Potter', 'Ronald_Weasley', '24xHouse Elves')
+stringr::str_detect(my_string, 'Hag')
+```
+
+## Whistle-stop regex review {.smaller}
+
+- We can match multiple types of characters with `\s`, `\d`, `\w`, `[abc]` and `[^abc]`
+```{r}
+my_string
+stringr::str_detect(my_string, '\\w')
+```
+
+```{r}
+stringr::str_detect(my_string, '\\d')
+```
+
+```{r}
+stringr::str_detect(my_string, '\\s')
+```
+
+## Whistle-stop regex review
+
+- We can match any character with `.`
+```{r}
+my_string
+stringr::str_detect(my_string, '.')
+```
+
+## Whistle-stop regex review {.smaller}
+
+- We can expand these with `?`, `+`, `*` or `{n,m}`
+```{r}
+my_string
+stringr::str_detect(my_string, '\\w+')
+```
+
+```{r}
+stringr::str_detect(my_string, '\\d{2}[xyz]\\w+\\s?\\w+')
+stringr::str_detect(my_string, '\\d{2}[^xyz]\\w+\\s?\\w+')
+```
+
+## Whistle-stop regex review {.smaller}
+
+- We can anchor them to the start `^` or the end `$`
+
+```{r}
+my_string
+stringr::str_detect(my_string, '^H\\w+$')
+```
+
+```{r}
+stringr::str_detect(my_string, '^Hag$')
+```
+
+## Whistle-stop regex review {.smaller}
+
+- Allow you to match patterns in strings
+- Most basic matches an actual chunk of text, e.g. 'hag' in 'hagrid'
+- We can match multiple types of characters with `\s`, `\d`, `\w`, `[abc]` and `[^abc]`
+- Because we're in R, we have to use `\\` instead of `\`, e.g. `\\w` or `\\d`
+- We can match any character with `.`
+- We can expand these with `?`, `+`, `*` or `{n,m}`
+- We can anchor them to the start `^` or the end `$`
+- e.g. `^\\w+_\\d{4}$` would match "hagrid_2020", but not "hagrid_120"
+
+## Basic stringr operations {.smaller}
+
+**check string lengths and counts**
+
+```{r}
+# counts the number of characters in each string
+stringr::str_length(my_string)
+
+# counts the number of matches in a string
+stringr::str_count(my_string, 'Ha')
+```
+
+## Basic stringr operations {.smaller}
+
+**concatenate (combine) strings**
+
+```{r}
+# explicitly naming each column
+stringr::str_c('this', 'that', sep=', ')
+```
+
+## Manipulations with stringr {.smaller}
+
+**extract or replace strings**
+
+```{r}
+# extract substrings
+stringr::str_sub(my_string, 1, 3)
+```
+
+```{r}
+# replace matches
+stringr::str_replace(my_string, '[\\._x]', ' ')
+```
+
+## Stringr - Practice {.smaller}
+
+- concatenate the strings "day" to" and "day", separated by a hyphen
+
+**Using starwars**
+
+- select the hair color column and replace ', ' with a '/' (hint: you can pipe a column into `pull()` to convert it to a vector for stringr to handle)
+
+**Using flights**
+
+- select columns ending with 'delay' and remove the underscore from all column names
+
+## Manipulations with stringr {.smaller}
+
+**find or view strings**
+
+```{r}
+# return a boolean for matches (alternative to grepl)
+stringr::str_detect(my_string, 'Hagrid')
+```
+
+```{r}
+# highlight matches
+stringr::str_view(my_string, '^\\w')
+```
+
+## Manipulations with stringr {.smaller}
+
+**sort and separate strings**
+
+```{r}
+# sorting strings
+sentences |>
+  head(1) |> 
+  stringr::str_split(" ")
+```
+
+```{r}
+# sorting strings
+stringr::str_sort(words[1:10], locale = 'en')
+```
+
+## Stringr - Practice
+
+- split the string "Harry, did you put your name in the Goblet of Fire?" into its components
+- use the `boundary("word")` function instead of " " and compare results
+
+**Using the fifth line of the sentences dataset**
+
+- split by word boundary, convert to lowercase and sort (hint: use `unlist()`)
+
+## Cleaning up with stringr
+
+```{r}
+stringr::str_to_upper(words[1:10])
+stringr::str_to_lower(words[1:10])
+stringr::str_to_sentence(words[1:10])
+stringr::str_to_title(words[1:10])
+```
+
+## Cleaning up with stringr
+
+```{r}
+sentences |>
+  head(1) |>
+  stringr::str_to_sentence()
+
+sentences |>
+  head(1) |>
+  stringr::str_to_title()
+```
+
+
+## Stringr - More Practice {.smaller}
+
+**Using starwars**
+
+- convert the hair_color column values to be Sentence Case
+- change all columns names to be title case
+
+**Using gapminder**
+
+- remove any Camel Case from column names (i.e. all to lower case)
+- convert the continent column values to be all upper case
+
+## Homework
+
+- Quarto file
+
+**Suggested Reading**
+
+- [R for Data Science 2e](https://r4ds.hadley.nz/), chapters 6, 15, 16, 20
+- The docs for [dplyr](https://dplyr.tidyverse.org/) and vignette at `browseVignettes(package = "dplyr")`
+- Also check out the docs for [tidyr](https://tidyr.tidyverse.org/index.html) and [stringr](https://stringr.tidyverse.org/)
+- [This blog post](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/) by Joel Spolsky on Unicode and character sets

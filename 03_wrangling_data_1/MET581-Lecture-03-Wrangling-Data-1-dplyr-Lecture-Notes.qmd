@@ -1,0 +1,499 @@
+---
+title: "MET581 Lecture 03"
+subtitle: "Wrangling Data 1: dplyr"
+author:
+  - name: "Matthew Bracher-Smith"
+date: "2024-10-17"
+editor: source
+format: 
+  html:
+    toc: true # table of content true
+    toc-depth: 3  # upto three depths of headings (specified by #, ## and ###)
+    toc-location: left
+    number-sections: true  # if you want number sections at each table header
+    theme: united  # many options for theme
+    highlight: tango
+    mainfont: Ubuntu
+    embed-resources: true
+    self-contained: true
+revealjs-plugins:
+  - drop
+execute:
+  echo: true
+  output: true
+df-print: paged
+---
+
+# Tidy Data
+
+There are 3 basic principles for tidy data:
+
+- Each observation must have its own row
+- Each variable must have its own column
+- Each value must have its own cell
+
+We should also keep to one type of observational unit per table
+
+# dplyr Introduction
+
+There are 6 main verbs that you need to know to use dplyr effectively:
+
+1. select() → select variables by name
+2. filter() → return rows with matching conditions
+3. arrange() → arrange rows by variables
+4. mutate() → add new variables
+5. group_by() → return grouping of variables
+6. summarise() → reduces multiple values down to a single value 
+
+The important thing to remember is that all verbs follow the same format:
+- verb(dataset, options)
+
+# dplyr Notes and Exercises
+## Setup
+
+Make sure you have all of the following installed and loaded to follow along:
+
+- gapminder
+- dplyr
+- stringr
+- nycflights13
+
+In addition, you may want to install the following to explore in your own time:
+
+- devtools (for installing packages from github)
+- skimr (for fast and useful summaries of data)
+
+```{r}
+#| include: false
+library(dplyr)
+library(gapminder)
+library(stringr)
+library(nycflights13)
+```
+
+## dplyr::select()
+
+There are lots of helper functions that work with select, e.g.:
+
+- **starts_with("Hap")**  ->  ALL columns whose name starts with “Hap”
+- **ends_with("ppy")**  ->  ALL columns whose name ends with “ppy”
+- **contains("app")**  ->  ALL columns whose name contains “app”
+- **matches("(SNP|CHR)")**  ->  ALL columns who name match a regular expression
+- **num_range("x", 1980:1983)**  ->  ALL columns named x1980, x1981, x1982, and x1983
+- **one_of(char_vector)**  ->  ALL columns who name appears in character vector (char_vector)
+
+### practice answers
+**Using gapminder**
+
+- Select the column range from country to population, but exclude continent
+
+```{r}
+select(gapminder, country:pop, -continent)
+```
+
+**Using starwars** 
+
+- load with `data("starwars")`
+- Select name, height and all columns which end in the word 'color'
+
+```{r}
+select(starwars, height, ends_with('color'))
+```
+
+**Using flights**
+
+- load with library(nycflights13)
+- Select all columns in the vector ('year', 'month', 'day', 'carrier', 'flight', 'dest')
+
+```{r}
+cols_to_select <- c('year', 'month', 'day', 'carrier', 'flight', 'dest')
+select(flights, one_of(cols_to_select))
+```
+
+Note that we could have just used `select(flights, cols_to_select)`, without including `one_of()`. However, if there was a column name in the vector cols_to_select that wasn't present in our dataset, we would get an error, whereas the code above would still work correctly but give a warning. Stick to using `one_of()` where possible.
+
+### extra practice answers
+**Using gapminder**
+
+- Select country, year, and population columns from gapminder
+
+```{r}
+# either of the following options are an acceptable answer
+select(gapminder, country, year, pop)
+select(gapminder, -continent, -lifeExp, -gdpPercap)
+```
+
+**Using starwars** 
+
+- Select only the columns stored as characters (tip: use `select_if()`)
+
+```{r}
+# notice that you use is.character instead of is.character() i.e. the brackets are omitted
+# also notice that we are using is.character, which tests to see if each column is of the
+# type character. Using as.character() would fail, becuase this is used for converting to
+# character, not testing for it
+select_if(starwars, is.character)
+```
+
+**Using flights**
+
+- Select all columns ending in 'time', but exclude those starting with 'sched'
+
+```{r}
+# the important thing to note here is that we can combine more complex operations
+# in a single select statement
+select(flights, ends_with('time'), -starts_with('sched'))
+```
+
+## dplyr::filter()
+
+Multiple arguments to filter can be combined using commas. This is equivalent to using `&`, which is the *AND* operator. It requires rows to meet all the conditions you give, and is a stringent filter. By contrast, using `|`, the *OR* operator, matches rows that meet one or more of your conditions. This is a much looser filter. You need to be careful that you're using the operator you want, and **don't forget that a comma means AND, not OR**.
+
+### practice answers
+**Using gapminder**
+
+- Keep only rows where continent is Americas or Europe
+
+```{r}
+# you can either write out each filter, separated by the OR operator, or combine
+# the two using %in%
+# %in% is commonly used. It allows you to check if something, like a string, is
+# present in a vector
+# do NOT use == with a vector - it will give incorrect results
+filter(gapminder, continent == "Americas" | continent == "Europe")
+filter(gapminder, continent %in% c("Americas", "Europe"))
+```
+
+- Keep only rows where country is Canada or Australia and the year is before 1974
+
+```{r}
+filter(gapminder, country %in% c('Canada', 'Australia'), year < 1974L)
+```
+
+**Using starwars**
+
+- Keep only the rows where name contains 'light' or eye_color contains 'blue' using `filter()` and `grepl()`
+
+```{r}
+filter(starwars, grepl('light', name) | grepl('blue', eye_color))
+```
+
+### extra practice answers
+**Using gapminder**
+
+- Keep only the rows with life expectancy less than 35
+
+```{r}
+filter(gapminder, lifeExp < 35)
+```
+
+**Using starwars**
+
+- Remove rows with brown hair colour
+
+```{r}
+# the second option will exclude those with 'brown, blonde',
+# whereas the first option will not
+# removes everyone with exclusively brown hair
+filter(starwars, hair_color != 'brown')
+# removes everyone containing the word 'brown' in their hair colour
+filter(starwars, !grepl('brown', hair_color))
+```
+
+- Keep females with brown or blue eyes
+
+```{r}
+# matching females with exclusively blue or exclusively brown eyes
+filter(starwars, gender == 'female', eye_color %in% c('blue', 'brown'))
+
+# matching females with eyes that contain brown or blue
+# e.g. 'brown, green' is matched too
+filter(starwars, gender == 'female', grepl('brown|blue', eye_color))
+```
+
+## dplyr::arrange()
+
+### practice answers
+**Using gapminder**
+
+- arrange by country then continent
+
+```{r}
+arrange(gapminder, country, continent)
+```
+
+- arrange by country then descending year
+
+```{r}
+arrange(gapminder, country, desc(year))
+```
+
+## dplyr::mutate()
+
+### practice answers
+**Using starwars**
+
+- Add a new column called 'BMI', created using height * mass
+
+```{r}
+mutate(starwars, BMI = height * mass)
+```
+
+- Dichotomise height into the strings 'tall' and 'short' and assign as factor to 'height_dichot' (tip: use `ifelse()`)
+
+```{r}
+# an arbitrary cutoff for height was chosen in order to
+# create the two categories
+mutate(
+  starwars,
+  height_dichot = as.factor(ifelse(height < 160, 'Short', 'Tall'))
+)
+```
+
+### extra practice answers
+**Using starwars**
+
+- Make the values in hair_color, skin_color, eye_color and gender Title Case (tip: use `str_to_title()` from `stringr`)
+
+```{r}
+#| warning: false
+# Title Case Is Where Each Word Is Capitalised, As Done In This Sentence
+# it's not useful for analysis, but can make our data look a bit neater
+# when we present it to others
+# here we are modifying the values in a column to be title case,
+# which is what mutate does
+# to instead modify the column names to be title case, use the rename()
+# function from dplyr
+# the long version is:
+mutate(
+  starwars,
+  hair_color = str_to_title(hair_color),
+  eye_color = str_to_title(eye_color),
+  skin_color = str_to_title(skin_color),
+  gender = str_to_title(gender)
+)
+
+# a cleaner version is:
+starwars |>
+  mutate_at(
+    vars(one_of(c('hair_color', 'skin_color', 'eye_color', 'gender'))),
+    funs(str_to_title)
+  )
+```
+
+**Using flights**
+
+- Assume 'EWR' is the code for unknown airport. Recode it to NA in columns 'origin' and 'dest' using `na_if()`
+
+```{r}
+mutate(flights, origin = na_if(origin, 'EWR'), dest = na_if(dest, 'EWR'))
+```
+
+## Pipes
+
+**Pipes:**
+
+- pass the information forward to the next verb
+- are a really useful way of expressing a series of operations
+- allow us to quickly see *what* is being done
+- mean we focus on the verbs, not the nouns
+
+**Native Pipes**
+
+- used to be in the magrittr package, then dplyr
+- are now part of base R! ([as of version 4.1.0](https://cran.r-project.org/doc/manuals/r-devel/NEWS.html))
+- we can use them with `|>` (no need to load tidyverse)
+- every time you see `|>` here, you could use `%>%` instead (but load dplyr first)
+- you will still see `%>%` in a lot of code in the wild, so it's good to know both
+- you will need to use `%>%` yourself if you're forced to use an older version of R
+
+### practice answers
+**Using starwars**
+
+- Filter for all rows that don't contain NAs and select columns that are characters, then create a new boolean column called 'hair_eye_mismatch', which is TRUE for anyone with exclusively brown hair and blue eyes
+
+```{r}
+starwars |>
+  na.omit() |>
+  select_if(is.character) |>
+  mutate(
+    hair_eye_mismatch = ifelse(
+      hair_color == 'brown' & eye_color == 'blue',
+      TRUE,
+      FALSE
+    )
+  )
+```
+
+### extra practice answers
+**Using flights**
+- Show the carrier and flight number for flights with arrival delays greater than 10 and distances over 1000, sorted by descending distance
+
+```{r}
+flights |>
+  filter(arr_delay > 10, distance > 1000) |>
+  arrange(desc(distance)) |>
+  select(carrier, flight)
+```
+
+## dplyr::group_by() and dplyr::summarise()
+
+`group_by()` doesn't do much on its own, but by combining group_by() and summarise() we get so much more power! We can start to show summary statistics broken down by different groups, like the mean life expectancy per continent, all after applying whatever filters we want.
+
+```{r}
+# e.g.
+gapminder |>
+  select(-pop) |>
+  filter(continent == 'Oceania', year > 1980L) |>
+  arrange(desc(gdpPercap)) |>
+  group_by(country) |>
+  summarise(
+    n_years = n(),
+    Mean_Life_Exp = mean(lifeExp),
+    SD_Life_Exp = sd(lifeExp),
+    Max_GDP = max(gdpPercap)
+  )
+```
+
+### practice
+**Using gapminder**
+
+- Get the median and standard deviation for gdpPercap
+```{r, echo=TRUE, results='hide'}
+summarise(gapminder, mean_GDP = mean(gdpPercap), sd_GDP = sd(gdpPercap))
+```
+
+**Using airquality** - load with data("airquality")
+
+- Convert to tibble, remove Month and Day, keep Temperatures above 60, then summarise Solar.R with number, mean, median and standard deviation
+
+```{r}
+# the airquality dataset is built-in to R, and can be loaded with data('airquality')
+data("airquality")
+airquality |>
+  as_tibble() |>
+  select(-Month, -Day) |>
+  filter(Temp > 60L) |>
+  summarise(
+    n_obvs = n(),
+    Mean_solar = mean(Solar.R, na.rm = TRUE),
+    Median_solar = median(Solar.R, na.rm = TRUE),
+    SD_solar = sd(Solar.R, na.rm = TRUE)
+  )
+```
+
+### extra practice
+**Using airquality**
+
+- Summarise the mean values for integer columns only using `summarise_if()` and `is.integer`
+
+```{r}
+airquality |>
+  as_tibble() |>
+  summarise_if(is.integer, mean, na.rm = TRUE)
+```
+
+**Using starwars**
+
+- What is the mean height and weight of all Droids? Include a count of how many droids there are
+
+```{r}
+starwars |>
+  filter(species == 'Droid') |>
+  summarise(
+    N_droid = n(),
+    Mean_height = mean(height, na.rm = TRUE),
+    Mean_weight = mean(mass, na.rm = TRUE)
+  )
+```
+
+- We want to compare Humans from different planets. Show the number of people and their mean height and mass, broken down by homeworld then gender. Make sure you show *all* rows when printing by piping the last line into `print(n = x)`, where `x` is a suitably high number of rows
+
+```{r}
+starwars |>
+  filter(species == 'Human') |>
+  group_by(homeworld, gender) |>
+  summarise(
+    N_people = n(),
+    Mean_height = mean(height, na.rm = TRUE),
+    Mean_weight = mean(mass, na.rm = TRUE)
+  ) |>
+  print(n = 21)
+```
+
+# Closing notes
+## Other *really* useful verbs and tools
+
+- `dplyr::glimpse()` instead of `str()`
+- use `everything()` to re-order columns
+    - e.g. `select(starwars, new_column, everything())` can be used to make new_column the first column
+- use `n_distinct()` instead of `length(unique())`
+    - `n_distinct()` is commonly used in `summarise()` to see how many unique categories are in a column after filtering
+- `dplyr::rename(new_name = old_name)` for renaming columns
+- be aware that `dplyr::select_()` and other variants exist for many of the main dplyr verbs
+- `dplyr::near()` and `dplyr::between()`
+    - integers can be compared with the equality operator '==', e.g. `2 == 2`
+    - however, doubles should never be compared this way because decimals are stored with finite precision
+    - this mean means that while `2 == 2` is TRUE, `sqrt(2) ^ 2 ==  2` evaluates to FALSE!
+    - instead, `dplyr::near(sqrt(2) ^ 2, 2)` should be used if you have to check for equality using doubles
+    - we can combine it with filter, e.g. `filter(starwars, near(birth_year, 41.9))`
+    - `dplyr::between()` can be used to select ranges with filter, e.g. `filter(starwars, between(birth_year, 30, 60))`
+- `coalesce()`, `recode()` and `case_when()` from `dplyr`
+    - `coalesce()` lets you replace NAs, e.g. `mutate(starwars, gender = coalesce(gender, 'unknown'))`
+    - `recode()` can be used to recode values in a tibble e.g. `mutate(starwars, eye_color = recode(eye_color, 'brown' = 'maroon'))`
+    - this will change all instances of 'brown' in the eye_color column to be 'maroon' instead
+    - `case_when()` is a good alternative to using nested ifelse() statements
+- `tibble::rownames_to_column()` simply takes the row names (if present) and makes them a column
+    - e.g. `data(mtcars)` has cars as row names, and `tibble::rownames_to_column(mtcars, 'cars')` makes this into a column instead
+- `%<>%`
+    - a useful, but potentially dangerous, way of overwriting your original dataframe with your modified one
+    - it is generally not recommended, as code should be as explicit as possible while still being readable
+    - instead, it is usually best to assign your dataset using `new_df <- old_df |> select() |> etc()`
+
+## Things to be aware of
+
+- Packages can have functions with the same name - sometimes it helps to be specific
+*e.g. `dplyr::select()`*
+- We can now used the conflicted package to be more explicit about this!
+- See the introductory blog post from Hadley [here](https://www.tidyverse.org/blog/2018/06/conflicted/)
+- Filtering using `grepl()` is better done using stringr's `str_detect()` (introduced tomorrow)
+- `stringr` (tomorrow) combined with `dplyr` (more tomorrow) and `maggritr` will cover a lot of your everyday needs
+
+## Should we always use dplyr?
+
+**What if:**
+
+- you have a single operation? or 20?
+    - a single operation doesn't need the pipe as it is just a one-liner
+    - if you have lots of lines, it may be better to split up your code in the chunks of around ten lines
+    - this is because as the number of lines increases, so does the likelihood you will make a mistake!
+    - splitting it up at checkpoints allows you to check any important intermediate steps have worked
+- the flow of operations isn't linear?
+    - you might not always be doing operations sequentially, in which case the pipe is not appropriate
+- you need to inspect an intermediate step?
+    - as mentioned above, it is often best to split up code to check intermediate steps, for your own sanity!
+- speed is more important to you than readability?
+    - dplyr is fast, expressive and readable, but some other packages are faster
+    - the data.table package is faster for reading large datasets and manipulating them, though you might lose some readability
+
+Base R should also not be ignored. Some simple operations are shorter/cleaner in base R, like subsetting a single dataframe column by index.
+
+## Homework
+- Quarto file
+- [Regex practice before tomorrow](https://regexone.com/)
+
+**Suggested Reading**
+
+- [R for Data Science 2e](https://r4ds.hadley.nz), chapter 4
+- [The docs](https://dplyr.tidyverse.org/) and vignette at `browseVignettes(package = "dplyr")`
+
+## The Tidyverse Life
+If you really want to be proficient with the tidyverse packages, *you need to practice*. Pick a dataset on something you're interested in and try to answer questions you have - [google dataset search is your friend](https://cloud.google.com/public-datasets/). That should be your priority. *After* you've practised a lot and you feel comfortable, you might want even more reading and learning. Here are some starters:
+
+- [Hadley's Tidy Data paper](http://www.jstatsoft.org/v59/i10/paper)
+- [Posit (RStudio) Cheat Sheets](https://posit.co/resources/cheatsheets/)
+
+If you really can't get enough tidyverse in your life:
+
+- [Tidyverse blog](https://www.tidyverse.org/blog/)
+- follow @hadleywickham, @posit_pbc, @tidyverse and #rstats

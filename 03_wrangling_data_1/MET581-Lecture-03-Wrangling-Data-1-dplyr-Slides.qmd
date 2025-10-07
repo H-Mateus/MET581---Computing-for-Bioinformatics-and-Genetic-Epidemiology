@@ -1,0 +1,538 @@
+---
+title: "met581 lecture 03"
+subtitle: "wrangling data 1: dplyr"
+author:
+  - name: "matthew bracher-smith"
+  - name: "gabriel mateus bernardo harrington"
+date: "2024-10-17"
+editor: source
+format: 
+  revealjs:
+    theme: dark
+    font: ubuntu
+    autosize: true
+    df-print: kable
+    css: ../10_resources/styles.css
+    embed-resources: true
+    self-contained: true
+    logo: /10_resources/00_images/combined_logos.png
+    footer: "met581 - programming in r - slides and code avilable [here](https://h-mateus.github.io/met581---computing-for-bioinformatics-and-genetic-epidemiology/)"
+    drop:
+      engine: webr
+      webr:
+        packages:
+          - tidyverse
+          - conflicted
+execute:
+  output-location: fragment
+  echo: true
+---
+
+## Overview
+
+<div class="image-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: -5px;">
+  <img src="/10_resources/00_images/dplyr_hex.png" style="width:150px;">
+  <img src="/10_resources/00_images/magrittr_hex.png" style="width:150px;">
+</div>
+
+## Review
+- Introduction to R packages and data types
+- RMarkdown, Tibbles, and Readr
+- Homework
+
+## dplyr and magrittr
+- Overview of **dplyr** verbs
+- Using `|>` or `%>%` for data manipulation
+- Examples with Tibbles and Real-world Data
+
+## The Plan
+- Introduce tidy data
+- Get familiar with the 6 main verbs of dplyr
+- Understand what pipes do
+- Be able to manipulate and summarise data
+- Know when not to use magrittr and dplyr
+
+## The Hadleyverse
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/hadley.jpeg" style="max-width: 100%; height: auto;">
+</div>
+
+## The Tidyverse
+
+![](/10_resources/00_images/tidyverse.png){fig-align="center"}
+
+## Tidy Data
+- Each observation must have its own row
+- Each variable must have its own column
+- Each value must have its own cell
+
+## Tidy Data
+We should also keep to one type of observational unit per table
+
+![](/10_resources/00_images/tidy_data.png){fig-align="center"}
+
+## dplyr {.smaller}
+**The 6 main verbs in dplyr:**
+
+1. `select()` → select variables by name
+2. `filter()` → return rows with matching conditions
+3. `arrange()` → arrange rows by variables
+4. `mutate()` → add new variables
+5. `group_by()` → return grouping of variables
+6. `summarise()` → reduces multiple values down to a single value  
+
+## dplyr
+ALL verbs follow the same format:
+
+- **verb(dataset, options)**
+
+## Gapminder
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/gapminder.jpg" style="max-width: 100%; height: auto;">
+</div>
+
+## Load gapminder and dplyr {.smaller}
+
+```{r}
+#| echo: true
+library(gapminder)
+library(dplyr)
+```
+
+**Also install/load:**
+
+- stringr
+- nycflights13
+- devtools
+- skimr
+
+## Select {.smaller}
+
+**Select variables by name**
+```{r}
+#| echo: true
+#| output: false
+# explicitly naming each column
+select(gapminder, country, year, lifeExp)
+```
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px; background-color: #FFFFFF;">
+  <img src="/10_resources/00_images/select_eg.png" style="max-width: 80%; height: auto;">
+</div>
+
+## Select
+
+**Select variables by name**
+```{r}
+#| echo: true
+#| output-location: fragment
+# define a range to select from
+select(gapminder, country:year) |> head(4) # select all columns from country to year
+```
+
+## Select
+
+**Select variables by name**
+```{r}
+#| echo: true
+#| output-location: fragment
+# say which columns NOT to select
+select(gapminder, -country) |> head(4) # select all columns BUT country
+```
+
+## Select {.smaller}
+There are lots of helper functions that work with select, e.g.:
+
+- **starts_with(“Hap”)**  ->  ALL columns whose name starts with “Hap”
+- **ends_with(“ppy”)**  ->  ALL columns whose name ends with “ppy”
+- **contains(“app”)**  ->  ALL columns whose name contains “app”
+- **matches(“^(SNP|CHR)_”)**  ->  ALL columns who name match a regular expression
+- **num_range(“x”, 1980:1983)**  ->  ALL columns named x1980, x1981, x1982, and x1983
+- **one_of(char_vector)**  ->  ALL columns who name appears in character vector (char_vector)
+
+```{r}
+#| echo: true
+#| output-location: slide
+# e.g.
+library('nycflights13')
+select(flights, starts_with("dep")) |> head(4) # match columns by starting string
+select(flights, matches('sched_(dep|arr)_time')) |> head(4) # match columns by regex
+```
+
+## Select - Practice! {.smaller}
+**Using gapminder**
+
+- Select the column range from country to population, but exclude continent
+
+**Using starwars** - load with `data("starwars")`
+
+- Select name, height and all columns which end in the word 'color'
+
+**Using flights** - load with library(nycflights13)
+
+- Select all columns in the vector ('year', 'month', 'day', 'carrier', 'flight', 'dest')
+
+## Select - Extra Practice! {.smaller}
+**Using gapminder**
+
+- Select country, year and population columns from gapminder
+
+**Using starwars**
+
+- Select only the columns stored as characters (tip: use `select_if()`)
+
+**Using flights**
+
+- Select all columns ending in 'time', but exclude those starting with 'sched'
+
+## Filter
+**return rows with matching conditions**
+
+```{r}
+#| echo: true
+#| output: false
+# using a single filter
+filter(gapminder, year == 1997L)
+```
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px; background-color: #FFFFFF;">
+  <img src="/10_resources/00_images/filter_eg.png" style="max-width: 80%; height: auto;">
+</div>
+
+## Filter
+**return rows with matching conditions**
+```{r}
+#| echo: true
+#| output-location: slide
+##| output: false
+# combining multiple filters in a single statement
+country_names <- c(
+  'Afghanistan',
+  'Angola',
+  'Belgium',
+  'China',
+  'Mauritania',
+  'Mauritius',
+  'Mongolia',
+  'Korea, Rep.',
+  'Sri Lanka',
+  'Saudi Arabia',
+  'Vietnam',
+  'Yemen, Rep.'
+)
+filter(
+  gapminder,
+  year == 1997L,
+  continent != "asia",
+  pop >= 1000000L,
+  country %in% country_names
+) |>
+  head()
+```
+
+## Filter
+**combining filters**
+```{r}
+#| echo: true
+#| output-location: fragment
+# multiple filters with and
+filter(gapminder, year == 1997L & gdpPercap > 1000) |> head(4)
+```
+
+## Filter
+**combining filters**
+```{r}
+#| echo: true
+#| output-location: fragment
+# multiple filters with or
+filter(gapminder, year == 1997L | year == 1967L) |> head(4)
+```
+
+## Filter - Practice!
+**Using gapminder**
+
+- Keep only rows where continent is Americas or Europe
+- Keep only rows where country is Canada or Australia and the year is before 1974
+
+**Using starwars**
+
+- Keep only the rows where name contains 'light' or eye_color contains 'blue' using `filter()` and `grepl()`
+
+## Filter - Extra Practice!
+**Using gapminder**
+
+- Keep only the rows with life expectancy less than 35
+
+**Using starwars**
+
+- Remove rows with brown hair colour
+- Keep females with brown or blue eyes
+
+## Arrange
+**arrange rows by variables**
+
+![](/10_resources/00_images/arrange_eg.png){fig-align="center" style="background-color: white; padding:10px;"}
+
+## Arrange
+**arrange rows by variables**
+```{r}
+#| echo: true
+#| output-location: fragment
+# arranging by multiple columns
+arrange(gapminder, desc(lifeExp), pop) |> head(4)
+```
+
+**note:** order is important when using multiple variables!
+
+## Arrange - Practice!
+**Using gapminder**
+
+- arrange by country then continent
+- arrange by country then descending year
+
+## Mutate
+**add new variables**
+```{r}
+#| echo: true
+#| output: false
+# single variables
+mutate(gapminder, gdp_billion = gdpPercap * pop / 10^9)
+```
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px; background-color: #FFFFFF;">
+  <img src="/10_resources/00_images/mutate_eg.png" style="max-width: 100%; height: auto;">
+</div>
+
+## Mutate - Practice!
+**Using starwars**
+
+- Add a new column called 'BMI', created using height * mass
+
+**Using flights**
+
+- Dichotomise height into the strings 'tall' and 'short' and assign as factor to 'height_dichot' (tip: use `ifelse()`)
+
+## Mutate - Extra Practice!
+**Using starwars**
+
+- Make the values in hair_color, skin_color, eye_color and gender Title Case (tip: use `str_to_title()` from `stringr`)
+
+**Using flights**
+
+- Assume 'EWR' is the code for unknown airport. Recode it to NA in columns 'origin' and 'dest' using `na_if()`
+
+## Combining Operations
+Let's combine lots of operations together to get the data we want!
+
+It's as simple as
+```{r}
+df_no_pop <- select(gapminder, -pop)
+df_no_pop_just_oceania_1980 <- filter(
+  df_no_pop,
+  continent == 'Oceania',
+  year > 1980L
+)
+df_no_pop_just_oceania_1980_sorted_by_gdp <- arrange(
+  df_no_pop_just_oceania_1980,
+  desc(gdpPercap)
+)
+```
+
+**...right???!**
+
+## The Pipe |>
+
+**WRONG!! (ish)**
+
+**Instead of this:**
+```{r}
+#| echo: true
+#| output: false
+df_no_pop <- select(gapminder, -pop)
+df_just_oceania_1980 <- filter(df_no_pop, continent == 'Oceania', year > 1980L)
+df_sorted_by_gdp <- arrange(df_just_oceania_1980, desc(gdpPercap))
+```
+
+**Do this:**
+```{r}
+#| echo: true
+#| output: false
+gapminder |>
+  select(-pop) |>
+  filter(continent == 'Oceania', year > 1980L) |>
+  arrange(desc(gdpPercap))
+```
+
+## The Pipe |>
+
+**Pipes:**
+
+- pass the information forward to the next verb
+- are a really useful way of expressing a series of operations
+- allow us to quickly see *what* is being done
+- mean we focus on the verbs, not the nouns
+
+## The Pipe |> Native Pipes {.smaller}
+
+- used to be in the magrittr package, then dplyr
+- are now part of base R! ([as of version 4.1.0](https://cran.r-project.org/doc/manuals/r-devel/NEWS.html))
+- we can use them with `|>` (no need to load tidyverse)
+- every time you see `|>` here, you could use `%>%` instead (but load dplyr first)
+- you will still see `%>%` in a lot of code in the wild, so it's good to know both
+- you will need to use `%>%` yourself if you're forced to use an older version of R
+
+## Pipe |> Practice() {.smaller}
+
+**Using starwars**
+
+- Filter for all rows that don't contain NAs and select columns that are characters, then create a new boolean column called 'hair_eye_mismatch', which is TRUE for anyone with exclusively brown hair and blue eyes
+
+*tip: use `is.character` and `ifelse()` to create the new column following the format:*
+```{r}
+#| output-location: fragment
+starwars |>
+  na.omit() |>
+  select_if(is.character) |>
+  mutate()
+```
+
+## Pipe |> Practice_Extra()
+
+**Using flights**
+
+- Show the carrier and flight number for flights with arrival delays greater than 10 and distances over 1000, sorted by descending distance.
+
+## Group_by
+Useful only in conjunction with other methods
+```{r}
+#| output-location: fragment
+# grouping by single variables
+gapminder |>
+  group_by(continent) |>
+  head(4)
+```
+
+## Group_by
+Useful only in conjunction with other methods
+```{r}
+#| output: false
+# grouping by multiple variables
+gapminder |>
+  group_by(country, continent) |>
+  head(4)
+```
+
+## Summarise
+**reduces multiple values down to a single value**
+```{r}
+# get mean of life expectancy
+summarise(gapminder, mean_lifexp = mean(lifeExp))
+```
+
+```{r}
+# get mean of life expectancy and mean of GDP
+summarise(gapminder, mean_lifexp = mean(lifeExp), mean_gdp = mean(gdpPercap))
+```
+
+## Summarise
+Combining group_by() and summarise() gives us so much more power!
+```{r}
+#| output-location: fragment
+gapminder |>
+  select(-pop) |>
+  filter(continent == 'Oceania', year > 1980L) |>
+  arrange(desc(gdpPercap)) |>
+  group_by(country) |>
+  summarise(
+    n_years = n(),
+    Mean_Life_Exp = mean(lifeExp),
+    SD_Life_Exp = sd(lifeExp),
+    Max_GDP = max(gdpPercap)
+  )
+```
+
+## Summarise
+We can use lots of built-in functions when using summarise:
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/summarise_utilities.jpg" style="max-width: 100%; height: auto;">
+</div>
+
+## Summarise
+**Note:** Don't forget to include `na.rm = TRUE` if NAs are present
+```{r}
+# e.g.
+data("airquality")
+airquality |>
+  as_tibble() |>
+  summarise(mean_ozone = mean(Ozone, na.rm = TRUE))
+```
+
+## Summarise - Practice!
+**Using gapminder**
+
+- Get the median and standard deviation for gdpPercap
+
+**Using airquality**
+
+- Convert to tibble, remove Month and Day, keep Temperatures above 60, then summarise Solar.R with number, mean, median and standard deviation
+
+## Summarise - Extra Practice! {.smaller}
+**Using airquality**
+
+- Summarise the mean values for integer columns only using `summarise_if()` and `is.integer()`
+
+**Using starwars**
+
+- What is the mean height and weight of all Droids? Include a count of how many droids there are
+- We want to compare Humans from different planets. Show the number of people and their mean height and mass, broken down by homeworld then gender. Make sure you show *all* rows when printing by piping the last line into `print(n = x)`, where `x` is a suitably high number of rows
+
+## Prettier summaries with skimr
+```{r, eval=FALSE}
+library(skimr)
+gapminder |>
+  skim()
+```
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/skimr_eg.png" style="max-width: 100%; height: auto;">
+</div>
+
+## Other *really* useful verbs and tools {.smaller}
+- `dplyr::glimpse()` instead of `str()`
+- use `everything()` to re-order columns
+- use `n_distinct()` instead of `length(unique())`
+- `dplyr::rename(new_name = old_name)` for renaming columns
+- `dplyr::select_()` and other variants
+- `dplyr::near()` and `dplyr::between()`
+- `coalesce()`, `recode()` and `case_when()` from `dplyr`
+- `tibble::rownames_to_column()`
+
+## Things to be aware of {.smaller}
+- Packages can have functions with the same name - sometimes it helps to be specific
+*e.g. `dplyr::select()`*
+- We can now used [the conflicted package](https://www.tidyverse.org/blog/2018/06/conflicted/)  to be more explicit about this!
+- Filtering using `grepl()` is better done using stringr's `str_detect()` (introduced tomorrow)
+- `stringr` (tomorrow) combined with `dplyr` (more tomorrow) and the native pipe (or `maggritr` pipe if needed) will cover a lot of your everyday needs
+
+## Should we always use dplyr?
+**What if:**
+
+- you have a single operation? or 20?
+- the flow of operations isn't linear?
+- you need to inspect an intermediate step?
+- speed is more important to you than readability?
+
+## Homework
+- Quarto file
+- Regex practice before tomorrow, like [this site](https://regexone.com/)
+
+**Suggested Reading**
+
+- [R for Data Science 2e](https://r4ds.hadley.nz/), chapter 4
+- The [docs for dplyr](https://dplyr.tidyverse.org/) and the vignette at `browseVignettes(package = "dplyr")`
+
+## The Tidyverse Life
+- Hadley's [Tidy Data paper](http://www.jstatsoft.org/v59/i10/paper)
+- [Cheat Sheets](https://posit.co/resources/cheatsheets/) from Posit
+- The [Tidyverse blog](https://www.tidyverse.org/blog/)
+- @hadleywickham, @posit_pbc, @tidyverse

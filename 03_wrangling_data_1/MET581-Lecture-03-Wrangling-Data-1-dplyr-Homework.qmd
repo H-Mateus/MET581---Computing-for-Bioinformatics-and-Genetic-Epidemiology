@@ -1,0 +1,58 @@
+---
+title: "MET581 Lecture 03 Homework"
+subtitle: "Wrangling Data 1"
+author: "Matthew Bracher-Smith"
+date: "2024-10-17"
+format: 
+  html:
+    number-sections: true
+    theme: united
+    highlight: tango
+    mainfont: Ubuntu
+    embed-resources: true
+    self-contained: true
+editor: source
+execute:
+  echo: true
+---
+
+This document contains all questions for the lecture 'Wrangling Data 1'. Please create a Quarto document containing all text, code and output used to answer the questions.
+
+## Tidy Data
+1. What 3 main rules do we need to follow for data to be in tidy format?
+2. Load `readr` and use it to read in the dataset at "http://stat405.had.co.nz/data/pew.txt". You should have a tibble with 18 rows and 11 columns showing data on the relationship between religion and income in the US. Is the data in tidy format? Explain why.
+3. Look at [the paper by Hadley Wickham](https://www.jstatsoft.org/article/view/v059i10/) describing tidy data. Section 3 outlines how to turn messy datasets into tidy ones. Briefly state the 5 most common problems that make a dataset messy and the solutions Hadley proposes.
+
+## dplyr
+These exercises require use of the dplyr verbs we have learned so far. Some questions will require small variations on these that you need to look up; you may find it especially useful to check the documentation on [**scoped variants of the standard verbs**](https://dplyr.tidyverse.org/reference/scoped.html), or the recent equivalents in [**pick**](https://dplyr.tidyverse.org/reference/pick.html) and [**across**](https://dplyr.tidyverse.org/reference/across.html) (we will review both options in the next session). All tasks that require use of more than one verb should be done using the pipe. Show the output from each question in a new cell, where a single paragraph of pipes is used to answer each question.
+
+If you're struggling with a question that requires a lot of steps, try to sketch out the bones of the code before filling in the details. For instance, if you're asked to shown the mean of GDP in 1990, you might first write out the basic order of things, like so:
+```{r, eval=FALSE}
+gapminder %>%
+  filter() %>%
+  summarise()
+```
+
+**read in the dataset at 'http://stat405.had.co.nz/data/weather.txt' using `readr`**
+
+4. convert all column names to title case, except 'id', which should be all capitals
+
+5. choose columns ID, Year, Month and d1 to d10. Use `num_range` to select the columns d1:d10
+
+**read in the dataset at 'https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/msleep_ggplot2.csv' using `read_csv()`. This data contains weights and sleep times for mammals. You should have 11 columns and 83 rows**
+
+6. select the name and genus columns, and all columns ending with 'wt'. Remove all rows with missing values,then print the first 20 rows from the final dataframe.
+
+7. show the columns name, order, sleep_total and awake for all animals in the order 'Artiodactyla', sorted by descending sleep time.
+
+8. after removing those missing conservation status, show the mean for all columns beginning with 'sleep', grouped by order. Include a count of the number of animals in each grouping.
+
+9. doubles should never be compared using `==`. Instead, use `dplyr::near()` to keep rows with 'sleep_total' equal to 9.4 and select columns containing the string 'or' anywhere in their names
+
+10. use `dplyr::coalesce` to replace all missing values in the column 'conservation' with the string 'unknown'. Then use dplyr's `between` function to filter for rows with sleep_rem between 1 and 2.5 and show the total number of animals and number of distinct genera, using `summarise()`, `n()` and `n_distinct()`, after grouping by conservation status. Name the new summary columns 'animals' and 'genera'.
+
+**Load the starwars dataset**
+
+11. filter hair_color to keep those rows *containing* brown (including combinations like 'brown, grey') **or** eye_color that is brown *only*, then select the column range from 'name' to 'eye_color', and the columns 'gender', 'homeworld' and 'species.' Next, create a new boolean column called 'male_brunette', which is TRUE only for males with exclusively brown hair. Sort by descending height and re-order the columns, using `select()` and `everything()`, to put 'male_brunette' directly after the 'name' column. Finally, replace underscores in the column names with spaces, change all instances of 'color' to 'colour', and make all column names title case using `str_to_title()`. Print the top 5 rows only.
+
+12. how many rows are missing information for each column? Break it down by species by using `group_by()` and `summarise_all()`

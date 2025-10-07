@@ -1,0 +1,55 @@
+---
+title: "MET581 Lecture 05 Homework"
+subtitle: "Wrangling Data 3"
+author: "Matthew Bracher-Smith"
+date: "2024-10-21"
+format: 
+  html:
+    number-sections: true
+    theme: united
+    highlight: tango
+    mainfont: Ubuntu
+    embed-resources: true
+    self-contained: true
+editor: source
+execute:
+  echo: true
+---
+
+This document contains all questions for the lecture 'Wrangling Data 3'. Please create a Quarto document containing all text, code and output used to answer the questions.
+
+## Factors
+1. When does `fct_lump()` stop adding levels into “other”?
+
+2. Load the `gss_cat` dataframe and get a summary to see if the amount of tv hours per day affects the political party a person belongs to.
+
+3. Repeat the previous exercise, but this time merge all the “other party” levels into a single option and reorder the factor by the average tv hours per day.
+
+_You have a vector of categorical data that has a natural order to it, and you want to use in a regression model. The vector is c('Some', 'All', 'None', 'Half', 'Most', 'Most', 'Most', 'All', 'Some', 'None'). Create a factor from this vector by pasting it into the `factor()` function and assign to a variable._
+
+4. You're concerned to make sure that 'None' is set as the baseline. Check the coding for regression problems with `contrasts()` and print the output.
+
+5. Why are the levels in this order by default?
+
+6. Re-order the levels of this factor to go from 'None' to 'All' in increasing amount
+
+## Functions
+7. Can you tell which of the arguments of myFunction are mandatory and which are optional?
+```{r}
+#| eval: false
+myFunction <- function(x, y, verbose = FALSE){
+  result <- x ** y
+  if (verbose){
+    print(result)
+  }
+  return(result)
+}
+```
+
+8. What will be the output of the previous function if we type the following command myFunction(2, 3, TRUE)? Try to do it without running the code.
+
+9. Write `any_na()`, a function that takes two vectors of the same length and returns the number of positions that have an NA in, at least, one of the vectors.
+
+10. Write `complementary()`, a function that takes a DNA strand of variable length and returns its complementary strand.
+
+11. Write a function that transcribes and translates a DNA strand into its corresponding protein sequence. You can assume that the length of the input DNA strand is a multiple of 3.

@@ -1,0 +1,38 @@
+---
+title: "MET581 Lecture 04 Homework"
+subtitle: "Wrangling Data 2"
+author: "Matthew Bracher-Smith"
+date: "2024-10-18"
+format: 
+  html:
+    number-sections: true
+    theme: united
+    highlight: tango
+    mainfont: Ubuntu
+    embed-resources: true
+    self-contained: true
+editor: source
+execute:
+  echo: true
+---
+
+This document contains all questions for lessson 4. Please create a Quarto document containing all text, code and output used to answer the questions.
+
+1. Explain how escapes work in R with respect to regular expressions
+
+2. List and describe the tidyverse commands used to join two datasets together. What two key arguments can you use to prevent mistakes in your joins?  
+
+3. Load the nycflights13 package and join the datasets flights and airlines together, selecting only the columns: `year`, `month`, `day`, `hour`, `origin`, `tailnum` and `carrier` from flights. Can you do the same but using the `mutate()` function instead?
+
+4. In the starwars dataset and in one command, add two new columns:
+
+* one column that converts the `name` column to lower case
+* one column that converts the `eye_colour` to uppercase
+
+5. Download the gene annotation file from the NCBI found [here](https://cf-my.sharepoint.com/:u:/g/personal/smithmr5_cardiff_ac_uk/Ed6jtKhhKgRGq5R-IoQHTAYBLgO6FC_aJ6u7mydY1mpc_A?e=siJJ4A)
+
+**unzip the file and load in `NCBI37.3.gene.loc` into R**
+
+  * 5a. add the column headers: `Entrez_Gene_ID`, `CHR`, `BP_START`, `BP_END`, `STRAND`, `GENE_NAME`
+  * 5b. How many Genes are on the positive strand?
+  * 5c. How many Genes begin and end with a letter?

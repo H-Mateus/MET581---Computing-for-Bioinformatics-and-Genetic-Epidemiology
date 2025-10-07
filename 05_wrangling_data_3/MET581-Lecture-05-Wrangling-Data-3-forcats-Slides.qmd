@@ -1,0 +1,646 @@
+---
+title: "MET581 Lecture 05"
+subtitle: "Wrangling Data 3: (factors, dates and functions)"
+author: "Matthew Bracher-Smith"
+date: "2024-10-21"
+editor: source
+format: 
+  revealjs:
+    theme: dark
+    font: Ubuntu
+    autosize: true
+    df-print: kable
+    css: styles.css
+    embed-resources: true
+    self-contained: true
+execute:
+  echo: true
+  output: true
+---
+
+## Anonymous Feedback | Course content
+
+**Use the QR code, [this](https://app.sli.do/event/7U7WjJ1tDSu9tLcWzkFxoR) link or type code #3267575 into slido.com**
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/course_slido.png" style="max-width:300px; height: auto; background-color: #FFFFFF;">
+</div>
+
+## Overview
+
+<div class="image-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: -5px;">
+  <img src="/10_resources/00_images/forcats_hex.png" style="width:150px;">
+  <img src="/10_resources/00_images/lubridate_hex.png" style="width:150px;">
+</div>
+
+## Setup
+
+Please install and load the following packages for today
+```{r}
+#| output: false
+#| warning: false
+library(forcats)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+library(testthat)
+library(gapminder)
+```
+
+## Review
+- dplyr verbs, tidyr, joins, stringr
+- homework
+
+## Significantly More Important Review
+
+<div class="image-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: -5px;">
+  <img src="/10_resources/00_images/hadley.jpeg" style="height:450px;">
+  <img src="/10_resources/00_images/rosling.jpeg" style="height:450px;">
+</div>
+
+## The Plan
+- Factors and Forcats
+- Dates and Lubridate
+- Functions and conditionals
+
+# Factors
+
+## Factors
+
+A factor:
+  
+- is how we store categorical variables in R
+- contains a fixed and known set of possible values
+
+We can create them using the `factor()` function, which takes the format: **factor(vector, levels, labels)**
+
+```{r}
+# e.g.
+factor(c(0, 1, 1, 1, 0), labels=c('Female', 'Male'))
+```
+
+## Making Factors {.smaller}
+
+We can make factors that have an inherent order
+```{r}
+monthLevels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+data <- factor(c("Dec", "Jun", "Apr"))
+data
+```
+
+But sorting them may not give us what we expect
+```{r}
+sort(data)
+```
+
+## Making Factors {.smaller}
+- Factors always have an _internal_ order, even if you don't give one
+- If you don't set the levels, they will be alphabetical
+- If you want a specific order, you need to give it:
+
+```{r}
+monthLevels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+data <- factor(c("Dec", "Jun", "Apr"), levels = monthLevels)
+sort(data)
+```
+
+## Making Factors
+
+Strings that aren't in your levels are _silently_ set as NA
+```{r}
+factor(c("Dec", "Jum", "Apr"), levels = monthLevels)
+```
+
+By contrast, readr's `parse_factor()` will warn you
+```{r}
+readr::parse_factor(c("Dec", "Jum", "Apr"), levels = monthLevels)
+```
+
+## Factors Practice {.smaller}
+- create a factor vector called 'marauders' that contains the strings 'moony', 'wormtail', 'padfoot' and 'prongs' in alphabetical order
+- create a factor called 'patronus' with the strings 'stag', 'dog', 'otter', creating levels from the order they appear in the input vector
+- print only the levels of these factors
+
+**Using diamonds**
+
+- use `dplyr::count()` to show how many rows there are for each factor level in the 'cut' column. Is it any different to using `forcats::fct_count()`?
+- use `dplyr::arrange(desc())` to sort the cut column in descending order. What were the rows sorted by?
+
+## Why should I care?
+1. you're better than that
+2. plots
+3. models
+4. forcats
+
+## Why use the Forcats* package? {.smaller}
+- It enables a lot of the common needs we have with factors
+- It works well with ggplot2 (also written by Hadley/the tidyverse team)
+- It generally tries to warn you when something may be wrong
+- It has the word cats in it
+- It's an anagram of factors
+- It's **for cat**egorical**s** (factors)
+- Something about cats
+
+*strictly for humans
+
+## fct_inorder()
+
+`fct_inorder()`
+```{r}
+# sets the levels to be the
+# order they appear in the vector
+head(fct_inorder(gss_cat$marital))
+```
+
+## fct_relevel()
+
+`fct_relevel()`
+```{r, echo = TRUE}
+# moves one or more levels to the start
+head(fct_relevel(gss_cat$marital, 'Married'))
+```
+
+## fct_recode()
+For changing the names of existing levels _by hand_
+```{r}
+myFactor <- factor(c("M", "F", "O", "M", "P", "M",
+                     "F", "F", "F", "M", "O", "P"))
+myFactorPub <- fct_recode(myFactor, male = "M", female = "F",
+                          unknown = "O", unknown = "P")
+myFactorPub
+```
+
+## fct_reorder()
+```{r}
+#| echo: false
+gss_cat |>
+    group_by(marital) |>
+    summarise(tvhours = mean(tvhours, na.rm = TRUE)) |>
+    ggplot(aes(tvhours, marital)) + geom_point()
+```
+
+## fct_reorder()
+```{r}
+#| echo: false
+gss_cat |>
+    group_by(marital) |>
+    summarise(tvhours = mean(tvhours, na.rm = TRUE)) |>
+    ggplot(aes(tvhours, fct_reorder(marital, tvhours))) + geom_point()
+```
+
+## fct_reorder() {.smaller}
+- the most useful (in my opinion)
+- reorder your factor levels by another variable
+- allows you to bring structure to plots
+
+```{r}
+#| output: false
+gss_cat |>
+    group_by(marital) |>
+    summarise(tvhours = mean(tvhours, na.rm = TRUE)) |>
+    ggplot(aes(tvhours, fct_reorder(marital, tvhours))) + # <<<---
+      geom_point()
+```
+
+## Forcats - Practice! {.smaller}
+
+**Using gss_cat**
+
+- how many levels are there in the 'relig' column?
+- reorder the levels of 'denom' in order of appearance
+- take the code below which plots income by age. Try changing the order of the levels in 'rincome' to be sorted by 'age'. Now try just moving n/a to the start. Which option works best?
+
+```{r}
+#| output: false
+gss_cat |>
+  group_by(rincome) |>
+  summarise(
+    age = mean(age, na.rm = TRUE),
+    tvhours = mean(tvhours, na.rm = TRUE),
+    n = n()) |>
+  ggplot(aes(age, rincome)) +
+    geom_point()
+```
+
+## fct_reorder2()
+```{r}
+#| echo: false
+gss_cat |>
+  filter(!is.na(age)) |>
+  count(age, marital) |>
+  group_by(age) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(age, prop, colour = marital)) +
+    geom_line(na.rm = TRUE)
+```
+
+## fct_reorder2()
+```{r}
+#| echo: false
+gss_cat |>
+  filter(!is.na(age)) |>
+  count(age, marital) |>
+  group_by(age) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
+    geom_line() +
+    labs(colour = "marital")
+```
+
+## fct_reorder2()
+- probably the second most useful
+- suprisingly helpful when reading graphs
+
+```{r}
+#| output: false
+gss_cat |>
+  filter(!is.na(age)) |>
+  count(age, marital) |>
+  group_by(age) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(age, prop, colour = fct_reorder2(marital, age, prop))) + # <<<---
+    geom_line() +
+    labs(colour = "marital")
+```
+
+## Other useful Forcats functions
+- `fct_rev()` reverses the order of the levels
+- `fct_lump()` combines least common factor levels into 'other'
+- `fct_expand()` adds new levels to your factors
+- `fct_relabel()` _automatically_ relabels factor levels
+- `fct_infreq()` order factors from most frequent to least frequent
+
+## Forcats - More Practice!
+**Using gss_cat**
+
+- change the names of the levels of partyid from "Not str republican", "Ind,near dem" and "Ind,near rep" to "Not strong republican", "Independent, near democrat" and "Independent, near republican"
+- run the code chunk below and view the output. Now edit the code so that the bars are sorted from lowest to highest using `fct_infreq()` and `fct_rev()`
+```{r}
+#| output: false
+gss_cat |>
+  ggplot(aes(marital)) +
+    geom_bar()
+```
+
+## Forcats - Still More Practice!
+**Using gss_cat**
+
+- change the code below so that the legend colours match the order of the lines at the right side of the plot
+```{r}
+#| output: false
+diamonds |>
+  filter(color == 'J', depth > 55, carat <=2.5) |>
+  ggplot(aes(carat, price, col=cut)) +
+    geom_line(alpha=0.6)
+```
+
+## Gotchas: coercing factors
+Errors may be obvious:
+```{r}
+x <- factor(c(1, 1, 0, 0, 1, 0, 1, 1, 1, 0))
+as.numeric(x)
+```
+
+## Gotchas: coercing factors
+Or they can be more subtle:
+```{r}
+x <- factor(c(1, 1, 2, 5, 3, 3, 1, 6, 5, 1, 6, 2))
+as.numeric(x)
+```
+
+## Gotchas: coercing factors
+- **_NEVER_ convert from factor to numeric unless you know that's what you want**
+- It returns R's internal codes for the factors, not their values
+- Instead, **convert to character first**, _then_ to numeric, i.e.:
+
+```{r}
+x <- factor(c(1, 1, 2, 5, 3, 3, 1, 6, 5, 1, 6, 2))
+as.numeric(as.character(x))
+```
+
+# Dates
+
+## Dates
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/dates.jpeg" style="max-width: 100%; height: auto;">
+</div>
+
+## How Dates Work in R {.smaller}
+
+- Dates and times are **not just strings**, they have **many formats** like `YYYY-MM-DD`, `MM/DD/YYYY`, or even `DD-MM-YYYY`.
+- Handling dates involves dealing with **varied formats**, time zones, leap years, and calculations between dates
+- R has special packages to parse and manage dates efficiently.
+
+```{r}
+class("2024-10-20") # a simple date string
+class(as.Date("2024-10-20")) # a date object
+typeof(as.Date("2024-10-20")) # but a double under the hood
+```
+
+## Introduction to lubridate {.smaller}
+- lubridate is an R package designed to make working with dates and times easier
+- It helps parse different date formats, manipulate dates, and perform calculations.
+- It's just not possible to be accurate in handling dates without a dedicated date package
+- But with lubridate, you can:
+  + parse dates from strings in common formats
+  + do arithmetic with dates easily
+  + account for time zones, leap years etc.
+  + handle times too (though we don't cover that here)
+  
+## lubridate::functions()
+- `ymd()` converts strings to dates in the format `YYYY-MM-DD` (year-month-day)
+- it returns a date object, which is a special type of object in R
+- there are several related functions which parse slightly different formats, such as `mdy()`, `dmy()`, `ymd_hms()` etc.
+- `today()` returns the current date
+- `year()`, `month()`, `day()` extract the year, month, and day from a date object
+
+## lubridate::functions()
+
+- `interval()` creates an interval between two dates
+- we can pass this to `time_length()`, which calculates the length of an interval in a specified unit
+
+```{r}
+# Create two date objects
+start_date <- ymd("2015-05-15")
+end_date <- ymd("2024-10-20")
+date_interval <- interval(start_date, end_date)
+
+print(time_length(date_interval, "years"))
+```
+
+## lubridate::practice() {.smaller}
+- John Doe was born on 4th September, 1983. Create a date object for his birth date
+- How old was John on the 6th June, 2020?
+- What about today?
+
+**using the `lakers` dataset which comes with lubridate**
+
+- choose the correct function to replace `some_function` below:
+
+```{r}
+#| eval: false
+lakers |> 
+  as_tibble() |> 
+  mutate(date = some_function(sprintf("%08d", date)))
+```
+
+## lubridate::practice_more() {.smaller}
+
+**using the economics dataset from ggplot2**
+
+- take the date column from the economics dataset and create two new columns which contain the year and month of each date
+- create a new column called time_since_nyse, which contains the number of years between the founding of the New York Stock Exchange on 17th May, 1792 and the date column
+
+## Anonymous Feedback | Comments
+
+**Use the QR code, [this](https://app.sli.do/event/7U7WjJ1tDSu9tLcWzkFxoR) link or type code #3267575 into slido.com**
+
+<div class="image-center" style="display: flex; justify-content: center; align-items: flex-start; margin-top: 20px;">
+  <img src="/10_resources/00_images/course_slido.png" style="max-width:300px; height: auto; background-color: #FFFFFF;">
+</div>
+
+# Functions
+
+## Functions {.smaller}
+
+Functions in R:
+
+- allow you to automate tasks in a more powerful way than copy/paste
+- mean you only need to update code in one place
+- reduce the likelihood of errors
+- are for others, but mainly for **YOU**
+- should be written for **readability** and **reusability**
+- have the format
+```{r}
+#| eval: false
+function_name <- function(arg1, arg2, arg3) {
+  # function body
+}
+```
+
+## Functions - Practice! {.smaller}
+_call your functions after creating them to check their output_
+
+- write an empty function with no arguments, called 'stub_func'.
+- write a function that takes no arguments and returns the number 3 using the `return()` statement. Choose an appropriate name.
+- create another function with no return statement or arguments, which only contains the number 3. Run the function. Is it different to before?
+- create a function called `my_divide()` which takes two arguments, 'x' and 'y' and returns x divided by y. Use an explicit return statement.
+- we want to still return a value when y is zero. Change the `my_divide()` function so that there is another argument called 'tol'. Set it to a very low value, and add it to y before dividing.
+
+## General Rules for Writing Functions {.smaller}
+
+Try to decipher the following code below
+- what does it do?
+- does it work? Are there errors?
+```{r}
+#| eval: false
+df <- data.frame(a = rnorm(10), b = rnorm(10), c = rnorm(10), d = rnorm(10))
+df$a <- (df$a - min(df$a, na.rm = TRUE)) / (max(df$a, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$b <- (df$b - min(df$b, na.rm = TRUE)) / (max(df$b, na.rm = TRUE) - min(df$a, na.rm = TRUE))
+df$c <- (df$c - min(df$c, na.rm = TRUE)) / (max(df$c, na.rm = TRUE) - min(df$c, na.rm = TRUE))
+df$d <- (df$d - min(df$d, na.rm = TRUE)) / (max(df$d, na.rm = TRUE) - min(df$d, na.rm = TRUE))
+```
+
+## General Rules for Writing Functions
+
+Is this better?
+```{r}
+#| eval: false
+rescale <- function(x) {
+    return((x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE)))
+}
+```
+
+## General Rules for Writing Functions
+
+Even better?
+```{r}
+#| eval: false
+rescale <- function(x) {
+    y <- min(x, na.rm = TRUE)
+    return((x - y) / (max(x, na.rm = TRUE) - y))
+}
+```
+
+## General Rules for Writing Functions
+
+Perfect?
+```{r}
+#| eval: false
+rescale <- function(x) {
+  # rescale vector to the range from 0 to 1
+  min_value <- min(x, na.rm = TRUE)
+  return((x - min_value) / (max(x, na.rm = TRUE) - min_value))
+}
+```
+
+## General Rules for Writing Functions
+- **_never_** take variables created _outside_ a function and use them from _inside_ a function unless you pass them as an argument
+- if you have a lot of functions, it's good practice to put them in a separate file and use 'source'
+- generally, functions should do one thing, but you can do whatever you like, including nested functions
+
+## When to write a function
+- if you find yourself writing/pasting the same thing 2/3 times
+
+## When NOT to write a function
+- if it's a one-off bit of code you'll never use again
+- you're lazy
+- you hate future you
+
+## Anonymous functions {.smaller}
+- sometimes we need to package up some code in a function, but we know we'll never need it again
+- this is common where we do something trivial, like a simple calculation
+- in these cases we often create a function _on the fly_ in the call to another function
+- these are called _anonymous functions_ (because we don't name them) or _lambda functions_ (from lambda calculus)
+- they're reasonably common in R, especially when using dplyr
+
+## Anonymous functions {.smaller}
+- you've already seen these in calls to functions like `summarise()`!
+- the tilde (`~`) is used to create a lambda function, and the dot (`.x`) is used to refer to the input
+- you will also see `.` used to refer to the input - this is the same as `.x`
+- you can actually use anything you like, but `.` and `.x` are common conventions
+
+```{r}
+# example use of an anonymous function with summarise
+gapminder |>
+  group_by(continent) |>
+  summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE))) |>
+  head(3)
+```
+
+## Anonymous functions {.smaller}
+
+- In this way,
+
+```{r}
+#| output: false
+#| eval: false
+~ mean(.x, na.rm = TRUE)
+```
+
+is equivalent to
+
+```{r}
+#| output: false
+#| eval: false
+function(.x) {
+  mean(.x, na.rm = TRUE)
+}
+```
+
+# Flow control: conditionals
+
+## if-else statements
+`if` statements have the format:
+```{r}
+#| eval: false
+if (condition) {
+  # code executed when condition is TRUE
+} else {
+  # code executed when condition is FALSE
+}
+```
+
+## if-else statements
+We can add multiple `else if` statements to these
+```{r}
+#| eval: false
+if (x > 0) {
+    print("Positive")
+} else if (x < 0) {
+    print("Negative")
+} else {
+    print("Zero")
+}
+```
+
+## if-else statements {.smaller}
+- `ifelse()` lets us use vectorised if-else statements (note, dplyr has a version called `dplyr::if_else()` that's a bit stricter)
+- if you have a lot of if statements, check out the `switch()` function
+- `dplyr::case_when()` handles multiple vectorised `if_else()` statements
+
+```{r}
+# example use of case_when to simplify multiple if_else statements
+gapminder |>
+  mutate(lifeExp_category = case_when(
+    lifeExp < 50 ~ "Low",
+    lifeExp >= 50 & lifeExp <= 70 ~ "Medium",
+    lifeExp > 70 ~ "High"
+  )) |>
+  head(3)
+```
+
+# Using your functions
+
+## Using your functions
+- modularising code
+- unit testing
+- packages
+
+## Modularising code
+- separating code into functions and files makes it easier to re-use across projects
+- it also makes it easier to maintain as we know where to go to change them
+- testing functions is also easier than testing code spread out in a script and interweaved with results
+
+## Modularising code - practice!
+- create a new R script
+- create a function in the script called `my_add()` that takes two arguments, `x` and `y` and returns their sum (do not paste it into the terminal!)
+- save the R script
+- in the console, source the R script with `source("path/to/script.R")`
+- run the function with `my_add(2, 3)`
+
+## Types of testing
+- there are many ways to test your code! We have:
+  + **unit tests** in your local development environment or CI/CD pipeline
+  + **integration tests** to check that your code works with other code
+  + **quality assurance tests** to check that your code meets a certain standard (usually done by a separate team)
+  + **end-to-end tests** to check that your code works in a real-world (production) environment
+
+## Unit Testing {.smaller}
+- for testing the smallest unit of code (functions)
+- they are simply functions that test your code to make sure it does what it is supposed to
+- this can mean it gives the correct output with expected input, but also that it errors as expected when you give it faulty input
+- allows you to change your code and quickly check it still works
+- allows you to sleep at night
+- done in r using the `testthat` package
+
+## Unit testing - practice! {.smaller}
+- create a function called `my_multiply()` that takes two arguments, `x` and `y` and returns their product
+- write a test for this function that checks that `my_multiply(2, 3)` returns 6
+- use the example of my_add below and modify it:
+
+```{r}
+#| output: false
+#| eval: false
+my_add <- function(x, y) {
+  return(x + y)
+}
+
+testthat::test_that("my_add() works as expected",
+{
+  testthat::expect_equal(my_add(2, 3), 5)
+})
+```
+
+## Putting it all together (optional extra homework)
+- create a github account
+- install `devtools` and `testthat`
+- make a personal package following the outline [here](https://r-pkgs.org/whole-game.html)
+- add a function to the package for a common task you do (can be simple)
+- write test for your function using `testthat`
+- push it to github and (double optional) send me the link!
+
+## Putting it all together (optional extra homework)
+- this:
+  + is a great way to learn how to write functions and test them
+  + it will set you up for future projects
+  + is entirely optional and not required for the course
+
+## Homework
+- Quarto file and optional reading below
+- [A history of stringsAsFactors](https://simplystatistics.org/posts/2015-07-24-stringsasfactors-an-unauthorized-biography/)
+- [Background to factors](https://peerj.com/preprints/3163/)
+- [Anonymous functions](https://www.r-bloggers.com/anonymous-functions-in-r-and-python/)
+- [More information on unit tests](http://r-pkgs.had.co.nz/tests.html)

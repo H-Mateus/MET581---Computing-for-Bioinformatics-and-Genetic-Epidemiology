@@ -23,6 +23,7 @@ format:
   revealjs:
     logo: /10_resources/00_images/combined_logos.png
     footer: "MET581 - Programming in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
+    slide-number: true
     theme: [dark, ../styles.scss]
     drop:
       engine: webr
@@ -85,7 +86,7 @@ This course will follow **R for Data Science** (2nd Edition):
 
 ## Install R and RStudio
 
-1.  **R**: Current version (4.5.0 "How About a Twenty-Six")
+1.  **R**: Current version (4.5.1 "Great Square Root")
     -   [Download for Windows](https://cran.rstudio.com)
     -   [MacOS](https://cran.rstudio.com) (use ARM64 for M1 Macs)
     -   Ubuntu Linux: `sudo apt install r-base`
@@ -150,7 +151,7 @@ options(scipen = 999)
 ```
 
 -   What is the difference between these last two runs?
--   What do you think options(scipen = 999) is doing to the code?
+-   What do you think `options(scipen = 999)` is doing to the code?
 
 ## options(Scipen)
 
@@ -404,13 +405,24 @@ num2 <- c(FALSE, FALSE, TRUE, TRUE)
 
 # Performs AND operation on each element in both num1, num2
 num1 & num2
+```
+. . .
 
+```{r}
 # Performs OR operation on each element in both num1, num2
 num1 | num2
+```
 
+. . .
+
+```{r}
 # This will convert all the num1 TRUE values to FALSE, and FALSE values to TRUE
 !num1
+```
 
+. . .
+
+```{r}
 # From num2 Vector - This will convert all the TRUE values to FALSE, and FALSE to TRUE
 !num2
 ```
@@ -453,6 +465,8 @@ print(numbers)
 numbers < 50
 ```
 
+. . .
+
 -   We can just add up the logicals
 
 ```{r}
@@ -493,6 +507,8 @@ df <- data.frame("letters" = c("a", "b", "c"), "numbers" = c(1, 2, 3))
 print(df)
 ```
 
+. . .
+
 -   Use `$` to reference entire columns.
 
 ```{r}
@@ -510,6 +526,8 @@ sum(df$numbers)
 # So the following is the thirds row, first column
 df[3, 1]
 ```
+
+. . .
 
 -   Use indexing and logical conditions to subset data:
 
@@ -603,6 +621,8 @@ setwd("C:/path/to/directory")
 
 -   Strongly suggest avoiding changing working directory in scripts, try to keep to relative file paths, as the absolute path is unique to your environment
     -   If you do have absolute paths, the code won't run on another computer and the code will break!
+
+. . .
 
 -   Check out the [here](https://here.r-lib.org/) package to help manage relative file paths
     -   It helps figure out the project root based on the presence of a `.Rproj` file and/or a `.git` directory
