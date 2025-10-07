@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Gabriel Mateus Bernardo Harrington">
   <title>MET581 - R lecture material – Programming in R</title>
@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -63,7 +64,7 @@
     pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
     code span { color: #f8f8f2; } /* Normal */
-    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.al { color: #f07178; } /* Alert */
     code span.an { color: #d4d0ab; } /* Annotation */
     code span.at { color: #00e0e0; } /* Attribute */
     code span.bn { color: #d4d0ab; } /* BaseN */
@@ -94,7 +95,7 @@
     code span.vs { color: #abe338; } /* VerbatimString */
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-daa44f3a5003ba00250cc9ef8b22e591.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-c6c8ce1ec267b53d8633c6d00b83f74f.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -259,9 +260,9 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
+✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.1.0     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -478,7 +479,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="iterations-with-purrr" class="slide level2">
 <h2>Iterations with purrr</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>We want to keep code <strong>efficient</strong> and <strong>less repetitive</strong>: performing the same thing on multiple inputs, repeating the operation on multiple columns, or on different datasets.</li>
 <li>To help achieve this, <strong>iterations</strong> are used. For example:</li>
@@ -501,7 +502,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="iterations-with-purrr-1" class="slide level2">
 <h2>Iterations with purrr</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>This can be simplified with a for loop</li>
 </ul>
@@ -528,7 +529,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="the-map-family" class="slide level2">
 <h2>The map family</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>Essentially, map() is the tidyverse equivalent of the base R apply family of functions.</li>
 <li>The basic syntax is <code>map(.x, .f, ...)</code> where:
@@ -540,13 +541,13 @@ Missing values: 573</code></pre>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="../10_resources/00_images/purrr_map_cartoon.png" class="quarto-figure quarto-figure-center" width="600"></p>
+<p><img data-src=".././10_resources/00_images/purrr_map_cartoon.png" class="quarto-figure quarto-figure-center" width="600"></p>
 </figure>
 </div>
 </section>
 <section id="the-map-family-1" class="slide level2">
 <h2>The map family</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>We can use the <code>map</code> function to compute the mean and standard deviation of previous dataset.</li>
 </ul>
@@ -555,18 +556,18 @@ Missing values: 573</code></pre>
 <span id="cb27-2"><a></a><span class="fu">map_dbl</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.54 0.51 0.57 0.46 </code></pre>
+0.42 0.39 0.51 0.49 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">map_dbl</span>(df, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.31 0.39 0.37 0.31 </code></pre>
+0.38 0.31 0.36 0.36 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># And here's the native R sapply equivalent</span></span>
 <span id="cb31-2"><a></a><span class="fu">sapply</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.54 0.51 0.57 0.46 </code></pre>
+0.42 0.39 0.51 0.49 </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -577,14 +578,14 @@ Missing values: 573</code></pre>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="fu">map_dbl</span>(df, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.54 0.51 0.57 0.46 </code></pre>
+0.42 0.39 0.51 0.49 </code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="the-map-family-2" class="slide level2">
 <h2>The map family</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>We can even use a string or a position (integer) to extract components from the input data - very useful when working with big datasets!</li>
 </ul>
@@ -608,7 +609,7 @@ Missing values: 573</code></pre>
 </section>
 <section id="map_-functions" class="slide level2">
 <h2>map_ functions</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li>One property of the <code>map()</code> function is that it will always return a list.</li>
 <li>To change the output data type, we can use multiple versions of <code>map_*()</code>:
@@ -655,21 +656,21 @@ Missing values: 573</code></pre>
 <span id="cb40-2"><a></a>  <span class="fu">map</span>(summary) <span class="sc">%&gt;%</span></span>
 <span id="cb40-3"><a></a>  <span class="fu">map_dbl</span>( <span class="sc">~</span> .<span class="sc">$</span>r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        4         6         8 
-0.5086326 0.4645102 0.4229655 </code></pre>
+<pre><code>             4              6              8 
+0.508632596323 0.464510150551 0.422965536496 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>models <span class="sc">|&gt;</span></span>
 <span id="cb42-2"><a></a>  <span class="fu">map</span>(summary) <span class="sc">|&gt;</span></span>
 <span id="cb42-3"><a></a>  <span class="fu">map_dbl</span>(\(model) model<span class="sc">$</span>r.squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        4         6         8 
-0.5086326 0.4645102 0.4229655 </code></pre>
+<pre><code>             4              6              8 
+0.508632596323 0.464510150551 0.422965536496 </code></pre>
 </div>
 </div>
 </section>
 <section id="multiple-arguments" class="slide level2">
 <h2>Multiple Arguments</h2>
-<p><img data-src="../10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
+<p><img data-src=".././10_resources/00_images/purrr_logo.png" class="absolute" style="top: -20px; right: 50px; width: 80px; height: 80px; "></p>
 <ul>
 <li><code>purrr</code> gives us the option to include more than one input in parallel with <code>map2()</code> and <code>pmap()</code>.</li>
 <li>Imagine we would like to simulate some random normal distributions with different means, and each vary, we could do:</li>
@@ -683,9 +684,9 @@ Missing values: 573</code></pre>
 <span id="cb44-6"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 2.38 4.39 3.78 5.9 3.91
- $ : num [1:5] 11.99 11.67 7.05 12.97 6.73
- $ : num [1:5] 17.649 -2.993 8.66 -10.82 0.831</code></pre>
+ $ : num [1:5] 4.97 6.64 5.62 4.68 5.88
+ $ : num [1:5] 9.7 7.2 15.24 9.35 13.15
+ $ : num [1:5] -9.963 -0.534 -15.277 -5.021 -15.627</code></pre>
 </div>
 </div>
 </section>
@@ -695,7 +696,7 @@ Missing values: 573</code></pre>
 <li>The code can be understood by the following figure:</li>
 </ul>
 
-<img data-src="../10_resources/00_images/purrr_map2_cartoon.png" class="quarto-figure quarto-figure-center r-stretch" width="600"></section>
+<img data-src=".././10_resources/00_images/purrr_map2_cartoon.png" class="quarto-figure quarto-figure-center r-stretch" width="600"></section>
 <section id="multiple-arguments-2" class="slide level2">
 <h2>Multiple Arguments</h2>
 <ul>
@@ -712,9 +713,9 @@ Missing values: 573</code></pre>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num 6.36
- $ : num [1:3] 13.47 8.43 19.6
- $ : num [1:5] 1.38 -16.04 -11.14 -14.45 1.97</code></pre>
+ $ : num 5.01
+ $ : num [1:3] 6.1 5.57 6.15
+ $ : num [1:5] 5.06 13.4 -11.24 -9.39 -12.36</code></pre>
 </div>
 </div></div>
 <ul>
@@ -728,9 +729,9 @@ Missing values: 573</code></pre>
 <span id="cb48-5"><a></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 0.0428 0.5661 0.66 -0.2062 0.8389
- $ : num [1:5] 2.405 -0.353 -6.163 -3.41 -1.423
- $ : int [1:5] 10 9 12 6 9</code></pre>
+ $ : num [1:5] -0.716 0.514 -0.682 0.109 0.77
+ $ : num [1:5] 5.023 -2.802 9.048 0.602 -2.206
+ $ : int [1:5] 9 17 8 9 6</code></pre>
 </div>
 </div>
 </section>
@@ -793,9 +794,9 @@ Missing values: 573</code></pre>
 <span id="cb53-13"><a></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
 <span id="cb53-14"><a></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The Cadillac Fleetwood has a auto transmission and gets 10.4 mpgs."
-[1] "The Camaro Z28 has a auto transmission and gets 13.3 mpgs."
-[1] "The Maserati Bora has a manual transmission and gets 15 mpgs."</code></pre>
+<pre><code>[1] "The Mazda RX4 Wag has a manual transmission and gets 21 mpgs."
+[1] "The Merc 280 has a auto transmission and gets 19.2 mpgs."
+[1] "The Lincoln Continental has a auto transmission and gets 10.4 mpgs."</code></pre>
 </div>
 </div>
 </section>
@@ -823,7 +824,7 @@ Missing values: 573</code></pre>
 <span id="cb55-14"><a></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of flips to get 3 heads in a row:  4</code></pre>
+<pre><code>Number of flips to get 3 heads in a row:  16</code></pre>
 </div>
 </div></div>
 <ul>
@@ -838,10 +839,10 @@ Missing values: 573</code></pre>
 
 
 
-<img data-src="../10_resources/00_images/website_qrcode.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src=".././10_resources/00_images/website_qrcode.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../10_resources/00_images/combined_logos.png" class="slide-logo"></p>
+<p><img src=".././10_resources/00_images/combined_logos.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>MET581 - Programming in R - Slides and code avilable <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
 </div>
@@ -1096,190 +1097,172 @@ Missing values: 573</code></pre>
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>

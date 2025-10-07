@@ -6,8 +6,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.40">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.32">
 
   <meta name="author" content="Gabriel Mateus Bernardo Harrington">
   <title>MET581 - R lecture material – Modelling in R</title>
@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -63,7 +64,7 @@
     pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
     code span { color: #f8f8f2; } /* Normal */
-    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.al { color: #f07178; } /* Alert */
     code span.an { color: #d4d0ab; } /* Annotation */
     code span.at { color: #00e0e0; } /* Attribute */
     code span.bn { color: #d4d0ab; } /* BaseN */
@@ -94,7 +95,7 @@
     code span.vs { color: #abe338; } /* VerbatimString */
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-daa44f3a5003ba00250cc9ef8b22e591.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-c6c8ce1ec267b53d8633c6d00b83f74f.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -274,7 +275,7 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <li><code>tidymodels</code> describes itself thusly: “The tidymodels framework is a collection of packages for modelling and machine learning using tidyverse principles.”</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidymodels)  <span class="co"># for the parsnip package, along with the rest of tidymodels</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(tidymodels) <span class="co"># for the parsnip package, along with the rest of tidymodels</span></span>
 <span id="cb1-2"><a></a></span>
 <span id="cb1-3"><a></a><span class="co"># Helper packages</span></span>
 <span id="cb1-4"><a></a><span class="fu">library</span>(tidyverse) <span class="co"># for data manipulations</span></span>
@@ -285,7 +286,8 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <span id="cb1-9"><a></a><span class="fu">library</span>(usemodels) <span class="co"># for generating nice boilerplate code</span></span>
 <span id="cb1-10"><a></a><span class="fu">library</span>(vip) <span class="co"># for variable importance of random forest</span></span>
 <span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter)</span>
+<span id="cb1-13"><a></a><span class="fu">conflicts_prefer</span>(modeldata<span class="sc">::</span>penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="starting-simple" class="slide level2">
@@ -585,14 +587,16 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <span id="cb5-2"><a></a>y_diff <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>mpg <span class="sc">-</span> y_model</span>
 <span id="cb5-3"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> hp, mpg)) <span class="sc">+</span></span>
 <span id="cb5-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb5-5"><a></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span><span class="dv">34</span>, </span>
-<span id="cb5-6"><a></a>                  <span class="at">slope =</span> <span class="sc">-</span><span class="fl">0.1</span>)) <span class="sc">+</span></span>
-<span id="cb5-7"><a></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(</span>
-<span id="cb5-8"><a></a>    <span class="at">x =</span> hp,</span>
-<span id="cb5-9"><a></a>    <span class="at">y =</span> mpg,</span>
-<span id="cb5-10"><a></a>    <span class="at">xend =</span> hp,</span>
-<span id="cb5-11"><a></a>    <span class="at">yend =</span> y_model</span>
-<span id="cb5-12"><a></a>  ), <span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a></a>  <span class="fu">geom_abline</span>(<span class="fu">aes</span>(<span class="at">intercept =</span> <span class="dv">34</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb5-6"><a></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb5-7"><a></a>    <span class="fu">aes</span>(</span>
+<span id="cb5-8"><a></a>      <span class="at">x =</span> hp,</span>
+<span id="cb5-9"><a></a>      <span class="at">y =</span> mpg,</span>
+<span id="cb5-10"><a></a>      <span class="at">xend =</span> hp,</span>
+<span id="cb5-11"><a></a>      <span class="at">yend =</span> y_model</span>
+<span id="cb5-12"><a></a>    ),</span>
+<span id="cb5-13"><a></a>    <span class="at">color =</span> <span class="st">"blue"</span></span>
+<span id="cb5-14"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -651,10 +655,9 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, </span>
-<span id="cb8-3"><a></a>           <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
-<span id="cb8-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb8-3"><a></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -674,16 +677,16 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>penguins <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, </span>
-<span id="cb9-3"><a></a>           <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
-<span id="cb9-4"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, </span>
-<span id="cb9-5"><a></a>                 <span class="at">shape =</span> species),</span>
-<span id="cb9-6"><a></a>             <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> </span>
-<span id="cb9-7"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb9-8"><a></a>              <span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span></span>
-<span id="cb9-9"><a></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
-<span id="cb9-10"><a></a>    <span class="st">"darkorange"</span>,<span class="st">"darkorchid"</span>,<span class="st">"cyan4"</span>)</span>
-<span id="cb9-11"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> bill_length_mm, <span class="at">y =</span> bill_depth_mm)) <span class="sc">+</span></span>
+<span id="cb9-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> species, <span class="at">shape =</span> species), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="fu">aes</span>(<span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb9-5"><a></a>  <span class="fu">scale_color_manual</span>(</span>
+<span id="cb9-6"><a></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb9-7"><a></a>      <span class="st">"darkorange"</span>,</span>
+<span id="cb9-8"><a></a>      <span class="st">"darkorchid"</span>,</span>
+<span id="cb9-9"><a></a>      <span class="st">"cyan4"</span></span>
+<span id="cb9-10"><a></a>    )</span>
+<span id="cb9-11"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -703,12 +706,14 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="column">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>penguins <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(flipper_length_mm, </span>
-<span id="cb10-4"><a></a>             bill_length_mm, </span>
-<span id="cb10-5"><a></a>             <span class="at">color =</span> sex, </span>
-<span id="cb10-6"><a></a>             <span class="at">size =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb10-7"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb10-8"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb10-4"><a></a>    flipper_length_mm,</span>
+<span id="cb10-5"><a></a>    bill_length_mm,</span>
+<span id="cb10-6"><a></a>    <span class="at">color =</span> sex,</span>
+<span id="cb10-7"><a></a>    <span class="at">size =</span> body_mass_g</span>
+<span id="cb10-8"><a></a>  )) <span class="sc">+</span></span>
+<span id="cb10-9"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb10-10"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -803,8 +808,7 @@ Computational engine: glm </code></pre>
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co"># make some nice boilerplate code</span></span>
-<span id="cb18-2"><a></a>usemodels<span class="sc">::</span><span class="fu">use_ranger</span>(sex <span class="sc">~</span> ., </span>
-<span id="cb18-3"><a></a>                      <span class="at">data =</span> penguin_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-2"><a></a>usemodels<span class="sc">::</span><span class="fu">use_ranger</span>(sex <span class="sc">~</span> ., <span class="at">data =</span> penguin_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>ranger_recipe &lt;- 
@@ -830,34 +834,29 @@ ranger_tune &lt;-
 <h2>Testing hyperparameters</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>ranger_recipe <span class="ot">&lt;-</span> </span>
-<span id="cb20-2"><a></a>  <span class="fu">recipe</span>(<span class="at">formula =</span> sex <span class="sc">~</span> ., </span>
-<span id="cb20-3"><a></a>         <span class="at">data =</span> penguin_train)  <span class="sc">|&gt;</span></span>
-<span id="cb20-4"><a></a>  <span class="co"># impute the mean if any values are missing</span></span>
-<span id="cb20-5"><a></a>  <span class="fu">step_impute_mean</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb20-6"><a></a>  <span class="co"># apply hot-one encoding to factors</span></span>
-<span id="cb20-7"><a></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb20-8"><a></a>  <span class="co"># remove any predictors that have 0 variance</span></span>
-<span id="cb20-9"><a></a>  <span class="fu">step_nzv</span>(<span class="fu">all_numeric_predictors</span>())</span>
-<span id="cb20-10"><a></a></span>
-<span id="cb20-11"><a></a>ranger_spec <span class="ot">&lt;-</span> </span>
-<span id="cb20-12"><a></a>  <span class="fu">rand_forest</span>(<span class="at">mtry =</span> <span class="fu">tune</span>(), </span>
-<span id="cb20-13"><a></a>              <span class="at">min_n =</span> <span class="fu">tune</span>(), </span>
-<span id="cb20-14"><a></a>              <span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-15"><a></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-16"><a></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>) </span>
-<span id="cb20-17"><a></a></span>
-<span id="cb20-18"><a></a>ranger_workflow <span class="ot">&lt;-</span> </span>
-<span id="cb20-19"><a></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-20"><a></a>  <span class="fu">add_recipe</span>(ranger_recipe) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-21"><a></a>  <span class="fu">add_model</span>(ranger_spec) </span>
-<span id="cb20-22"><a></a></span>
-<span id="cb20-23"><a></a><span class="fu">set.seed</span>(<span class="dv">70081</span>)</span>
-<span id="cb20-24"><a></a>doParallel<span class="sc">::</span><span class="fu">registerDoParallel</span>()</span>
-<span id="cb20-25"><a></a>ranger_tune <span class="ot">&lt;-</span></span>
-<span id="cb20-26"><a></a>  <span class="fu">tune_grid</span>(ranger_workflow, </span>
-<span id="cb20-27"><a></a>            <span class="at">resamples =</span> penguin_boot, </span>
-<span id="cb20-28"><a></a>            <span class="at">grid =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>ranger_recipe <span class="ot">&lt;-</span></span>
+<span id="cb20-2"><a></a>  <span class="fu">recipe</span>(<span class="at">formula =</span> sex <span class="sc">~</span> ., <span class="at">data =</span> penguin_train) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a></a>  <span class="co"># impute the mean if any values are missing</span></span>
+<span id="cb20-4"><a></a>  <span class="fu">step_impute_mean</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb20-5"><a></a>  <span class="co"># apply hot-one encoding to factors</span></span>
+<span id="cb20-6"><a></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb20-7"><a></a>  <span class="co"># remove any predictors that have 0 variance</span></span>
+<span id="cb20-8"><a></a>  <span class="fu">step_nzv</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb20-9"><a></a></span>
+<span id="cb20-10"><a></a>ranger_spec <span class="ot">&lt;-</span></span>
+<span id="cb20-11"><a></a>  <span class="fu">rand_forest</span>(<span class="at">mtry =</span> <span class="fu">tune</span>(), <span class="at">min_n =</span> <span class="fu">tune</span>(), <span class="at">trees =</span> <span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-12"><a></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-13"><a></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>)</span>
+<span id="cb20-14"><a></a></span>
+<span id="cb20-15"><a></a>ranger_workflow <span class="ot">&lt;-</span></span>
+<span id="cb20-16"><a></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-17"><a></a>  <span class="fu">add_recipe</span>(ranger_recipe) <span class="sc">%&gt;%</span></span>
+<span id="cb20-18"><a></a>  <span class="fu">add_model</span>(ranger_spec)</span>
+<span id="cb20-19"><a></a></span>
+<span id="cb20-20"><a></a><span class="fu">set.seed</span>(<span class="dv">70081</span>)</span>
+<span id="cb20-21"><a></a>doParallel<span class="sc">::</span><span class="fu">registerDoParallel</span>()</span>
+<span id="cb20-22"><a></a>ranger_tune <span class="ot">&lt;-</span></span>
+<span id="cb20-23"><a></a>  <span class="fu">tune_grid</span>(ranger_workflow, <span class="at">resamples =</span> penguin_boot, <span class="at">grid =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 
 </div></div>
@@ -872,22 +871,22 @@ ranger_tune &lt;-
 <pre><code># A tibble: 5 × 8
    mtry min_n .metric  .estimator  mean     n std_err .config              
   &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-1     2     6 accuracy binary     0.918    25 0.00534 Preprocessor1_Model08
-2     1     3 accuracy binary     0.917    25 0.00568 Preprocessor1_Model04
-3     2    13 accuracy binary     0.915    25 0.00566 Preprocessor1_Model05
-4     3    38 accuracy binary     0.905    25 0.00566 Preprocessor1_Model06
-5     3    30 accuracy binary     0.904    25 0.00520 Preprocessor1_Model01</code></pre>
+1     1    14 accuracy binary     0.920    25 0.00550 Preprocessor1_Model01
+2     2     2 accuracy binary     0.918    25 0.00571 Preprocessor1_Model03
+3     1    31 accuracy binary     0.915    25 0.00581 Preprocessor1_Model02
+4     2    18 accuracy binary     0.914    25 0.00522 Preprocessor1_Model04
+5     3     6 accuracy binary     0.910    25 0.00525 Preprocessor1_Model06</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">show_best</span>(ranger_tune, <span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 8
    mtry min_n .metric .estimator  mean     n std_err .config              
   &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;                
-1     2     6 roc_auc binary     0.979    25 0.00194 Preprocessor1_Model08
-2     1     3 roc_auc binary     0.978    25 0.00204 Preprocessor1_Model04
-3     2    13 roc_auc binary     0.977    25 0.00206 Preprocessor1_Model05
-4     3    30 roc_auc binary     0.971    25 0.00230 Preprocessor1_Model01
-5     4    19 roc_auc binary     0.971    25 0.00243 Preprocessor1_Model07</code></pre>
+1     2     2 roc_auc binary     0.979    25 0.00195 Preprocessor1_Model03
+2     1    14 roc_auc binary     0.977    25 0.00220 Preprocessor1_Model01
+3     2    18 roc_auc binary     0.976    25 0.00211 Preprocessor1_Model04
+4     3     6 roc_auc binary     0.976    25 0.00203 Preprocessor1_Model06
+5     1    31 roc_auc binary     0.975    25 0.00236 Preprocessor1_Model02</code></pre>
 </div>
 </div></div>
 <div class="cell columns column-output-location">
@@ -933,7 +932,7 @@ Random Forest Model Specification (classification)
 Main Arguments:
   mtry = 2
   trees = 1000
-  min_n = 6
+  min_n = 2
 
 Computational engine: ranger </code></pre>
 </div>
@@ -946,21 +945,20 @@ Computational engine: ranger </code></pre>
 <li>This gives us lots of function for imputing missing data, scaling and centring and much more</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="1-4|5-10|12-15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># Set sex as the outcome and use all other </span></span>
+<div class="sourceCode cell-code" id="cb28" data-code-line-numbers="1-4|5-10|12-15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># Set sex as the outcome and use all other</span></span>
 <span id="cb28-2"><a></a><span class="co"># variables as predictors with the "." shorthand</span></span>
-<span id="cb28-3"><a></a>recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(sex <span class="sc">~</span> ., </span>
-<span id="cb28-4"><a></a>                 <span class="at">data =</span> penguin_train) <span class="sc">|&gt;</span></span>
-<span id="cb28-5"><a></a>  <span class="co"># impute the mean if any values are missing</span></span>
-<span id="cb28-6"><a></a>  <span class="fu">step_impute_mean</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb28-7"><a></a>  <span class="co"># apply hot-one encoding to factors</span></span>
-<span id="cb28-8"><a></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb28-9"><a></a>  <span class="co"># remove any predictors that have 0 variance</span></span>
-<span id="cb28-10"><a></a>  <span class="fu">step_nzv</span>(<span class="fu">all_numeric_predictors</span>())</span>
-<span id="cb28-11"><a></a></span>
-<span id="cb28-12"><a></a><span class="co"># Add this to a workflow</span></span>
-<span id="cb28-13"><a></a>penguin_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
-<span id="cb28-14"><a></a>  <span class="fu">add_recipe</span>(recipe)</span>
-<span id="cb28-15"><a></a>penguin_wf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-3"><a></a>recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(sex <span class="sc">~</span> ., <span class="at">data =</span> penguin_train) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a></a>  <span class="co"># impute the mean if any values are missing</span></span>
+<span id="cb28-5"><a></a>  <span class="fu">step_impute_mean</span>(<span class="fu">all_numeric_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a></a>  <span class="co"># apply hot-one encoding to factors</span></span>
+<span id="cb28-7"><a></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal_predictors</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb28-8"><a></a>  <span class="co"># remove any predictors that have 0 variance</span></span>
+<span id="cb28-9"><a></a>  <span class="fu">step_nzv</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb28-10"><a></a></span>
+<span id="cb28-11"><a></a><span class="co"># Add this to a workflow</span></span>
+<span id="cb28-12"><a></a>penguin_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb28-13"><a></a>  <span class="fu">add_recipe</span>(recipe)</span>
+<span id="cb28-14"><a></a>penguin_wf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
 Preprocessor: Recipe
@@ -982,9 +980,8 @@ Model: None
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm <span class="sc">*</span> bill_depth_mm, </span>
-<span id="cb30-2"><a></a>   <span class="at">data =</span> penguins_df) <span class="sc">|&gt;</span></span>
-<span id="cb30-3"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">lm</span>(body_mass_g <span class="sc">~</span> bill_length_mm <span class="sc">*</span> bill_depth_mm, <span class="at">data =</span> penguins_df) <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a></a>  <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
@@ -1007,21 +1004,24 @@ Model: None
 <div class="column">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">library</span>(multilevelmod)</span>
 <span id="cb32-2"><a></a></span>
-<span id="cb32-3"><a></a>multilevel_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a></a>multilevel_spec <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>() <span class="sc">|&gt;</span></span>
 <span id="cb32-4"><a></a>  <span class="fu">set_engine</span>(<span class="st">"lmer"</span>)</span>
 <span id="cb32-5"><a></a></span>
-<span id="cb32-6"><a></a>multilevel_workflow <span class="ot">&lt;-</span> </span>
+<span id="cb32-6"><a></a>multilevel_workflow <span class="ot">&lt;-</span></span>
 <span id="cb32-7"><a></a>  <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
-<span id="cb32-8"><a></a>  <span class="co"># Pass the data along as-is: </span></span>
-<span id="cb32-9"><a></a>  <span class="fu">add_variables</span>(<span class="at">outcome =</span> body_mass_g, </span>
-<span id="cb32-10"><a></a>                <span class="at">predictors =</span> <span class="fu">c</span>(species, </span>
-<span id="cb32-11"><a></a>                               bill_depth_mm, sex)) <span class="sc">|&gt;</span></span>
-<span id="cb32-12"><a></a>  <span class="fu">add_model</span>(multilevel_spec, </span>
-<span id="cb32-13"><a></a>            <span class="co"># This formula is given to the model</span></span>
-<span id="cb32-14"><a></a>            <span class="at">formula =</span> body_mass_g <span class="sc">~</span> sex <span class="sc">+</span> (bill_depth_mm <span class="sc">|</span> species))</span>
-<span id="cb32-15"><a></a></span>
-<span id="cb32-16"><a></a>multilevel_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(multilevel_workflow, <span class="at">data =</span> penguins_df)</span>
-<span id="cb32-17"><a></a>multilevel_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-8"><a></a>  <span class="co"># Pass the data along as-is:</span></span>
+<span id="cb32-9"><a></a>  <span class="fu">add_variables</span>(</span>
+<span id="cb32-10"><a></a>    <span class="at">outcome =</span> body_mass_g,</span>
+<span id="cb32-11"><a></a>    <span class="at">predictors =</span> <span class="fu">c</span>(species, bill_depth_mm, sex)</span>
+<span id="cb32-12"><a></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb32-13"><a></a>  <span class="fu">add_model</span>(</span>
+<span id="cb32-14"><a></a>    multilevel_spec,</span>
+<span id="cb32-15"><a></a>    <span class="co"># This formula is given to the model</span></span>
+<span id="cb32-16"><a></a>    <span class="at">formula =</span> body_mass_g <span class="sc">~</span> sex <span class="sc">+</span> (bill_depth_mm <span class="sc">|</span> species)</span>
+<span id="cb32-17"><a></a>  )</span>
+<span id="cb32-18"><a></a></span>
+<span id="cb32-19"><a></a>multilevel_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(multilevel_workflow, <span class="at">data =</span> penguins_df)</span>
+<span id="cb32-20"><a></a>multilevel_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>══ Workflow [trained] ══════════════════════════════════════════════════════════
@@ -1036,16 +1036,16 @@ Predictors: c(species, bill_depth_mm, sex)
 Linear mixed model fit by REML ['lmerMod']
 Formula: body_mass_g ~ sex + (bill_depth_mm | species)
    Data: data
-REML criterion at convergence: 4748.67
+REML criterion at convergence: 4748.6697
 Random effects:
- Groups   Name          Std.Dev. Corr 
- species  (Intercept)   405.4         
-          bill_depth_mm 115.5    -0.57
- Residual               301.5         
+ Groups   Name          Std.Dev.   Corr      
+ species  (Intercept)   405.334397           
+          bill_depth_mm 115.494533 -0.5679630
+ Residual               301.509210           
 Number of obs: 333, groups:  species, 3
 Fixed Effects:
 (Intercept)      sexmale  
-     2469.9        510.4  </code></pre>
+ 2469.88962    510.40032  </code></pre>
 </div>
 </div></div>
 </section>
@@ -1147,23 +1147,23 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
 <span id="cb39-6"><a></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
-<div id="euzvlgravw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#euzvlgravw table {
+<div id="nxisasqqmj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nxisasqqmj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#euzvlgravw thead, #euzvlgravw tbody, #euzvlgravw tfoot, #euzvlgravw tr, #euzvlgravw td, #euzvlgravw th {
+#nxisasqqmj thead, #nxisasqqmj tbody, #nxisasqqmj tfoot, #nxisasqqmj tr, #nxisasqqmj td, #nxisasqqmj th {
   border-style: none;
 }
 
-#euzvlgravw p {
+#nxisasqqmj p {
   margin: 0;
   padding: 0;
 }
 
-#euzvlgravw .gt_table {
+#nxisasqqmj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1189,12 +1189,12 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_caption {
+#nxisasqqmj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#euzvlgravw .gt_title {
+#nxisasqqmj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1206,7 +1206,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-width: 0;
 }
 
-#euzvlgravw .gt_subtitle {
+#nxisasqqmj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1218,7 +1218,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-top-width: 0;
 }
 
-#euzvlgravw .gt_heading {
+#nxisasqqmj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1230,13 +1230,13 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_bottom_border {
+#nxisasqqmj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_col_headings {
+#nxisasqqmj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1251,7 +1251,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_col_heading {
+#nxisasqqmj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1271,7 +1271,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   overflow-x: hidden;
 }
 
-#euzvlgravw .gt_column_spanner_outer {
+#nxisasqqmj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1283,15 +1283,15 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 4px;
 }
 
-#euzvlgravw .gt_column_spanner_outer:first-child {
+#nxisasqqmj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#euzvlgravw .gt_column_spanner_outer:last-child {
+#nxisasqqmj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#euzvlgravw .gt_column_spanner {
+#nxisasqqmj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1303,11 +1303,11 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   width: 100%;
 }
 
-#euzvlgravw .gt_spanner_row {
+#nxisasqqmj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#euzvlgravw .gt_group_heading {
+#nxisasqqmj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1333,7 +1333,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   text-align: left;
 }
 
-#euzvlgravw .gt_empty_group_heading {
+#nxisasqqmj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1348,15 +1348,15 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   vertical-align: middle;
 }
 
-#euzvlgravw .gt_from_md > :first-child {
+#nxisasqqmj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#euzvlgravw .gt_from_md > :last-child {
+#nxisasqqmj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#euzvlgravw .gt_row {
+#nxisasqqmj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1375,7 +1375,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   overflow-x: hidden;
 }
 
-#euzvlgravw .gt_stub {
+#nxisasqqmj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1388,7 +1388,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#euzvlgravw .gt_stub_row_group {
+#nxisasqqmj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1402,15 +1402,15 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   vertical-align: top;
 }
 
-#euzvlgravw .gt_row_group_first td {
+#nxisasqqmj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#euzvlgravw .gt_row_group_first th {
+#nxisasqqmj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#euzvlgravw .gt_summary_row {
+#nxisasqqmj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1420,16 +1420,16 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#euzvlgravw .gt_first_summary_row {
+#nxisasqqmj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_first_summary_row.thick {
+#nxisasqqmj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#euzvlgravw .gt_last_summary_row {
+#nxisasqqmj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1439,7 +1439,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_grand_summary_row {
+#nxisasqqmj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1449,7 +1449,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#euzvlgravw .gt_first_grand_summary_row {
+#nxisasqqmj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1459,7 +1459,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_last_grand_summary_row_top {
+#nxisasqqmj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1469,11 +1469,11 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_striped {
+#nxisasqqmj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#euzvlgravw .gt_table_body {
+#nxisasqqmj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1482,7 +1482,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_footnotes {
+#nxisasqqmj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1496,7 +1496,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_footnote {
+#nxisasqqmj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1505,7 +1505,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#euzvlgravw .gt_sourcenotes {
+#nxisasqqmj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1519,7 +1519,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#euzvlgravw .gt_sourcenote {
+#nxisasqqmj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1527,72 +1527,72 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#euzvlgravw .gt_left {
+#nxisasqqmj .gt_left {
   text-align: left;
 }
 
-#euzvlgravw .gt_center {
+#nxisasqqmj .gt_center {
   text-align: center;
 }
 
-#euzvlgravw .gt_right {
+#nxisasqqmj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#euzvlgravw .gt_font_normal {
+#nxisasqqmj .gt_font_normal {
   font-weight: normal;
 }
 
-#euzvlgravw .gt_font_bold {
+#nxisasqqmj .gt_font_bold {
   font-weight: bold;
 }
 
-#euzvlgravw .gt_font_italic {
+#nxisasqqmj .gt_font_italic {
   font-style: italic;
 }
 
-#euzvlgravw .gt_super {
+#nxisasqqmj .gt_super {
   font-size: 65%;
 }
 
-#euzvlgravw .gt_footnote_marks {
+#nxisasqqmj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#euzvlgravw .gt_asterisk {
+#nxisasqqmj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#euzvlgravw .gt_indent_1 {
+#nxisasqqmj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#euzvlgravw .gt_indent_2 {
+#nxisasqqmj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#euzvlgravw .gt_indent_3 {
+#nxisasqqmj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#euzvlgravw .gt_indent_4 {
+#nxisasqqmj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#euzvlgravw .gt_indent_5 {
+#nxisasqqmj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#euzvlgravw .katex-display {
+#nxisasqqmj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#euzvlgravw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nxisasqqmj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1600,12 +1600,12 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
 <table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
-<th id=".metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.metric</th>
-<th id=".estimator" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.estimator</th>
+<th id="a.metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.metric</th>
+<th id="a.estimator" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.estimator</th>
 <th id="mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mean</th>
 <th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
 <th id="std_err" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std_err</th>
-<th id=".config" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.config</th>
+<th id="a.config" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.config</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
@@ -1637,23 +1637,23 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
 </table>
 
 </div>
-<div id="oecszzdwnz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#oecszzdwnz table {
+<div id="fmrdkejzph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fmrdkejzph table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#oecszzdwnz thead, #oecszzdwnz tbody, #oecszzdwnz tfoot, #oecszzdwnz tr, #oecszzdwnz td, #oecszzdwnz th {
+#fmrdkejzph thead, #fmrdkejzph tbody, #fmrdkejzph tfoot, #fmrdkejzph tr, #fmrdkejzph td, #fmrdkejzph th {
   border-style: none;
 }
 
-#oecszzdwnz p {
+#fmrdkejzph p {
   margin: 0;
   padding: 0;
 }
 
-#oecszzdwnz .gt_table {
+#fmrdkejzph .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1679,12 +1679,12 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_caption {
+#fmrdkejzph .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#oecszzdwnz .gt_title {
+#fmrdkejzph .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1696,7 +1696,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-width: 0;
 }
 
-#oecszzdwnz .gt_subtitle {
+#fmrdkejzph .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1708,7 +1708,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-top-width: 0;
 }
 
-#oecszzdwnz .gt_heading {
+#fmrdkejzph .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1720,13 +1720,13 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_bottom_border {
+#fmrdkejzph .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_col_headings {
+#fmrdkejzph .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1741,7 +1741,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_col_heading {
+#fmrdkejzph .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1761,7 +1761,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   overflow-x: hidden;
 }
 
-#oecszzdwnz .gt_column_spanner_outer {
+#fmrdkejzph .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1773,15 +1773,15 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 4px;
 }
 
-#oecszzdwnz .gt_column_spanner_outer:first-child {
+#fmrdkejzph .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#oecszzdwnz .gt_column_spanner_outer:last-child {
+#fmrdkejzph .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#oecszzdwnz .gt_column_spanner {
+#fmrdkejzph .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1793,11 +1793,11 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   width: 100%;
 }
 
-#oecszzdwnz .gt_spanner_row {
+#fmrdkejzph .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#oecszzdwnz .gt_group_heading {
+#fmrdkejzph .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1823,7 +1823,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   text-align: left;
 }
 
-#oecszzdwnz .gt_empty_group_heading {
+#fmrdkejzph .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1838,15 +1838,15 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   vertical-align: middle;
 }
 
-#oecszzdwnz .gt_from_md > :first-child {
+#fmrdkejzph .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#oecszzdwnz .gt_from_md > :last-child {
+#fmrdkejzph .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#oecszzdwnz .gt_row {
+#fmrdkejzph .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1865,7 +1865,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   overflow-x: hidden;
 }
 
-#oecszzdwnz .gt_stub {
+#fmrdkejzph .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1878,7 +1878,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#oecszzdwnz .gt_stub_row_group {
+#fmrdkejzph .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1892,15 +1892,15 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   vertical-align: top;
 }
 
-#oecszzdwnz .gt_row_group_first td {
+#fmrdkejzph .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#oecszzdwnz .gt_row_group_first th {
+#fmrdkejzph .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#oecszzdwnz .gt_summary_row {
+#fmrdkejzph .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1910,16 +1910,16 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#oecszzdwnz .gt_first_summary_row {
+#fmrdkejzph .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_first_summary_row.thick {
+#fmrdkejzph .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#oecszzdwnz .gt_last_summary_row {
+#fmrdkejzph .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1929,7 +1929,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_grand_summary_row {
+#fmrdkejzph .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1939,7 +1939,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#oecszzdwnz .gt_first_grand_summary_row {
+#fmrdkejzph .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1949,7 +1949,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_last_grand_summary_row_top {
+#fmrdkejzph .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1959,11 +1959,11 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_striped {
+#fmrdkejzph .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#oecszzdwnz .gt_table_body {
+#fmrdkejzph .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1972,7 +1972,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_footnotes {
+#fmrdkejzph .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1986,7 +1986,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_footnote {
+#fmrdkejzph .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1995,7 +1995,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#oecszzdwnz .gt_sourcenotes {
+#fmrdkejzph .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2009,7 +2009,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#oecszzdwnz .gt_sourcenote {
+#fmrdkejzph .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2017,72 +2017,72 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
   padding-right: 5px;
 }
 
-#oecszzdwnz .gt_left {
+#fmrdkejzph .gt_left {
   text-align: left;
 }
 
-#oecszzdwnz .gt_center {
+#fmrdkejzph .gt_center {
   text-align: center;
 }
 
-#oecszzdwnz .gt_right {
+#fmrdkejzph .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#oecszzdwnz .gt_font_normal {
+#fmrdkejzph .gt_font_normal {
   font-weight: normal;
 }
 
-#oecszzdwnz .gt_font_bold {
+#fmrdkejzph .gt_font_bold {
   font-weight: bold;
 }
 
-#oecszzdwnz .gt_font_italic {
+#fmrdkejzph .gt_font_italic {
   font-style: italic;
 }
 
-#oecszzdwnz .gt_super {
+#fmrdkejzph .gt_super {
   font-size: 65%;
 }
 
-#oecszzdwnz .gt_footnote_marks {
+#fmrdkejzph .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#oecszzdwnz .gt_asterisk {
+#fmrdkejzph .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#oecszzdwnz .gt_indent_1 {
+#fmrdkejzph .gt_indent_1 {
   text-indent: 5px;
 }
 
-#oecszzdwnz .gt_indent_2 {
+#fmrdkejzph .gt_indent_2 {
   text-indent: 10px;
 }
 
-#oecszzdwnz .gt_indent_3 {
+#fmrdkejzph .gt_indent_3 {
   text-indent: 15px;
 }
 
-#oecszzdwnz .gt_indent_4 {
+#fmrdkejzph .gt_indent_4 {
   text-indent: 20px;
 }
 
-#oecszzdwnz .gt_indent_5 {
+#fmrdkejzph .gt_indent_5 {
   text-indent: 25px;
 }
 
-#oecszzdwnz .katex-display {
+#fmrdkejzph .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#oecszzdwnz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fmrdkejzph div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2090,27 +2090,27 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
 <table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
-<th id=".metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.metric</th>
-<th id=".estimator" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.estimator</th>
+<th id="a.metric" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.metric</th>
+<th id="a.estimator" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.estimator</th>
 <th id="mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mean</th>
 <th id="n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n</th>
 <th id="std_err" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">std_err</th>
-<th id=".config" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.config</th>
+<th id="a.config" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">.config</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers=".metric">accuracy</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.918</td>
+<td class="gt_row gt_right" headers="mean">0.919</td>
 <td class="gt_row gt_right" headers="n">25</td>
-<td class="gt_row gt_right" headers="std_err">0.006</td>
+<td class="gt_row gt_right" headers="std_err">0.005</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers=".metric">brier_class</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.065</td>
+<td class="gt_row gt_right" headers="mean">0.064</td>
 <td class="gt_row gt_right" headers="n">25</td>
 <td class="gt_row gt_right" headers="std_err">0.002</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
@@ -2118,7 +2118,7 @@ Run `show_notes(.Last.tune.result)` for more information.</code></pre>
 <tr class="odd">
 <td class="gt_row gt_left" headers=".metric">roc_auc</td>
 <td class="gt_row gt_left" headers=".estimator">binary</td>
-<td class="gt_row gt_right" headers="mean">0.978</td>
+<td class="gt_row gt_right" headers="mean">0.979</td>
 <td class="gt_row gt_right" headers="n">25</td>
 <td class="gt_row gt_right" headers="std_err">0.002</td>
 <td class="gt_row gt_left" headers=".config">Preprocessor1_Model1</td>
@@ -2278,11 +2278,9 @@ Prediction female male
 <div class="column">
 <div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a></a>penguins <span class="sc">%&gt;%</span></span>
 <span id="cb52-2"><a></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sex)) <span class="sc">%&gt;%</span></span>
-<span id="cb52-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(bill_depth_mm, bill_length_mm, </span>
-<span id="cb52-4"><a></a>             <span class="at">color =</span> sex, </span>
-<span id="cb52-5"><a></a>             <span class="at">size =</span> body_mass_g)) <span class="sc">+</span></span>
-<span id="cb52-6"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb52-7"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb52-3"><a></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(bill_depth_mm, bill_length_mm, <span class="at">color =</span> sex, <span class="at">size =</span> body_mass_g)) <span class="sc">+</span></span>
+<span id="cb52-4"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb52-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -2308,10 +2306,10 @@ Prediction female male
 
 
 
-<img data-src="../10_resources/00_images/website_qrcode.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src=".././10_resources/00_images/website_qrcode.svg" class="quarto-figure quarto-figure-center r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="../10_resources/00_images/combined_logos.png" class="slide-logo"></p>
+<p><img src=".././10_resources/00_images/combined_logos.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>MET581 - Modelling in R</p>
 </div>
@@ -2566,190 +2564,172 @@ Prediction female male
     </script>
 
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
-          }
-        }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
             }
           }
-          return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          return false;
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
             }
-          }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
         }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
-          }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
               }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     
 
 </body></html>
