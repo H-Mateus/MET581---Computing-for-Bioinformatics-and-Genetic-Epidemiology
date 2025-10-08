@@ -171,6 +171,16 @@ Positive values bias towards fixed and negative towards scientific notation: fix
 
 -   You can info on math expressions [here](http://adv-r.had.co.nz/Vocabulary.html)
 
+## Common Math Operators in R continued
+
+| Action         | Symbol |
+|----------------|--------|
+| Trig | sin(), cos(), tan(), acos(), asin(), atan() |
+| Natural log | log(), log10(), log2() |
+| Absolute value | abs() |
+| Square root | sqrt() |
+| Rounding | ceiling(), floor(), round() |
+
 ## Maths test!
 
 Solve these problems in your R console:
@@ -178,6 +188,14 @@ Solve these problems in your R console:
 -   What is 2 to the power of 16?
 -   What is the square root of 92?
 -   If I have 7 apples and 16 kids - how much of an apple do they each get?
+
+. . .
+
+```{r}
+2^16
+sqrt(92)
+7 / 16
+```
 
 ## The Prompt
 
@@ -297,6 +315,9 @@ x <- -4 + 5 / 6 * 4
 
 ```{r}
 x <- 3
+# "higher level" type
+class(x)
+# "lower level" type
 typeof(x)
 ```
 
@@ -515,6 +536,9 @@ print(df)
 df$numbers
 # This is handy for applying functions to columns
 sum(df$numbers)
+
+# Can also make new columns
+df$symbols <- c("-", "*", "^")
 ```
 
 ## Subsetting Data

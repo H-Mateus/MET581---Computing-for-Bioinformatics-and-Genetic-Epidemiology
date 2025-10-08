@@ -587,7 +587,7 @@
     "href": "08_Modelling_in_R/met581_08_modelling_r.html#evaluating-our-models",
     "title": "Modelling in R",
     "section": "Evaluating our models",
-    "text": "Evaluating our models\n\nWhich performed better?\n\n\n\ncollect_metrics(glm_rs) |&gt;\n  mutate(across(where(is.numeric), round, digits = 3)) |&gt;\n  gt()\ncollect_metrics(rf_rs) |&gt;\n  mutate(across(where(is.numeric), round, digits = 3)) |&gt;\n  gt()\n\n\n\n\n\n\n\n\n.metric\n.estimator\nmean\nn\nstd_err\n.config\n\n\n\n\naccuracy\nbinary\n0.918\n25\n0.006\nPreprocessor1_Model1\n\n\nbrier_class\nbinary\n0.059\n25\n0.004\nPreprocessor1_Model1\n\n\nroc_auc\nbinary\n0.979\n25\n0.003\nPreprocessor1_Model1\n\n\n\n\n\n\n\n\n\n\n\n.metric\n.estimator\nmean\nn\nstd_err\n.config\n\n\n\n\naccuracy\nbinary\n0.919\n25\n0.005\nPreprocessor1_Model1\n\n\nbrier_class\nbinary\n0.064\n25\n0.002\nPreprocessor1_Model1\n\n\nroc_auc\nbinary\n0.979\n25\n0.002\nPreprocessor1_Model1",
+    "text": "Evaluating our models\n\nWhich performed better?\n\n\n\ncollect_metrics(glm_rs) |&gt;\n  mutate(across(where(is.numeric), round, digits = 3)) |&gt;\n  gt()\ncollect_metrics(rf_rs) |&gt;\n  mutate(across(where(is.numeric), round, digits = 3)) |&gt;\n  gt()\n\n\n\n\n\n\n\n\n.metric\n.estimator\nmean\nn\nstd_err\n.config\n\n\n\n\naccuracy\nbinary\n0.918\n25\n0.006\nPreprocessor1_Model1\n\n\nbrier_class\nbinary\n0.059\n25\n0.004\nPreprocessor1_Model1\n\n\nroc_auc\nbinary\n0.979\n25\n0.003\nPreprocessor1_Model1\n\n\n\n\n\n\n\n\n\n\n\n.metric\n.estimator\nmean\nn\nstd_err\n.config\n\n\n\n\naccuracy\nbinary\n0.919\n25\n0.006\nPreprocessor1_Model1\n\n\nbrier_class\nbinary\n0.064\n25\n0.002\nPreprocessor1_Model1\n\n\nroc_auc\nbinary\n0.979\n25\n0.002\nPreprocessor1_Model1",
     "crumbs": [
       "Home",
       "Modelling in R",
@@ -2854,7 +2854,7 @@
     "href": "02_explore_r/MET581_lecture_02-Explore-R.html#homework-answers---continued",
     "title": "Explore R",
     "section": "Homework answers - continued",
-    "text": "Homework answers - continued\n\nwomen$ages &lt;- sample(18:90, nrow(women), replace = TRUE)\nhead(women)\n\n  height weight ages\n1     58    115   20\n2     59    117   43\n3     60    120   61\n4     61    123   20\n5     62    126   69\n6     63    129   59\n\n\n\nsum(women$height)\n\n[1] 975\n\nsum(women$weight)\n\n[1] 2051\n\nsum(women$ages)\n\n[1] 752\n\n# A more elegant way to apply a function to all columns!\nsapply(women, mean)\n\n        height         weight           ages \n 65.0000000000 136.7333333333  50.1333333333",
+    "text": "Homework answers - continued\n\nwomen$ages &lt;- sample(18:90, nrow(women), replace = TRUE)\nhead(women)\n\n  height weight ages\n1     58    115   53\n2     59    117   30\n3     60    120   45\n4     61    123   31\n5     62    126   83\n6     63    129   23\n\n\n\nsum(women$height)\n\n[1] 975\n\nsum(women$weight)\n\n[1] 2051\n\nsum(women$ages)\n\n[1] 687\n\n# A more elegant way to apply a function to all columns!\nsapply(women, mean)\n\n       height        weight          ages \n 65.000000000 136.733333333  45.800000000",
     "crumbs": [
       "Home",
       "Explore R",
@@ -3411,11 +3411,23 @@
     ]
   },
   {
+    "objectID": "01_intro_to_r/MET581_lecture_01_slides.html#common-math-operators-in-r-continued",
+    "href": "01_intro_to_r/MET581_lecture_01_slides.html#common-math-operators-in-r-continued",
+    "title": "Introduction to R",
+    "section": "Common Math Operators in R continued",
+    "text": "Common Math Operators in R continued\n\n\n\nAction\nSymbol\n\n\n\n\nTrig\nsin(), cos(), tan(), acos(), asin(), atan()\n\n\nNatural log\nlog(), log10(), log2()\n\n\nAbsolute value\nabs()\n\n\nSquare root\nsqrt()\n\n\nRounding\nceiling(), floor(), round()",
+    "crumbs": [
+      "Home",
+      "Introduction in R",
+      "Slides"
+    ]
+  },
+  {
     "objectID": "01_intro_to_r/MET581_lecture_01_slides.html#maths-test",
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#maths-test",
     "title": "Introduction to R",
     "section": "Maths test!",
-    "text": "Maths test!\nSolve these problems in your R console:\n\nWhat is 2 to the power of 16?\nWhat is the square root of 92?\nIf I have 7 apples and 16 kids - how much of an apple do they each get?",
+    "text": "Maths test!\nSolve these problems in your R console:\n\nWhat is 2 to the power of 16?\nWhat is the square root of 92?\nIf I have 7 apples and 16 kids - how much of an apple do they each get?\n\n\n\n2^16\n\n[1] 65536\n\nsqrt(92)\n\n[1] 9.59166304663\n\n7 / 16\n\n[1] 0.4375",
     "crumbs": [
       "Home",
       "Introduction in R",
@@ -3511,7 +3523,7 @@
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#data-types",
     "title": "Introduction to R",
     "section": "Data Types",
-    "text": "Data Types\n\n\n\nThere are lots of data types in R\nSome function will only work with some data types, and some will give different types of outputs depending on the input data type, so be careful!\n\n\n\n\n\nType\nExample\n\n\n\n\nCharacter\n‘words’\n\n\nNumeric\n1, 23.25\n\n\nInteger\n2L\n\n\nLogical\nTRUE, FALSE\n\n\nComplex\n1 + 4i\n\n\n\n\nx &lt;- 3\ntypeof(x)\n\n[1] \"double\"",
+    "text": "Data Types\n\n\n\nThere are lots of data types in R\nSome function will only work with some data types, and some will give different types of outputs depending on the input data type, so be careful!\n\n\n\n\n\nType\nExample\n\n\n\n\nCharacter\n‘words’\n\n\nNumeric\n1, 23.25\n\n\nInteger\n2L\n\n\nLogical\nTRUE, FALSE\n\n\nComplex\n1 + 4i\n\n\n\n\nx &lt;- 3\n# \"higher level\" type\nclass(x)\n\n[1] \"numeric\"\n\n# \"lower level\" type\ntypeof(x)\n\n[1] \"double\"",
     "crumbs": [
       "Home",
       "Introduction in R",
@@ -3607,7 +3619,7 @@
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#why-this-is-useful",
     "title": "Introduction to R",
     "section": "Why this is useful",
-    "text": "Why this is useful\nThis is handy because it lets us do math with logicals!\n\n# Get a random sequence of 10 values between 1 and 100\nnumbers &lt;- sample(1:100, size = 10)\nprint(numbers)\n\n [1] 31 46 87 67 39 33 50 69 89 76\n\n# How many values are below 50?\nnumbers &lt; 50\n\n [1]  TRUE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE\n\n\n\n\nWe can just add up the logicals\n\n\nsum(numbers &lt; 50)\n\n[1] 4",
+    "text": "Why this is useful\nThis is handy because it lets us do math with logicals!\n\n# Get a random sequence of 10 values between 1 and 100\nnumbers &lt;- sample(1:100, size = 10)\nprint(numbers)\n\n [1] 94 98 85 14 82 10 12 53 18 67\n\n# How many values are below 50?\nnumbers &lt; 50\n\n [1] FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE\n\n\n\n\nWe can just add up the logicals\n\n\nsum(numbers &lt; 50)\n\n[1] 4",
     "crumbs": [
       "Home",
       "Introduction in R",
@@ -3655,7 +3667,7 @@
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#data-frames-continued",
     "title": "Introduction to R",
     "section": "Data frames continued",
-    "text": "Data frames continued\n\ndf &lt;- data.frame(\"letters\" = c(\"a\", \"b\", \"c\"), \"numbers\" = c(1, 2, 3))\nprint(df)\n\n  letters numbers\n1       a       1\n2       b       2\n3       c       3\n\n\n\n\nUse $ to reference entire columns.\n\n\ndf$numbers\n\n[1] 1 2 3\n\n# This is handy for applying functions to columns\nsum(df$numbers)\n\n[1] 6",
+    "text": "Data frames continued\n\ndf &lt;- data.frame(\"letters\" = c(\"a\", \"b\", \"c\"), \"numbers\" = c(1, 2, 3))\nprint(df)\n\n  letters numbers\n1       a       1\n2       b       2\n3       c       3\n\n\n\n\nUse $ to reference entire columns.\n\n\ndf$numbers\n\n[1] 1 2 3\n\n# This is handy for applying functions to columns\nsum(df$numbers)\n\n[1] 6\n\n# Can also make new columns\ndf$symbols &lt;- c(\"-\", \"*\", \"^\")",
     "crumbs": [
       "Home",
       "Introduction in R",
@@ -3667,7 +3679,7 @@
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#subsetting-data",
     "title": "Introduction to R",
     "section": "Subsetting Data",
-    "text": "Subsetting Data\n\nYou can index with ‘[]’\n\n\n# The first value is the row and the second is the column\n# So the following is the thirds row, first column\ndf[3, 1]\n\n[1] \"c\"\n\n\n\n\nUse indexing and logical conditions to subset data:\n\n\nsubset &lt;- df[df$numbers == 2, ]\nprint(subset)\n\n  letters numbers\n2       b       2",
+    "text": "Subsetting Data\n\nYou can index with ‘[]’\n\n\n# The first value is the row and the second is the column\n# So the following is the thirds row, first column\ndf[3, 1]\n\n[1] \"c\"\n\n\n\n\nUse indexing and logical conditions to subset data:\n\n\nsubset &lt;- df[df$numbers == 2, ]\nprint(subset)\n\n  letters numbers symbols\n2       b       2       *",
     "crumbs": [
       "Home",
       "Introduction in R",
@@ -4578,7 +4590,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.42 0.39 0.51 0.49 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.38 0.31 0.36 0.36 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.42 0.39 0.51 0.49 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.42 0.39 0.51 0.49",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.62 0.52 0.57 0.45 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.28 0.28 0.31 0.35 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.62 0.52 0.57 0.45 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.62 0.52 0.57 0.45",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4638,7 +4650,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 4.97 6.64 5.62 4.68 5.88\n $ : num [1:5] 9.7 7.2 15.24 9.35 13.15\n $ : num [1:5] -9.963 -0.534 -15.277 -5.021 -15.627",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 4.55 3.55 6.28 6.67 4.7\n $ : num [1:5] 4.2 18.76 5.09 11.79 3.72\n $ : num [1:5] -17.461 -0.618 -8.3 0.694 -10.139",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4662,7 +4674,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 5.01\n $ : num [1:3] 6.1 5.57 6.15\n $ : num [1:5] 5.06 13.4 -11.24 -9.39 -12.36\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] -0.716 0.514 -0.682 0.109 0.77\n $ : num [1:5] 5.023 -2.802 9.048 0.602 -2.206\n $ : int [1:5] 9 17 8 9 6",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 3.34\n $ : num [1:3] 14.75 7.03 2.89\n $ : num [1:5] 1.84 -8.42 -13.86 -21 -8.74\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.9317 0.0163 0.3374 -0.0661 -0.4285\n $ : num [1:5] 2.758 -0.348 9.107 1.425 -1.276\n $ : int [1:5] 11 13 13 9 7",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4698,7 +4710,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
     "title": "Programming in R",
     "section": "pwalk",
-    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Mazda RX4 Wag has a manual transmission and gets 21 mpgs.\"\n[1] \"The Merc 280 has a auto transmission and gets 19.2 mpgs.\"\n[1] \"The Lincoln Continental has a auto transmission and gets 10.4 mpgs.\"",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Duster 360 has a auto transmission and gets 14.3 mpgs.\"\n[1] \"The AMC Javelin has a auto transmission and gets 15.2 mpgs.\"\n[1] \"The Volvo 142E has a manual transmission and gets 21.4 mpgs.\"",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4710,7 +4722,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
     "title": "Programming in R",
     "section": "While loops",
-    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  16\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  5\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
     "crumbs": [
       "Home",
       "Programming in R",

@@ -285,12 +285,12 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <span id="cb11-2"><a></a><span class="fu">head</span>(women)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  height weight ages
-1     58    115   20
-2     59    117   43
-3     60    120   61
-4     61    123   20
-5     62    126   69
-6     63    129   59</code></pre>
+1     58    115   53
+2     59    117   30
+3     60    120   45
+4     61    123   31
+5     62    126   83
+6     63    129   23</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -304,13 +304,13 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">sum</span>(women<span class="sc">$</span>ages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 752</code></pre>
+<pre><code>[1] 687</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="co"># A more elegant way to apply a function to all columns!</span></span>
 <span id="cb19-2"><a></a><span class="fu">sapply</span>(women, mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>        height         weight           ages 
- 65.0000000000 136.7333333333  50.1333333333 </code></pre>
+<pre><code>       height        weight          ages 
+ 65.000000000 136.733333333  45.800000000 </code></pre>
 </div>
 </div>
 </section>
