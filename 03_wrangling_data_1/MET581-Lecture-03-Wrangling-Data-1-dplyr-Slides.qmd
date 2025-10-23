@@ -1,9 +1,9 @@
 ---
-title: "met581 lecture 03"
-subtitle: "wrangling data 1: dplyr"
+title: "MET581 Lecture 03"
+subtitle: "Wrangling Data 1: dplyr"
 author:
-  - name: "matthew bracher-smith"
-  - name: "gabriel mateus bernardo harrington"
+  - name: "Matthew Bracher-Smith"
+  - name: "Gabriel Mateus Bernardo Harrington"
 date: "2024-10-17"
 editor: source
 format: 

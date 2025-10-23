@@ -1,8 +1,10 @@
 ---
 title: "MET581 Lecture 04"
 subtitle: "Wrangling Data 2: tidying, strings and joins"
-author: "Matthew Bracher-Smith"
-date: "2024-10-18"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+  - name: "Matthew Bracher-Smith"
+date: "2025-10-17"
 editor: source
 format: 
   revealjs:
@@ -68,7 +70,7 @@ library(ggplot2)
 
 ```{r}
 #| output: false
-gapminder |> 
+gapminder |>
   mutate(rank = dense_rank(pick(lifeExp, gdpPercap)))
 ```
 
@@ -159,7 +161,7 @@ gapminder |>
 **Solves the 'variables as columns' problem**
 
 ```{r}
-table4a |> 
+table4a |>
   pivot_longer(c(`1999`, `2000`), names_to = "year", values_to = "cases")
 ```
 
@@ -169,7 +171,7 @@ table4a |>
 **select columns as per dplyr::select()**
 
 ```{r}
-table4a |> 
+table4a |>
   pivot_longer(-country, names_to = "year", values_to = "cases")
 ```
 
@@ -179,7 +181,7 @@ table4a |>
 
 ```{r}
 table2 |>
-    pivot_wider(names_from = type, values_from = count)
+  pivot_wider(names_from = type, values_from = count)
 ```
 
 ## tidyr::practice() {.smaller}
@@ -201,20 +203,20 @@ table2 |>
 - replace `tidyr::some_function()` with the correct call to convert the height and mass columns into 'characteristic' and 'measurement' columns for plotting below
 ```{r}
 #| eval: false
-starwars |> 
+starwars |>
   tidyr::some_function() |>
   ggplot(aes(characteristic, measurement)) +
-    geom_jitter()
+  geom_jitter()
 ```
 
 - replace `tidyr::some_function()` with the correct call to convert the temp, dewp and humid columns into 'condition' and 'measurement' columns for plotting below
 ```{r}
 #| eval: false
-weather |> 
+weather |>
   head(1000) |>
   tidyr::some_function() |>
   ggplot(aes(measurement, condition)) +
-    geom_jitter(alpha=0.6)
+  geom_jitter(alpha = 0.6)
 ```
 
 # Joins
@@ -240,9 +242,9 @@ It is generally good idea to test whether or not you do have a unique primary ke
 
 ```{r}
 #| eval: false
-planes |> 
-  count(tailnum) |> 
-  filter(n > 1) 
+planes |>
+  count(tailnum) |>
+  filter(n > 1)
 ```
 
 ## Joins
@@ -373,7 +375,13 @@ If you've read about regex before, you will also have come across the quotation:
 - Most basic matches an actual chunk of text
 
 ```{r}
-my_string <- c('Hagrid', 'Hermione', 'Harry.Potter', 'Ronald_Weasley', '24xHouse Elves')
+my_string <- c(
+  'Hagrid',
+  'Hermione',
+  'Harry.Potter',
+  'Ronald_Weasley',
+  '24xHouse Elves'
+)
 stringr::str_detect(my_string, 'Hag')
 ```
 
@@ -456,7 +464,7 @@ stringr::str_count(my_string, 'Ha')
 
 ```{r}
 # explicitly naming each column
-stringr::str_c('this', 'that', sep=', ')
+stringr::str_c('this', 'that', sep = ', ')
 ```
 
 ## Manipulations with stringr {.smaller}
@@ -506,7 +514,7 @@ stringr::str_view(my_string, '^\\w')
 ```{r}
 # sorting strings
 sentences |>
-  head(1) |> 
+  head(1) |>
   stringr::str_split(" ")
 ```
 

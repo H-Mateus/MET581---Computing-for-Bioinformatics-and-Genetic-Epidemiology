@@ -273,7 +273,7 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">9</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">9</span>)</span>
 <span id="cb1-2"><a></a><span class="fu">plot</span>(data)</span>
 <span id="cb1-3"><a></a></span>
 <span id="cb1-4"><a></a><span class="fu">plot</span>(data, <span class="at">type =</span> <span class="st">"l"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -331,7 +331,7 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="column">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># Load packages</span></span>
 <span id="cb3-2"><a></a><span class="co"># ggplot2 is in the tidyverse</span></span>
-<span id="cb3-3"><a></a><span class="fu">library</span>(tidyverse) </span>
+<span id="cb3-3"><a></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-4"><a></a><span class="fu">library</span>(conflicted)</span>
 <span id="cb3-5"><a></a><span class="fu">library</span>(ggrepel)</span>
 <span id="cb3-6"><a></a><span class="fu">library</span>(ggstatsplot)</span>
@@ -435,10 +435,8 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb7-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, </span>
-<span id="cb7-3"><a></a>                     <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb7-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb7-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -457,16 +455,12 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># Using size</span></span>
-<span id="cb8-2"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb8-3"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, </span>
-<span id="cb8-4"><a></a>                     <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
-<span id="cb8-5"><a></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb8-6"><a></a></span>
-<span id="cb8-7"><a></a><span class="co"># Using shape</span></span>
-<span id="cb8-8"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb8-9"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, </span>
-<span id="cb8-10"><a></a>                     <span class="at">shape =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb8-11"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">size =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb8-3"><a></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb8-4"><a></a></span>
+<span id="cb8-5"><a></a><span class="co"># Using shape</span></span>
+<span id="cb8-6"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">shape =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb8-7"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -491,10 +485,10 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb9-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, </span>
-<span id="cb9-3"><a></a>                     <span class="at">shape =</span> <span class="fu">factor</span>(cyl),</span>
-<span id="cb9-4"><a></a>                     <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">ggplot</span>(</span>
+<span id="cb9-2"><a></a>  <span class="at">data =</span> mtcars,</span>
+<span id="cb9-3"><a></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">shape =</span> <span class="fu">factor</span>(cyl), <span class="at">colour =</span> <span class="fu">factor</span>(cyl))</span>
+<span id="cb9-4"><a></a>) <span class="sc">+</span></span>
 <span id="cb9-5"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
@@ -514,10 +508,8 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb10-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp,</span>
-<span id="cb10-3"><a></a>                     <span class="at">colour =</span> cyl <span class="sc">==</span> <span class="dv">4</span>)) <span class="sc">+</span></span>
-<span id="cb10-4"><a></a>    <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">colour =</span> cyl <span class="sc">==</span> <span class="dv">4</span>)) <span class="sc">+</span></span>
+<span id="cb10-2"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -536,8 +528,7 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="cell columns column-output-location">
 <div class="column">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb11-2"><a></a>    <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut,</span>
-<span id="cb11-3"><a></a>                           <span class="at">fill =</span> cut))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> cut))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -547,6 +538,17 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 </div>
 </div></div>
+</section>
+<section id="plotting-practise" class="slide level2">
+<h2>Plotting practise!</h2>
+<ul>
+<li>Using the <code>mtcars</code> data:
+<ul>
+<li>Visualise the relationship between engine size (<code>displ</code>) and highway mileage (<code>hwy</code>). What relationship do you see?</li>
+<li>Add colour to show a categorical variable (e.g.&nbsp;<code>class</code>). Does adding color help you notice anything?</li>
+<li>Count cars by manufacturer in a plot. Try reording the bars by frequency.</li>
+</ul></li>
+</ul>
 </section>
 <section id="facets" class="slide level2">
 <h2>Facets</h2>
@@ -558,11 +560,9 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb12-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp,</span>
-<span id="cb12-3"><a></a>                     <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb12-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb12-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb12-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -580,13 +580,11 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb13-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp,</span>
-<span id="cb13-3"><a></a>                     <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb13-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb13-5"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> cyl, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
-<span id="cb13-6"><a></a>  <span class="co"># Note the following is equivalent</span></span>
-<span id="cb13-7"><a></a>  <span class="co"># facet_wrap(~ cyl, dir = "v")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb13-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-3"><a></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>cyl, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb13-4"><a></a><span class="co"># Note the following is equivalent</span></span>
+<span id="cb13-5"><a></a><span class="co"># facet_wrap(~ cyl, dir = "v")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -604,11 +602,9 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb14-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp,</span>
-<span id="cb14-3"><a></a>                     <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb14-4"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb14-5"><a></a>  <span class="fu">facet_grid</span>(am <span class="sc">~</span> cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb14-2"><a></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a></a>  <span class="fu">facet_grid</span>(am <span class="sc">~</span> cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -628,9 +624,8 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb15-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb15-3"><a></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb15-2"><a></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -648,10 +643,9 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb16-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb16-3"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb16-4"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -672,19 +666,14 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb17-2"><a></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg,</span>
-<span id="cb17-3"><a></a>                  <span class="at">y =</span> hp,</span>
-<span id="cb17-4"><a></a>                  <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb17-5"><a></a>    <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb17-6"><a></a>    <span class="fu">geom_point</span>()</span>
-<span id="cb17-7"><a></a></span>
-<span id="cb17-8"><a></a><span class="co"># A more sensible order?</span></span>
-<span id="cb17-9"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb17-10"><a></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg,</span>
-<span id="cb17-11"><a></a>                  <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb17-12"><a></a>    <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb17-13"><a></a>    <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp, <span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb17-2"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb17-3"><a></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb17-4"><a></a></span>
+<span id="cb17-5"><a></a><span class="co"># A more sensible order?</span></span>
+<span id="cb17-6"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb17-7"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb17-8"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -743,17 +732,16 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <div class="column">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="do">## example tibble</span></span>
 <span id="cb19-2"><a></a>demo <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb19-3"><a></a>  <span class="sc">~</span>cut,            <span class="sc">~</span>value, </span>
-<span id="cb19-4"><a></a>  <span class="st">"Fair"</span>,          <span class="dv">1610</span>, </span>
-<span id="cb19-5"><a></a>  <span class="st">"Good"</span>,          <span class="dv">4906</span>, </span>
-<span id="cb19-6"><a></a>  <span class="st">"Very Good"</span>,     <span class="dv">12082</span>, </span>
-<span id="cb19-7"><a></a>  <span class="st">"Premium"</span>,       <span class="dv">13791</span>,</span>
-<span id="cb19-8"><a></a>  <span class="st">"Ideal"</span>,         <span class="dv">21551</span> )</span>
-<span id="cb19-9"><a></a></span>
-<span id="cb19-10"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> demo) <span class="sc">+</span></span>
-<span id="cb19-11"><a></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, </span>
-<span id="cb19-12"><a></a>                         <span class="at">y =</span> value), </span>
-<span id="cb19-13"><a></a>           <span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-3"><a></a>  <span class="sc">~</span>cut        , <span class="sc">~</span>value ,</span>
+<span id="cb19-4"><a></a>  <span class="st">"Fair"</span>      ,   <span class="dv">1610</span> ,</span>
+<span id="cb19-5"><a></a>  <span class="st">"Good"</span>      ,   <span class="dv">4906</span> ,</span>
+<span id="cb19-6"><a></a>  <span class="st">"Very Good"</span> ,  <span class="dv">12082</span> ,</span>
+<span id="cb19-7"><a></a>  <span class="st">"Premium"</span>   ,  <span class="dv">13791</span> ,</span>
+<span id="cb19-8"><a></a>  <span class="st">"Ideal"</span>     ,  <span class="dv">21551</span></span>
+<span id="cb19-9"><a></a>)</span>
+<span id="cb19-10"><a></a></span>
+<span id="cb19-11"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> demo) <span class="sc">+</span></span>
+<span id="cb19-12"><a></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">y =</span> value), <span class="at">stat =</span> <span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -774,17 +762,14 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># stacked </span></span>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># stacked</span></span>
 <span id="cb20-2"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb20-3"><a></a>    <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, </span>
-<span id="cb20-4"><a></a>                           <span class="at">fill =</span> clarity))</span>
-<span id="cb20-5"><a></a>  </span>
-<span id="cb20-6"><a></a><span class="co"># side by side </span></span>
-<span id="cb20-7"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb20-8"><a></a>    <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, </span>
-<span id="cb20-9"><a></a>                           <span class="at">fill =</span> clarity),</span>
-<span id="cb20-10"><a></a>             <span class="at">position =</span> <span class="st">"dodge"</span>) </span>
-<span id="cb20-11"><a></a><span class="co"># Note the default is position = "stack"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-3"><a></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> clarity))</span>
+<span id="cb20-4"><a></a></span>
+<span id="cb20-5"><a></a><span class="co"># side by side</span></span>
+<span id="cb20-6"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb20-7"><a></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> clarity), <span class="at">position =</span> <span class="st">"dodge"</span>)</span>
+<span id="cb20-8"><a></a><span class="co"># Note the default is position = "stack"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -809,13 +794,9 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb21-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb21-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb21-4"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Title"</span>,</span>
-<span id="cb21-5"><a></a>       <span class="at">subtitle =</span> <span class="st">"Subtitle"</span>,</span>
-<span id="cb21-6"><a></a>       <span class="at">caption =</span> <span class="st">"Small Caption"</span></span>
-<span id="cb21-7"><a></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb21-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb21-3"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Title"</span>, <span class="at">subtitle =</span> <span class="st">"Subtitle"</span>, <span class="at">caption =</span> <span class="st">"Small Caption"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -830,13 +811,13 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Labels: Axis and legends</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb22-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb22-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb22-4"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Miles per gallon (mpg)"</span>, </span>
-<span id="cb22-5"><a></a>  <span class="at">y =</span> <span class="st">"Horsepower (hp)"</span>, </span>
-<span id="cb22-6"><a></a>  <span class="at">colour =</span> <span class="st">"Cylinders"</span></span>
-<span id="cb22-7"><a></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb22-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb22-3"><a></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-4"><a></a>    <span class="at">x =</span> <span class="st">"Miles per gallon (mpg)"</span>,</span>
+<span id="cb22-5"><a></a>    <span class="at">y =</span> <span class="st">"Horsepower (hp)"</span>,</span>
+<span id="cb22-6"><a></a>    <span class="at">colour =</span> <span class="st">"Cylinders"</span></span>
+<span id="cb22-7"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -851,11 +832,10 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Labels: Axis alternative</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb23-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb23-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb23-4"><a></a>  <span class="fu">xlab</span>(<span class="st">"Miles per gallon"</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a></a>  <span class="fu">ylab</span>(<span class="st">"Horsepower"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb23-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb23-3"><a></a>  <span class="fu">xlab</span>(<span class="st">"Miles per gallon"</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a></a>  <span class="fu">ylab</span>(<span class="st">"Horsepower"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -866,6 +846,21 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 </div></div>
 </section>
+<section id="more-pracise" class="slide level2">
+<h2>More pracise</h2>
+<ul>
+<li>Using the same data (<code>mpg</code>), build on your earlier scatterplot of <code>displ</code> vs <code>hwy</code> by adding a trend line.</li>
+<li>Add two different geoms to the same plot. Experiment!</li>
+<li>Use faceting to compare trends across drive types (<code>drv</code>).</li>
+<li>Start with a bar plot of drive type (drv) by cylinder (cyl):</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">fill =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb24-2"><a></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Then try setting <code>position</code> to <code>fill</code> or <code>dodge</code>. What changes?</li>
+<li>Add clear axis labels, a title, subtitle, and caption to a plot</li>
+</ul>
+</section>
 <section id="annotations" class="slide level2">
 <h2>Annotations</h2>
 <ul>
@@ -873,16 +868,13 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb24-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb24-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb24-4"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">rownames</span>(mtcars)))</span>
-<span id="cb24-5"><a></a></span>
-<span id="cb24-6"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb24-7"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb24-8"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb24-9"><a></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">rownames</span>(mtcars)), </span>
-<span id="cb24-10"><a></a>             <span class="at">alpha =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb25-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb25-3"><a></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">rownames</span>(mtcars)))</span>
+<span id="cb25-4"><a></a></span>
+<span id="cb25-5"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb25-6"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb25-7"><a></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">rownames</span>(mtcars)), <span class="at">alpha =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -907,19 +899,23 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, </span>
-<span id="cb25-2"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb25-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb25-4"><a></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(</span>
-<span id="cb25-5"><a></a>    <span class="at">label =</span> <span class="fu">rownames</span>(mtcars)), </span>
-<span id="cb25-6"><a></a>    <span class="at">max.overlaps =</span> <span class="dv">100</span>)</span>
-<span id="cb25-7"><a></a><span class="co"># Label only a subset</span></span>
-<span id="cb25-8"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars,</span>
-<span id="cb25-9"><a></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb25-10"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb25-11"><a></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(</span>
-<span id="cb25-12"><a></a>    <span class="at">label =</span> <span class="fu">rownames</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ])),</span>
-<span id="cb25-13"><a></a>    <span class="at">data =</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb26-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb26-3"><a></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(</span>
+<span id="cb26-4"><a></a>    <span class="fu">aes</span>(</span>
+<span id="cb26-5"><a></a>      <span class="at">label =</span> <span class="fu">rownames</span>(mtcars)</span>
+<span id="cb26-6"><a></a>    ),</span>
+<span id="cb26-7"><a></a>    <span class="at">max.overlaps =</span> <span class="dv">100</span></span>
+<span id="cb26-8"><a></a>  )</span>
+<span id="cb26-9"><a></a><span class="co"># Label only a subset</span></span>
+<span id="cb26-10"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb26-11"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb26-12"><a></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(</span>
+<span id="cb26-13"><a></a>    <span class="fu">aes</span>(</span>
+<span id="cb26-14"><a></a>      <span class="at">label =</span> <span class="fu">rownames</span>(mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ])</span>
+<span id="cb26-15"><a></a>    ),</span>
+<span id="cb26-16"><a></a>    <span class="at">data =</span> mtcars[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ]</span>
+<span id="cb26-17"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -937,6 +933,20 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 </div></div>
 </section>
+<section id="more-elegant-annotations" class="slide level2">
+<h2>More elegant annotations</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>top10 <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span> <span class="fu">slice_max</span>(hwy, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb27-2"><a></a>mpg_top <span class="ot">&lt;-</span> mpg <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a></a>  <span class="fu">mutate</span>(<span class="at">lbl =</span> <span class="fu">if_else</span>(model <span class="sc">%in%</span> top10<span class="sc">$</span>model, model, <span class="cn">NA</span>))</span>
+<span id="cb27-4"><a></a></span>
+<span id="cb27-5"><a></a><span class="fu">ggplot</span>(mpg_top, <span class="fu">aes</span>(displ, hwy)) <span class="sc">+</span></span>
+<span id="cb27-6"><a></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> lbl), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Top 10 Highway MPG Models"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
 <section id="zooming" class="slide level2">
 <h2>Zooming</h2>
 <ul>
@@ -949,17 +959,17 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># Not ideal - need strong justification!</span></span>
-<span id="cb26-2"><a></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb26-3"><a></a>  <span class="fu">filter</span>(mpg <span class="sc">&gt;=</span> <span class="dv">20</span>, hp <span class="sc">&lt;=</span> <span class="dv">150</span>) <span class="sc">|&gt;</span></span>
-<span id="cb26-4"><a></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb26-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb26-6"><a></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># Not ideal - need strong justification!</span></span>
+<span id="cb28-2"><a></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb28-3"><a></a>  <span class="fu">filter</span>(mpg <span class="sc">&gt;=</span> <span class="dv">20</span>, hp <span class="sc">&lt;=</span> <span class="dv">150</span>) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb28-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb28-6"><a></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-26-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -969,17 +979,15 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Zooming - coord_cartesian</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> </span>
-<span id="cb27-2"><a></a>         <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb27-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb27-4"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb27-5"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">35</span>), </span>
-<span id="cb27-6"><a></a>                  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb29-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb29-3"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb29-4"><a></a>  <span class="fu">coord_cartesian</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">35</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-27-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -990,17 +998,15 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Zooming - lims</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> </span>
-<span id="cb28-2"><a></a>         <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb28-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb28-4"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
-<span id="cb28-5"><a></a>  <span class="fu">lims</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>),</span>
-<span id="cb28-6"><a></a>       <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">ggplot</span>(<span class="at">data =</span> mtcars, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb30-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb30-3"><a></a>  <span class="fu">geom_smooth</span>() <span class="sc">+</span></span>
+<span id="cb30-4"><a></a>  <span class="fu">lims</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-28-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1016,13 +1022,13 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb29-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb31-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-29-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1035,16 +1041,16 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb30-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb30-3"><a></a>  <span class="fu">scale_x_continuous</span>() <span class="sc">+</span></span>
-<span id="cb30-4"><a></a>  <span class="fu">scale_y_continuous</span>() <span class="sc">+</span></span>
-<span id="cb30-5"><a></a>  <span class="fu">scale_colour_discrete</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb32-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb32-3"><a></a>  <span class="fu">scale_x_continuous</span>() <span class="sc">+</span></span>
+<span id="cb32-4"><a></a>  <span class="fu">scale_y_continuous</span>() <span class="sc">+</span></span>
+<span id="cb32-5"><a></a>  <span class="fu">scale_colour_discrete</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-30-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1057,17 +1063,17 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="co"># Change the breaks on the axis</span></span>
-<span id="cb31-2"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb31-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb31-4"><a></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb31-5"><a></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>)</span>
-<span id="cb31-6"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a><span class="co"># Change the breaks on the axis</span></span>
+<span id="cb33-2"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb33-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb33-4"><a></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb33-5"><a></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>)</span>
+<span id="cb33-6"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1077,54 +1083,24 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Scales - axis labels</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb32" data-code-line-numbers="1-9|11-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># Adding text to labels</span></span>
-<span id="cb32-2"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb32-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb32-4"><a></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb32-5"><a></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>),</span>
-<span id="cb32-6"><a></a>    <span class="at">labels =</span> <span class="fu">paste0</span>(</span>
-<span id="cb32-7"><a></a>      <span class="st">"HP "</span>, <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>)</span>
-<span id="cb32-8"><a></a>      )</span>
-<span id="cb32-9"><a></a>    )</span>
-<span id="cb32-10"><a></a></span>
-<span id="cb32-11"><a></a><span class="co"># No labels</span></span>
-<span id="cb32-12"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb32-13"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb32-14"><a></a>  <span class="fu">scale_y_continuous</span>(</span>
-<span id="cb32-15"><a></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>), </span>
-<span id="cb32-16"><a></a>    <span class="at">labels =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-32-1.png" width="960"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-32-2.png" width="960"></p>
-</figure>
-</div>
-</div>
-</div></div>
-</section>
-<section id="legend-layout---position" class="slide level2">
-<h2>Legend Layout - position</h2>
-<ul>
-<li>The legend can of course also be modified in lots of ways</li>
-</ul>
-<div class="cell columns column-output-location">
-<div class="column">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb33-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
-<span id="cb33-3"><a></a></span>
-<span id="cb33-4"><a></a><span class="co"># Legend at the top</span></span>
-<span id="cb33-5"><a></a>p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
-<span id="cb33-6"><a></a><span class="co"># No legend</span></span>
-<span id="cb33-7"><a></a>p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
-<span id="cb33-8"><a></a><span class="co"># Note - the default is "right"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34" data-code-line-numbers="1-9|11-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="co"># Adding text to labels</span></span>
+<span id="cb34-2"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb34-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb34-4"><a></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb34-5"><a></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>),</span>
+<span id="cb34-6"><a></a>    <span class="at">labels =</span> <span class="fu">paste0</span>(</span>
+<span id="cb34-7"><a></a>      <span class="st">"HP "</span>,</span>
+<span id="cb34-8"><a></a>      <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>)</span>
+<span id="cb34-9"><a></a>    )</span>
+<span id="cb34-10"><a></a>  )</span>
+<span id="cb34-11"><a></a></span>
+<span id="cb34-12"><a></a><span class="co"># No labels</span></span>
+<span id="cb34-13"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb34-14"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb34-15"><a></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb34-16"><a></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">350</span>, <span class="at">by =</span> <span class="dv">50</span>),</span>
+<span id="cb34-17"><a></a>    <span class="at">labels =</span> <span class="cn">NULL</span></span>
+<span id="cb34-18"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1142,6 +1118,38 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 </div></div>
 </section>
+<section id="legend-layout---position" class="slide level2">
+<h2>Legend Layout - position</h2>
+<ul>
+<li>The legend can of course also be modified in lots of ways</li>
+</ul>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb35-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
+<span id="cb35-3"><a></a></span>
+<span id="cb35-4"><a></a><span class="co"># Legend at the top</span></span>
+<span id="cb35-5"><a></a>p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
+<span id="cb35-6"><a></a><span class="co"># No legend</span></span>
+<span id="cb35-7"><a></a>p <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb35-8"><a></a><span class="co"># Note - the default is "right"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-34-2.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
 <section id="legend-layout---guides" class="slide level2">
 <h2>Legend Layout - guides</h2>
 <ul>
@@ -1149,19 +1157,19 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb34-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)), </span>
-<span id="cb34-3"><a></a>             <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb34-4"><a></a>  <span class="fu">guides</span>(<span class="at">colour =</span> <span class="fu">guide_legend</span>(</span>
-<span id="cb34-5"><a></a>    <span class="at">ncol =</span> <span class="dv">2</span>, </span>
-<span id="cb34-6"><a></a>    <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">3</span>, </span>
-<span id="cb34-7"><a></a>                        <span class="at">alpha =</span> <span class="dv">1</span>))</span>
-<span id="cb34-8"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb36-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)), <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb36-3"><a></a>  <span class="fu">guides</span>(</span>
+<span id="cb36-4"><a></a>    <span class="at">colour =</span> <span class="fu">guide_legend</span>(</span>
+<span id="cb36-5"><a></a>      <span class="at">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb36-6"><a></a>      <span class="at">override.aes =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb36-7"><a></a>    )</span>
+<span id="cb36-8"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-34-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-35-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1177,14 +1185,14 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb35-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb35-3"><a></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb37-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb37-3"><a></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-35-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-36-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1194,34 +1202,32 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Controlling the Colour Scale - manually</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb36" data-code-line-numbers="1-6|8-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb36-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb36-3"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span></span>
-<span id="cb36-4"><a></a>                        <span class="fu">c</span>(<span class="st">"black"</span>, </span>
-<span id="cb36-5"><a></a>                          <span class="st">"pink"</span>, </span>
-<span id="cb36-6"><a></a>                          <span class="st">"turquoise"</span>))</span>
-<span id="cb36-7"><a></a></span>
-<span id="cb36-8"><a></a><span class="co"># Explicitly setting the values to colours</span></span>
-<span id="cb36-9"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb36-10"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb36-11"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span></span>
-<span id="cb36-12"><a></a>                        <span class="fu">c</span>(</span>
-<span id="cb36-13"><a></a>                          <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>,</span>
-<span id="cb36-14"><a></a>                          <span class="st">`</span><span class="at">6</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"pink"</span>,</span>
-<span id="cb36-15"><a></a>                          <span class="st">`</span><span class="at">8</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"red"</span></span>
-<span id="cb36-16"><a></a>                        ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38" data-code-line-numbers="1-6|8-16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb38-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb38-3"><a></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"black"</span>, <span class="st">"pink"</span>, <span class="st">"turquoise"</span>))</span>
+<span id="cb38-4"><a></a></span>
+<span id="cb38-5"><a></a><span class="co"># Explicitly setting the values to colours</span></span>
+<span id="cb38-6"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb38-7"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb38-8"><a></a>  <span class="fu">scale_colour_manual</span>(</span>
+<span id="cb38-9"><a></a>    <span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb38-10"><a></a>      <span class="st">`</span><span class="at">4</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"black"</span>,</span>
+<span id="cb38-11"><a></a>      <span class="st">`</span><span class="at">6</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"pink"</span>,</span>
+<span id="cb38-12"><a></a>      <span class="st">`</span><span class="at">8</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"red"</span></span>
+<span id="cb38-13"><a></a>    )</span>
+<span id="cb38-14"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-36-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-37-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-36-2.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-37-2.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1235,14 +1241,14 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <li>The format of the plot is defined in the filename extension (.pdf or .png for example)</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb37-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
-<span id="cb37-3"><a></a><span class="co"># Save the last printed plot</span></span>
-<span id="cb37-4"><a></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"my_plot_1.pdf"</span>)</span>
-<span id="cb37-5"><a></a><span class="co"># Save the plot to a variable first</span></span>
-<span id="cb37-6"><a></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb37-7"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
-<span id="cb37-8"><a></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"my_plot_1.png"</span>, plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb39-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
+<span id="cb39-3"><a></a><span class="co"># Save the last printed plot</span></span>
+<span id="cb39-4"><a></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"my_plot_1.pdf"</span>)</span>
+<span id="cb39-5"><a></a><span class="co"># Save the plot to a variable first</span></span>
+<span id="cb39-6"><a></a>plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb39-7"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
+<span id="cb39-8"><a></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"my_plot_1.png"</span>, plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="saving-plot---the-base-r-way" class="slide level2">
@@ -1251,14 +1257,22 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <li>With base R we need to set the device we want to save with first, then print the plot, and then close the device</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a></a><span class="co"># Save to png</span></span>
-<span id="cb38-2"><a></a><span class="fu">png</span>(<span class="at">filename =</span> <span class="st">"my_plot.png"</span>, <span class="at">width =</span> <span class="dv">500</span>, <span class="at">height =</span> <span class="dv">400</span>)</span>
-<span id="cb38-3"><a></a><span class="co"># Print the plot</span></span>
-<span id="cb38-4"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb38-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
-<span id="cb38-6"><a></a><span class="co"># Close the device</span></span>
-<span id="cb38-7"><a></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a><span class="co"># Save to png</span></span>
+<span id="cb40-2"><a></a><span class="fu">png</span>(<span class="at">filename =</span> <span class="st">"my_plot.png"</span>, <span class="at">width =</span> <span class="dv">500</span>, <span class="at">height =</span> <span class="dv">400</span>)</span>
+<span id="cb40-3"><a></a><span class="co"># Print the plot</span></span>
+<span id="cb40-4"><a></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb40-5"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
+<span id="cb40-6"><a></a><span class="co"># Close the device</span></span>
+<span id="cb40-7"><a></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="yet-more-practise" class="slide level2">
+<h2>Yet more practise</h2>
+<ul>
+<li>Using the <code>mpg</code> dataset, label only cars with <code>hwy &gt; 35 &amp; displ &lt; 2</code>, using <code>geom_text_repel()</code> so labels don’t overlap.</li>
+<li>On <code>mpg</code>, set x breaks at integers and y limits to 10–50.</li>
+<li>Save a plot object as both high-res PNG and vector PDF.</li>
+</ul>
 </section>
 <section id="compound-plots" class="slide level2">
 <h2>Compound plots</h2>
@@ -1267,18 +1281,16 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, </span>
-<span id="cb39-2"><a></a>                <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb39-3"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
-<span id="cb39-4"><a></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, </span>
-<span id="cb39-5"><a></a>                <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
-<span id="cb39-6"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
-<span id="cb39-7"><a></a>plot1 <span class="sc">+</span> plot2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb41-2"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
+<span id="cb41-3"><a></a>plot2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> qsec, <span class="at">y =</span> hp)) <span class="sc">+</span></span>
+<span id="cb41-4"><a></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">factor</span>(cyl)))</span>
+<span id="cb41-5"><a></a>plot1 <span class="sc">+</span> plot2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-39-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1296,16 +1308,16 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl)</span>
-<span id="cb40-2"><a></a><span class="co"># Make base plot</span></span>
-<span id="cb40-3"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, mpg))</span>
-<span id="cb40-4"><a></a></span>
-<span id="cb40-5"><a></a>p <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cyl))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a>mtcars<span class="sc">$</span>cyl <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>cyl)</span>
+<span id="cb42-2"><a></a><span class="co"># Make base plot</span></span>
+<span id="cb42-3"><a></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(cyl, mpg))</span>
+<span id="cb42-4"><a></a></span>
+<span id="cb42-5"><a></a>p <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">colour =</span> cyl))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-41-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1318,23 +1330,21 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>p <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cyl), </span>
-<span id="cb41-2"><a></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb41-3"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>)</span>
-<span id="cb41-4"><a></a><span class="co"># Violin</span></span>
-<span id="cb41-5"><a></a>p <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cyl))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>p <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cyl), <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>)</span>
+<span id="cb43-2"><a></a><span class="co"># Violin</span></span>
+<span id="cb43-3"><a></a>p <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cyl))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-41-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-42-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-41-2.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-42-2.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1347,22 +1357,18 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </ul>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="co"># All three!</span></span>
-<span id="cb42-2"><a></a>p <span class="sc">+</span> <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cyl), </span>
-<span id="cb42-3"><a></a>                <span class="at">width =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
-<span id="cb42-4"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, </span>
-<span id="cb42-5"><a></a>               <span class="at">colour =</span> <span class="st">"grey"</span>, </span>
-<span id="cb42-6"><a></a>               <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb42-7"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>, </span>
-<span id="cb42-8"><a></a>              <span class="at">width =</span> <span class="fl">0.1</span>, </span>
-<span id="cb42-9"><a></a>              <span class="at">colour =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
-<span id="cb42-10"><a></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
-<span id="cb42-11"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="co"># All three!</span></span>
+<span id="cb44-2"><a></a>p <span class="sc">+</span></span>
+<span id="cb44-3"><a></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill =</span> cyl), <span class="at">width =</span> <span class="fl">1.4</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">colour =</span> <span class="st">"grey"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">size =</span> <span class="fl">0.8</span>, <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">colour =</span> <span class="st">"grey"</span>) <span class="sc">+</span></span>
+<span id="cb44-6"><a></a>  <span class="fu">scale_fill_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-42-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-43-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1372,27 +1378,27 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <h2>Boxplots and Violin Plots - numeric to categorical</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a><span class="co"># discretise numeric data into categorical</span></span>
-<span id="cb43-2"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb43-3"><a></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(</span>
-<span id="cb43-4"><a></a>    <span class="at">group =</span> <span class="fu">cut_width</span>(carat, <span class="fl">0.2</span>)</span>
-<span id="cb43-5"><a></a>    ))</span>
-<span id="cb43-6"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
-<span id="cb43-7"><a></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(</span>
-<span id="cb43-8"><a></a>    <span class="at">group =</span> <span class="fu">cut_number</span>(carat, <span class="dv">20</span>)</span>
-<span id="cb43-9"><a></a>    ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a><span class="co"># discretise numeric data into categorical</span></span>
+<span id="cb45-2"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb45-3"><a></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb45-4"><a></a>    <span class="at">group =</span> <span class="fu">cut_width</span>(carat, <span class="fl">0.2</span>)</span>
+<span id="cb45-5"><a></a>  ))</span>
+<span id="cb45-6"><a></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> carat, <span class="at">y =</span> price)) <span class="sc">+</span></span>
+<span id="cb45-7"><a></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(</span>
+<span id="cb45-8"><a></a>    <span class="at">group =</span> <span class="fu">cut_number</span>(carat, <span class="dv">20</span>)</span>
+<span id="cb45-9"><a></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-43-1.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-44-1.png" width="960"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-43-2.png" width="960"></p>
+<p><img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-44-2.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1404,28 +1410,30 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <li><code>plotly</code> can be used to make 3D plots, but this is very situational and should probably only be done in cases where the plot is intended to be interactive</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a>mtcars<span class="sc">$</span>gear <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
-<span id="cb44-2"><a></a></span>
-<span id="cb44-3"><a></a><span class="fu">plot_ly</span>(</span>
-<span id="cb44-4"><a></a>  mtcars,</span>
-<span id="cb44-5"><a></a>  <span class="at">x =</span> <span class="sc">~</span> wt,</span>
-<span id="cb44-6"><a></a>  <span class="at">y =</span> <span class="sc">~</span> hp,</span>
-<span id="cb44-7"><a></a>  <span class="at">z =</span> <span class="sc">~</span> qsec,</span>
-<span id="cb44-8"><a></a>  <span class="at">color =</span> <span class="sc">~</span> gear</span>
-<span id="cb44-9"><a></a>) <span class="sc">|&gt;</span></span>
-<span id="cb44-10"><a></a>  <span class="fu">add_markers</span>() <span class="sc">|&gt;</span></span>
-<span id="cb44-11"><a></a>  plotly<span class="sc">::</span><span class="fu">layout</span>(<span class="at">scene =</span> <span class="fu">list</span>(</span>
-<span id="cb44-12"><a></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Weight'</span>),</span>
-<span id="cb44-13"><a></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Gross horsepower'</span>),</span>
-<span id="cb44-14"><a></a>    <span class="at">zaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'1/4 mile time'</span>)</span>
-<span id="cb44-15"><a></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>mtcars<span class="sc">$</span>gear <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(mtcars<span class="sc">$</span>gear)</span>
+<span id="cb46-2"><a></a></span>
+<span id="cb46-3"><a></a><span class="fu">plot_ly</span>(</span>
+<span id="cb46-4"><a></a>  mtcars,</span>
+<span id="cb46-5"><a></a>  <span class="at">x =</span> <span class="sc">~</span>wt,</span>
+<span id="cb46-6"><a></a>  <span class="at">y =</span> <span class="sc">~</span>hp,</span>
+<span id="cb46-7"><a></a>  <span class="at">z =</span> <span class="sc">~</span>qsec,</span>
+<span id="cb46-8"><a></a>  <span class="at">color =</span> <span class="sc">~</span>gear</span>
+<span id="cb46-9"><a></a>) <span class="sc">|&gt;</span></span>
+<span id="cb46-10"><a></a>  <span class="fu">add_markers</span>() <span class="sc">|&gt;</span></span>
+<span id="cb46-11"><a></a>  plotly<span class="sc">::</span><span class="fu">layout</span>(</span>
+<span id="cb46-12"><a></a>    <span class="at">scene =</span> <span class="fu">list</span>(</span>
+<span id="cb46-13"><a></a>      <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Weight'</span>),</span>
+<span id="cb46-14"><a></a>      <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'Gross horsepower'</span>),</span>
+<span id="cb46-15"><a></a>      <span class="at">zaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">'1/4 mile time'</span>)</span>
+<span id="cb46-16"><a></a>    )</span>
+<span id="cb46-17"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 </section>
 <section id="d-plots-output" class="slide level2 output-location-slide"><h2>3D Plots</h2><div class="cell output-location-slide">
 <div class="cell-output-display">
-<div class="plotly html-widget html-fill-item" id="htmlwidget-8bbed54d9b69d6af8053" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-8bbed54d9b69d6af8053">{"x":{"visdat":{"aff617bdd65e":["function () ","plotlyVisDat"]},"cur_data":"aff617bdd65e","attrs":{"aff617bdd65e":{"x":{},"y":{},"z":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Weight"},"yaxis":{"title":"Gross horsepower"},"zaxis":{"title":"1/4 mile time"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[3.2149999999999999,3.4399999999999999,3.46,3.5699999999999998,4.0700000000000003,3.73,3.7799999999999998,5.25,5.4240000000000004,5.3449999999999998,2.4649999999999999,3.52,3.4350000000000001,3.8399999999999999,3.8450000000000002],"y":[110,175,105,245,180,180,180,205,215,230,97,150,150,245,175],"z":[19.440000000000001,17.02,20.219999999999999,15.84,17.399999999999999,17.600000000000001,18,17.98,17.82,17.420000000000002,20.010000000000002,16.870000000000001,17.300000000000001,15.41,17.050000000000001],"type":"scatter3d","mode":"markers","name":"3","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"frame":null},{"x":[2.6200000000000001,2.875,2.3199999999999998,3.1899999999999999,3.1499999999999999,3.4399999999999999,3.4399999999999999,2.2000000000000002,1.615,1.835,1.9350000000000001,2.7799999999999998],"y":[110,110,93,62,95,123,123,66,52,65,66,109],"z":[16.460000000000001,17.02,18.609999999999999,20,22.899999999999999,18.300000000000001,18.899999999999999,19.469999999999999,18.52,19.899999999999999,18.899999999999999,18.600000000000001],"type":"scatter3d","mode":"markers","name":"4","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"frame":null},{"x":[2.1400000000000001,1.5129999999999999,3.1699999999999999,2.77,3.5699999999999998],"y":[91,113,264,175,335],"z":[16.699999999999999,16.899999999999999,14.5,15.5,14.6],"type":"scatter3d","mode":"markers","name":"5","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-a9e5a467a72974bac4d3" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-a9e5a467a72974bac4d3">{"x":{"visdat":{"43247b52e39d":["function () ","plotlyVisDat"]},"cur_data":"43247b52e39d","attrs":{"43247b52e39d":{"x":{},"y":{},"z":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d","mode":"markers","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Weight"},"yaxis":{"title":"Gross horsepower"},"zaxis":{"title":"1/4 mile time"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[3.2149999999999999,3.4399999999999999,3.46,3.5699999999999998,4.0700000000000003,3.73,3.7799999999999998,5.25,5.4240000000000004,5.3449999999999998,2.4649999999999999,3.52,3.4350000000000001,3.8399999999999999,3.8450000000000002],"y":[110,175,105,245,180,180,180,205,215,230,97,150,150,245,175],"z":[19.440000000000001,17.02,20.219999999999999,15.84,17.399999999999999,17.600000000000001,18,17.98,17.82,17.420000000000002,20.010000000000002,16.870000000000001,17.300000000000001,15.41,17.050000000000001],"type":"scatter3d","mode":"markers","name":"3","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"frame":null},{"x":[2.6200000000000001,2.875,2.3199999999999998,3.1899999999999999,3.1499999999999999,3.4399999999999999,3.4399999999999999,2.2000000000000002,1.615,1.835,1.9350000000000001,2.7799999999999998],"y":[110,110,93,62,95,123,123,66,52,65,66,109],"z":[16.460000000000001,17.02,18.609999999999999,20,22.899999999999999,18.300000000000001,18.899999999999999,19.469999999999999,18.52,19.899999999999999,18.899999999999999,18.600000000000001],"type":"scatter3d","mode":"markers","name":"4","marker":{"color":"rgba(252,141,98,1)","line":{"color":"rgba(252,141,98,1)"}},"textfont":{"color":"rgba(252,141,98,1)"},"error_y":{"color":"rgba(252,141,98,1)"},"error_x":{"color":"rgba(252,141,98,1)"},"line":{"color":"rgba(252,141,98,1)"},"frame":null},{"x":[2.1400000000000001,1.5129999999999999,3.1699999999999999,2.77,3.5699999999999998],"y":[91,113,264,175,335],"z":[16.699999999999999,16.899999999999999,14.5,15.5,14.6],"type":"scatter3d","mode":"markers","name":"5","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div></section><section id="ggstatsplot" class="slide level2">
 <h2><a href="https://indrajeetpatil.github.io/ggstatsplot/index.html"><code>ggstatsplot</code></a></h2>
@@ -1433,10 +1441,10 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <li>A handy way to quickly look at correlations!</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a></a>ggstatsplot<span class="sc">::</span><span class="fu">ggscatterstats</span>(mtcars, <span class="at">x =</span> hp, <span class="at">y =</span> qsec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a></a>ggstatsplot<span class="sc">::</span><span class="fu">ggscatterstats</span>(mtcars, <span class="at">x =</span> hp, <span class="at">y =</span> qsec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-45-1.png" width="960" class="r-stretch"></section>
+<img data-src="met581_07_data_visualisation_in_r_files/figure-revealjs/unnamed-chunk-46-1.png" width="960" class="r-stretch"></section>
 <section id="links-and-resources" class="slide level2">
 <h2>Links and Resources</h2>
 <ul>
