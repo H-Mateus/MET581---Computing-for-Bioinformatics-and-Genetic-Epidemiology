@@ -5614,7 +5614,7 @@
     "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#plotting-practice",
     "title": "Data Visualisation in R",
     "section": "Plotting practice!",
-    "text": "Plotting practice!\n\nUsing the mtcars data:\n\nVisualise the relationship between engine size (displ) and highway mileage (hwy). What relationship do you see?\nAdd colour to show a categorical variable (e.g. class). Does adding color help you notice anything?\nCount cars by manufacturer in a plot. Try reording the bars by frequency.",
+    "text": "Plotting practice!\n\nUsing the mpg data:\n\nVisualise the relationship between engine size (displ) and highway mileage (hwy). What relationship do you see?\nAdd colour to show a categorical variable (e.g. class). Does adding color help you notice anything?\nCount cars by manufacturer in a plot. Try reording the bars by frequency.",
     "crumbs": [
       "Home",
       "Data Visualisation in R",
