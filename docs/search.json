@@ -5608,5 +5608,41 @@
       "Data Visualisation in R",
       "Slides"
     ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#plotting-practice",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#plotting-practice",
+    "title": "Data Visualisation in R",
+    "section": "Plotting practice!",
+    "text": "Plotting practice!\n\nUsing the mtcars data:\n\nVisualise the relationship between engine size (displ) and highway mileage (hwy). What relationship do you see?\nAdd colour to show a categorical variable (e.g. class). Does adding color help you notice anything?\nCount cars by manufacturer in a plot. Try reording the bars by frequency.",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#more-practice",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#more-practice",
+    "title": "Data Visualisation in R",
+    "section": "More practice",
+    "text": "More practice\n\nUsing the same data (mpg), build on your earlier scatterplot of displ vs hwy by adding a trend line.\nAdd two different geoms to the same plot. Experiment!\nUse faceting to compare trends across drive types (drv).\nStart with a bar plot of drive type (drv) by cylinder (cyl):\n\nggplot(mpg, aes(x = drv, fill = factor(cyl))) +\n  geom_bar()\n\nThen try setting position to fill or dodge. What changes?\nAdd clear axis labels, a title, subtitle, and caption to a plot",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#yet-more-practice",
+    "href": "07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html#yet-more-practice",
+    "title": "Data Visualisation in R",
+    "section": "Yet more practice",
+    "text": "Yet more practice\n\nUsing the mpg dataset, label only cars with hwy &gt; 35 & displ &lt; 2, using geom_text_repel() so labels don’t overlap.\nOn mpg, set x breaks at integers and y limits to 10–50.\nSave a plot object as both high-res PNG and vector PDF.",
+    "crumbs": [
+      "Home",
+      "Data Visualisation in R",
+      "Slides"
+    ]
   }
 ]
