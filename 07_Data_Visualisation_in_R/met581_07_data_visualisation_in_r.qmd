@@ -15,7 +15,7 @@ affiliations:
     city: Cardiff
     url: www.cardiff.ac.uk
   - id: dri
-    name: UK Dementia Research Institue
+    name: UK Dementia Research Institute
     url: https://ukdri.ac.uk/
 format: 
   revealjs:
@@ -225,7 +225,7 @@ ggplot(data = diamonds) +
 
 ## Plotting practice!
 
-- Using the `mtcars` data:
+- Using the `mpg` data:
   - Visualise the relationship between engine size (`displ`) and highway mileage (`hwy`). What relationship do you see?
   - Add colour to show a categorical variable (e.g. `class`). Does adding color help you notice anything?
   - Count cars by manufacturer in a plot. Try reording the bars by frequency.

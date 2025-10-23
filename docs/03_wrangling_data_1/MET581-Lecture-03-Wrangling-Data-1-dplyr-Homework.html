@@ -3871,7 +3871,6 @@ vertical-align: -.125em;
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -4165,8 +4164,8 @@ vertical-align: -.125em;
 <p>These exercises require use of the dplyr verbs we have learned so far. Some questions will require small variations on these that you need to look up; you may find it especially useful to check the documentation on <a href="https://dplyr.tidyverse.org/reference/scoped.html"><strong>scoped variants of the standard verbs</strong></a>, or the recent equivalents in <a href="https://dplyr.tidyverse.org/reference/pick.html"><strong>pick</strong></a> and <a href="https://dplyr.tidyverse.org/reference/across.html"><strong>across</strong></a> (we will review both options in the next session). All tasks that require use of more than one verb should be done using the pipe. Show the output from each question in a new cell, where a single paragraph of pipes is used to answer each question.</p>
 <p>If you’re struggling with a question that requires a lot of steps, try to sketch out the bones of the code before filling in the details. For instance, if you’re asked to shown the mean of GDP in 1990, you might first write out the basic order of things, like so:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>() <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>read in the dataset at ‘http://stat405.had.co.nz/data/weather.txt’ using <code>readr</code></strong></p>

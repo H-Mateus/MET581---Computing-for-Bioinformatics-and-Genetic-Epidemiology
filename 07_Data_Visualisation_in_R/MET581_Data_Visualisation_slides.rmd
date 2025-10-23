@@ -1,0 +1,635 @@
+---
+title: "[MET581] Lesson: *Data visualisation*"
+author: "Sam Keat + Frank Wessely"
+date: "20 October 2021"
+output:
+  slidy_presentation: default
+  ioslides_presentation:
+    fig_height: 4
+    fig_width: 6
+    fontsize: 12pt
+  beamer_presentation:
+    fig_height: 4
+    fig_width: 6
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, fig.height = 4.5, fig.width = 6)
+```
+
+# Aims and objectives
+
+* learn how to visualise data in R
+* learn a variety of graphics
+* get familiar with the `ggplot2` package and its *grammar of graphics* to create elegant figures
+
+
+***
+
+# Data visualisation
+
+* general aim: make your plots as self-explanatory as possible
+* focus on `ggplot2` package, a core member of the tidyverse
+* very versatile and powerful visualisation package
+* many "extra/add-on" packages are available e.g. `ggrepel` (for text labels) or `ggpubr` (for publication-ready plots) or `patchwork` (for combining multiple plots)
+
+<br>
+
+* note, graphs can also be generated with base R syntax:
+
+```{r}
+
+## some simple base R plots
+vec <- c(2,3,6,4,9)
+plot(vec)
+plot(vec, type = "l")
+plot(vec, type = "o", col = "blue")
+barplot(vec)
+```
+
+# ggplot2
+
+* ggplot2 is usually preferred over base R as there are more options for building and displaying graphics as well as ggplot2 generally looking a lot nicer than base R
+
+```{r}
+
+library(tidyverse) ## ggplot2 will be loaded automatically
+# library(ggplot2)
+```
+
+* a first example using `mtcars` data
+* use `?mtcars` to look at the dataset
+
+```{r}
+
+head(mtcars)
+```
+
+
+```{r}
+
+ggplot(data = mtcars) +
+  geom_point(mapping = aes(x = mpg, y = hp))
+```
+
+* `ggplot()` is the main function: create a new ggplot object to which one or more layers will be added
+* a layer is a collection of geometric elements (`geoms`) and statistical transformations
+* `geom_point()` an individual layer to plot: a scatter plot
+* aesthetic mappings are specified with `aes()`: how variables (columns) in the input data are mapped to visual properties - an aesthetic
+* note, mappings can be specified in `ggplot()` for all following layers (global mappings) or in individual layers (local mappings)
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point()
+```
+
+* aesthetic mappings can also be specified via `aes_string()`:
+
+```{r}
+
+x_var <- "mpg"
+y_var <- "hp"
+
+ggplot(data = mtcars, mapping = aes_string(x = x_var, y = y_var)) +
+  geom_point()
+```
+
+
+# Themes
+
+* a theme controls the finer points of display like the font size and background colour
+* customise the non-data elements
+* e.g. change default grey background to white background
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes_string(x = x_var, y = y_var)) +
+  geom_point() +
+  theme_bw()
+```
+
+* I prefer this theme than the default theme_grey()
+* can be set globally via `theme_set()` for all plots
+
+```{r}
+
+theme_set(theme_bw())
+
+ggplot(data = mtcars, mapping = aes_string(x = x_var, y = y_var)) +
+  geom_point()
+```
+
+* here are the 8 themes provided by ggplot2: https://r4ds.had.co.nz/graphics-for-communication.html#themes
+
+
+# qplot()
+
+* quick plots with `qplot()`
+* using `ggplot()` is recommended for creating more complex figures
+
+```{r}
+
+qplot(mpg, hp, data = mtcars)
+
+ggplot(mtcars, aes(hp ,mpg)) +
+  geom_point()
+```
+
+* syntax similar to base `plot()`
+
+```{r}
+
+plot(mtcars$mpg, mtcars$hp)
+```
+
+# Aesthetics: Colour, size and shape
+
+* map the colours of the points to a variable
+* e.g. map the number of cylinders to the **color** aesthetic named `color` or `colour`
+
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_point()
+```
+
+* map the number of cylinders to the **size** aesthetic
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, size = cyl)) +
+  geom_point()
+```
+
+* map the number of cylinders to the **shape** aesthetic
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, shape =  factor(cyl))) +
+  geom_point()
+
+## combine both colours and shapes
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, shape =  factor(cyl), colour = factor(cyl))) +
+  geom_point()
+```
+
+* set an aesthetic manually outside of `aes()` 
+* e.g. choose a fixed colour:
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(colour = "red")
+```
+
+* it's possible to map an aesthetic to a condition:
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = cyl == 4)) +
+  geom_point()
+```
+
+
+# Facets
+
+* easily allows to break up the data and plot subsets of it in individual panels
+* creates subplots or panel-like figures
+* particular useful for categorical variables
+
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_point() +
+  facet_wrap(~ cyl)
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_point() +
+  facet_wrap(~ cyl, ncol = 1)
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_point() +
+  facet_wrap(~ cyl, dir = "v")
+```
+
+* combinations of 2 variables can be plotted with `facet_grip()`
+* use 2 variables in formula:
+
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_point() +
+  facet_grid(am ~ cyl)
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_point() +
+  facet_grid(cyl ~ am)
+```
+
+# Other geometric objects
+
+* so far used only `geom_point()` to create scatter plots
+* many more *geoms* are available e.g. `geom_smooth()` to draw a smoothed line based on the data providing you a trend
+* note, multiple geoms can be used in the same plot (i.e. multiple layers)
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_smooth()
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_smooth() +
+  geom_point()
+
+# the order of layers matters
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point() +
+  geom_smooth()
+
+# just for comarison: the full data
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp, colour = factor(cyl))) +
+  geom_smooth() +
+  geom_point()
+```
+
+* use a local mapping:
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_smooth() +
+  geom_point(mapping = aes(color = factor(cyl)))
+```
+
+
+# Statistical transformations
+
+* some plots internally transform your data and plot those new values instead of raw values
+* `stat` argument of different plot types (geom functions) specifies the statistical transformation
+* e.g. `geom_bar()` uses `stat = "count"` as default to create counts of the mapped variable:
+
+```{r}
+
+head(diamonds)
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+```
+
+* note, geoms and stats are often interchangeable:
+
+```{r}
+ggplot(data = diamonds) + 
+  stat_count(mapping = aes(x = cut))
+```
+
+
+* another typical stat is "identity" plotting bars with heights based on raw values
+
+```{r}
+
+## example tibble
+demo <- tribble(
+  ~cut,         ~value,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551
+)
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = value), stat = "identity")
+
+## another common aesthetic: fill
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = value, fill = cut), stat = "identity")
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = value, fill = cut), stat = "identity")
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```
+
+# Position adjustments
+
+* determine how to arrange geoms that would otherwise occupy the same space
+* set value for `position` argument of geom:
+
+```{r}
+
+# side by side
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "dodge")
+
+# stack elements on top of each other
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = "stack")
+```
+
+
+# Labels
+
+* add or modify labels with `labs()`
+* titles and sub-titles for figures in publications not necessarily needed as it comes with a detailed figure caption
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  labs(
+    title = "Title",
+    subtitle = "Subtitle",
+    caption = "Small Caption"
+  )
+```
+
+
+* `labs()` also allows to modify axis and legend lables
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  labs(
+    x = "Miles per gallon (mpg)",
+    y = "Horsepower (hp)",
+    colour = "Cylinders"
+  )
+```
+
+* there are also short-cuts for the axis labels: `xlab()` and `ylab()`
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  xlab("Miles per gallon") +
+  ylab("Horsepower")
+```
+
+
+# Annotations
+
+* `geom_text()` and `geom_label()` for simple annotations
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  geom_text(aes(label = rownames(mtcars)))
+```
+
+
+```{r}
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  geom_label(aes(label = rownames(mtcars)), alpha = 0)
+```
+
+* package **ggrepel**
+* useful to avoid overlapping labels within plots
+
+```{r}
+
+# install.packages("ggrepel")
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  ggrepel::geom_text_repel(aes(label = rownames(mtcars)), max.overlaps = 100)
+
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  ggrepel::geom_text_repel(aes(label = rownames(mtcars[1:3, ])), data = mtcars[1:3, ])
+```
+
+
+# Zooming
+
+* 3 ways to control the plot limits:
+
+1. Adjusting what data are plotted
+2. Setting `xlim` and `ylim` in `coord_cartesian()` (recommended)
+3. Setting the limits in each scale
+
+
+```{r}
+
+mtcars %>%
+  filter(mpg >= 20, hp <= 150) %>%
+  ggplot(mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  geom_smooth()
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  geom_smooth() + 
+  coord_cartesian(xlim = c(20, 35), ylim = c(0, 150))
+
+ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  geom_smooth()
+```
+
+
+# Scales
+
+* scales control the mapping from data values to things that you can perceive (colour, size, shape, ...)
+* scales draw a legend or axes
+* ggplot2 automatically adds default scales behind the scene:
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl)))
+
+# the same:
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  scale_colour_discrete()
+```
+
+* note the naming scheme: 
+
+1. 'scale_'
+2. the name of the aesthetic (x, y, colour, fill, ...)
+3. '_', 
+4. name of the scale (e.g. continuous, discrete, ...)
+
+
+* changes to axes with arguments `breaks` and `labels`
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  scale_y_continuous(breaks = seq(0, 350, by = 50))
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  scale_y_continuous(breaks = seq(0, 350, by = 50), labels = paste0("HP ", seq(0, 350, by = 50)))
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) + 
+  scale_y_continuous(breaks = seq(0, 350, by = 50), labels = NULL)
+```
+
+
+# Legend layout
+
+* where to place the legend via `legend.position` argument
+
+```{r}
+
+p <- ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl)))
+
+p + theme(legend.position = "right") # the default
+p + theme(legend.position = "left")
+p + theme(legend.position = "top")
+p + theme(legend.position = "bottom")
+p + theme(legend.position = "none") # no legend
+```
+
+* use `guides()` to control the legend display
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(colour = factor(cyl)), alpha = 0.5) +
+  guides(colour = guide_legend(ncol = 2, override.aes = list(size = 3, alpha = 1)))
+```
+
+
+
+# Replacing the colour scale
+
+* default ggplot2 colours not that great
+* many pre-defined palettes available to change that
+* e.g. from the RColorBrewer package: https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  scale_colour_brewer(palette = "Set1")
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  scale_colour_brewer(palette = "Accent")
+```
+
+* colors can be set manually:
+
+```{r}
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  scale_colour_manual(values = c("black", "pink", "turquoise"))
+
+ggplot(mtcars, aes(x = mpg, y = hp)) +
+  geom_point(aes(color = factor(cyl))) +
+  scale_colour_manual(values = c(`4` = "black", `6` = "pink", `8` = "red"))
+
+```
+
+
+# Saving a plot
+
+* save a ggplot with `ggsave()`
+* if not specified, will save most recent plot to disk
+* format guessed from the filename extension
+* probably more convenient to work with R Markdown files and create HTML output files
+
+```{r}
+
+ggsave(filename = "my_plot_1.pdf")
+ggsave(filename = "my_plot_2.png")
+```
+
+
+# Boxplots and violin plots
+
+* use the mtcars, diamonds or any other dataset of your choice to create a boxplot and a violin plot
+* see the documentation for `geom_boxplot()` and `geom_violin()`
+
+```{r}
+
+# Exercise ... geom_boxplot() and geom_violin()
+
+###################
+## let the students play with the data, then discuss
+mtcars$cyl <- as.factor(mtcars$cyl)
+
+p <- ggplot(mtcars, aes(cyl, mpg))
+
+p + geom_boxplot(aes(colour = cyl))
+
+p + geom_boxplot(aes(fill = cyl), alpha = 0.3) + 
+  geom_point()
+
+p + geom_violin(aes(colour = cyl))
+
+p + geom_violin(aes(fill = cyl))
+
+p + geom_violin(aes(fill = cyl)) +
+  geom_point()
+  
+ggplot(data = diamonds, mapping = aes(x = color, y = price)) + 
+  geom_boxplot(outlier.size = -1)
+
+# discretise numeric data into categorical
+ggplot(diamonds, aes(x = carat, y = price)) + 
+  geom_boxplot(aes(group = cut_width(carat, 0.2)))
+
+ggplot(diamonds, aes(x = carat, y = price)) + 
+  geom_boxplot(aes(group = cut_number(carat, 20)))
+```
+
+
+# 3D plots
+
+* interactive and 3D plots (web graphics) can be created with the package `plotly()`
+
+```{r}
+
+# install.packages("plotly")
+library(plotly)
+
+mtcars$gear <- as.factor(mtcars$gear)
+
+plot_ly(mtcars, x = ~wt, y = ~hp, z = ~qsec, color = ~gear) %>%
+  add_markers() %>%
+  layout(scene = list(xaxis = list(title = 'Weight'),
+                      yaxis = list(title = 'Gross horsepower'),
+                      zaxis = list(title = '1/4 mile time')))
+
+# volcano is a numeric matrix that ships with R
+plot_ly(z = ~volcano) %>% 
+  add_surface()
+```
+
+
+# Some useful links and resources
+
+* ggplot2 cheat sheet available from: http://rstudio.com/resources/cheatsheets
+
+* https://ggplot2-book.org
+
+* https://exts.ggplot2.tidyverse.org/gallery/
+
+* https://www.r-graph-gallery.com
+
+* https://github.com/jrnold/ggthemes
+
+
+
