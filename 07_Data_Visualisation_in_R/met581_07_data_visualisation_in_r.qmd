@@ -223,7 +223,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = cut))
 ```
 
-## Plotting practise!
+## Plotting practice!
 
 - Using the `mtcars` data:
   - Visualise the relationship between engine size (`displ`) and highway mileage (`hwy`). What relationship do you see?
@@ -401,7 +401,7 @@ ggplot(data = mtcars, mapping = aes(x = mpg, y = hp)) +
   ylab("Horsepower")
 ```
 
-## More pracise
+## More practice
 
 - Using the same data (`mpg`), build on your earlier scatterplot of `displ` vs `hwy` by adding a trend line.
 - Add two different geoms to the same plot. Experiment!
@@ -681,7 +681,7 @@ ggplot(mtcars, aes(x = mpg, y = hp)) +
 dev.off()
 ```
 
-## Yet more practise
+## Yet more practice
 
 - Using the `mpg` dataset, label only cars with `hwy > 35 & displ < 2`, using `geom_text_repel()` so labels don’t overlap.
 - On `mpg`, set x breaks at integers and y limits to 10–50.
