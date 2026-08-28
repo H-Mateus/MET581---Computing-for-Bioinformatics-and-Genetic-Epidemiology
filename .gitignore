@@ -50,3 +50,6 @@ rsconnect/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Quarto execution cache - a cold render takes ~100s, so this is not worth committing
+_freeze/

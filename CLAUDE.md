@@ -94,15 +94,24 @@ quarto preview path/to/file.qmd
 ```
 
 - `_quarto.yml`: `type: website`, `output-dir: docs`, `execute: freeze: auto`.
-  `_freeze/` was not previously committed, so a fresh clone re-executed
-  everything on first render. Rendering now populates it — **commit it**; that is
-  what makes the site rebuildable without re-running every lecture's R code.
-- `docs/` **is committed**. Re-rendering churns hundreds of generated PNGs and
-  `site_libs/` files (`docs/` is ~89 MB of the repo's ~200 MB). Render narrowly
+  `_freeze/` is **gitignored, deliberately**. It was committed briefly and then
+  dropped: a full cold render with no cache takes **1m 41s**, which does not
+  justify 45 MB across 197 files of churn on every render. `freeze: auto` still
+  works locally as a cache; it just isn't shared.
+- `docs/` **is committed** — GitHub Pages serves it. Re-rendering churns hundreds
+  of generated PNGs and `site_libs/` files (`docs/` is ~77 MB). Render narrowly
   and check `git status` before committing.
-- No `renv`/lockfile. Renders against whatever is installed (currently R 4.6.1,
-  Quarto 1.10.18). Packages used across lectures: tidyverse, conflicted,
-  gapminder, skimr, ggrepel, lubridate, broom.
+- **No `renv`/lockfile — this is the real reproducibility gap**, and it now has no
+  `_freeze/` safety net. A fresh clone renders only if these are installed:
+  tidyverse, conflicted, gapminder, skimr, ggrepel, lubridate, broom, plotly,
+  ggstatsplot, qrcode, here, nycflights13, babynames. Currently R 4.6.1, Quarto
+  1.10.18. Adding `renv` would close this properly.
+
+  ```r
+  install.packages(c("tidyverse", "conflicted", "gapminder", "skimr", "ggrepel",
+                     "lubridate", "broom", "plotly", "ggstatsplot", "qrcode",
+                     "here", "nycflights13", "babynames"))
+  ```
 - `_extensions/r-wasm/drop/` provides the `drop` revealjs plugin (webr in-browser
   code cells) used by lectures 01, 02, 06, 07 and the LLM slides. It was
   previously **missing from the repo** — the site had been rendered on a machine
