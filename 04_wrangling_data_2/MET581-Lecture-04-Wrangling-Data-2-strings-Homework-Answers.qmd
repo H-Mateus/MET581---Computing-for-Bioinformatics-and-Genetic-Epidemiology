@@ -6,11 +6,7 @@ date: "2024-10-18"
 format: 
   html:
     number-sections: true
-    theme: united
     highlight: tango
-    mainfont: Ubuntu
-    embed-resources: true
-    self-contained: true
 editor: source
 execute:
   echo: true

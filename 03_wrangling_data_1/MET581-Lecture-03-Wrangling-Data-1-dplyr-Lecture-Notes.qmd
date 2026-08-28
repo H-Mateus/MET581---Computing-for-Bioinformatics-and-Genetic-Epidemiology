@@ -11,11 +11,7 @@ format:
     toc-depth: 3  # upto three depths of headings (specified by #, ## and ###)
     toc-location: left
     number-sections: true  # if you want number sections at each table header
-    theme: united  # many options for theme
     highlight: tango
-    mainfont: Ubuntu
-    embed-resources: true
-    self-contained: true
 revealjs-plugins:
   - drop
 execute:

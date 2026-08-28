@@ -23,7 +23,8 @@ format:
   revealjs:
     logo: /10_resources/00_images/combined_logos.png
     footer: "MET581 - Programming in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
-    theme: [dark, ../styles.scss]
+    theme: [dark, ../styles.scss, brand]
+    brand-mode: dark
     drop:
       engine: webr
       webr:

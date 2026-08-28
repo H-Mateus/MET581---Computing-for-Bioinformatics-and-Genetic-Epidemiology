@@ -8,8 +8,12 @@ $presentation-font-size-root: 32px;
 
 /*-- scss:rules --*/
 
+// Palette colours from _brand.yml are exposed to this layer as $brand-<name>.
+// Previously this bar used $text-muted, which the dark reveal theme resolves to
+// plain #fff -- not actually muted. Pinned to the heading colour instead so
+// quotes read as part of the brand rather than as emphasis.
 .reveal .slide blockquote {
-  border-left: 3px solid $text-muted;
+  border-left: 3px solid $brand-dri-navy-bright;
   padding-left: 0.5em;
 }
 

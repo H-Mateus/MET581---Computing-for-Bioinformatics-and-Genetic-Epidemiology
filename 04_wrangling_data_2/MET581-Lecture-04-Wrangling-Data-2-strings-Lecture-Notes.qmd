@@ -10,11 +10,7 @@ format:
     toc-depth: 3
     toc-location: left
     number-sections: true
-    theme: united
     highlight: tango
-    mainfont: Ubuntu
-    embed-resources: true
-    self-contained: true
 execute:
   echo: true
   output: true

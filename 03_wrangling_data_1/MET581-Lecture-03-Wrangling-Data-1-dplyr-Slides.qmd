@@ -8,8 +8,8 @@ date: "2024-10-17"
 editor: source
 format: 
   revealjs:
-    theme: dark
-    font: ubuntu
+    theme: [dark, brand]
+    brand-mode: dark
     autosize: true
     df-print: kable
     css: ../10_resources/styles.css

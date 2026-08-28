@@ -1,7 +1,10 @@
 project:
   type: website
   output-dir: docs
-  render: 
+  # Palette and typography sampled from the institutional logos - see _brand.yml.
+  # The revealjs decks pin themselves to the dark variant with `brand-mode: dark`.
+  brand: _brand.yml
+  render:
     - "*.qmd"
     - "!*.rmd"
 
@@ -51,8 +54,9 @@ execute:
 
 format:
   html:
-    theme: 
-      light: flatly
-      dark: darkly
+    theme:
+      # `brand` last so _brand.yml wins over the bootswatch base in both modes
+      light: [flatly, brand]
+      dark: [darkly, brand]
     css: styles.css
     toc: true

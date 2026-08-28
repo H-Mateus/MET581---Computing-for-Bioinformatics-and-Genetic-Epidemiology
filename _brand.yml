@@ -1,0 +1,103 @@
+# Brand definition for the R lecture series.
+#
+# Colours are sampled from the institutional logos already in this repo
+# (10_resources/00_images/{cardiff_uni_logo,dri_logo}.png) rather than picked by
+# eye, so the slides match the logo shown in their bottom corner.
+#
+#   Cardiff red  #CE0439   DRI navy  #001F8F   DRI cyan  #59FFFF
+#
+# The website toggles light/dark; the revealjs decks are always dark and pin
+# themselves with `brand-mode: dark`. Every colour therefore needs a variant that
+# is legible on both a white page and a near-black slide -- the raw logo red and
+# navy are too dark to sit on the dark background, so `-bright` variants are used
+# there. See the contrast notes at the bottom of this file.
+
+meta:
+  name: Data Science for Life Sciences I
+  link: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology
+
+logo:
+  medium: 10_resources/00_images/combined_logos.png
+  small: 10_resources/00_images/cardiff_uni_logo.png
+
+color:
+  palette:
+    # --- sampled straight from the logos ---
+    cardiff-red: "#CE0439"
+    dri-navy: "#001F8F"
+    dri-cyan: "#59FFFF"
+
+    # --- lightened for use on the dark slide background ---
+    cardiff-red-bright: "#FF5C7D"
+    dri-navy-bright: "#8FA8FF"
+
+    # --- neutrals ---
+    ink: "#14172B"        # navy-tinted near-black, softer than pure #000
+    slate: "#5A6079"      # muted body text, captions, borders
+    paper: "#FFFFFF"
+    charcoal: "#12162A"   # navy-tinted slide background, ties back to DRI navy
+    mist: "#E8EAF2"       # light text on dark
+
+    # --- Bootstrap-standard aliases, picked up automatically by tooling ---
+    red: cardiff-red
+    blue: dri-navy
+    cyan: dri-cyan
+
+  primary:
+    light: cardiff-red
+    dark: cardiff-red-bright
+  secondary:
+    light: dri-navy
+    dark: dri-navy-bright
+  background:
+    light: paper
+    dark: charcoal
+  foreground:
+    light: ink
+    dark: mist
+
+  info: dri-navy
+  success: "#1B7F5A"
+  warning: "#B26A00"
+  danger: cardiff-red
+
+typography:
+  fonts:
+    - family: Inter
+      source: google
+      weight: [400, 600, 700]
+    - family: Fira Code
+      source: google
+      weight: [400, 500]
+
+  # NB: avoid font families whose name contains a digit (e.g. "Source Sans 3").
+  # Quarto emits them unquoted, which is invalid CSS, and the browser silently
+  # falls back to the bootswatch default. Quoting them in this file instead
+  # breaks the generated Google Fonts @import URL.
+  base:
+    family: Inter
+    weight: 400
+    line-height: 1.6
+
+  headings:
+    family: Inter
+    weight: 600
+    line-height: 1.2
+    color:
+      light: dri-navy
+      dark: dri-navy-bright
+
+  monospace:
+    family: Fira Code
+    weight: 400
+
+  monospace-inline:
+    color:
+      light: cardiff-red
+      dark: cardiff-red-bright
+
+  link:
+    weight: 500
+    color:
+      light: "#0033CC"     # brightened navy; raw #001F8F is legible but flat
+      dark: dri-cyan
