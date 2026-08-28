@@ -1,6 +1,5 @@
 ---
-title: "MET581 Lecture 03"
-subtitle: "Wrangling Data 1: dplyr"
+title: "Wrangling Data 1: dplyr"
 author:
   - name: "Matthew Bracher-Smith"
 date: "2024-10-17"

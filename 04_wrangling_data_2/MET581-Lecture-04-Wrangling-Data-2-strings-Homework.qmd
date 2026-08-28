@@ -1,6 +1,5 @@
 ---
-title: "MET581 Lecture 04 Homework"
-subtitle: "Wrangling Data 2"
+title: "Wrangling Data 2 Homework"
 author: "Matthew Bracher-Smith"
 date: "2024-10-18"
 format: 

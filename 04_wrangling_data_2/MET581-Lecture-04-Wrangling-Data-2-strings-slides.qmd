@@ -1,6 +1,5 @@
 ---
-title: "MET581 Lecture 04"
-subtitle: "Wrangling Data 2: tidying, strings and joins"
+title: "Wrangling Data 2: tidying, strings and joins"
 author:
   - name: "Gabriel Mateus Bernardo Harrington"
   - name: "Matthew Bracher-Smith"

@@ -1,5 +1,19 @@
-# MET581 Computing for Bioinformatics and Genetic Epidemiology
+# Data Science for Life Sciences I — R lecture material
 
-Materials used for the R lectures in the MET581 module are housed here.
+R lecture materials for the **Data Science for Life Sciences I** module on the
+Cardiff University bioinformatics MSc, delivered by Gabriel Mateus Bernardo
+Harrington.
 
-The website hosting the material can be found here: [https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)
+The website hosting the material can be found here:
+[https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)
+
+> [!NOTE]
+> The repository, its URL and the published site URL are still named for the
+> module's previous incarnation, `MET581 - Computing for Bioinformatics and
+> Genetic Epidemiology`. Renaming the repository would break existing links, so
+> that has been left alone deliberately; only the titles shown to students have
+> been updated.
+
+Material retired in the restructure — the Shiny lectures, and Modelling in R,
+which has moved to another member of the teaching team — lives in `archive/` and
+is excluded from the rendered site. See `archive/README.md`.

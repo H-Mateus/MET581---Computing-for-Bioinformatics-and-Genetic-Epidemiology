@@ -1,5 +1,5 @@
 ---
-title: "MET581-Lecture-02-Explore-R-homework-answers"
+title: "Explore R Homework Answers"
 author:
   - name: "Gabriel Mateus Bernardo Harrington"
   - name: "Matthew Bracher-Smith"

@@ -7,11 +7,11 @@ project:
   render:
     - "*.qmd"
     - "!*.rmd"
-
-website:
-  title: "MET581 - R lecture material"
     # Retired material from the old MET581 module - see archive/README.md
     - "!archive/"
+
+website:
+  title: "Data Science for Life Sciences I"
   repo-url: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology
   issue-url: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose
   repo-actions: [edit, issue]

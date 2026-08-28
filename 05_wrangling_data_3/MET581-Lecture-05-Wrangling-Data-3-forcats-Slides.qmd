@@ -1,6 +1,5 @@
 ---
-title: "MET581 Lecture 05"
-subtitle: "Wrangling Data 3: (factors, dates and functions)"
+title: "Wrangling Data 3: factors, dates and functions"
 author: "Matthew Bracher-Smith"
 date: "2024-10-21"
 editor: source

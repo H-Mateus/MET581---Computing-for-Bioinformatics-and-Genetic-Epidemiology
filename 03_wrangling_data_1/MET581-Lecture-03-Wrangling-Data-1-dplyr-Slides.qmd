@@ -1,6 +1,5 @@
 ---
-title: "MET581 Lecture 03"
-subtitle: "Wrangling Data 1: dplyr"
+title: "Wrangling Data 1: dplyr"
 author:
   - name: "Matthew Bracher-Smith"
   - name: "Gabriel Mateus Bernardo Harrington"
@@ -16,7 +15,7 @@ format:
     embed-resources: true
     self-contained: true
     logo: /10_resources/00_images/combined_logos.png
-    footer: "met581 - programming in r - slides and code avilable [here](https://h-mateus.github.io/met581---computing-for-bioinformatics-and-genetic-epidemiology/)"
+    footer: "Data Science for Life Sciences I - Slides and code available [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     drop:
       engine: webr
       webr:

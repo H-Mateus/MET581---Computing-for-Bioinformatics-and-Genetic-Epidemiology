@@ -3,8 +3,23 @@ title: "Welcome!"
 author: "Gabriel Mateus Bernardo Harrington"
 ---
 
-This website houses the lecture materials associated with the MET581 module R lectures.
+This website houses the R lecture materials for **Data Science for Life Sciences
+I**, delivered on the Cardiff University bioinformatics MSc.
 
 Use the side bar to navigate to lecture materials.
 
-You can find the source files for this website and the lecture materials in GitHub [here](https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology).
+If you are wondering how to use AI assistants such as ChatGPT or Claude on this
+module, start with [Working with AI
+assistants](00_llm_use/using_ai_assistants.qmd) — the short answer is that you
+are welcome to, but they will confidently give you R that runs and is wrong, so
+you need to be able to check them.
+
+You can find the source files for this website and the lecture materials in
+GitHub
+[here](https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology).
+
+::: {.callout-note}
+The repository is still named for the module's previous incarnation, `MET581 -
+Computing for Bioinformatics and Genetic Epidemiology`. The material is the
+same; only the module has been restructured.
+:::

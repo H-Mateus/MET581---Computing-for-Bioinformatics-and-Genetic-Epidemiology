@@ -20,7 +20,7 @@ affiliations:
 format: 
   revealjs:
     logo: /./10_resources/00_images/combined_logos.png
-    footer: "MET581 - Data Visualisation in R - Slides and code avilable [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
+    footer: "Data Science for Life Sciences I - Slides and code available [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     theme: [dark, ../styles.scss, brand]
     brand-mode: dark
     include-in-header: 

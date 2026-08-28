@@ -1,5 +1,5 @@
 ---
-title: "MET581-Lecture-02-Expore-R-homework"
+title: "Explore R Homework"
 author: "Matthew Bracher-Smith"
 date: "2024-10-15"
 format: html
