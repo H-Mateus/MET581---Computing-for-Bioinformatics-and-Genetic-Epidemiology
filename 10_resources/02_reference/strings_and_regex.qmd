@@ -1,0 +1,281 @@
+---
+title: "Strings and regular expressions"
+subtitle: "Reference material — not covered in the taught sessions"
+author: "Gabriel Mateus Bernardo Harrington"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: false
+execute:
+  echo: true
+  warning: false
+---
+
+::: {.callout-note appearance="simple"}
+This page is **reference material**. It is not taught in a session and you will not
+be assessed on the details of regular expressions.
+
+It is here because real data is full of messy text — inconsistent column names,
+identifiers with mixed separators, categories typed five different ways — and
+`stringr` is how you deal with that in the tidyverse. Come back to it when you hit
+that problem in the report.
+:::
+
+## Setup
+
+```{r}
+#| output: false
+library(stringr)
+library(dplyr)
+library(tidyr)
+library(gapminder)
+library(nycflights13)
+```
+
+`words` and `sentences` used below are small example datasets that ship with
+`stringr`, so they are available as soon as it is loaded.
+
+## What is a string?
+
+- Strings are a sequence of characters, which has to be represented in memory in
+  binary.
+- This was first widely done using ASCII (American Standard Code for Information
+  Interchange).
+- But ASCII only allows for 128 characters, so nowhere near enough for all
+  languages.
+- We now represent strings using Unicode (which didn't appear in its current form
+  until the 90s), which allows for a lot — more than a million — characters.
+- UTF-8 is the most common encoding for Unicode. It uses a variable number of
+  8-bit units to represent characters.
+- R uses UTF-8 by default (though it will report the label "unknown" unless
+  non-ASCII characters appear), and `stringr` fully supports Unicode.
+
+## stringr
+
+- Removes inconsistencies found in base R.
+- Built on top of the `stringi` package.
+- Starts all functions with `str_`, so autocomplete is genuinely useful.
+- More advanced use requires regular expressions.
+
+## Regular expressions
+
+As quoted by [R for Data Science, 1st
+edition](http://r4ds.had.co.nz/strings.html):
+
+> *"When you first look at a regexp, you'll think a cat walked across your
+> keyboard, but as your understanding improves they will soon start to make
+> sense."*
+
+If you've read about regex before, you will also have come across:
+
+> *"Some people, when confronted with a problem, think 'I know, I'll use regular
+> expressions.' Now they have two problems."*
+
+### The short version
+
+- They allow you to match patterns in strings.
+- The most basic form matches an actual chunk of text, e.g. `hag` in `hagrid`.
+- Match classes of character with `\s`, `\d`, `\w`, `[abc]` and `[^abc]`.
+- **Because we're in R, you have to write `\\` instead of `\`** — so `\\w`, `\\d`.
+  This catches everybody at least once.
+- Match any character at all with `.`.
+- Expand a match with `?`, `+`, `*` or `{n,m}`.
+- Anchor it to the start with `^` or the end with `$`.
+- So `^\\w+_\\d{4}$` matches `"hagrid_2020"` but not `"hagrid_120"`.
+
+The rest of this section works through each of those on one example vector.
+
+### Matching literal text
+
+```{r}
+my_string <- c(
+  'Hagrid',
+  'Hermione',
+  'Harry.Potter',
+  'Ronald_Weasley',
+  '24xHouse Elves'
+)
+str_detect(my_string, 'Hag')
+```
+
+### Character classes
+
+Match types of character with `\\w` (word), `\\d` (digit) and `\\s` (whitespace).
+
+```{r}
+my_string
+str_detect(my_string, '\\w')
+```
+
+```{r}
+str_detect(my_string, '\\d')
+```
+
+```{r}
+str_detect(my_string, '\\s')
+```
+
+### Matching any character
+
+`.` matches anything, which is why it matches every element here.
+
+```{r}
+str_detect(my_string, '.')
+```
+
+### Quantifiers
+
+`?`, `+`, `*` and `{n,m}` control how many times the preceding pattern may repeat.
+
+```{r}
+str_detect(my_string, '\\w+')
+```
+
+Note the difference `[xyz]` versus `[^xyz]` makes — the second negates the class.
+
+```{r}
+str_detect(my_string, '\\d{2}[xyz]\\w+\\s?\\w+')
+str_detect(my_string, '\\d{2}[^xyz]\\w+\\s?\\w+')
+```
+
+### Anchors
+
+`^` anchors to the start of the string, `$` to the end. Anchoring is usually what
+turns a pattern that *nearly* works into one that does.
+
+```{r}
+str_detect(my_string, '^H\\w+$')
+```
+
+```{r}
+str_detect(my_string, '^Hag$')
+```
+
+## Basic stringr operations
+
+### String length and counts
+
+```{r}
+# number of characters in each string
+str_length(my_string)
+
+# number of matches within each string
+str_count(my_string, 'Ha')
+```
+
+### Concatenating strings
+
+```{r}
+str_c('this', 'that', sep = ', ')
+```
+
+## Manipulating strings
+
+### Extracting and replacing
+
+```{r}
+# extract substrings by position
+str_sub(my_string, 1, 3)
+```
+
+```{r}
+# replace the first match in each string
+str_replace(my_string, '[\\._x]', ' ')
+```
+
+::: {.callout-tip appearance="simple"}
+`str_replace()` replaces only the **first** match in each string.
+`str_replace_all()` replaces every match. Picking the wrong one is a quiet bug of
+exactly the kind this module keeps warning you about — it will not error.
+:::
+
+### Detecting and viewing
+
+```{r}
+# returns a logical vector - the tidyverse alternative to grepl()
+str_detect(my_string, 'Hagrid')
+```
+
+```{r}
+# shows you what your pattern actually matched
+str_view(my_string, '^\\w')
+```
+
+`str_view()` is the single most useful debugging tool here. When a pattern isn't
+working, look at what it *is* matching before changing it.
+
+### Splitting and sorting
+
+```{r}
+sentences |>
+  head(1) |>
+  str_split(" ")
+```
+
+```{r}
+str_sort(words[1:10], locale = 'en')
+```
+
+Always set `locale` when sorting. Sort order is language-dependent, and leaving it
+implicit makes your results depend on the machine they ran on — which is exactly
+what reproducibility is meant to rule out.
+
+### Changing case
+
+```{r}
+str_to_upper(words[1:10])
+str_to_lower(words[1:10])
+str_to_sentence(words[1:10])
+str_to_title(words[1:10])
+```
+
+```{r}
+sentences |>
+  head(1) |>
+  str_to_sentence()
+
+sentences |>
+  head(1) |>
+  str_to_title()
+```
+
+## Practice
+
+If you want to work through this material rather than just read it:
+
+**Concatenating and replacing**
+
+- Concatenate the strings `"day to"` and `"day"`, separated by a hyphen.
+- Using `starwars`: select the `hair_color` column and replace `', '` with `'/'`.
+  Hint: pipe a column into `pull()` to get a vector for `stringr` to work on.
+- Using `flights`: select the columns ending in `delay` and remove the underscore
+  from those column names.
+
+**Splitting**
+
+- Split `"Harry, did you put your name in the Goblet of Fire?"` into its
+  components.
+- Use `boundary("word")` instead of `" "` and compare the results.
+- Using the fifth line of `sentences`: split by word boundary, convert to
+  lowercase and sort. Hint: `unlist()`.
+
+**Case**
+
+- Using `starwars`: convert `hair_color` values to Sentence case, and all column
+  names to Title Case.
+- Using `gapminder`: remove any camelCase from the column names (all to lower
+  case), and convert the `continent` values to upper case.
+
+## Further reading
+
+- [R for Data Science 2e](https://r4ds.hadley.nz/), chapters 14 and 15
+- The [`stringr` documentation](https://stringr.tidyverse.org/), and
+  `vignette("regular-expressions", package = "stringr")`
+- [This blog
+  post](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+  by Joel Spolsky on Unicode and character sets
+- [regex101.com](https://regex101.com/) — build and test a pattern interactively,
+  with an explanation of each part. Remember to double your backslashes when you
+  bring the pattern back into R.

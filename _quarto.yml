@@ -78,6 +78,14 @@ website:
         contents:
           - text: "Slides"
             href: 07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.qmd
+      - section: "Reference"
+        contents:
+          - text: "Strings and regular expressions"
+            href: 10_resources/02_reference/strings_and_regex.qmd
+          - text: "Factors with forcats"
+            href: 10_resources/02_reference/factors_with_forcats.qmd
+          - text: "Dates with lubridate"
+            href: 10_resources/02_reference/dates_with_lubridate.qmd
 
 execute: 
   freeze: auto

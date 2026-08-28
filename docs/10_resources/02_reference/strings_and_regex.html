@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gabriel Mateus Bernardo Harrington">
 
-<title>Working with AI assistants – Data Science for Life Sciences I</title>
+<title>Strings and regular expressions – Data Science for Life Sciences I</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -65,28 +65,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-97e28f47ad423cfcb72627c3f906fd98.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-cc3c18167f497a7db7186a5f61be4120.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-97e28f47ad423cfcb72627c3f906fd98.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-cc3c18167f497a7db7186a5f61be4120.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -288,11 +288,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo light-content">
-    <img src="../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Data Science for Life Sciences I</span>
     </a>
   </div>
@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -325,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Working with AI assistants</a></li><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Reference</a></li><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Strings and regular expressions</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -339,9 +339,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -362,13 +362,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_llm_use/using_ai_assistants.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../00_llm_use/using_ai_assistants.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Guide</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_llm_use/met581_llm_demo_slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../00_llm_use/met581_llm_demo_slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -385,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../01_intro_to_r/MET581_lecture_01_slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../01_intro_to_r/MET581_lecture_01_slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -402,13 +402,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02_explore_r/MET581_lecture_02-Explore-R.html" class="sidebar-item-text sidebar-link">
+  <a href="../../02_explore_r/MET581_lecture_02-Explore-R.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02_explore_r/MET581-Lecture-02-Explore-R-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../02_explore_r/MET581-Lecture-02-Explore-R-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -425,19 +425,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -454,19 +454,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -483,19 +483,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -512,19 +512,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_Programming_in_R/met581_06_programming_in_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../06_Programming_in_R/met581_06_programming_in_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_Programming_in_R/met581_programming_in_r_workshop.html" class="sidebar-item-text sidebar-link">
+  <a href="../../06_Programming_in_R/met581_programming_in_r_workshop.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshop answers</span></a>
   </div>
 </li>
@@ -541,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -558,19 +558,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/strings_and_regex.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/strings_and_regex.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Strings and regular expressions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/factors_with_forcats.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/factors_with_forcats.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Factors with forcats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/dates_with_lubridate.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/dates_with_lubridate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dates with lubridate</span></a>
   </div>
 </li>
@@ -582,34 +582,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-short-version" id="toc-the-short-version" class="nav-link active" data-scroll-target="#the-short-version">The short version</a></li>
-  <li><a href="#why-this-matters-more-than-it-sounds" id="toc-why-this-matters-more-than-it-sounds" class="nav-link" data-scroll-target="#why-this-matters-more-than-it-sounds">Why this matters more than it sounds</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#what-is-a-string" id="toc-what-is-a-string" class="nav-link" data-scroll-target="#what-is-a-string">What is a string?</a></li>
+  <li><a href="#stringr" id="toc-stringr" class="nav-link" data-scroll-target="#stringr">stringr</a></li>
+  <li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link" data-scroll-target="#regular-expressions">Regular expressions</a>
   <ul class="collapse">
-  <li><a href="#the-argument-that-doesnt-exist" id="toc-the-argument-that-doesnt-exist" class="nav-link" data-scroll-target="#the-argument-that-doesnt-exist">The argument that doesn’t exist</a></li>
-  <li><a href="#the-factor-that-became-its-own-level-codes" id="toc-the-factor-that-became-its-own-level-codes" class="nav-link" data-scroll-target="#the-factor-that-became-its-own-level-codes">The factor that became its own level codes</a></li>
-  <li><a href="#the-join-that-quietly-duplicated-your-samples" id="toc-the-join-that-quietly-duplicated-your-samples" class="nav-link" data-scroll-target="#the-join-that-quietly-duplicated-your-samples">The join that quietly duplicated your samples</a></li>
-  <li><a href="#the-filter-that-silently-ate-your-missing-data" id="toc-the-filter-that-silently-ate-your-missing-data" class="nav-link" data-scroll-target="#the-filter-that-silently-ate-your-missing-data">The filter that silently ate your missing data</a></li>
+  <li><a href="#the-short-version" id="toc-the-short-version" class="nav-link" data-scroll-target="#the-short-version">The short version</a></li>
+  <li><a href="#matching-literal-text" id="toc-matching-literal-text" class="nav-link" data-scroll-target="#matching-literal-text">Matching literal text</a></li>
+  <li><a href="#character-classes" id="toc-character-classes" class="nav-link" data-scroll-target="#character-classes">Character classes</a></li>
+  <li><a href="#matching-any-character" id="toc-matching-any-character" class="nav-link" data-scroll-target="#matching-any-character">Matching any character</a></li>
+  <li><a href="#quantifiers" id="toc-quantifiers" class="nav-link" data-scroll-target="#quantifiers">Quantifiers</a></li>
+  <li><a href="#anchors" id="toc-anchors" class="nav-link" data-scroll-target="#anchors">Anchors</a></li>
   </ul></li>
-  <li><a href="#tutor-mode" id="toc-tutor-mode" class="nav-link" data-scroll-target="#tutor-mode">Tutor mode</a></li>
-  <li><a href="#prompting-for-r-specifically" id="toc-prompting-for-r-specifically" class="nav-link" data-scroll-target="#prompting-for-r-specifically">Prompting for R, specifically</a>
+  <li><a href="#basic-stringr-operations" id="toc-basic-stringr-operations" class="nav-link" data-scroll-target="#basic-stringr-operations">Basic stringr operations</a>
   <ul class="collapse">
-  <li><a href="#give-it-your-data-not-your-description-of-your-data" id="toc-give-it-your-data-not-your-description-of-your-data" class="nav-link" data-scroll-target="#give-it-your-data-not-your-description-of-your-data">1. Give it your data, not your description of your data</a></li>
-  <li><a href="#constrain-the-answer" id="toc-constrain-the-answer" class="nav-link" data-scroll-target="#constrain-the-answer">2. Constrain the answer</a></li>
-  <li><a href="#ask-it-to-argue-with-itself" id="toc-ask-it-to-argue-with-itself" class="nav-link" data-scroll-target="#ask-it-to-argue-with-itself">3. Ask it to argue with itself</a></li>
-  <li><a href="#trust-the-docs-over-the-model" id="toc-trust-the-docs-over-the-model" class="nav-link" data-scroll-target="#trust-the-docs-over-the-model">4. Trust the docs over the model</a></li>
-  <li><a href="#notice-what-it-doesnt-do" id="toc-notice-what-it-doesnt-do" class="nav-link" data-scroll-target="#notice-what-it-doesnt-do">5. Notice what it doesn’t do</a></li>
+  <li><a href="#string-length-and-counts" id="toc-string-length-and-counts" class="nav-link" data-scroll-target="#string-length-and-counts">String length and counts</a></li>
+  <li><a href="#concatenating-strings" id="toc-concatenating-strings" class="nav-link" data-scroll-target="#concatenating-strings">Concatenating strings</a></li>
   </ul></li>
-  <li><a href="#optional-wiring-an-assistant-into-your-r-session" id="toc-optional-wiring-an-assistant-into-your-r-session" class="nav-link" data-scroll-target="#optional-wiring-an-assistant-into-your-r-session">Optional: wiring an assistant into your R session</a>
+  <li><a href="#manipulating-strings" id="toc-manipulating-strings" class="nav-link" data-scroll-target="#manipulating-strings">Manipulating strings</a>
   <ul class="collapse">
-  <li><a href="#level-1-btw" id="toc-level-1-btw" class="nav-link" data-scroll-target="#level-1-btw">Level 1 — <code>btw</code></a></li>
-  <li><a href="#level-2-mcptools" id="toc-level-2-mcptools" class="nav-link" data-scroll-target="#level-2-mcptools">Level 2 — <code>mcptools</code></a></li>
-  <li><a href="#the-catch-which-is-real" id="toc-the-catch-which-is-real" class="nav-link" data-scroll-target="#the-catch-which-is-real">The catch, which is real</a></li>
+  <li><a href="#extracting-and-replacing" id="toc-extracting-and-replacing" class="nav-link" data-scroll-target="#extracting-and-replacing">Extracting and replacing</a></li>
+  <li><a href="#detecting-and-viewing" id="toc-detecting-and-viewing" class="nav-link" data-scroll-target="#detecting-and-viewing">Detecting and viewing</a></li>
+  <li><a href="#splitting-and-sorting" id="toc-splitting-and-sorting" class="nav-link" data-scroll-target="#splitting-and-sorting">Splitting and sorting</a></li>
+  <li><a href="#changing-case" id="toc-changing-case" class="nav-link" data-scroll-target="#changing-case">Changing case</a></li>
   </ul></li>
-  <li><a href="#whats-fine-and-what-isnt" id="toc-whats-fine-and-what-isnt" class="nav-link" data-scroll-target="#whats-fine-and-what-isnt">What’s fine and what isn’t</a></li>
-  <li><a href="#declaring-what-you-used" id="toc-declaring-what-you-used" class="nav-link" data-scroll-target="#declaring-what-you-used">Declaring what you used</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/00_llm_use/using_ai_assistants.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/10_resources/02_reference/strings_and_regex.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -619,10 +619,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Working with AI assistants</a></li><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Guide</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Reference</a></li><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Strings and regular expressions</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Working with AI assistants</h1>
-<p class="subtitle lead">How to use LLMs on this module without wasting the module</p>
+<h1 class="title">Strings and regular expressions</h1>
+<p class="subtitle lead">Reference material — not covered in the taught sessions</p>
 </div>
 
 
@@ -645,312 +645,331 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="the-short-version" class="level2">
-<h2 class="anchored" data-anchor-id="the-short-version">The short version</h2>
-<p>You may use AI assistants on this module. There is no ban, and I’m not interested in policing it.</p>
-<p>But: <strong>the market rate for “can ask a model for R code” is zero</strong>, because everyone can do that. Your value — in the rest of this MSc, in your project, and in a job — is in being able to look at generated code and know whether it’s right. That capability is built by writing R, not by reading R.</p>
-<p>So the deal is:</p>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Attempt → ask → diff
+<div class="callout-body-container">
+<p>This page is <strong>reference material</strong>. It is not taught in a session and you will not be assessed on the details of regular expressions.</p>
+<p>It is here because real data is full of messy text — inconsistent column names, identifiers with mixed separators, categories typed five different ways — and <code>stringr</code> is how you deal with that in the tidyverse. Come back to it when you hit that problem in the report.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>Attempt</strong> it yourself first.</li>
-<li><strong>Ask</strong> if you’re stuck.</li>
-<li><strong>Diff</strong> — compare what you wrote to what you were given, and work out <em>why</em> they differ.</li>
-</ol>
 </div>
-</div>
-<p>Step 3 is where learning happens and it’s the one everybody skips.</p>
-</section>
-<section id="why-this-matters-more-than-it-sounds" class="level2">
-<h2 class="anchored" data-anchor-id="why-this-matters-more-than-it-sounds">Why this matters more than it sounds</h2>
-<p>Here is R code of the kind an assistant will cheerfully produce. It does not error. It returns numbers of the right shape and a plausible size. It is wrong.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="the-argument-that-doesnt-exist" class="level3">
-<h3 class="anchored" data-anchor-id="the-argument-that-doesnt-exist">The argument that doesn’t exist</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">na.omit =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-</div>
-<p><code>na.omit</code> is not an argument to <code>mean()</code>. It was absorbed by <code>...</code> and ignored. The argument is <code>na.rm</code>. No warning was issued.</p>
+<p><code>words</code> and <code>sentences</code> used below are small example datasets that ship with <code>stringr</code>, so they are available as soon as it is loaded.</p>
 </section>
-<section id="the-factor-that-became-its-own-level-codes" class="level3">
-<h3 class="anchored" data-anchor-id="the-factor-that-became-its-own-level-codes">The factor that became its own level codes</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"10"</span>, <span class="st">"20"</span>, <span class="st">"5"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3</code></pre>
-</div>
-</div>
-<p><code>1 2 3</code> — the internal level codes, not your data. You need <code>as.numeric(as.character(counts))</code>. This class of bug has reached publication more than once.</p>
+<section id="what-is-a-string" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-string">What is a string?</h2>
+<ul>
+<li>Strings are a sequence of characters, which has to be represented in memory in binary.</li>
+<li>This was first widely done using ASCII (American Standard Code for Information Interchange).</li>
+<li>But ASCII only allows for 128 characters, so nowhere near enough for all languages.</li>
+<li>We now represent strings using Unicode (which didn’t appear in its current form until the 90s), which allows for a lot — more than a million — characters.</li>
+<li>UTF-8 is the most common encoding for Unicode. It uses a variable number of 8-bit units to represent characters.</li>
+<li>R uses UTF-8 by default (though it will report the label “unknown” unless non-ASCII characters appear), and <code>stringr</code> fully supports Unicode.</li>
+</ul>
 </section>
-<section id="the-join-that-quietly-duplicated-your-samples" class="level3">
-<h3 class="anchored" data-anchor-id="the-join-that-quietly-duplicated-your-samples">The join that quietly duplicated your samples</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">sample =</span> <span class="fu">c</span>(<span class="st">"s1"</span>, <span class="st">"s2"</span>, <span class="st">"s3"</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pheno   <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">measure =</span> <span class="fu">c</span>(<span class="fl">4.1</span>, <span class="fl">9.9</span>, <span class="fl">5.2</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(samples, pheno, <span class="at">by =</span> <span class="st">"id"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">before =</span> <span class="fu">nrow</span>(samples), <span class="at">after =</span> <span class="fu">nrow</span>(joined))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>before  after 
-     3      4 </code></pre>
-</div>
-</div>
-<p>Three rows in, four out, because <code>id == 1</code> was duplicated in <code>pheno</code>. Every mean you compute downstream is now wrong. <strong>Check <code>nrow()</code> before and after every join</strong> — an assistant will rarely do this for you.</p>
+<section id="stringr" class="level2">
+<h2 class="anchored" data-anchor-id="stringr">stringr</h2>
+<ul>
+<li>Removes inconsistencies found in base R.</li>
+<li>Built on top of the <code>stringi</code> package.</li>
+<li>Starts all functions with <code>str_</code>, so autocomplete is genuinely useful.</li>
+<li>More advanced use requires regular expressions.</li>
+</ul>
 </section>
-<section id="the-filter-that-silently-ate-your-missing-data" class="level3">
-<h3 class="anchored" data-anchor-id="the-filter-that-silently-ate-your-missing-data">The filter that silently ate your missing data</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>), <span class="at">value =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">filter</span>(group <span class="sc">!=</span> <span class="st">"a"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  group value
-  &lt;chr&gt; &lt;int&gt;
-1 b         2</code></pre>
-</div>
-</div>
-<p>One row, not two — <code>NA != "a"</code> evaluates to <code>NA</code>, and <code>filter()</code> keeps only <code>TRUE</code>. If you wanted the missing group kept: <code>filter(group != "a" | is.na(group))</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There are more of these in the session 3 slides. The common thread is that <strong>none of them error</strong>. Code that crashes is a minor annoyance; code that returns a confident wrong number is how bad science happens — and you cannot spot any of them without understanding factors, <code>NA</code> semantics, and joins.</p>
-<p>That understanding is what this module is for.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="tutor-mode" class="level2">
-<h2 class="anchored" data-anchor-id="tutor-mode">Tutor mode</h2>
-<p>The most useful thing you can do is stop your assistant from answering so fast.</p>
-<p>There’s a paste-in prompt in <a href="r_tutor_prompt.md"><code>r_tutor_prompt.md</code></a> that reconfigures any assistant into something closer to a good lab demonstrator: it asks what you’ve tried, gives you the smallest useful hint rather than the solution, makes you predict output before showing it, and caps how much code it writes unasked. It has an escape hatch for when you’re genuinely out of time.</p>
-<p>Tool-specific versions:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Tool</th>
-<th>File</th>
-<th>Where it goes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Any chat assistant</td>
-<td><code>r_tutor_prompt.md</code></td>
-<td>Custom instructions / project instructions / first message</td>
-</tr>
-<tr class="even">
-<td>Claude Code</td>
-<td><code>skills/r-tutor/SKILL.md</code></td>
-<td><code>~/.claude/skills/r-tutor/SKILL.md</code></td>
-</tr>
-<tr class="odd">
-<td>A project folder</td>
-<td><code>CLAUDE.md.example</code></td>
-<td>Save as <code>CLAUDE.md</code> in your coursework folder</td>
-</tr>
-</tbody>
-</table>
-<p>You can defeat all of this by opening a different tab, and I know that. It isn’t a fence. It’s there for the days when you’d rather learn the thing.</p>
-</section>
-<section id="prompting-for-r-specifically" class="level2">
-<h2 class="anchored" data-anchor-id="prompting-for-r-specifically">Prompting for R, specifically</h2>
-<section id="give-it-your-data-not-your-description-of-your-data" class="level3">
-<h3 class="anchored" data-anchor-id="give-it-your-data-not-your-description-of-your-data">1. Give it your data, not your description of your data</h3>
-<p>Most bad generated R comes from the model guessing at your data’s shape. Don’t make it guess:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(<span class="fu">head</span>(df, <span class="dv">5</span>))   <span class="co"># a reproducible copy of your data - paste this</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Then add what <code>str()</code> can’t show:</p>
+<section id="regular-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="regular-expressions">Regular expressions</h2>
+<p>As quoted by <a href="http://r4ds.had.co.nz/strings.html">R for Data Science, 1st edition</a>:</p>
 <blockquote class="blockquote">
-<p>“A row is one participant-visit, so IDs repeat. <code>measure</code> is mg/dL. <code>-99</code> means missing in <code>age</code>.”</p>
+<p><em>“When you first look at a regexp, you’ll think a cat walked across your keyboard, but as your understanding improves they will soon start to make sense.”</em></p>
 </blockquote>
-<p>That one sentence prevents the duplicated-join bug above.</p>
-<p>Better still, let R do it. The <a href="https://posit-dev.github.io/btw/"><code>btw</code></a> package hands your live session — real data frames, real package versions, real help pages — to an assistant:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"btw"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(btw)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">btw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Also worth your time: <a href="https://ellmer.tidyverse.org/"><code>ellmer</code></a> for calling models from R, and the assistant built into <a href="https://positron.posit.co/">Positron</a>.</p>
+<p>If you’ve read about regex before, you will also have come across:</p>
+<blockquote class="blockquote">
+<p><em>“Some people, when confronted with a problem, think ‘I know, I’ll use regular expressions.’ Now they have two problems.”</em></p>
+</blockquote>
+<section id="the-short-version" class="level3">
+<h3 class="anchored" data-anchor-id="the-short-version">The short version</h3>
+<ul>
+<li>They allow you to match patterns in strings.</li>
+<li>The most basic form matches an actual chunk of text, e.g.&nbsp;<code>hag</code> in <code>hagrid</code>.</li>
+<li>Match classes of character with <code>\s</code>, <code>\d</code>, <code>\w</code>, <code>[abc]</code> and <code>[^abc]</code>.</li>
+<li><strong>Because we’re in R, you have to write <code>\\</code> instead of <code>\</code></strong> — so <code>\\w</code>, <code>\\d</code>. This catches everybody at least once.</li>
+<li>Match any character at all with <code>.</code>.</li>
+<li>Expand a match with <code>?</code>, <code>+</code>, <code>*</code> or <code>{n,m}</code>.</li>
+<li>Anchor it to the start with <code>^</code> or the end with <code>$</code>.</li>
+<li>So <code>^\\w+_\\d{4}$</code> matches <code>"hagrid_2020"</code> but not <code>"hagrid_120"</code>.</li>
+</ul>
+<p>The rest of this section works through each of those on one example vector.</p>
 </section>
-<section id="constrain-the-answer" class="level3">
-<h3 class="anchored" data-anchor-id="constrain-the-answer">2. Constrain the answer</h3>
-<p>Vague question, average answer.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<section id="matching-literal-text" class="level3">
+<h3 class="anchored" data-anchor-id="matching-literal-text">Matching literal text</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_string <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Hagrid'</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Hermione'</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Harry.Potter'</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">'Ronald_Weasley'</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">'24xHouse Elves'</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'Hag'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="character-classes" class="level3">
+<h3 class="anchored" data-anchor-id="character-classes">Character classes</h3>
+<p>Match types of character with <code>\\w</code> (word), <code>\\d</code> (digit) and <code>\\s</code> (whitespace).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_string</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hagrid"         "Hermione"       "Harry.Potter"   "Ronald_Weasley"
+[5] "24xHouse Elves"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'</span><span class="sc">\\</span><span class="st">w'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE TRUE TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'</span><span class="sc">\\</span><span class="st">d'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'</span><span class="sc">\\</span><span class="st">s'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="matching-any-character" class="level3">
+<h3 class="anchored" data-anchor-id="matching-any-character">Matching any character</h3>
+<p><code>.</code> matches anything, which is why it matches every element here.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'.'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE TRUE TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+</section>
+<section id="quantifiers" class="level3">
+<h3 class="anchored" data-anchor-id="quantifiers">Quantifiers</h3>
+<p><code>?</code>, <code>+</code>, <code>*</code> and <code>{n,m}</code> control how many times the preceding pattern may repeat.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'</span><span class="sc">\\</span><span class="st">w+'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE TRUE TRUE TRUE TRUE</code></pre>
+</div>
+</div>
+<p>Note the difference <code>[xyz]</code> versus <code>[^xyz]</code> makes — the second negates the class.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'</span><span class="sc">\\</span><span class="st">d{2}[xyz]</span><span class="sc">\\</span><span class="st">w+</span><span class="sc">\\</span><span class="st">s?</span><span class="sc">\\</span><span class="st">w+'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE  TRUE</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'</span><span class="sc">\\</span><span class="st">d{2}[^xyz]</span><span class="sc">\\</span><span class="st">w+</span><span class="sc">\\</span><span class="st">s?</span><span class="sc">\\</span><span class="st">w+'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="anchors" class="level3">
+<h3 class="anchored" data-anchor-id="anchors">Anchors</h3>
+<p><code>^</code> anchors to the start of the string, <code>$</code> to the end. Anchoring is usually what turns a pattern that <em>nearly</em> works into one that does.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'^H</span><span class="sc">\\</span><span class="st">w+$'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'^Hag$'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE FALSE FALSE FALSE FALSE</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="basic-stringr-operations" class="level2">
+<h2 class="anchored" data-anchor-id="basic-stringr-operations">Basic stringr operations</h2>
+<section id="string-length-and-counts" class="level3">
+<h3 class="anchored" data-anchor-id="string-length-and-counts">String length and counts</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of characters in each string</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_length</span>(my_string)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  6  8 12 14 14</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># number of matches within each string</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_count</span>(my_string, <span class="st">'Ha'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 0 1 0 0</code></pre>
+</div>
+</div>
+</section>
+<section id="concatenating-strings" class="level3">
+<h3 class="anchored" data-anchor-id="concatenating-strings">Concatenating strings</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_c</span>(<span class="st">'this'</span>, <span class="st">'that'</span>, <span class="at">sep =</span> <span class="st">', '</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "this, that"</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="manipulating-strings" class="level2">
+<h2 class="anchored" data-anchor-id="manipulating-strings">Manipulating strings</h2>
+<section id="extracting-and-replacing" class="level3">
+<h3 class="anchored" data-anchor-id="extracting-and-replacing">Extracting and replacing</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract substrings by position</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sub</span>(my_string, <span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hag" "Her" "Har" "Ron" "24x"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># replace the first match in each string</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(my_string, <span class="st">'[</span><span class="sc">\\</span><span class="st">._x]'</span>, <span class="st">' '</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hagrid"         "Hermione"       "Harry Potter"   "Ronald Weasley"
+[5] "24 House Elves"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Weak
+<div class="callout-body-container">
+<p><code>str_replace()</code> replaces only the <strong>first</strong> match in each string. <code>str_replace_all()</code> replaces every match. Picking the wrong one is a quiet bug of exactly the kind this module keeps warning you about — it will not error.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p>“How do I summarise this data?”</p>
 </div>
-</div>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Better
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>“Using dplyr only, no new packages: mean and SD of <code>measure</code> by <code>treatment_group</code>. Keep groups with fewer than 5 observations visible rather than dropping them. Tell me what happens to <code>NA</code>s in <code>measure</code>.”</p>
-</div>
-</div>
-<p>The second names the tools, the output <em>and the edge case you’re worried about</em>. Being precise about edge cases is most of the skill.</p>
 </section>
-<section id="ask-it-to-argue-with-itself" class="level3">
-<h3 class="anchored" data-anchor-id="ask-it-to-argue-with-itself">3. Ask it to argue with itself</h3>
-<p>Models are much better at criticising code than at writing it correctly first time. Exploit that:</p>
-<ul>
-<li>“What assumptions did you make about my data?”</li>
-<li>“How could this fail? Give me three ways.”</li>
-<li>“What would you check to prove this worked?”</li>
-<li>“Is there a tidyverse function that already does this?”</li>
-<li>“You used <code>sapply()</code> — what happens if the results have different lengths?”</li>
-</ul>
-</section>
-<section id="trust-the-docs-over-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="trust-the-docs-over-the-model">4. Trust the docs over the model</h3>
-<p>If an assistant tells you an argument exists, <code>?function_name</code> will tell you whether it does. That check takes three seconds and models hallucinate tidyverse arguments constantly.</p>
-</section>
-<section id="notice-what-it-doesnt-do" class="level3">
-<h3 class="anchored" data-anchor-id="notice-what-it-doesnt-do">5. Notice what it doesn’t do</h3>
-<p>Assistants almost never volunteer: row counts around joins, <code>NA</code> handling, checking whether a column is really the type you think, plotting the data before modelling it. Those omissions are yours to catch.</p>
-</section>
-</section>
-<section id="optional-wiring-an-assistant-into-your-r-session" class="level2">
-<h2 class="anchored" data-anchor-id="optional-wiring-an-assistant-into-your-r-session">Optional: wiring an assistant into your R session</h2>
-<div class="callout callout-style-simple callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Leave this one until later
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Everything in this section is <strong>optional and unsupported</strong>. I can’t debug it for you in a lab session, and on a managed university laptop it may not be permitted at all. Come back to it once you can write R unaided. It’s documented here because it exists and you’d find it anyway — not because you need it to pass.</p>
-</div>
-</div>
-<p>Look again at the four broken examples near the top of this page. They fail for one shared reason: <strong>the model was guessing at your data.</strong> It had no way to know that <code>pheno</code> contained a duplicated <code>id</code>, that <code>group</code> held an <code>NA</code>, or that <code>counts</code> was a factor rather than a number.</p>
-<p>You can’t prompt your way out of that. The structural fix is to stop making it guess.</p>
-<section id="level-1-btw" class="level3">
-<h3 class="anchored" data-anchor-id="level-1-btw">Level 1 — <code>btw</code></h3>
-<p>The lower-friction option, and the one to try first. <a href="https://posit-dev.github.io/btw/"><code>btw</code></a> collects context from your live R session — the actual structure of your data frames, your installed package versions, help pages — and puts it on the clipboard for you to paste into any assistant.</p>
+<section id="detecting-and-viewing" class="level3">
+<h3 class="anchored" data-anchor-id="detecting-and-viewing">Detecting and viewing</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"btw"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(btw)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">btw</span>()          <span class="co"># describes your session and environment</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">btw</span>(pheno)     <span class="co"># describes one specific object</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a logical vector - the tidyverse alternative to grepl()</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(my_string, <span class="st">'Hagrid'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  TRUE FALSE FALSE FALSE FALSE</code></pre>
 </div>
-<p>No configuration, no editing JSON files, and it works with a plain chat window. For most people this is the whole benefit at a fraction of the effort.</p>
-</section>
-<section id="level-2-mcptools" class="level3">
-<h3 class="anchored" data-anchor-id="level-2-mcptools">Level 2 — <code>mcptools</code></h3>
-<p><a href="https://posit-dev.github.io/mcptools/"><code>mcptools</code></a> goes further: it lets an assistant <em>run code</em> in your live R session, so it can inspect objects and read help pages itself rather than being told about them.</p>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mcptools"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># shows you what your pattern actually matched</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(my_string, <span class="st">'^</span><span class="sc">\\</span><span class="st">w'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] │ &lt;H&gt;agrid
+[2] │ &lt;H&gt;ermione
+[3] │ &lt;H&gt;arry.Potter
+[4] │ &lt;R&gt;onald_Weasley
+[5] │ &lt;2&gt;4xHouse Elves</code></pre>
 </div>
-<p>Then register your R session so an assistant can find it. Adding it to your <code>.Rprofile</code> means every session registers automatically:</p>
+</div>
+<p><code>str_view()</code> is the single most useful debugging tool here. When a pattern isn’t working, look at what it <em>is</em> matching before changing it.</p>
+</section>
+<section id="splitting-and-sorting" class="level3">
+<h3 class="anchored" data-anchor-id="splitting-and-sorting">Splitting and sorting</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_profile</span>()   <span class="co"># then add the line below to that file</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mcptools<span class="sc">::</span><span class="fu">mcp_session</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="sc">|&gt;</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">" "</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "The"     "birch"   "canoe"   "slid"    "on"      "the"     "smooth" 
+[8] "planks."</code></pre>
 </div>
-<p>Finally, point your assistant at R. For Claude Code, one command:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> mcp add <span class="at">-s</span> <span class="st">"user"</span> r-mcptools <span class="at">--</span> Rscript <span class="at">-e</span> <span class="st">"mcptools::mcp_server()"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>For Claude Desktop and most other MCP clients, add this to the client’s config file instead:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"r-mcptools"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"Rscript"</span><span class="fu">,</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-e"</span><span class="ot">,</span> <span class="st">"mcptools::mcp_server()"</span><span class="ot">]</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Restart both R and the assistant afterwards.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_sort</span>(words[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>], <span class="at">locale =</span> <span class="st">'en'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "a"        "able"     "about"    "absolute" "accept"   "account" 
+ [7] "achieve"  "across"   "act"      "active"  </code></pre>
+</div>
+</div>
+<p>Always set <code>locale</code> when sorting. Sort order is language-dependent, and leaving it implicit makes your results depend on the machine they ran on — which is exactly what reproducibility is meant to rule out.</p>
 </section>
-<section id="the-catch-which-is-real" class="level3">
-<h3 class="anchored" data-anchor-id="the-catch-which-is-real">The catch, which is real</h3>
-<p>Two things to be honest about.</p>
-<p><strong>This makes it much easier to skip step 1.</strong> An assistant that can see your data and run your code is a very short path from “I have a problem” to “I have an answer”, and <em>attempt → ask → diff</em> only works if you actually attempt. Pair this with <a href="#tutor-mode">tutor mode</a> or you have simply built yourself a faster way to not learn R.</p>
-<p><strong>A better-informed assistant is more convincingly wrong.</strong> Session access removes one whole category of error — the invented column, the misjudged data shape. It removes none of the others. It will not tell you that a t-test was the wrong choice, that your groups aren’t independent, or that the effect you found is an artefact of how you filtered. Those are the judgements the report is marked on, and they are still entirely yours.</p>
+<section id="changing-case" class="level3">
+<h3 class="anchored" data-anchor-id="changing-case">Changing case</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_upper</span>(words[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "A"        "ABLE"     "ABOUT"    "ABSOLUTE" "ACCEPT"   "ACCOUNT" 
+ [7] "ACHIEVE"  "ACROSS"   "ACT"      "ACTIVE"  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(words[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "a"        "able"     "about"    "absolute" "accept"   "account" 
+ [7] "achieve"  "across"   "act"      "active"  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_sentence</span>(words[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "A"        "Able"     "About"    "Absolute" "Accept"   "Account" 
+ [7] "Achieve"  "Across"   "Act"      "Active"  </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_title</span>(words[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "A"        "Able"     "About"    "Absolute" "Accept"   "Account" 
+ [7] "Achieve"  "Across"   "Act"      "Active"  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_sentence</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The birch canoe slid on the smooth planks."</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sentences <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_title</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The Birch Canoe Slid On The Smooth Planks."</code></pre>
+</div>
+</div>
 </section>
 </section>
-<section id="whats-fine-and-what-isnt" class="level2">
-<h2 class="anchored" data-anchor-id="whats-fine-and-what-isnt">What’s fine and what isn’t</h2>
-<p><strong>Fine — genuinely, use the tools:</strong></p>
+<section id="practice" class="level2">
+<h2 class="anchored" data-anchor-id="practice">Practice</h2>
+<p>If you want to work through this material rather than just read it:</p>
+<p><strong>Concatenating and replacing</strong></p>
 <ul>
-<li>Explaining an error you can’t parse</li>
-<li>“What does this function do?”</li>
-<li>Debugging code <em>you</em> wrote</li>
-<li>Sanity-checking your interpretation of a result</li>
-<li>Improving your writing</li>
-<li>Finding out what packages exist for a problem</li>
+<li>Concatenate the strings <code>"day to"</code> and <code>"day"</code>, separated by a hyphen.</li>
+<li>Using <code>starwars</code>: select the <code>hair_color</code> column and replace <code>', '</code> with <code>'/'</code>. Hint: pipe a column into <code>pull()</code> to get a vector for <code>stringr</code> to work on.</li>
+<li>Using <code>flights</code>: select the columns ending in <code>delay</code> and remove the underscore from those column names.</li>
 </ul>
-<p><strong>Not fine in assessed work:</strong></p>
+<p><strong>Splitting</strong></p>
 <ul>
-<li>Generating the analysis code you submit</li>
-<li>Having it choose your statistical approach</li>
-<li>Having it write your interpretation</li>
+<li>Split <code>"Harry, did you put your name in the Goblet of Fire?"</code> into its components.</li>
+<li>Use <code>boundary("word")</code> instead of <code>" "</code> and compare the results.</li>
+<li>Using the fifth line of <code>sentences</code>: split by word boundary, convert to lowercase and sort. Hint: <code>unlist()</code>.</li>
 </ul>
-<p>This isn’t about purity. The 2000-word report is explicitly marked on <strong>defending your analytical choices and methodological approach</strong> (MLO-5). You cannot defend a choice you didn’t make, and the attempt is transparent from the outside.</p>
-<p>If you’re unsure whether something crosses a line, ask me. Asking is never the wrong move.</p>
-</section>
-<section id="declaring-what-you-used" class="level2">
-<h2 class="anchored" data-anchor-id="declaring-what-you-used">Declaring what you used</h2>
-<p>For the summative report, you’ll be asked for a short <strong>process appendix</strong> — a few hundred words, unmarked for style:</p>
+<p><strong>Case</strong></p>
 <ul>
-<li>what you used an assistant for</li>
-<li>one thing it got wrong or that you rejected, and how you spotted it</li>
-<li>what you changed and why</li>
+<li>Using <code>starwars</code>: convert <code>hair_color</code> values to Sentence case, and all column names to Title Case.</li>
+<li>Using <code>gapminder</code>: remove any camelCase from the column names (all to lower case), and convert the <code>continent</code> values to upper case.</li>
 </ul>
-<p>This is not a confession. Honest, specific answers here demonstrate exactly the evaluative skill the module is teaching, and “I used it to debug my <code>pivot_longer()</code> call and it suggested a column that didn’t exist” is a better answer than “I didn’t use it”.</p>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
 <ul>
-<li><a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a> — still the best answer to most R questions</li>
-<li><a href="https://posit-dev.github.io/btw/"><code>btw</code></a> — give an assistant your R session</li>
-<li><a href="https://ellmer.tidyverse.org/"><code>ellmer</code></a> — LLMs from R</li>
-<li><a href="https://posit-dev.github.io/mcptools/"><code>mcptools</code></a> — let an assistant run code in your live R session (optional, see above)</li>
-<li><code>?function_name</code> — faster than asking, and always correct</li>
+<li><a href="https://r4ds.hadley.nz/">R for Data Science 2e</a>, chapters 14 and 15</li>
+<li>The <a href="https://stringr.tidyverse.org/"><code>stringr</code> documentation</a>, and <code>vignette("regular-expressions", package = "stringr")</code></li>
+<li><a href="https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/">This blog post</a> by Joel Spolsky on Unicode and character sets</li>
+<li><a href="https://regex101.com/">regex101.com</a> — build and test a pattern interactively, with an explanation of each part. Remember to double your backslashes when you bring the pattern back into R.</li>
 </ul>
 
 
@@ -1375,4 +1394,4 @@ Note
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/00_llm_use/using_ai_assistants.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/10_resources/02_reference/strings_and_regex.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

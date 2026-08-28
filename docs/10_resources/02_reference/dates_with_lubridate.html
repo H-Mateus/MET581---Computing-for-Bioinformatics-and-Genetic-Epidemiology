@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Matthew Bracher-Smith">
-<meta name="dcterms.date" content="2024-10-18">
+<meta name="author" content="Gabriel Mateus Bernardo Harrington">
 
-<title>Wrangling Data 2 Homework Answers – Data Science for Life Sciences I</title>
+<title>Dates with lubridate – Data Science for Life Sciences I</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -66,28 +65,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-97e28f47ad423cfcb72627c3f906fd98.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-cc3c18167f497a7db7186a5f61be4120.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-97e28f47ad423cfcb72627c3f906fd98.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-cc3c18167f497a7db7186a5f61be4120.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -117,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -289,11 +288,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo light-content">
-    <img src="../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Data Science for Life Sciences I</span>
     </a>
   </div>
@@ -304,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -326,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Wrangling Data 2 Homework Answers</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Reference</a></li><li class="breadcrumb-item"><a href="../../10_resources/02_reference/dates_with_lubridate.html">Dates with lubridate</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -340,9 +339,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -363,13 +362,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_llm_use/using_ai_assistants.html" class="sidebar-item-text sidebar-link">
+  <a href="../../00_llm_use/using_ai_assistants.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Guide</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_llm_use/met581_llm_demo_slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../00_llm_use/met581_llm_demo_slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -386,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../01_intro_to_r/MET581_lecture_01_slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../01_intro_to_r/MET581_lecture_01_slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -403,13 +402,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02_explore_r/MET581_lecture_02-Explore-R.html" class="sidebar-item-text sidebar-link">
+  <a href="../../02_explore_r/MET581_lecture_02-Explore-R.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02_explore_r/MET581-Lecture-02-Explore-R-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../02_explore_r/MET581-Lecture-02-Explore-R-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -426,19 +425,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -455,19 +454,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -484,19 +483,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -513,19 +512,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_Programming_in_R/met581_06_programming_in_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../06_Programming_in_R/met581_06_programming_in_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_Programming_in_R/met581_programming_in_r_workshop.html" class="sidebar-item-text sidebar-link">
+  <a href="../../06_Programming_in_R/met581_programming_in_r_workshop.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshop answers</span></a>
   </div>
 </li>
@@ -542,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -559,19 +558,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/strings_and_regex.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/strings_and_regex.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Strings and regular expressions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/factors_with_forcats.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/factors_with_forcats.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Factors with forcats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/dates_with_lubridate.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/dates_with_lubridate.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Dates with lubridate</span></a>
   </div>
 </li>
@@ -579,28 +578,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
     </ul>
     </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#explain-how-escapes-work-in-r." id="toc-explain-how-escapes-work-in-r." class="nav-link active" data-scroll-target="#explain-how-escapes-work-in-r."><span class="header-section-number">1</span> 1. Explain how escapes work in R.</a></li>
-  <li><a href="#list-and-describe-the-tidyverse-commands-used-to-join-two-datasets-together." id="toc-list-and-describe-the-tidyverse-commands-used-to-join-two-datasets-together." class="nav-link" data-scroll-target="#list-and-describe-the-tidyverse-commands-used-to-join-two-datasets-together."><span class="header-section-number">2</span> 2. List and describe the tidyverse commands used to join two datasets together.</a></li>
-  <li><a href="#load-the-nycflights13-package-and-join-the-datasets-flights-and-airlines-together-selecting-only-the-columns-year-month-day-hour-origin-tailnum-and-carrier-from-flights.-can-you-do-the-same-but-using-the-mutate-function-instead" id="toc-load-the-nycflights13-package-and-join-the-datasets-flights-and-airlines-together-selecting-only-the-columns-year-month-day-hour-origin-tailnum-and-carrier-from-flights.-can-you-do-the-same-but-using-the-mutate-function-instead" class="nav-link" data-scroll-target="#load-the-nycflights13-package-and-join-the-datasets-flights-and-airlines-together-selecting-only-the-columns-year-month-day-hour-origin-tailnum-and-carrier-from-flights.-can-you-do-the-same-but-using-the-mutate-function-instead"><span class="header-section-number">3</span> 3. Load the nycflights13 package and join the datasets flights and airlines together, selecting only the columns: <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code>, <code>tailnum</code> and <code>carrier</code> from flights. Can you do the same but using the mutate() function instead?</a></li>
-  <li><a href="#in-the-starwars-dataset-and-in-one-command-add-two-new-columns" id="toc-in-the-starwars-dataset-and-in-one-command-add-two-new-columns" class="nav-link" data-scroll-target="#in-the-starwars-dataset-and-in-one-command-add-two-new-columns"><span class="header-section-number">4</span> 4. In the starwars dataset and in one command, add two new columns:</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#how-dates-work-in-r" id="toc-how-dates-work-in-r" class="nav-link" data-scroll-target="#how-dates-work-in-r">How dates work in R</a></li>
+  <li><a href="#introduction-to-lubridate" id="toc-introduction-to-lubridate" class="nav-link" data-scroll-target="#introduction-to-lubridate">Introduction to lubridate</a>
+  <ul class="collapse">
+  <li><a href="#parsing-and-extracting" id="toc-parsing-and-extracting" class="nav-link" data-scroll-target="#parsing-and-extracting">Parsing and extracting</a></li>
+  <li><a href="#intervals-and-durations" id="toc-intervals-and-durations" class="nav-link" data-scroll-target="#intervals-and-durations">Intervals and durations</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework-Answers.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/10_resources/02_reference/dates_with_lubridate.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Reference</a></li><li class="breadcrumb-item"><a href="../../10_resources/02_reference/dates_with_lubridate.html">Dates with lubridate</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Wrangling Data 2 Homework Answers</h1>
+<h1 class="title">Dates with lubridate</h1>
+<p class="subtitle lead">Reference material — not covered in the taught sessions</p>
 </div>
 
 
@@ -610,16 +615,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Matthew Bracher-Smith </p>
+             <p>Gabriel Mateus Bernardo Harrington </p>
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">October 18, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -629,114 +628,130 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This document contains all questions for lesson 4. Please create a quarto document containing all text, code and output used to answer the questions.</p>
-<section id="explain-how-escapes-work-in-r." class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="explain-how-escapes-work-in-r."><span class="header-section-number">1</span> 1. Explain how escapes work in R.</h2>
-<p>Anything along the lines of:</p>
-<ul>
-<li>you need to escape the string and the regex within R function. Students may also have written along the lines of ‘You need to use <code>\\</code> for each escape because of the use of special characters (eg a backslash itself <code>\</code>)’.</li>
-</ul>
-</section>
-<section id="list-and-describe-the-tidyverse-commands-used-to-join-two-datasets-together." class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="list-and-describe-the-tidyverse-commands-used-to-join-two-datasets-together."><span class="header-section-number">2</span> 2. List and describe the tidyverse commands used to join two datasets together.</h2>
-<p>left_join :</p>
-<ul>
-<li>All rows from dataset1</li>
-<li>All columns from dataset1 and dataset2</li>
-<li>If a row exists only in dataset1, data is retained.</li>
-<li>If a row exists only in dataset2, data is not retained.</li>
-</ul>
-<p>right_join:</p>
-<ul>
-<li>all rows from dataset2</li>
-<li>all columns from dataset1 and dataset2</li>
-<li>If a row exists only in dataset1, data is not retained.</li>
-<li>If a row exists only in dataset2, data is retained.</li>
-</ul>
-<p>inner_join:</p>
-<ul>
-<li>Only rows that exist in dataset1 and dataset2</li>
-</ul>
-<p>full_join:</p>
-<ul>
-<li>All rows in dataset1 and dataset2</li>
-<li>Joining with missing or duplicate keys</li>
-<li>If data is missing from one dataset but is in the other, depending on the type of join you are performing, this can result in missing data (NA values).</li>
-</ul>
-<p>semi_join(x, y):</p>
-<ul>
-<li>keeps all observations in x that have a match in y</li>
-</ul>
-<p>anti_join(x, y):</p>
-<ul>
-<li>drops all observations in x that have a match in y</li>
-</ul>
-</section>
-<section id="load-the-nycflights13-package-and-join-the-datasets-flights-and-airlines-together-selecting-only-the-columns-year-month-day-hour-origin-tailnum-and-carrier-from-flights.-can-you-do-the-same-but-using-the-mutate-function-instead" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="load-the-nycflights13-package-and-join-the-datasets-flights-and-airlines-together-selecting-only-the-columns-year-month-day-hour-origin-tailnum-and-carrier-from-flights.-can-you-do-the-same-but-using-the-mutate-function-instead"><span class="header-section-number">3</span> 3. Load the nycflights13 package and join the datasets flights and airlines together, selecting only the columns: <code>year</code>, <code>month</code>, <code>day</code>, <code>hour</code>, <code>origin</code>, <code>tailnum</code> and <code>carrier</code> from flights. Can you do the same but using the mutate() function instead?</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This page is <strong>reference material</strong>, not a taught session. It is here because dates turn up constantly in real clinical and biological data — sample collection dates, visit dates, dates of birth — and doing arithmetic on them by hand is a reliable way to get a wrong answer.</p>
+</div>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../../10_resources/00_images/dates.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># one example:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, tailnum, carrier) <span class="sc">%&gt;%</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(airlines, <span class="at">by =</span> <span class="st">"carrier"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># part 2</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>flights3 <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, tailnum, carrier) <span class="sc">%&gt;%</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name =</span> airlines<span class="sc">$</span>name[<span class="fu">match</span>(carrier, airlines<span class="sc">$</span>carrier)])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="in-the-starwars-dataset-and-in-one-command-add-two-new-columns" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="in-the-starwars-dataset-and-in-one-command-add-two-new-columns"><span class="header-section-number">4</span> 4. In the starwars dataset and in one command, add two new columns:</h2>
+<section id="how-dates-work-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="how-dates-work-in-r">How dates work in R</h2>
 <ul>
-<li>one column that converts the <code>name</code> column to lower case</li>
-<li>one column that converts the <code>eye_colour</code> to uppercase</li>
+<li>Dates and times are <strong>not just strings</strong>. They come in many formats — <code>YYYY-MM-DD</code>, <code>MM/DD/YYYY</code>, <code>DD-MM-YYYY</code>.</li>
+<li>Handling them means dealing with varied formats, time zones and leap years, as well as calculations between dates.</li>
+<li>R has a dedicated date type, and packages to parse and manage it.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># one example:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>starwars_mutated <span class="ot">&lt;-</span> starwars <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name_lower =</span> <span class="fu">str_to_lower</span>(name),</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">eye_color_upper =</span> <span class="fu">str_to_upper</span>(eye_color))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="st">"2024-10-20"</span>)           <span class="co"># a plain string</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
 </div>
-<ol start="5" type="1">
-<li>Download the gene annotation file from the NCBI found <a href="https://cf-my.sharepoint.com/:u:/g/personal/smithmr5_cardiff_ac_uk/Ed6jtKhhKgRGq5R-IoQHTAYBLgO6FC_aJ6u7mydY1mpc_A?e=siJJ4A">here</a></li>
-</ol>
-<p><strong>unzip the file and load in <code>NCBI37.3.gene.loc</code> into R</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">as.Date</span>(<span class="st">"2024-10-20"</span>))  <span class="co"># a date object</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">as.Date</span>(<span class="st">"2024-10-20"</span>)) <span class="co"># but a double underneath</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "double"</code></pre>
+</div>
+</div>
+<p>That last line is the thing to remember: a date is stored as a number (days since 1970-01-01). That is what makes arithmetic on dates work at all — and why a date that has been silently read in as a string will fail in confusing ways.</p>
+</section>
+<section id="introduction-to-lubridate" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-to-lubridate">Introduction to lubridate</h2>
+<p><code>lubridate</code> makes working with dates and times easier. With it you can:</p>
 <ul>
-<li>add the column headers: <code>Entrez_Gene_ID</code>, <code>CHR</code>, <code>BP_START</code>, <code>BP_END</code>, <code>STRAND</code>, <code>GENE_NAME</code></li>
-<li>How many Genes are on the positive strand?</li>
-<li>How many Genes begin and end with a letter?</li>
+<li>parse dates from strings in common formats</li>
+<li>do arithmetic with dates easily</li>
+<li>account for time zones, leap years and so on</li>
+<li>handle times as well, though that isn’t covered here</li>
+</ul>
+<p>It is genuinely not possible to be accurate with dates without a dedicated package. Do not try to do it with <code>substr()</code> and arithmetic.</p>
+<section id="parsing-and-extracting" class="level3">
+<h3 class="anchored" data-anchor-id="parsing-and-extracting">Parsing and extracting</h3>
+<ul>
+<li><code>ymd()</code> converts strings in year-month-day order to dates. Related functions parse other orders: <code>mdy()</code>, <code>dmy()</code>, <code>ymd_hms()</code> and so on. You choose the function that matches the <strong>order of the parts</strong>, not the separators — <code>ymd()</code> copes with <code>2024-10-20</code>, <code>2024/10/20</code> and <code>20241020</code> alike.</li>
+<li><code>today()</code> returns the current date.</li>
+<li><code>year()</code>, <code>month()</code> and <code>day()</code> extract components from a date.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using readr to read the file</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we haven't correctly handled chromosomes, which needs to be specified in col_types</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_tsv</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"./data/NCBI37.3/NCBI37.3.gene.loc"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_names =</span> <span class="fu">c</span>(<span class="st">"Entrez_Gene_ID"</span>, <span class="st">"CHR"</span>, <span class="st">"BP_START"</span> ,<span class="st">"BP_END"</span>, <span class="st">"STRAND"</span>, <span class="st">"GENE_NAME"</span>))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># using data.table to read the file</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"./data/NCBI37.3/NCBI37.3.gene.loc"</span>,<span class="at">header=</span> F)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">setnames</span>(test,<span class="fu">c</span>(<span class="st">"Entrez_Gene_ID"</span>, <span class="st">"CHR"</span>, <span class="st">"BP_START"</span> ,<span class="st">"BP_END"</span>, <span class="st">"STRAND"</span>, <span class="st">"GENE_NAME"</span> ))</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(test)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># How many Genes are on the positive strand? 9819</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">str_count</span>(<span class="at">string =</span> test<span class="sc">$</span>STRAND, <span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">+"</span>))</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># or with pipes</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(STRAND) <span class="sc">%&gt;%</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_count</span>(<span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">+"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>()</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># How many genes begin and end with a letter?: 5016</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">str_count</span>(<span class="at">string =</span> test<span class="sc">$</span>GENE_NAME, <span class="at">pattern =</span> <span class="st">"^[a-zA-Z].*[a-zA-Z]$"</span>))</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># or with pipes again</span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>test <span class="sc">%&gt;%</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(GENE_NAME) <span class="sc">%&gt;%</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_count</span>(<span class="at">pattern =</span> <span class="st">"^[a-zA-Z].*[a-zA-Z]$"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2024-10-20"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">year =</span> <span class="fu">year</span>(d), <span class="at">month =</span> <span class="fu">month</span>(d), <span class="at">day =</span> <span class="fu">day</span>(d))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> year month   day 
+ 2024    10    20 </code></pre>
 </div>
+</div>
+</section>
+<section id="intervals-and-durations" class="level3">
+<h3 class="anchored" data-anchor-id="intervals-and-durations">Intervals and durations</h3>
+<p><code>interval()</code> creates an interval between two dates, and <code>time_length()</code> measures it in whatever unit you ask for.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2015-05-15"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">"2024-10-20"</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>date_interval <span class="ot">&lt;-</span> <span class="fu">interval</span>(start_date, end_date)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">time_length</span>(date_interval, <span class="st">"years"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.43287671233</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Use <code>time_length(interval(...), "years")</code> rather than dividing a difference by 365. The second approach is wrong by a day roughly every four years, which is exactly the kind of error that survives review because it is small.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="practice" class="level2">
+<h2 class="anchored" data-anchor-id="practice">Practice</h2>
+<ul>
+<li>John Doe was born on 4th September 1983. Create a date object for his birth date.</li>
+<li>How old was he on 6th June 2020? What about today?</li>
+</ul>
+<p><strong>Using the <code>lakers</code> dataset, which ships with lubridate</strong></p>
+<ul>
+<li>Choose the correct function to replace <code>some_function</code> below:</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lakers <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">some_function</span>(<span class="fu">sprintf</span>(<span class="st">"%08d"</span>, date)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Using the <code>economics</code> dataset from ggplot2</strong></p>
+<ul>
+<li>Take the <code>date</code> column and create two new columns holding the year and month of each date.</li>
+<li>Create a column <code>time_since_nyse</code> holding the number of years between the founding of the New York Stock Exchange on 17th May 1792 and each date.</li>
+</ul>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://r4ds.hadley.nz/datetimes">R for Data Science 2e, chapter 18 — Dates and times</a></li>
+<li>The <a href="https://lubridate.tidyverse.org/"><code>lubridate</code> documentation</a></li>
+</ul>
 
 
 </section>
@@ -1160,4 +1175,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework-Answers.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/10_resources/02_reference/dates_with_lubridate.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

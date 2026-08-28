@@ -1,0 +1,292 @@
+---
+title: "Factors with forcats"
+subtitle: "Reference material — not covered in the taught sessions"
+author: "Gabriel Mateus Bernardo Harrington"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: false
+execute:
+  echo: true
+  warning: false
+---
+
+::: {.callout-note appearance="simple"}
+This page is **reference material**, not a taught session.
+
+One part of it is not optional, though: [coercing factors](#gotchas-coercing-factors)
+at the bottom. That is a bug that silently corrupts your data, has reached
+publication more than once, and is one of the examples in the [AI assistants
+session](../../00_llm_use/using_ai_assistants.qmd) precisely because it does not
+error. Read that section even if you skip the rest.
+:::
+
+## Setup
+
+```{r}
+#| output: false
+library(forcats)
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+```
+
+`gss_cat` used throughout is a sample of the US General Social Survey that ships
+with `forcats`; `diamonds` ships with `ggplot2`.
+
+## What is a factor?
+
+A factor:
+
+- is how we store categorical variables in R
+- contains a fixed and known set of possible values, called its **levels**
+
+Create one with `factor()`, which takes `factor(vector, levels, labels)`:
+
+```{r}
+factor(c(0, 1, 1, 1, 0), labels = c('Female', 'Male'))
+```
+
+## Making factors
+
+Factors can carry an inherent order — but the default may not be the order you
+want.
+
+```{r}
+data <- factor(c("Dec", "Jun", "Apr"))
+data
+```
+
+Sorting may not give what you expect:
+
+```{r}
+sort(data)
+```
+
+That is because:
+
+- factors always have an *internal* order, even if you don't specify one
+- if you don't set the levels, they are **alphabetical**
+- if you want a specific order, you have to say so
+
+```{r}
+monthLevels <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+data <- factor(c("Dec", "Jun", "Apr"), levels = monthLevels)
+sort(data)
+```
+
+### Values outside your levels disappear silently
+
+```{r}
+factor(c("Dec", "Jum", "Apr"), levels = monthLevels)
+```
+
+Note the `NA`. A typo in your data becomes a missing value with **no warning at
+all**. By contrast, `readr::parse_factor()` tells you:
+
+```{r}
+readr::parse_factor(c("Dec", "Jum", "Apr"), levels = monthLevels)
+```
+
+::: {.callout-important appearance="simple"}
+This is the pattern to internalise: the base R route fails silently, the tidyverse
+route complains. When you are reading in real categorical data, prefer the one
+that complains.
+:::
+
+## Why bother with forcats?
+
+- It covers the common things you actually need to do with factors.
+- It works well with `ggplot2` — same authors.
+- It generally tries to warn you when something looks wrong.
+- It is an anagram of "factors", and it is **for cat**egorical**s**.
+
+### `fct_inorder()`
+
+Sets the levels to the order they appear in the vector.
+
+```{r}
+head(fct_inorder(gss_cat$marital))
+```
+
+### `fct_relevel()`
+
+Moves one or more levels to the front.
+
+```{r}
+head(fct_relevel(gss_cat$marital, 'Married'))
+```
+
+### `fct_recode()`
+
+Renames existing levels by hand. Note that mapping two old levels to the same new
+name merges them.
+
+```{r}
+myFactor <- factor(c("M", "F", "O", "M", "P", "M",
+                     "F", "F", "F", "M", "O", "P"))
+fct_recode(myFactor,
+           male = "M", female = "F",
+           unknown = "O", unknown = "P")
+```
+
+### `fct_reorder()`
+
+The most useful one. It reorders factor levels by another variable, which brings
+structure to a plot. Compare these two.
+
+Without:
+
+```{r}
+gss_cat |>
+  group_by(marital) |>
+  summarise(tvhours = mean(tvhours, na.rm = TRUE)) |>
+  ggplot(aes(tvhours, marital)) +
+  geom_point()
+```
+
+With:
+
+```{r}
+gss_cat |>
+  group_by(marital) |>
+  summarise(tvhours = mean(tvhours, na.rm = TRUE)) |>
+  ggplot(aes(tvhours, fct_reorder(marital, tvhours))) +
+  geom_point()
+```
+
+### `fct_reorder2()`
+
+Probably the second most useful. It orders the levels to match the values at the
+far right of the plot, so the legend order matches the line order — which is
+surprisingly helpful when reading a graph.
+
+Without:
+
+```{r}
+gss_cat |>
+  filter(!is.na(age)) |>
+  count(age, marital) |>
+  group_by(age) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(age, prop, colour = marital)) +
+  geom_line(na.rm = TRUE)
+```
+
+With:
+
+```{r}
+gss_cat |>
+  filter(!is.na(age)) |>
+  count(age, marital) |>
+  group_by(age) |>
+  mutate(prop = n / sum(n)) |>
+  ggplot(aes(age, prop, colour = fct_reorder2(marital, age, prop))) +
+  geom_line() +
+  labs(colour = "marital")
+```
+
+### Others worth knowing
+
+- `fct_rev()` reverses the level order
+- `fct_infreq()` orders from most to least frequent
+- `fct_lump()` combines the least common levels into "other"
+- `fct_expand()` adds new levels
+- `fct_relabel()` relabels levels programmatically
+
+## Gotchas: coercing factors {#gotchas-coercing-factors}
+
+Sometimes the damage is obvious:
+
+```{r}
+x <- factor(c(1, 1, 0, 0, 1, 0, 1, 1, 1, 0))
+as.numeric(x)
+```
+
+Sometimes it is not:
+
+```{r}
+x <- factor(c(1, 1, 2, 5, 3, 3, 1, 6, 5, 1, 6, 2))
+as.numeric(x)
+```
+
+Those are R's **internal level codes**, not your data. The values look plausible,
+the vector is the right length, and nothing warns you.
+
+::: {.callout-warning appearance="simple"}
+## The rule
+**Never convert a factor straight to numeric.** Convert to character first, then to
+numeric:
+
+```{r}
+x <- factor(c(1, 1, 2, 5, 3, 3, 1, 6, 5, 1, 6, 2))
+as.numeric(as.character(x))
+```
+:::
+
+## Practice
+
+**Basics**
+
+- Create a factor called `marauders` containing `'moony'`, `'wormtail'`,
+  `'padfoot'` and `'prongs'` in alphabetical order.
+- Create a factor called `patronus` containing `'stag'`, `'dog'`, `'otter'`, with
+  levels in the order they appear in the input.
+- Print only the levels of each.
+
+**Using `diamonds`**
+
+- Use `dplyr::count()` to show how many rows there are for each level of `cut`. Is
+  it any different from `forcats::fct_count()`?
+- Use `dplyr::arrange(desc())` on `cut`. What did it actually sort by?
+
+**Using `gss_cat`**
+
+- How many levels are there in `relig`?
+- Reorder the levels of `denom` by order of appearance.
+- Take the code below, which plots income by age. Reorder the levels of `rincome`
+  by `age`. Then instead try just moving `n/a` to the front. Which reads better?
+
+```{r}
+#| output: false
+gss_cat |>
+  group_by(rincome) |>
+  summarise(
+    age = mean(age, na.rm = TRUE),
+    tvhours = mean(tvhours, na.rm = TRUE),
+    n = n()) |>
+  ggplot(aes(age, rincome)) +
+  geom_point()
+```
+
+- Rename the `partyid` levels `"Not str republican"`, `"Ind,near dem"` and
+  `"Ind,near rep"` to `"Not strong republican"`, `"Independent, near democrat"`
+  and `"Independent, near republican"`.
+- Edit the code below so the bars are sorted lowest to highest, using
+  `fct_infreq()` and `fct_rev()`.
+
+```{r}
+#| output: false
+gss_cat |>
+  ggplot(aes(marital)) +
+  geom_bar()
+```
+
+- Change the code below so the legend colours match the order of the lines at the
+  right-hand side of the plot.
+
+```{r}
+#| output: false
+diamonds |>
+  filter(color == 'J', depth > 55, carat <= 2.5) |>
+  ggplot(aes(carat, price, col = cut)) +
+  geom_line(alpha = 0.6)
+```
+
+## Further reading
+
+- [R for Data Science 2e, chapter 17 — Factors](https://r4ds.hadley.nz/factors)
+- The [`forcats` documentation](https://forcats.tidyverse.org/)

@@ -8,7 +8,7 @@
 
 <meta name="author" content="Gabriel Mateus Bernardo Harrington">
 
-<title>Working with AI assistants – Data Science for Life Sciences I</title>
+<title>Factors with forcats – Data Science for Life Sciences I</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -65,28 +65,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-97e28f47ad423cfcb72627c3f906fd98.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-cc3c18167f497a7db7186a5f61be4120.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-97e28f47ad423cfcb72627c3f906fd98.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-3c3f1368ed8db972a012dae01a8e5220.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-cc3c18167f497a7db7186a5f61be4120.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-07c5de23bcd38f84fd870825f6c67ffa.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,7 +116,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -288,11 +288,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo light-content">
-    <img src="../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../10_resources/00_images/cardiff_uni_logo.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Data Science for Life Sciences I</span>
     </a>
   </div>
@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -325,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Working with AI assistants</a></li><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Guide</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Reference</a></li><li class="breadcrumb-item"><a href="../../10_resources/02_reference/factors_with_forcats.html">Factors with forcats</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -339,9 +339,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../10_resources/00_images/combined_logos.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -362,13 +362,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_llm_use/using_ai_assistants.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../00_llm_use/using_ai_assistants.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Guide</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../00_llm_use/met581_llm_demo_slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../00_llm_use/met581_llm_demo_slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -385,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../01_intro_to_r/MET581_lecture_01_slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../01_intro_to_r/MET581_lecture_01_slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -402,13 +402,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02_explore_r/MET581_lecture_02-Explore-R.html" class="sidebar-item-text sidebar-link">
+  <a href="../../02_explore_r/MET581_lecture_02-Explore-R.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../02_explore_r/MET581-Lecture-02-Explore-R-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../02_explore_r/MET581-Lecture-02-Explore-R-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -425,19 +425,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -454,19 +454,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -483,19 +483,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lecture notes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.html" class="sidebar-item-text sidebar-link">
+  <a href="../../05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Homework</span></a>
   </div>
 </li>
@@ -512,19 +512,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_Programming_in_R/met581_06_programming_in_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../06_Programming_in_R/met581_06_programming_in_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_Programming_in_R/met581_programming_in_r_workshop.html" class="sidebar-item-text sidebar-link">
+  <a href="../../06_Programming_in_R/met581_programming_in_r_workshop.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshop</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Workshop answers</span></a>
   </div>
 </li>
@@ -541,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Slides</span></a>
   </div>
 </li>
@@ -558,19 +558,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/strings_and_regex.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/strings_and_regex.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Strings and regular expressions</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/factors_with_forcats.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/factors_with_forcats.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Factors with forcats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../10_resources/02_reference/dates_with_lubridate.html" class="sidebar-item-text sidebar-link">
+  <a href="../../10_resources/02_reference/dates_with_lubridate.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Dates with lubridate</span></a>
   </div>
 </li>
@@ -582,34 +582,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-short-version" id="toc-the-short-version" class="nav-link active" data-scroll-target="#the-short-version">The short version</a></li>
-  <li><a href="#why-this-matters-more-than-it-sounds" id="toc-why-this-matters-more-than-it-sounds" class="nav-link" data-scroll-target="#why-this-matters-more-than-it-sounds">Why this matters more than it sounds</a>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#what-is-a-factor" id="toc-what-is-a-factor" class="nav-link" data-scroll-target="#what-is-a-factor">What is a factor?</a></li>
+  <li><a href="#making-factors" id="toc-making-factors" class="nav-link" data-scroll-target="#making-factors">Making factors</a>
   <ul class="collapse">
-  <li><a href="#the-argument-that-doesnt-exist" id="toc-the-argument-that-doesnt-exist" class="nav-link" data-scroll-target="#the-argument-that-doesnt-exist">The argument that doesn’t exist</a></li>
-  <li><a href="#the-factor-that-became-its-own-level-codes" id="toc-the-factor-that-became-its-own-level-codes" class="nav-link" data-scroll-target="#the-factor-that-became-its-own-level-codes">The factor that became its own level codes</a></li>
-  <li><a href="#the-join-that-quietly-duplicated-your-samples" id="toc-the-join-that-quietly-duplicated-your-samples" class="nav-link" data-scroll-target="#the-join-that-quietly-duplicated-your-samples">The join that quietly duplicated your samples</a></li>
-  <li><a href="#the-filter-that-silently-ate-your-missing-data" id="toc-the-filter-that-silently-ate-your-missing-data" class="nav-link" data-scroll-target="#the-filter-that-silently-ate-your-missing-data">The filter that silently ate your missing data</a></li>
+  <li><a href="#values-outside-your-levels-disappear-silently" id="toc-values-outside-your-levels-disappear-silently" class="nav-link" data-scroll-target="#values-outside-your-levels-disappear-silently">Values outside your levels disappear silently</a></li>
   </ul></li>
-  <li><a href="#tutor-mode" id="toc-tutor-mode" class="nav-link" data-scroll-target="#tutor-mode">Tutor mode</a></li>
-  <li><a href="#prompting-for-r-specifically" id="toc-prompting-for-r-specifically" class="nav-link" data-scroll-target="#prompting-for-r-specifically">Prompting for R, specifically</a>
+  <li><a href="#why-bother-with-forcats" id="toc-why-bother-with-forcats" class="nav-link" data-scroll-target="#why-bother-with-forcats">Why bother with forcats?</a>
   <ul class="collapse">
-  <li><a href="#give-it-your-data-not-your-description-of-your-data" id="toc-give-it-your-data-not-your-description-of-your-data" class="nav-link" data-scroll-target="#give-it-your-data-not-your-description-of-your-data">1. Give it your data, not your description of your data</a></li>
-  <li><a href="#constrain-the-answer" id="toc-constrain-the-answer" class="nav-link" data-scroll-target="#constrain-the-answer">2. Constrain the answer</a></li>
-  <li><a href="#ask-it-to-argue-with-itself" id="toc-ask-it-to-argue-with-itself" class="nav-link" data-scroll-target="#ask-it-to-argue-with-itself">3. Ask it to argue with itself</a></li>
-  <li><a href="#trust-the-docs-over-the-model" id="toc-trust-the-docs-over-the-model" class="nav-link" data-scroll-target="#trust-the-docs-over-the-model">4. Trust the docs over the model</a></li>
-  <li><a href="#notice-what-it-doesnt-do" id="toc-notice-what-it-doesnt-do" class="nav-link" data-scroll-target="#notice-what-it-doesnt-do">5. Notice what it doesn’t do</a></li>
+  <li><a href="#fct_inorder" id="toc-fct_inorder" class="nav-link" data-scroll-target="#fct_inorder"><code>fct_inorder()</code></a></li>
+  <li><a href="#fct_relevel" id="toc-fct_relevel" class="nav-link" data-scroll-target="#fct_relevel"><code>fct_relevel()</code></a></li>
+  <li><a href="#fct_recode" id="toc-fct_recode" class="nav-link" data-scroll-target="#fct_recode"><code>fct_recode()</code></a></li>
+  <li><a href="#fct_reorder" id="toc-fct_reorder" class="nav-link" data-scroll-target="#fct_reorder"><code>fct_reorder()</code></a></li>
+  <li><a href="#fct_reorder2" id="toc-fct_reorder2" class="nav-link" data-scroll-target="#fct_reorder2"><code>fct_reorder2()</code></a></li>
+  <li><a href="#others-worth-knowing" id="toc-others-worth-knowing" class="nav-link" data-scroll-target="#others-worth-knowing">Others worth knowing</a></li>
   </ul></li>
-  <li><a href="#optional-wiring-an-assistant-into-your-r-session" id="toc-optional-wiring-an-assistant-into-your-r-session" class="nav-link" data-scroll-target="#optional-wiring-an-assistant-into-your-r-session">Optional: wiring an assistant into your R session</a>
-  <ul class="collapse">
-  <li><a href="#level-1-btw" id="toc-level-1-btw" class="nav-link" data-scroll-target="#level-1-btw">Level 1 — <code>btw</code></a></li>
-  <li><a href="#level-2-mcptools" id="toc-level-2-mcptools" class="nav-link" data-scroll-target="#level-2-mcptools">Level 2 — <code>mcptools</code></a></li>
-  <li><a href="#the-catch-which-is-real" id="toc-the-catch-which-is-real" class="nav-link" data-scroll-target="#the-catch-which-is-real">The catch, which is real</a></li>
-  </ul></li>
-  <li><a href="#whats-fine-and-what-isnt" id="toc-whats-fine-and-what-isnt" class="nav-link" data-scroll-target="#whats-fine-and-what-isnt">What’s fine and what isn’t</a></li>
-  <li><a href="#declaring-what-you-used" id="toc-declaring-what-you-used" class="nav-link" data-scroll-target="#declaring-what-you-used">Declaring what you used</a></li>
+  <li><a href="#gotchas-coercing-factors" id="toc-gotchas-coercing-factors" class="nav-link" data-scroll-target="#gotchas-coercing-factors">Gotchas: coercing factors</a></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
   <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/00_llm_use/using_ai_assistants.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/10_resources/02_reference/factors_with_forcats.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
@@ -619,10 +611,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Working with AI assistants</a></li><li class="breadcrumb-item"><a href="../00_llm_use/using_ai_assistants.html">Guide</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../10_resources/02_reference/strings_and_regex.html">Reference</a></li><li class="breadcrumb-item"><a href="../../10_resources/02_reference/factors_with_forcats.html">Factors with forcats</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Working with AI assistants</h1>
-<p class="subtitle lead">How to use LLMs on this module without wasting the module</p>
+<h1 class="title">Factors with forcats</h1>
+<p class="subtitle lead">Reference material — not covered in the taught sessions</p>
 </div>
 
 
@@ -645,312 +637,337 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="the-short-version" class="level2">
-<h2 class="anchored" data-anchor-id="the-short-version">The short version</h2>
-<p>You may use AI assistants on this module. There is no ban, and I’m not interested in policing it.</p>
-<p>But: <strong>the market rate for “can ask a model for R code” is zero</strong>, because everyone can do that. Your value — in the rest of this MSc, in your project, and in a job — is in being able to look at generated code and know whether it’s right. That capability is built by writing R, not by reading R.</p>
-<p>So the deal is:</p>
-<div class="callout callout-style-simple callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Attempt → ask → diff
+<div class="callout-body-container">
+<p>This page is <strong>reference material</strong>, not a taught session.</p>
+<p>One part of it is not optional, though: <a href="#gotchas-coercing-factors">coercing factors</a> at the bottom. That is a bug that silently corrupts your data, has reached publication more than once, and is one of the examples in the <a href="../../00_llm_use/using_ai_assistants.html">AI assistants session</a> precisely because it does not error. Read that section even if you skip the rest.</p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ol type="1">
-<li><strong>Attempt</strong> it yourself first.</li>
-<li><strong>Ask</strong> if you’re stuck.</li>
-<li><strong>Diff</strong> — compare what you wrote to what you were given, and work out <em>why</em> they differ.</li>
-</ol>
 </div>
-</div>
-<p>Step 3 is where learning happens and it’s the one everybody skips.</p>
-</section>
-<section id="why-this-matters-more-than-it-sounds" class="level2">
-<h2 class="anchored" data-anchor-id="why-this-matters-more-than-it-sounds">Why this matters more than it sounds</h2>
-<p>Here is R code of the kind an assistant will cheerfully produce. It does not error. It returns numbers of the right shape and a plausible size. It is wrong.</p>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="the-argument-that-doesnt-exist" class="level3">
-<h3 class="anchored" data-anchor-id="the-argument-that-doesnt-exist">The argument that doesn’t exist</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">na.omit =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] NA</code></pre>
-</div>
-</div>
-<p><code>na.omit</code> is not an argument to <code>mean()</code>. It was absorbed by <code>...</code> and ignored. The argument is <code>na.rm</code>. No warning was issued.</p>
+<p><code>gss_cat</code> used throughout is a sample of the US General Social Survey that ships with <code>forcats</code>; <code>diamonds</code> ships with <code>ggplot2</code>.</p>
 </section>
-<section id="the-factor-that-became-its-own-level-codes" class="level3">
-<h3 class="anchored" data-anchor-id="the-factor-that-became-its-own-level-codes">The factor that became its own level codes</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"10"</span>, <span class="st">"20"</span>, <span class="st">"5"</span>))</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(counts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 3</code></pre>
-</div>
-</div>
-<p><code>1 2 3</code> — the internal level codes, not your data. You need <code>as.numeric(as.character(counts))</code>. This class of bug has reached publication more than once.</p>
-</section>
-<section id="the-join-that-quietly-duplicated-your-samples" class="level3">
-<h3 class="anchored" data-anchor-id="the-join-that-quietly-duplicated-your-samples">The join that quietly duplicated your samples</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">sample =</span> <span class="fu">c</span>(<span class="st">"s1"</span>, <span class="st">"s2"</span>, <span class="st">"s3"</span>))</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>pheno   <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">measure =</span> <span class="fu">c</span>(<span class="fl">4.1</span>, <span class="fl">9.9</span>, <span class="fl">5.2</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(samples, pheno, <span class="at">by =</span> <span class="st">"id"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="at">before =</span> <span class="fu">nrow</span>(samples), <span class="at">after =</span> <span class="fu">nrow</span>(joined))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>before  after 
-     3      4 </code></pre>
-</div>
-</div>
-<p>Three rows in, four out, because <code>id == 1</code> was duplicated in <code>pheno</code>. Every mean you compute downstream is now wrong. <strong>Check <code>nrow()</code> before and after every join</strong> — an assistant will rarely do this for you.</p>
-</section>
-<section id="the-filter-that-silently-ate-your-missing-data" class="level3">
-<h3 class="anchored" data-anchor-id="the-filter-that-silently-ate-your-missing-data">The filter that silently ate your missing data</h3>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">group =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="cn">NA</span>, <span class="st">"a"</span>), <span class="at">value =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">filter</span>(group <span class="sc">!=</span> <span class="st">"a"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  group value
-  &lt;chr&gt; &lt;int&gt;
-1 b         2</code></pre>
-</div>
-</div>
-<p>One row, not two — <code>NA != "a"</code> evaluates to <code>NA</code>, and <code>filter()</code> keeps only <code>TRUE</code>. If you wanted the missing group kept: <code>filter(group != "a" | is.na(group))</code>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There are more of these in the session 3 slides. The common thread is that <strong>none of them error</strong>. Code that crashes is a minor annoyance; code that returns a confident wrong number is how bad science happens — and you cannot spot any of them without understanding factors, <code>NA</code> semantics, and joins.</p>
-<p>That understanding is what this module is for.</p>
-</div>
-</div>
-</section>
-</section>
-<section id="tutor-mode" class="level2">
-<h2 class="anchored" data-anchor-id="tutor-mode">Tutor mode</h2>
-<p>The most useful thing you can do is stop your assistant from answering so fast.</p>
-<p>There’s a paste-in prompt in <a href="r_tutor_prompt.md"><code>r_tutor_prompt.md</code></a> that reconfigures any assistant into something closer to a good lab demonstrator: it asks what you’ve tried, gives you the smallest useful hint rather than the solution, makes you predict output before showing it, and caps how much code it writes unasked. It has an escape hatch for when you’re genuinely out of time.</p>
-<p>Tool-specific versions:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Tool</th>
-<th>File</th>
-<th>Where it goes</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Any chat assistant</td>
-<td><code>r_tutor_prompt.md</code></td>
-<td>Custom instructions / project instructions / first message</td>
-</tr>
-<tr class="even">
-<td>Claude Code</td>
-<td><code>skills/r-tutor/SKILL.md</code></td>
-<td><code>~/.claude/skills/r-tutor/SKILL.md</code></td>
-</tr>
-<tr class="odd">
-<td>A project folder</td>
-<td><code>CLAUDE.md.example</code></td>
-<td>Save as <code>CLAUDE.md</code> in your coursework folder</td>
-</tr>
-</tbody>
-</table>
-<p>You can defeat all of this by opening a different tab, and I know that. It isn’t a fence. It’s there for the days when you’d rather learn the thing.</p>
-</section>
-<section id="prompting-for-r-specifically" class="level2">
-<h2 class="anchored" data-anchor-id="prompting-for-r-specifically">Prompting for R, specifically</h2>
-<section id="give-it-your-data-not-your-description-of-your-data" class="level3">
-<h3 class="anchored" data-anchor-id="give-it-your-data-not-your-description-of-your-data">1. Give it your data, not your description of your data</h3>
-<p>Most bad generated R comes from the model guessing at your data’s shape. Don’t make it guess:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(df)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dput</span>(<span class="fu">head</span>(df, <span class="dv">5</span>))   <span class="co"># a reproducible copy of your data - paste this</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Then add what <code>str()</code> can’t show:</p>
-<blockquote class="blockquote">
-<p>“A row is one participant-visit, so IDs repeat. <code>measure</code> is mg/dL. <code>-99</code> means missing in <code>age</code>.”</p>
-</blockquote>
-<p>That one sentence prevents the duplicated-join bug above.</p>
-<p>Better still, let R do it. The <a href="https://posit-dev.github.io/btw/"><code>btw</code></a> package hands your live session — real data frames, real package versions, real help pages — to an assistant:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"btw"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(btw)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">btw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Also worth your time: <a href="https://ellmer.tidyverse.org/"><code>ellmer</code></a> for calling models from R, and the assistant built into <a href="https://positron.posit.co/">Positron</a>.</p>
-</section>
-<section id="constrain-the-answer" class="level3">
-<h3 class="anchored" data-anchor-id="constrain-the-answer">2. Constrain the answer</h3>
-<p>Vague question, average answer.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Weak
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>“How do I summarise this data?”</p>
-</div>
-</div>
-<div class="callout callout-style-simple callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Better
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>“Using dplyr only, no new packages: mean and SD of <code>measure</code> by <code>treatment_group</code>. Keep groups with fewer than 5 observations visible rather than dropping them. Tell me what happens to <code>NA</code>s in <code>measure</code>.”</p>
-</div>
-</div>
-<p>The second names the tools, the output <em>and the edge case you’re worried about</em>. Being precise about edge cases is most of the skill.</p>
-</section>
-<section id="ask-it-to-argue-with-itself" class="level3">
-<h3 class="anchored" data-anchor-id="ask-it-to-argue-with-itself">3. Ask it to argue with itself</h3>
-<p>Models are much better at criticising code than at writing it correctly first time. Exploit that:</p>
+<section id="what-is-a-factor" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-factor">What is a factor?</h2>
+<p>A factor:</p>
 <ul>
-<li>“What assumptions did you make about my data?”</li>
-<li>“How could this fail? Give me three ways.”</li>
-<li>“What would you check to prove this worked?”</li>
-<li>“Is there a tidyverse function that already does this?”</li>
-<li>“You used <code>sapply()</code> — what happens if the results have different lengths?”</li>
+<li>is how we store categorical variables in R</li>
+<li>contains a fixed and known set of possible values, called its <strong>levels</strong></li>
+</ul>
+<p>Create one with <code>factor()</code>, which takes <code>factor(vector, levels, labels)</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">'Female'</span>, <span class="st">'Male'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Female Male   Male   Male   Female
+Levels: Female Male</code></pre>
+</div>
+</div>
+</section>
+<section id="making-factors" class="level2">
+<h2 class="anchored" data-anchor-id="making-factors">Making factors</h2>
+<p>Factors can carry an inherent order — but the default may not be the order you want.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Dec"</span>, <span class="st">"Jun"</span>, <span class="st">"Apr"</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Dec Jun Apr
+Levels: Apr Dec Jun</code></pre>
+</div>
+</div>
+<p>Sorting may not give what you expect:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Apr Dec Jun
+Levels: Apr Dec Jun</code></pre>
+</div>
+</div>
+<p>That is because:</p>
+<ul>
+<li>factors always have an <em>internal</em> order, even if you don’t specify one</li>
+<li>if you don’t set the levels, they are <strong>alphabetical</strong></li>
+<li>if you want a specific order, you have to say so</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>monthLevels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Jan"</span>, <span class="st">"Feb"</span>, <span class="st">"Mar"</span>, <span class="st">"Apr"</span>, <span class="st">"May"</span>, <span class="st">"Jun"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>, <span class="st">"Oct"</span>, <span class="st">"Nov"</span>, <span class="st">"Dec"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Dec"</span>, <span class="st">"Jun"</span>, <span class="st">"Apr"</span>), <span class="at">levels =</span> monthLevels)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sort</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Apr Jun Dec
+Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</code></pre>
+</div>
+</div>
+<section id="values-outside-your-levels-disappear-silently" class="level3">
+<h3 class="anchored" data-anchor-id="values-outside-your-levels-disappear-silently">Values outside your levels disappear silently</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Dec"</span>, <span class="st">"Jum"</span>, <span class="st">"Apr"</span>), <span class="at">levels =</span> monthLevels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Dec  &lt;NA&gt; Apr 
+Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</code></pre>
+</div>
+</div>
+<p>Note the <code>NA</code>. A typo in your data becomes a missing value with <strong>no warning at all</strong>. By contrast, <code>readr::parse_factor()</code> tells you:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">parse_factor</span>(<span class="fu">c</span>(<span class="st">"Dec"</span>, <span class="st">"Jum"</span>, <span class="st">"Apr"</span>), <span class="at">levels =</span> monthLevels)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Dec  &lt;NA&gt; Apr 
+attr(,"problems")
+# A tibble: 1 × 4
+    row   col expected           actual
+  &lt;int&gt; &lt;int&gt; &lt;chr&gt;              &lt;chr&gt; 
+1     2    NA value in level set Jum   
+Levels: Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This is the pattern to internalise: the base R route fails silently, the tidyverse route complains. When you are reading in real categorical data, prefer the one that complains.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="why-bother-with-forcats" class="level2">
+<h2 class="anchored" data-anchor-id="why-bother-with-forcats">Why bother with forcats?</h2>
+<ul>
+<li>It covers the common things you actually need to do with factors.</li>
+<li>It works well with <code>ggplot2</code> — same authors.</li>
+<li>It generally tries to warn you when something looks wrong.</li>
+<li>It is an anagram of “factors”, and it is <strong>for cat</strong>egorical<strong>s</strong>.</li>
+</ul>
+<section id="fct_inorder" class="level3">
+<h3 class="anchored" data-anchor-id="fct_inorder"><code>fct_inorder()</code></h3>
+<p>Sets the levels to the order they appear in the vector.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fct_inorder</span>(gss_cat<span class="sc">$</span>marital))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Never married Divorced      Widowed       Never married Divorced     
+[6] Married      
+Levels: Never married Divorced Widowed Married Separated No answer</code></pre>
+</div>
+</div>
+</section>
+<section id="fct_relevel" class="level3">
+<h3 class="anchored" data-anchor-id="fct_relevel"><code>fct_relevel()</code></h3>
+<p>Moves one or more levels to the front.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">fct_relevel</span>(gss_cat<span class="sc">$</span>marital, <span class="st">'Married'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Never married Divorced      Widowed       Never married Divorced     
+[6] Married      
+Levels: Married No answer Never married Separated Divorced Widowed</code></pre>
+</div>
+</div>
+</section>
+<section id="fct_recode" class="level3">
+<h3 class="anchored" data-anchor-id="fct_recode"><code>fct_recode()</code></h3>
+<p>Renames existing levels by hand. Note that mapping two old levels to the same new name merges them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>myFactor <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"O"</span>, <span class="st">"M"</span>, <span class="st">"P"</span>, <span class="st">"M"</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"F"</span>, <span class="st">"F"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"O"</span>, <span class="st">"P"</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">fct_recode</span>(myFactor,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">male =</span> <span class="st">"M"</span>, <span class="at">female =</span> <span class="st">"F"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">unknown =</span> <span class="st">"O"</span>, <span class="at">unknown =</span> <span class="st">"P"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] male    female  unknown male    unknown male    female  female  female 
+[10] male    unknown unknown
+Levels: female male unknown</code></pre>
+</div>
+</div>
+</section>
+<section id="fct_reorder" class="level3">
+<h3 class="anchored" data-anchor-id="fct_reorder"><code>fct_reorder()</code></h3>
+<p>The most useful one. It reorders factor levels by another variable, which brings structure to a plot. Compare these two.</p>
+<p>Without:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(marital) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tvhours =</span> <span class="fu">mean</span>(tvhours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(tvhours, marital)) <span class="sc">+</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="factors_with_forcats_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(marital) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">tvhours =</span> <span class="fu">mean</span>(tvhours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(tvhours, <span class="fu">fct_reorder</span>(marital, tvhours))) <span class="sc">+</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="factors_with_forcats_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fct_reorder2" class="level3">
+<h3 class="anchored" data-anchor-id="fct_reorder2"><code>fct_reorder2()</code></h3>
+<p>Probably the second most useful. It orders the levels to match the values at the far right of the plot, so the legend order matches the line order — which is surprisingly helpful when reading a graph.</p>
+<p>Without:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age, marital) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">|&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, prop, <span class="at">colour =</span> marital)) <span class="sc">+</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="factors_with_forcats_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>With:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(age)) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(age, marital) <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">|&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, prop, <span class="at">colour =</span> <span class="fu">fct_reorder2</span>(marital, age, prop))) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour =</span> <span class="st">"marital"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="factors_with_forcats_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="others-worth-knowing" class="level3">
+<h3 class="anchored" data-anchor-id="others-worth-knowing">Others worth knowing</h3>
+<ul>
+<li><code>fct_rev()</code> reverses the level order</li>
+<li><code>fct_infreq()</code> orders from most to least frequent</li>
+<li><code>fct_lump()</code> combines the least common levels into “other”</li>
+<li><code>fct_expand()</code> adds new levels</li>
+<li><code>fct_relabel()</code> relabels levels programmatically</li>
 </ul>
 </section>
-<section id="trust-the-docs-over-the-model" class="level3">
-<h3 class="anchored" data-anchor-id="trust-the-docs-over-the-model">4. Trust the docs over the model</h3>
-<p>If an assistant tells you an argument exists, <code>?function_name</code> will tell you whether it does. That check takes three seconds and models hallucinate tidyverse arguments constantly.</p>
 </section>
-<section id="notice-what-it-doesnt-do" class="level3">
-<h3 class="anchored" data-anchor-id="notice-what-it-doesnt-do">5. Notice what it doesn’t do</h3>
-<p>Assistants almost never volunteer: row counts around joins, <code>NA</code> handling, checking whether a column is really the type you think, plotting the data before modelling it. Those omissions are yours to catch.</p>
-</section>
-</section>
-<section id="optional-wiring-an-assistant-into-your-r-session" class="level2">
-<h2 class="anchored" data-anchor-id="optional-wiring-an-assistant-into-your-r-session">Optional: wiring an assistant into your R session</h2>
+<section id="gotchas-coercing-factors" class="level2">
+<h2 class="anchored" data-anchor-id="gotchas-coercing-factors">Gotchas: coercing factors</h2>
+<p>Sometimes the damage is obvious:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2 2 1 1 2 1 2 2 2 1</code></pre>
+</div>
+</div>
+<p>Sometimes it is not:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">2</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 1 2 4 3 3 1 5 4 1 5 2</code></pre>
+</div>
+</div>
+<p>Those are R’s <strong>internal level codes</strong>, not your data. The values look plausible, the vector is the right length, and nothing warns you.</p>
 <div class="callout callout-style-simple callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Leave this one until later
+<span class="screen-reader-only">Warning</span>The rule
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Everything in this section is <strong>optional and unsupported</strong>. I can’t debug it for you in a lab session, and on a managed university laptop it may not be permitted at all. Come back to it once you can write R unaided. It’s documented here because it exists and you’d find it anyway — not because you need it to pass.</p>
-</div>
-</div>
-<p>Look again at the four broken examples near the top of this page. They fail for one shared reason: <strong>the model was guessing at your data.</strong> It had no way to know that <code>pheno</code> contained a duplicated <code>id</code>, that <code>group</code> held an <code>NA</code>, or that <code>counts</code> was a factor rather than a number.</p>
-<p>You can’t prompt your way out of that. The structural fix is to stop making it guess.</p>
-<section id="level-1-btw" class="level3">
-<h3 class="anchored" data-anchor-id="level-1-btw">Level 1 — <code>btw</code></h3>
-<p>The lower-friction option, and the one to try first. <a href="https://posit-dev.github.io/btw/"><code>btw</code></a> collects context from your live R session — the actual structure of your data frames, your installed package versions, help pages — and puts it on the clipboard for you to paste into any assistant.</p>
+<p><strong>Never convert a factor straight to numeric.</strong> Convert to character first, then to numeric:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"btw"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(btw)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">btw</span>()          <span class="co"># describes your session and environment</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">btw</span>(pheno)     <span class="co"># describes one specific object</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">2</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as.numeric</span>(<span class="fu">as.character</span>(x))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 1 1 2 5 3 3 1 6 5 1 6 2</code></pre>
 </div>
-<p>No configuration, no editing JSON files, and it works with a plain chat window. For most people this is the whole benefit at a fraction of the effort.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="level-2-mcptools" class="level3">
-<h3 class="anchored" data-anchor-id="level-2-mcptools">Level 2 — <code>mcptools</code></h3>
-<p><a href="https://posit-dev.github.io/mcptools/"><code>mcptools</code></a> goes further: it lets an assistant <em>run code</em> in your live R session, so it can inspect objects and read help pages itself rather than being told about them.</p>
+<section id="practice" class="level2">
+<h2 class="anchored" data-anchor-id="practice">Practice</h2>
+<p><strong>Basics</strong></p>
+<ul>
+<li>Create a factor called <code>marauders</code> containing <code>'moony'</code>, <code>'wormtail'</code>, <code>'padfoot'</code> and <code>'prongs'</code> in alphabetical order.</li>
+<li>Create a factor called <code>patronus</code> containing <code>'stag'</code>, <code>'dog'</code>, <code>'otter'</code>, with levels in the order they appear in the input.</li>
+<li>Print only the levels of each.</li>
+</ul>
+<p><strong>Using <code>diamonds</code></strong></p>
+<ul>
+<li>Use <code>dplyr::count()</code> to show how many rows there are for each level of <code>cut</code>. Is it any different from <code>forcats::fct_count()</code>?</li>
+<li>Use <code>dplyr::arrange(desc())</code> on <code>cut</code>. What did it actually sort by?</li>
+</ul>
+<p><strong>Using <code>gss_cat</code></strong></p>
+<ul>
+<li>How many levels are there in <code>relig</code>?</li>
+<li>Reorder the levels of <code>denom</code> by order of appearance.</li>
+<li>Take the code below, which plots income by age. Reorder the levels of <code>rincome</code> by <code>age</code>. Then instead try just moving <code>n/a</code> to the front. Which reads better?</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mcptools"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rincome) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">age =</span> <span class="fu">mean</span>(age, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tvhours =</span> <span class="fu">mean</span>(tvhours, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(age, rincome)) <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Then register your R session so an assistant can find it. Adding it to your <code>.Rprofile</code> means every session registers automatically:</p>
+<ul>
+<li>Rename the <code>partyid</code> levels <code>"Not str republican"</code>, <code>"Ind,near dem"</code> and <code>"Ind,near rep"</code> to <code>"Not strong republican"</code>, <code>"Independent, near democrat"</code> and <code>"Independent, near republican"</code>.</li>
+<li>Edit the code below so the bars are sorted lowest to highest, using <code>fct_infreq()</code> and <code>fct_rev()</code>.</li>
+</ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_profile</span>()   <span class="co"># then add the line below to that file</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mcptools<span class="sc">::</span><span class="fu">mcp_session</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>gss_cat <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(marital)) <span class="sc">+</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Finally, point your assistant at R. For Claude Code, one command:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">claude</span> mcp add <span class="at">-s</span> <span class="st">"user"</span> r-mcptools <span class="at">--</span> Rscript <span class="at">-e</span> <span class="st">"mcptools::mcp_server()"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>For Claude Desktop and most other MCP clients, add this to the client’s config file instead:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"mcpServers"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"r-mcptools"</span><span class="fu">:</span> <span class="fu">{</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"command"</span><span class="fu">:</span> <span class="st">"Rscript"</span><span class="fu">,</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>      <span class="dt">"args"</span><span class="fu">:</span> <span class="ot">[</span><span class="st">"-e"</span><span class="ot">,</span> <span class="st">"mcptools::mcp_server()"</span><span class="ot">]</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">}</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Restart both R and the assistant afterwards.</p>
-</section>
-<section id="the-catch-which-is-real" class="level3">
-<h3 class="anchored" data-anchor-id="the-catch-which-is-real">The catch, which is real</h3>
-<p>Two things to be honest about.</p>
-<p><strong>This makes it much easier to skip step 1.</strong> An assistant that can see your data and run your code is a very short path from “I have a problem” to “I have an answer”, and <em>attempt → ask → diff</em> only works if you actually attempt. Pair this with <a href="#tutor-mode">tutor mode</a> or you have simply built yourself a faster way to not learn R.</p>
-<p><strong>A better-informed assistant is more convincingly wrong.</strong> Session access removes one whole category of error — the invented column, the misjudged data shape. It removes none of the others. It will not tell you that a t-test was the wrong choice, that your groups aren’t independent, or that the effect you found is an artefact of how you filtered. Those are the judgements the report is marked on, and they are still entirely yours.</p>
-</section>
-</section>
-<section id="whats-fine-and-what-isnt" class="level2">
-<h2 class="anchored" data-anchor-id="whats-fine-and-what-isnt">What’s fine and what isn’t</h2>
-<p><strong>Fine — genuinely, use the tools:</strong></p>
 <ul>
-<li>Explaining an error you can’t parse</li>
-<li>“What does this function do?”</li>
-<li>Debugging code <em>you</em> wrote</li>
-<li>Sanity-checking your interpretation of a result</li>
-<li>Improving your writing</li>
-<li>Finding out what packages exist for a problem</li>
+<li>Change the code below so the legend colours match the order of the lines at the right-hand side of the plot.</li>
 </ul>
-<p><strong>Not fine in assessed work:</strong></p>
-<ul>
-<li>Generating the analysis code you submit</li>
-<li>Having it choose your statistical approach</li>
-<li>Having it write your interpretation</li>
-</ul>
-<p>This isn’t about purity. The 2000-word report is explicitly marked on <strong>defending your analytical choices and methodological approach</strong> (MLO-5). You cannot defend a choice you didn’t make, and the attempt is transparent from the outside.</p>
-<p>If you’re unsure whether something crosses a line, ask me. Asking is never the wrong move.</p>
-</section>
-<section id="declaring-what-you-used" class="level2">
-<h2 class="anchored" data-anchor-id="declaring-what-you-used">Declaring what you used</h2>
-<p>For the summative report, you’ll be asked for a short <strong>process appendix</strong> — a few hundred words, unmarked for style:</p>
-<ul>
-<li>what you used an assistant for</li>
-<li>one thing it got wrong or that you rejected, and how you spotted it</li>
-<li>what you changed and why</li>
-</ul>
-<p>This is not a confession. Honest, specific answers here demonstrate exactly the evaluative skill the module is teaching, and “I used it to debug my <code>pivot_longer()</code> call and it suggested a column that didn’t exist” is a better answer than “I didn’t use it”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>diamonds <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(color <span class="sc">==</span> <span class="st">'J'</span>, depth <span class="sc">&gt;</span> <span class="dv">55</span>, carat <span class="sc">&lt;=</span> <span class="fl">2.5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(carat, price, <span class="at">col =</span> cut)) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">alpha =</span> <span class="fl">0.6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="further-reading" class="level2">
 <h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
 <ul>
-<li><a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a> — still the best answer to most R questions</li>
-<li><a href="https://posit-dev.github.io/btw/"><code>btw</code></a> — give an assistant your R session</li>
-<li><a href="https://ellmer.tidyverse.org/"><code>ellmer</code></a> — LLMs from R</li>
-<li><a href="https://posit-dev.github.io/mcptools/"><code>mcptools</code></a> — let an assistant run code in your live R session (optional, see above)</li>
-<li><code>?function_name</code> — faster than asking, and always correct</li>
+<li><a href="https://r4ds.hadley.nz/factors">R for Data Science 2e, chapter 17 — Factors</a></li>
+<li>The <a href="https://forcats.tidyverse.org/"><code>forcats</code> documentation</a></li>
 </ul>
 
 
@@ -1375,4 +1392,4 @@ Note
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/00_llm_use/using_ai_assistants.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/edit/main/10_resources/02_reference/factors_with_forcats.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

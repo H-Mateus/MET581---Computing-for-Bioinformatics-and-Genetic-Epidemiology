@@ -1,0 +1,125 @@
+---
+title: "Dates with lubridate"
+subtitle: "Reference material — not covered in the taught sessions"
+author: "Gabriel Mateus Bernardo Harrington"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: false
+execute:
+  echo: true
+  warning: false
+---
+
+::: {.callout-note appearance="simple"}
+This page is **reference material**, not a taught session. It is here because dates
+turn up constantly in real clinical and biological data — sample collection dates,
+visit dates, dates of birth — and doing arithmetic on them by hand is a reliable
+way to get a wrong answer.
+:::
+
+![](/10_resources/00_images/dates.jpeg){fig-align="center" width="70%"}
+
+## Setup
+
+```{r}
+#| output: false
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+```
+
+## How dates work in R
+
+- Dates and times are **not just strings**. They come in many formats —
+  `YYYY-MM-DD`, `MM/DD/YYYY`, `DD-MM-YYYY`.
+- Handling them means dealing with varied formats, time zones and leap years, as
+  well as calculations between dates.
+- R has a dedicated date type, and packages to parse and manage it.
+
+```{r}
+class("2024-10-20")           # a plain string
+class(as.Date("2024-10-20"))  # a date object
+typeof(as.Date("2024-10-20")) # but a double underneath
+```
+
+That last line is the thing to remember: a date is stored as a number (days since
+1970-01-01). That is what makes arithmetic on dates work at all — and why a date
+that has been silently read in as a string will fail in confusing ways.
+
+## Introduction to lubridate
+
+`lubridate` makes working with dates and times easier. With it you can:
+
+- parse dates from strings in common formats
+- do arithmetic with dates easily
+- account for time zones, leap years and so on
+- handle times as well, though that isn't covered here
+
+It is genuinely not possible to be accurate with dates without a dedicated
+package. Do not try to do it with `substr()` and arithmetic.
+
+### Parsing and extracting
+
+- `ymd()` converts strings in year-month-day order to dates. Related functions
+  parse other orders: `mdy()`, `dmy()`, `ymd_hms()` and so on. You choose the
+  function that matches the **order of the parts**, not the separators — `ymd()`
+  copes with `2024-10-20`, `2024/10/20` and `20241020` alike.
+- `today()` returns the current date.
+- `year()`, `month()` and `day()` extract components from a date.
+
+```{r}
+d <- ymd("2024-10-20")
+c(year = year(d), month = month(d), day = day(d))
+```
+
+### Intervals and durations
+
+`interval()` creates an interval between two dates, and `time_length()` measures
+it in whatever unit you ask for.
+
+```{r}
+start_date <- ymd("2015-05-15")
+end_date <- ymd("2024-10-20")
+date_interval <- interval(start_date, end_date)
+
+time_length(date_interval, "years")
+```
+
+::: {.callout-tip appearance="simple"}
+Use `time_length(interval(...), "years")` rather than dividing a difference by
+365. The second approach is wrong by a day roughly every four years, which is
+exactly the kind of error that survives review because it is small.
+:::
+
+## Practice
+
+- John Doe was born on 4th September 1983. Create a date object for his birth
+  date.
+- How old was he on 6th June 2020? What about today?
+
+**Using the `lakers` dataset, which ships with lubridate**
+
+- Choose the correct function to replace `some_function` below:
+
+```{r}
+#| eval: false
+lakers |>
+  as_tibble() |>
+  mutate(date = some_function(sprintf("%08d", date)))
+```
+
+**Using the `economics` dataset from ggplot2**
+
+- Take the `date` column and create two new columns holding the year and month of
+  each date.
+- Create a column `time_since_nyse` holding the number of years between the
+  founding of the New York Stock Exchange on 17th May 1792 and each date.
+
+## Further reading
+
+- [R for Data Science 2e, chapter 18 — Dates and
+  times](https://r4ds.hadley.nz/datetimes)
+- The [`lubridate` documentation](https://lubridate.tidyverse.org/)
