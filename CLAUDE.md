@@ -42,6 +42,59 @@ moved to Watkins** (sessions 13–14); the three wrangling lectures must compres
 into two; and **EDA is a session in its own right** (previously spread across
 `02_explore_r` and other lectures).
 
+## Restructure plan (agreed, in progress)
+
+Directory names stay on the old `0N_` scheme; they are repurposed rather than
+renamed, because renaming churns `docs/` and every sidebar href. The mapping:
+
+| Dir | Becomes | Content |
+|-----|---------|---------|
+| `01_intro_to_r` + `02_explore_r` | **Session 3** Introduction to R | R basics, data types, IDE, packages, help **+ tibbles, readr, Quarto** |
+| `03_wrangling_data_1` | **Session 4** Data Wrangling in R I | dplyr verbs, the pipe, grouping |
+| `04_wrangling_data_2` | **Session 5** Data Wrangling in R II | `across`/`pick`, tidyr reshaping, joins |
+| `06_Programming_in_R` | **Session 6** Programming in R | existing purrr/conditionals **+ the functions half of `05`** |
+| *(new)* | **Session 7** Exploratory Data Analysis | mostly new authoring — see below |
+| `07_Data_Visualisation_in_R` | **Session 8** Data Visualisation in R | ggplot2, largely as-is |
+
+Decisions behind it:
+
+- **Wrangling compresses by cutting, not thinning.** The syllabus for the wrangling
+  block names *transform, group, reshape, join* and never mentions strings or dates.
+  So `stringr`/regex (currently `04`, from `## But what *is* a string?` onward),
+  and `forcats` + `lubridate` (currently `05`, up to `## Anonymous Feedback |
+  Comments`) come out of the taught sessions and become **reference pages** on the
+  site. This buys joins real time, which matters: the silent duplicate-row join is
+  the most expensive mistake these students will make.
+- **`02_explore_r` is not EDA.** Despite its name it is Quarto, tibbles and readr.
+  It moves into session 3, whose syllabus already names importing data, installing
+  packages and accessing documentation. Quarto has to come early regardless, since
+  the 50% report is written in it.
+- **The functions half of `05` (from `## Functions {.smaller}`, line ~405) belongs
+  to session 6**, not to a wrangling session. `06` already covers conditionals,
+  function arguments, dots, pipes and purrr, but *not* general rules for writing
+  functions, when not to write one, modularising, or unit testing — which is
+  exactly the syllabus's "explicit constraints to ensure input validity" and
+  MLO-4's reproducible-code requirement.
+
+### Session 7 (EDA) — pending dataset decision
+
+Session 7 is essentially new authoring: central tendency and variability,
+summarising binary/categorical/continuous variables, correlation and
+cross-tabulation. Almost none of this exists anywhere in the repo.
+
+**Build it on `gapminder` for now, as a placeholder.** Mateus is asking John Watkins
+whether the synthetic-but-realistic dataset he has built for the statistics
+sessions (9–14) can be reused here, ideally with realistic mess added — missing
+values, inconsistent coding, a duplicated key — so that one dataset runs through
+the whole module. If that comes off, session 7 and probably sessions 4–5 should
+be re-pointed at it.
+
+If Watkins can't help, the fallback worth exploring is **authoring a domain-relevant
+fake dataset with deliberately realistic problems**, which would also give the
+wrangling sessions and the report a common spine. Either way, expect the example
+dataset to change; avoid hard-coding gapminder-specific narrative into slide prose
+where a neutral phrasing would do.
+
 ## Layout
 
 Directories are numbered by the *old* lecture order:
