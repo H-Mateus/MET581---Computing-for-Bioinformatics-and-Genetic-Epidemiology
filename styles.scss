@@ -4,9 +4,23 @@
 /*-- $body-color: #fff; --*/ 
 /*-- $link-color: #42affa; --*/ 
 
-$presentation-font-size-root: 32px;
+// Was 32px. Reduced because Inter (from _brand.yml) has a noticeably larger
+// x-height and wider glyphs than the reveal dark theme's previous Source Sans Pro,
+// so the same px value rendered visibly bigger and pushed dense slides off the
+// bottom of the 700px canvas.
+$presentation-font-size-root: 30px;
 
 /*-- scss:rules --*/
+
+// _brand.yml emits a bare `--r-main-font: Inter` on :root, with no fallback stack.
+// If Google Fonts is unreachable - a lecture theatre with no wifi, say - the
+// browser falls back to its default, which is usually a serif. `.reveal` beats
+// `:root` on specificity, so this restores a sane stack without fighting brand.
+// Decks 03-05 do not load this file; they inline their fonts via embed-resources.
+.reveal {
+  --r-main-font: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 // Palette colours from _brand.yml are exposed to this layer as $brand-<name>.
 // Previously this bar used $text-muted, which the dark reveal theme resolves to

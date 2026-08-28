@@ -9,6 +9,7 @@ format:
   revealjs:
     theme: [dark, brand]
     brand-mode: dark
+    margin: 0.05
     autosize: true
     df-print: kable
     css: ../10_resources/styles.css

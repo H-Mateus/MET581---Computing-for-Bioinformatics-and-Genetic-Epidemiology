@@ -102,7 +102,7 @@
     code span.vs { color: #abe338; } /* VerbatimString */
     code span.wa { color: #dcc6e0; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-7f9e57864d98003f23032ff8e3b4bce5.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-20790e11dfe6ae5b285ea12fad23ce71.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -294,12 +294,12 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <span id="cb11-2"><a aria-label="2"></a><span class="fu">head</span>(women)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  height weight ages
-1     58    115   65
-2     59    117   36
-3     60    120   32
-4     61    123   18
-5     62    126   77
-6     63    129   37</code></pre>
+1     58    115   32
+2     59    117   41
+3     60    120   88
+4     61    123   36
+5     62    126   85
+6     63    129   53</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -313,13 +313,13 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-label="1"></a><span class="fu">sum</span>(women<span class="sc">$</span>ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 740</code></pre>
+<pre><code>[1] 746</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-label="1"></a><span class="co"># A more elegant way to apply a function to all columns!</span></span>
 <span id="cb19-2"><a aria-label="2"></a><span class="fu">sapply</span>(women, mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        height         weight           ages 
- 65.0000000000 136.7333333333  49.3333333333 </code></pre>
+ 65.0000000000 136.7333333333  49.7333333333 </code></pre>
 </div>
 </div>
 </section>
@@ -1086,7 +1086,7 @@ R4 13 14 15 16</code></pre>
         height: 700,
 
         // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+        margin: 5.0e-2,
 
         math: {
           mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',

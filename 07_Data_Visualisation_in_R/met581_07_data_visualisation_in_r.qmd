@@ -23,7 +23,8 @@ format:
     footer: "Data Science for Life Sciences I - Slides and code available [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
     theme: [dark, ../styles.scss, brand]
     brand-mode: dark
-    include-in-header: 
+    margin: 0.05
+    include-in-header:
       text: |
         <style>
         .center-xy {

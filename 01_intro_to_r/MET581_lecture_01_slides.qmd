@@ -26,6 +26,7 @@ format:
     slide-number: true
     theme: [dark, ../styles.scss, brand]
     brand-mode: dark
+    margin: 0.05
     drop:
       engine: webr
       webr:
