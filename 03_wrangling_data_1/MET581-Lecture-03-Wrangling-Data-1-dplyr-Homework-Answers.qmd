@@ -1,5 +1,9 @@
 ---
 title: "Wrangling Data 1 Homework Answers"
+# Unlinked from the sidebar and excluded from site search so students do not
+# stumble onto the answers. The page is still published, so the URL can be shared
+# deliberately once the homework has been discussed.
+search: false
 author: "Matthew Bracher-Smith"
 date: "2024-10-17"
 format: 
