@@ -26,29 +26,67 @@ website:
     style: "docked"
     search: true
     contents:
+      - section: "Working with AI assistants"
+        contents:
+          - text: "Guide"
+            href: 00_llm_use/using_ai_assistants.qmd
+          - text: "Slides"
+            href: 00_llm_use/met581_llm_demo_slides.qmd
+      - section: "Introduction to R"
+        contents:
+          - text: "Slides"
+            href: 01_intro_to_r/MET581_lecture_01_slides.qmd
+      - section: "Explore R"
+        contents:
+          - text: "Slides"
+            href: 02_explore_r/MET581_lecture_02-Explore-R.qmd
+          - text: "Homework"
+            href: 02_explore_r/MET581-Lecture-02-Explore-R-Homework.qmd
+          - text: "Homework answers"
+            href: 02_explore_r/MET581-Lecture-02-Explore-R-Homework-Answers.qmd
+      - section: "Wrangling Data 1: dplyr"
+        contents:
+          - text: "Slides"
+            href: 03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Slides.qmd
+          - text: "Lecture notes"
+            href: 03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Lecture-Notes.qmd
+          - text: "Homework"
+            href: 03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework.qmd
+          - text: "Homework answers"
+            href: 03_wrangling_data_1/MET581-Lecture-03-Wrangling-Data-1-dplyr-Homework-Answers.qmd
+      - section: "Wrangling Data 2: tidying, strings and joins"
+        contents:
+          - text: "Slides"
+            href: 04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-slides.qmd
+          - text: "Lecture notes"
+            href: 04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Lecture-Notes.qmd
+          - text: "Homework"
+            href: 04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework.qmd
+          - text: "Homework answers"
+            href: 04_wrangling_data_2/MET581-Lecture-04-Wrangling-Data-2-strings-Homework-Answers.qmd
+      - section: "Wrangling Data 3: factors, dates and functions"
+        contents:
+          - text: "Slides"
+            href: 05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Slides.qmd
+          - text: "Lecture notes"
+            href: 05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Lecture-Notes.qmd
+          - text: "Homework"
+            href: 05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework.qmd
+          - text: "Homework answers"
+            href: 05_wrangling_data_3/MET581-Lecture-05-Wrangling-Data-3-forcats-Homework-Answers.qmd
       - section: "Programming in R"
         contents: 
           - text: "Slides"
             href: 06_Programming_in_R/met581_06_programming_in_r.qmd
           - text: "Workshop"
+            href: 06_Programming_in_R/met581_programming_in_r_workshop.qmd
+          - text: "Workshop answers"
             href: 10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.qmd
       - section: "Data Visualisation in R"
         contents: 
           - text: "Slides"
             href: 07_Data_Visualisation_in_R/met581_07_data_visualisation_in_r.qmd
-      - section: "Modelling in R"
-        contents: 
-          - text: "Slides"
-            href: 08_Modelling_in_R/met581_08_modelling_r.qmd
-          - text: "Practice"
-            href: 08_Modelling_in_R/modelling_in_r_practice.qmd
-      - section: "R Shiny"
-        contents: 
-          - text: "Code examples"
-            href: 09_ShinyApp/met581_09_shiny_code_examples.qmd
-          - text: "Code example solutions"
-            href: 09_ShinyApp/met581_09_shiny_code_examples_answers.qmd
-      
+
 execute: 
   freeze: auto
 
