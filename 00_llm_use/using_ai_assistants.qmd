@@ -199,6 +199,103 @@ Assistants almost never volunteer: row counts around joins, `NA` handling,
 checking whether a column is really the type you think, plotting the data before
 modelling it. Those omissions are yours to catch.
 
+## Optional: wiring an assistant into your R session
+
+::: {.callout-warning appearance="simple"}
+## Leave this one until later
+Everything in this section is **optional and unsupported**. I can't debug it for
+you in a lab session, and on a managed university laptop it may not be permitted
+at all. Come back to it once you can write R unaided. It's documented here
+because it exists and you'd find it anyway — not because you need it to pass.
+:::
+
+Look again at the four broken examples near the top of this page. They fail for
+one shared reason: **the model was guessing at your data.** It had no way to know
+that `pheno` contained a duplicated `id`, that `group` held an `NA`, or that
+`counts` was a factor rather than a number.
+
+You can't prompt your way out of that. The structural fix is to stop making it
+guess.
+
+### Level 1 --- `btw`
+
+The lower-friction option, and the one to try first.
+[`btw`](https://posit-dev.github.io/btw/) collects context from your live R
+session — the actual structure of your data frames, your installed package
+versions, help pages — and puts it on the clipboard for you to paste into any
+assistant.
+
+```{r}
+#| eval: false
+install.packages("btw")
+library(btw)
+
+btw()          # describes your session and environment
+btw(pheno)     # describes one specific object
+```
+
+No configuration, no editing JSON files, and it works with a plain chat window.
+For most people this is the whole benefit at a fraction of the effort.
+
+### Level 2 --- `mcptools`
+
+[`mcptools`](https://posit-dev.github.io/mcptools/) goes further: it lets an
+assistant *run code* in your live R session, so it can inspect objects and read
+help pages itself rather than being told about them.
+
+```{r}
+#| eval: false
+install.packages("mcptools")
+```
+
+Then register your R session so an assistant can find it. Adding it to your
+`.Rprofile` means every session registers automatically:
+
+```{r}
+#| eval: false
+usethis::edit_r_profile()   # then add the line below to that file
+mcptools::mcp_session()
+```
+
+Finally, point your assistant at R. For Claude Code, one command:
+
+```bash
+claude mcp add -s "user" r-mcptools -- Rscript -e "mcptools::mcp_server()"
+```
+
+For Claude Desktop and most other MCP clients, add this to the client's config
+file instead:
+
+```json
+{
+  "mcpServers": {
+    "r-mcptools": {
+      "command": "Rscript",
+      "args": ["-e", "mcptools::mcp_server()"]
+    }
+  }
+}
+```
+
+Restart both R and the assistant afterwards.
+
+### The catch, which is real
+
+Two things to be honest about.
+
+**This makes it much easier to skip step 1.** An assistant that can see your data
+and run your code is a very short path from "I have a problem" to "I have an
+answer", and *attempt → ask → diff* only works if you actually attempt. Pair this
+with [tutor mode](#tutor-mode) or you have simply built yourself a faster way to
+not learn R.
+
+**A better-informed assistant is more convincingly wrong.** Session access
+removes one whole category of error — the invented column, the misjudged data
+shape. It removes none of the others. It will not tell you that a t-test was the
+wrong choice, that your groups aren't independent, or that the effect you found
+is an artefact of how you filtered. Those are the judgements the report is marked
+on, and they are still entirely yours.
+
 ## What's fine and what isn't
 
 **Fine — genuinely, use the tools:**
@@ -244,4 +341,6 @@ answer than "I didn't use it".
   most R questions
 - [`btw`](https://posit-dev.github.io/btw/) — give an assistant your R session
 - [`ellmer`](https://ellmer.tidyverse.org/) — LLMs from R
+- [`mcptools`](https://posit-dev.github.io/mcptools/) — let an assistant run code
+  in your live R session (optional, see above)
 - `?function_name` — faster than asking, and always correct

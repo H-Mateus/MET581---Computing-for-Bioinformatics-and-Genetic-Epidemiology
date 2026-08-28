@@ -794,6 +794,27 @@ plot_ly(
 ggstatsplot::ggscatterstats(mtcars, x = hp, y = qsec)
 ```
 
+## One last thing: AI assistants
+
+::: {.incremental}
+-   We opened this course with **seven examples of confident, non-erroring, wrong
+    R**. You now know enough to catch all seven.
+
+-   That was the point. Judging generated code is the skill; producing it is not.
+
+-   If you want to go further, there is an **optional** section on the course
+    website — [Working with AI assistants →
+    *wiring an assistant into your R session*](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/00_llm_use/using_ai_assistants.html)
+    — covering `btw` and `mcptools`, which let an assistant see your **real** data
+    instead of guessing at it.
+
+-   It removes the invented-column class of error. It removes none of the
+    judgement — whether the test was right, whether the groups are independent,
+    whether the effect is an artefact of your filtering.
+
+-   Those are still yours, and they're what the report is marked on.
+:::
+
 ## Links and Resources
 
 -   Don't try to memorise everything, look stuff up!
