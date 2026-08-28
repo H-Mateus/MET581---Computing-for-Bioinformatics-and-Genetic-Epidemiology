@@ -1,0 +1,490 @@
+---
+title: "Working with AI assistants"
+subtitle: "Fluent, confident, and wrong"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+    orcid: 0000-0001-6075-3619
+    email: bernardo-harringtong@cardiff.ac.uk
+    affiliations:
+      - ref: cardiff
+      - ref: dri
+    degrees:
+      - PhD
+affiliations:
+  - id: cardiff
+    name: Cardiff University
+    city: Cardiff
+    url: www.cardiff.ac.uk
+  - id: dri
+    name: UK Dementia Research Institute
+    url: https://ukdri.ac.uk/
+format:
+  revealjs:
+    logo: /10_resources/00_images/combined_logos.png
+    footer: "Data Science for Life Sciences I - Slides and code available [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
+    slide-number: true
+    theme: [dark, ../styles.scss, brand]
+    brand-mode: dark
+    drop:
+      engine: webr
+      webr:
+        packages:
+          - tidyverse
+revealjs-plugins:
+  - drop
+execute:
+  echo: true
+---
+
+## Todays Aims
+
+- Be honest about the fact that you will all use AI assistants
+- Show you what they get wrong, and why you can't see it
+- Give you a way to use them that leaves you *better* at R, not worse
+- Set out what's fine and what isn't in assessed work
+
+::: {.notes}
+~15-20 minutes, placed after the first coding exercises in session 3 so they
+have enough R to read the examples. Run the code live rather than reading the
+output off the slide — the reveal is the whole point.
+:::
+
+## Let's start with the awkward bit
+
+I am not going to ban you from using LLMs.
+
+- It would not work
+- It would be daft — you'll use them for the rest of your career
+- I use them
+
+But I am going to try to convince you that **how** you use them over the next
+five weeks decides whether this module was worth your time.
+
+## The employability argument {.smaller}
+
+Suppose the whole of your R skillset is "I can ask a model for R code".
+
+. . .
+
+Your employer can do that. Their intern can do that. The person who didn't do
+the MSc can do that.
+
+. . .
+
+**The market rate for a skill everyone has is zero.**
+
+. . .
+
+What is actually scarce — and what people pay for:
+
+- Looking at generated code and knowing it's wrong
+- Knowing *which* question to ask in the first place
+- Being able to defend an analysis to someone who wants to publish it
+
+That's the job. The typing was never the job.
+
+## So let's test it
+
+Here is R code of the sort an assistant will happily produce.
+
+Some of it is wrong.
+
+**None of it errors.**
+
+::: {.notes}
+Emphasise: no error message. That's the danger. Broken code that crashes is a
+minor inconvenience. Broken code that returns a plausible number ends up in a
+paper.
+:::
+
+## Exhibit A {.smaller}
+
+> *"How do I get the mean of a column that has missing values?"*
+
+```{r}
+x <- c(1, 2, NA, 4)
+
+mean(x, na.omit = TRUE)
+```
+
+. . .
+
+`NA`.
+
+There is no `na.omit` argument to `mean()`. It was swallowed by `...` and
+silently ignored. The argument is `na.rm`:
+
+```{r}
+mean(x, na.rm = TRUE)
+```
+
+. . .
+
+**Why you'd miss it:** `na.omit` is a real R function. It reads perfectly.
+
+## Exhibit B {.smaller}
+
+> *"Convert this column to numbers."*
+
+```{r}
+genotype_count <- factor(c("10", "20", "5"))
+
+as.numeric(genotype_count)
+```
+
+. . .
+
+`1 2 3`. Those are the *factor level codes*, not your data.
+
+```{r}
+as.numeric(as.character(genotype_count))
+```
+
+. . .
+
+**Why you'd miss it:** you asked for numbers and you got numbers. Small
+integers, in a plausible range. No warning. This one has made it into published
+papers.
+
+## Exhibit C {.smaller}
+
+> *"Filter out the samples from group a."*
+
+```{r}
+#| message: false
+library(tidyverse)
+
+df <- tibble(group = c("a", "b", NA, "a"), value = 1:4)
+
+df |> filter(group != "a")
+```
+
+. . .
+
+One row. But **two** rows aren't group `"a"` — the `NA` vanished too.
+
+`NA != "a"` isn't `TRUE`, it's `NA`, and `filter()` keeps only `TRUE`.
+
+```{r}
+df |> filter(group != "a" | is.na(group))
+```
+
+## Exhibit D — the expensive one {.smaller}
+
+> *"Join the phenotype table onto the sample table."*
+
+```{r}
+samples <- tibble(id = c(1, 2, 3), sample = c("s1", "s2", "s3"))
+pheno   <- tibble(id = c(1, 1, 2), measure = c(4.1, 9.9, 5.2))
+
+joined <- left_join(samples, pheno, by = "id")
+```
+
+. . .
+
+```{r}
+nrow(samples)
+nrow(joined)
+```
+
+. . .
+
+3 rows in, **4 rows out**. `id == 1` appears twice in `pheno`, so sample `s1` got
+duplicated. Every downstream mean is now wrong, and weighted towards whichever
+samples happened to have duplicate records.
+
+## Exhibit D, continued
+
+```{r}
+joined
+```
+
+. . .
+
+**The habit that saves you:** check `nrow()` before and after every join. Every
+single one.
+
+An assistant will almost never do this unprompted. You have to.
+
+## Exhibit E {.smaller}
+
+> *"Apply my function across the list."*
+
+```{r}
+above_two <- function(x) x[x > 2]
+
+list_a <- list(a = c(1, 3, 4), b = c(1, 5, 6))
+class(sapply(list_a, above_two))
+```
+
+Works — a matrix, as you'd hope. Now change one value:
+
+```{r}
+list_b <- list(a = c(1, 3, 4), b = c(1, 1, 6))
+class(sapply(list_b, above_two))
+```
+
+. . .
+
+A **list**. `sapply()` guesses its return type from the data, so your pipeline
+breaks on a dataset you haven't seen yet — in three weeks, in a different script.
+
+## Exhibit E — the fix {.smaller}
+
+Type-stable alternatives fail *loudly and immediately* instead:
+
+```{r}
+#| error: true
+vapply(list_b, above_two, numeric(2))
+```
+
+. . .
+
+This is a general principle worth more than the specific example:
+
+> **Prefer the tool that breaks now over the tool that breaks quietly later.**
+
+`purrr::map_dbl()`, `vapply()`, `if_else()` over `ifelse()` — all the same idea.
+
+## Exhibit F {.smaller}
+
+> *"Flag the dates after March."*
+
+```{r}
+dates <- as.Date(c("2026-01-01", "2026-06-01"))
+
+ifelse(dates > as.Date("2026-03-01"), dates, NA)
+```
+
+. . .
+
+`20605`. Your dates are now integers — `ifelse()` strips the class.
+
+```{r}
+if_else(dates > as.Date("2026-03-01"), dates, as.Date(NA))
+```
+
+## Exhibit G {.smaller}
+
+> *"Add a column with the mean of a and b."*
+
+```{r}
+d <- tibble(a = c(1, 2), b = c(3, 4))
+
+d |> mutate(m = mean(c(a, b)))
+```
+
+. . .
+
+Every row got `2.5` — the mean of *all four numbers*. You wanted rowwise.
+
+```{r}
+d |> mutate(m = (a + b) / 2)
+```
+
+. . .
+
+**Why you'd miss it:** the code says `mean`, you wanted a mean, and a number
+appeared. With 10,000 rows you would never look.
+
+## What all seven have in common {.smaller}
+
+::: {.incremental}
+- No error. No warning.
+- Output of the right *shape* and a plausible *magnitude*
+- The code reads like English and looks like what you asked for
+- Every one of them is invisible unless you already understand R
+:::
+
+. . .
+
+The model isn't lying to you. It's producing the most plausible-looking code, and
+plausible-looking code is exactly the thing you cannot audit by looking at it.
+
+## Which is the actual argument {.smaller}
+
+You cannot check what a model gives you unless you know:
+
+- what a factor is, and what's underneath one
+- what `NA` does to a comparison
+- what a join does to row counts
+- what "type stable" means and why you'd want it
+
+**That's this module.** Not because R is precious, but because that knowledge is
+the only thing standing between you and a confidently wrong result.
+
+. . .
+
+The people who get burned by these tools aren't the ones who use them. They're
+the ones who can't check them.
+
+## Break {.center}
+
+## Right — so use them well {.smaller}
+
+Three things that make a genuine difference.
+
+::: {.incremental}
+1. **Give it your data, not your description of your data**
+2. **Constrain the answer**
+3. **Ask it to argue with itself**
+:::
+
+## 1. Give it your data {.smaller}
+
+Most bad generated R comes from the model guessing your data's shape. So don't
+make it guess:
+
+```{r}
+#| eval: false
+glimpse(df)
+str(df)
+dput(head(df, 5))   # paste this - it's a reproducible copy of your data
+```
+
+. . .
+
+Better still, tell it the things `str()` can't show:
+
+> *"A row is one participant-visit, so IDs repeat. `measure` is in mg/dL.
+> `-99` means missing in the `age` column."*
+
+That single sentence prevents Exhibit D.
+
+## 1. Give it your data — R-native tooling {.smaller}
+
+You can skip the copy-paste entirely. The
+[`btw`](https://posit-dev.github.io/btw/) package hands your live R session to
+an assistant — actual data frames, actual package versions, actual docs:
+
+```{r}
+#| eval: false
+install.packages("btw")
+library(btw)
+btw()          # describes your session for pasting
+```
+
+Also worth knowing about: [`ellmer`](https://ellmer.tidyverse.org/) for calling
+models from R, and the assistant built into
+[Positron](https://positron.posit.co/).
+
+. . .
+
+An assistant that can see your session is dramatically less likely to invent
+a column that doesn't exist.
+
+## 2. Constrain the answer {.smaller}
+
+Vague question, average answer. Compare:
+
+::: {.callout-note appearance="simple"}
+## Weak
+"How do I summarise this data?"
+:::
+
+::: {.callout-tip appearance="simple"}
+## Better
+"Using dplyr only — no new packages — give me mean and SD of `measure` by
+`treatment_group`, keeping groups with fewer than 5 observations visible rather
+than dropped. Tell me what happens to `NA`s in `measure`."
+:::
+
+. . .
+
+Notice what the second one is doing: it names the tools, the output, **and the
+edge case you're worried about**. Precision about edge cases is the whole skill.
+
+## 3. Ask it to argue with itself {.smaller}
+
+The highest-value prompts you can learn:
+
+::: {.incremental}
+- *"What assumptions did you make about my data?"*
+- *"How would this fail? Give me three ways."*
+- *"What would you check to prove this worked?"*
+- *"Is there a tidyverse function that already does this?"*
+- *"You used `sapply` — what happens if the results have different lengths?"*
+:::
+
+. . .
+
+Models are far better at critiquing code than at writing it correctly first
+time. Use that asymmetry.
+
+## Tutor mode {.smaller}
+
+There's a prompt on the module site that turns your assistant into something
+closer to a lab demonstrator: asks what you tried, hints instead of solving,
+makes you predict the output before it shows you.
+
+**Module site → Working with AI assistants**
+
+Paste it into Claude's or ChatGPT's custom instructions. There's a Claude Code
+version too.
+
+. . .
+
+You can defeat it in four seconds by opening another tab. I know. It's not a
+fence — it's there for the days you'd rather learn the thing than have it done
+for you.
+
+## What's fine, and what isn't {.smaller}
+
+**Fine — genuinely, use the tools:**
+
+- Explaining errors you can't parse
+- "What does this function do?"
+- Debugging code *you wrote*
+- Sanity-checking your reading of a result
+- Tightening your writing
+- Learning what's out there
+
+## What's fine, and what isn't {.smaller}
+
+**Not fine in assessed work:**
+
+- Generating the analysis code you submit
+- Having it pick your statistical approach
+- Having it write your interpretation
+
+. . .
+
+Not because of purity. Because **the 50% report is marked on defending your
+analytical choices** (MLO-5), and you cannot defend a choice you didn't make.
+That conversation goes badly in a way that is very obvious from the outside.
+
+## The rule of thumb
+
+::: {.callout-important appearance="simple"}
+## Attempt → ask → diff
+Try it yourself first. Then ask. Then compare what you wrote to what it wrote,
+and work out *why* they differ.
+:::
+
+That third step is where the learning actually lives, and it's the one everyone
+skips.
+
+## One last thing {.smaller}
+
+Nobody gets stronger watching a forklift.
+
+. . .
+
+Five weeks is not long. The version of you that finishes this module having
+struggled through the wrangling exercises is materially more employable than the
+version that had them generated — not because of virtue, but because only one of
+those two can look at Exhibit D and spot it.
+
+. . .
+
+I would rather you produced worse code this month and were better at R in
+October.
+
+## Additional Resources
+
+- Module site → **Working with AI assistants** (tutor prompt, prompting guide)
+- [`btw`](https://posit-dev.github.io/btw/) — give an assistant your R session
+- [`ellmer`](https://ellmer.tidyverse.org/) — call LLMs from R
+- [R for Data Science (2e)](https://r4ds.hadley.nz/) — still the best answer to
+  most R questions
+- `?function_name` — faster than asking, and always correct

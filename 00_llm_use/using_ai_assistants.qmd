@@ -1,0 +1,247 @@
+---
+title: "Working with AI assistants"
+subtitle: "How to use LLMs on this module without wasting the module"
+author: "Gabriel Mateus Bernardo Harrington"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+    number-sections: false
+execute:
+  echo: true
+---
+
+## The short version
+
+You may use AI assistants on this module. There is no ban, and I'm not
+interested in policing it.
+
+But: **the market rate for "can ask a model for R code" is zero**, because
+everyone can do that. Your value — in the rest of this MSc, in your project, and
+in a job — is in being able to look at generated code and know whether it's
+right. That capability is built by writing R, not by reading R.
+
+So the deal is:
+
+::: {.callout-important appearance="simple"}
+## Attempt → ask → diff
+1. **Attempt** it yourself first.
+2. **Ask** if you're stuck.
+3. **Diff** — compare what you wrote to what you were given, and work out *why*
+   they differ.
+:::
+
+Step 3 is where learning happens and it's the one everybody skips.
+
+## Why this matters more than it sounds
+
+Here is R code of the kind an assistant will cheerfully produce. It does not
+error. It returns numbers of the right shape and a plausible size. It is wrong.
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+### The argument that doesn't exist
+
+```{r}
+x <- c(1, 2, NA, 4)
+mean(x, na.omit = TRUE)
+```
+
+`na.omit` is not an argument to `mean()`. It was absorbed by `...` and ignored.
+The argument is `na.rm`. No warning was issued.
+
+### The factor that became its own level codes
+
+```{r}
+counts <- factor(c("10", "20", "5"))
+as.numeric(counts)
+```
+
+`1 2 3` — the internal level codes, not your data. You need
+`as.numeric(as.character(counts))`. This class of bug has reached publication
+more than once.
+
+### The join that quietly duplicated your samples
+
+```{r}
+samples <- tibble(id = c(1, 2, 3), sample = c("s1", "s2", "s3"))
+pheno   <- tibble(id = c(1, 1, 2), measure = c(4.1, 9.9, 5.2))
+
+joined <- left_join(samples, pheno, by = "id")
+c(before = nrow(samples), after = nrow(joined))
+```
+
+Three rows in, four out, because `id == 1` was duplicated in `pheno`. Every mean
+you compute downstream is now wrong. **Check `nrow()` before and after every
+join** — an assistant will rarely do this for you.
+
+### The filter that silently ate your missing data
+
+```{r}
+df <- tibble(group = c("a", "b", NA, "a"), value = 1:4)
+df |> filter(group != "a")
+```
+
+One row, not two — `NA != "a"` evaluates to `NA`, and `filter()` keeps only
+`TRUE`. If you wanted the missing group kept:
+`filter(group != "a" | is.na(group))`.
+
+::: {.callout-note}
+There are more of these in the session 3 slides. The common thread is that
+**none of them error**. Code that crashes is a minor annoyance; code that
+returns a confident wrong number is how bad science happens — and you cannot
+spot any of them without understanding factors, `NA` semantics, and joins.
+
+That understanding is what this module is for.
+:::
+
+## Tutor mode
+
+The most useful thing you can do is stop your assistant from answering so fast.
+
+There's a paste-in prompt in
+[`r_tutor_prompt.md`](r_tutor_prompt.md) that reconfigures any assistant into
+something closer to a good lab demonstrator: it asks what you've tried, gives
+you the smallest useful hint rather than the solution, makes you predict output
+before showing it, and caps how much code it writes unasked. It has an escape
+hatch for when you're genuinely out of time.
+
+Tool-specific versions:
+
+| Tool | File | Where it goes |
+|---|---|---|
+| Any chat assistant | `r_tutor_prompt.md` | Custom instructions / project instructions / first message |
+| Claude Code | `skills/r-tutor/SKILL.md` | `~/.claude/skills/r-tutor/SKILL.md` |
+| A project folder | `CLAUDE.md.example` | Save as `CLAUDE.md` in your coursework folder |
+
+You can defeat all of this by opening a different tab, and I know that. It isn't
+a fence. It's there for the days when you'd rather learn the thing.
+
+## Prompting for R, specifically
+
+### 1. Give it your data, not your description of your data
+
+Most bad generated R comes from the model guessing at your data's shape. Don't
+make it guess:
+
+```{r}
+#| eval: false
+glimpse(df)
+str(df)
+dput(head(df, 5))   # a reproducible copy of your data - paste this
+```
+
+Then add what `str()` can't show:
+
+> "A row is one participant-visit, so IDs repeat. `measure` is mg/dL. `-99`
+> means missing in `age`."
+
+That one sentence prevents the duplicated-join bug above.
+
+Better still, let R do it. The [`btw`](https://posit-dev.github.io/btw/) package
+hands your live session — real data frames, real package versions, real help
+pages — to an assistant:
+
+```{r}
+#| eval: false
+install.packages("btw")
+library(btw)
+btw()
+```
+
+Also worth your time: [`ellmer`](https://ellmer.tidyverse.org/) for calling
+models from R, and the assistant built into
+[Positron](https://positron.posit.co/).
+
+### 2. Constrain the answer
+
+Vague question, average answer.
+
+::: {.callout-note appearance="simple"}
+## Weak
+"How do I summarise this data?"
+:::
+
+::: {.callout-tip appearance="simple"}
+## Better
+"Using dplyr only, no new packages: mean and SD of `measure` by
+`treatment_group`. Keep groups with fewer than 5 observations visible rather
+than dropping them. Tell me what happens to `NA`s in `measure`."
+:::
+
+The second names the tools, the output *and the edge case you're worried about*.
+Being precise about edge cases is most of the skill.
+
+### 3. Ask it to argue with itself
+
+Models are much better at criticising code than at writing it correctly first
+time. Exploit that:
+
+- "What assumptions did you make about my data?"
+- "How could this fail? Give me three ways."
+- "What would you check to prove this worked?"
+- "Is there a tidyverse function that already does this?"
+- "You used `sapply()` — what happens if the results have different lengths?"
+
+### 4. Trust the docs over the model
+
+If an assistant tells you an argument exists, `?function_name` will tell you
+whether it does. That check takes three seconds and models hallucinate
+tidyverse arguments constantly.
+
+### 5. Notice what it doesn't do
+
+Assistants almost never volunteer: row counts around joins, `NA` handling,
+checking whether a column is really the type you think, plotting the data before
+modelling it. Those omissions are yours to catch.
+
+## What's fine and what isn't
+
+**Fine — genuinely, use the tools:**
+
+- Explaining an error you can't parse
+- "What does this function do?"
+- Debugging code *you* wrote
+- Sanity-checking your interpretation of a result
+- Improving your writing
+- Finding out what packages exist for a problem
+
+**Not fine in assessed work:**
+
+- Generating the analysis code you submit
+- Having it choose your statistical approach
+- Having it write your interpretation
+
+This isn't about purity. The 2000-word report is explicitly marked on
+**defending your analytical choices and methodological approach** (MLO-5). You
+cannot defend a choice you didn't make, and the attempt is transparent from the
+outside.
+
+If you're unsure whether something crosses a line, ask me. Asking is never the
+wrong move.
+
+## Declaring what you used
+
+For the summative report, you'll be asked for a short **process appendix** — a
+few hundred words, unmarked for style:
+
+- what you used an assistant for
+- one thing it got wrong or that you rejected, and how you spotted it
+- what you changed and why
+
+This is not a confession. Honest, specific answers here demonstrate exactly the
+evaluative skill the module is teaching, and "I used it to debug my
+`pivot_longer()` call and it suggested a column that didn't exist" is a better
+answer than "I didn't use it".
+
+## Further reading
+
+- [R for Data Science (2e)](https://r4ds.hadley.nz/) — still the best answer to
+  most R questions
+- [`btw`](https://posit-dev.github.io/btw/) — give an assistant your R session
+- [`ellmer`](https://ellmer.tidyverse.org/) — LLMs from R
+- `?function_name` — faster than asking, and always correct
