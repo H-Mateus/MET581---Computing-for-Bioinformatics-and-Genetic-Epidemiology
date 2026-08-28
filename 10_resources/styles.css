@@ -1,0 +1,20 @@
+/* styles.css */
+table, th, td {
+    font-size: 0.85em;   /* Reduces font size */
+    padding: 4px 6px;    /* Adjusts padding for compactness */
+    border-collapse: collapse;
+}
+
+th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.reveal .slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    padding-top: 20px; /* Optional: adjust spacing from the top */
+}

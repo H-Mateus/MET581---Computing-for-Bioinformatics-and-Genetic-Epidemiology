@@ -1,0 +1,136 @@
+---
+title: "MET581 Lecture 04 Homework Answers"
+subtitle: "Wrangling Data 2"
+author: "Matthew Bracher-Smith"
+date: "2024-10-18"
+format: 
+  html:
+    number-sections: true
+    theme: united
+    highlight: tango
+    mainfont: Ubuntu
+    embed-resources: true
+    self-contained: true
+editor: source
+execute:
+  echo: true
+---
+
+```{r}
+#| include: false
+library(plyr)
+library(dplyr)
+library(nycflights13)
+library(stringr)
+library(data.table)
+library(tibble)
+```
+
+This document contains all questions for lesson 4. Please create a quarto document containing all text, code and output used to answer the questions.
+
+## 1. Explain how escapes work in R.  
+
+Anything along the lines of: 
+
+* you need to escape the string and the regex within R function. Students may also have written along the lines of 'You need to use `\\` for each escape because of the use of special characters (eg a backslash itself `\`)'.
+
+## 2. List and describe the tidyverse commands used to join two datasets together.   
+  
+left_join : 
+
+* All rows from dataset1
+* All columns from dataset1 and dataset2
+* If a row exists only in dataset1, data is retained.
+* If a row exists only in dataset2, data is not retained.
+
+right_join:
+
+* all rows from dataset2
+* all columns from dataset1 and dataset2
+* If a row exists only in dataset1, data is not retained.
+* If a row exists only in dataset2, data is retained.
+
+inner_join:
+
+* Only rows that exist in dataset1 and dataset2
+
+full_join:
+  
+* All rows in dataset1 and dataset2
+* Joining with missing or duplicate keys
+* If data is missing from one dataset but is in the other, depending on the type of join you are performing, this can result in missing data (NA values).
+
+semi_join(x, y):
+
+* keeps all observations in x that have a match in y
+
+anti_join(x, y):
+
+* drops all observations in x that have a match in y
+
+## 3. Load the nycflights13 package and join the datasets flights and airlines together, selecting only the columns: `year`, `month`, `day`, `hour`, `origin`, `tailnum` and `carrier` from flights. Can you do the same but using the mutate() function instead?
+
+```{r}
+# one example:
+flights2 <- flights %>% 
+  select(year:day, hour, origin, tailnum, carrier) %>%
+  left_join(airlines, by = "carrier")
+
+# part 2
+flights3 <- flights %>%
+  select(year:day, hour, origin, tailnum, carrier) %>%
+  mutate(name = airlines$name[match(carrier, airlines$carrier)])
+```
+
+## 4. In the starwars dataset and in one command, add two new columns:
+
+* one column that converts the `name` column to lower case
+* one column that converts the `eye_colour` to uppercase
+
+```{r}
+
+# one example:
+starwars_mutated <- starwars %>%
+  mutate(name_lower = str_to_lower(name),
+         eye_color_upper = str_to_upper(eye_color))
+```
+
+5. Download the gene annotation file from the NCBI found [here](https://cf-my.sharepoint.com/:u:/g/personal/smithmr5_cardiff_ac_uk/Ed6jtKhhKgRGq5R-IoQHTAYBLgO6FC_aJ6u7mydY1mpc_A?e=siJJ4A)
+
+**unzip the file and load in `NCBI37.3.gene.loc` into R**
+
+* add the column headers: `Entrez_Gene_ID`, `CHR`, `BP_START`, `BP_END`, `STRAND`, `GENE_NAME`
+* How many Genes are on the positive strand?
+* How many Genes begin and end with a letter?
+
+```{r}
+#| eval: false
+# using readr to read the file
+# note that we haven't correctly handled chromosomes, which needs to be specified in col_types
+test <- readr::read_tsv(
+  "./data/NCBI37.3/NCBI37.3.gene.loc",
+  col_names = c("Entrez_Gene_ID", "CHR", "BP_START" ,"BP_END", "STRAND", "GENE_NAME"))
+
+# using data.table to read the file
+test <- fread("./data/NCBI37.3/NCBI37.3.gene.loc",header= F)
+setnames(test,c("Entrez_Gene_ID", "CHR", "BP_START" ,"BP_END", "STRAND", "GENE_NAME" ))
+test <- as_tibble(test)
+
+# How many Genes are on the positive strand? 9819
+sum(str_count(string = test$STRAND, pattern = "\\+"))
+
+# or with pipes
+test %>%
+  pull(STRAND) %>%
+  stringr::str_count(pattern = "\\+") %>%
+  sum()
+
+# How many genes begin and end with a letter?: 5016
+sum(str_count(string = test$GENE_NAME, pattern = "^[a-zA-Z].*[a-zA-Z]$"))
+
+# or with pipes again
+test %>%
+  pull(GENE_NAME) %>%
+  stringr::str_count(pattern = "^[a-zA-Z].*[a-zA-Z]$") %>%
+  sum()
+```
