@@ -1,0 +1,176 @@
+"table_name","variable_name","label","data_type","level","count","percent"
+"baseline","site_code","Recruiting clinic site in England","categorical","Bristol",549,22.875
+"baseline","site_code","Recruiting clinic site in England","categorical","Birmingham",700,29.1666666666667
+"baseline","site_code","Recruiting clinic site in England","categorical","Leeds",573,23.875
+"baseline","site_code","Recruiting clinic site in England","categorical","Manchester",574,23.9166666666667
+"baseline","site_code","Recruiting clinic site in England","categorical","Manchster",4,0.166666666666667
+"baseline","sex_at_birth","Recorded sex at birth","binary categorical","Female",1194,49.75
+"baseline","sex_at_birth","Recorded sex at birth","binary categorical","Male",1203,50.125
+"baseline","sex_at_birth","Recorded sex at birth","binary categorical","female",3,0.125
+"baseline","ethnicity_group","Broad ethnicity group","categorical","White",1909,79.5416666666667
+"baseline","ethnicity_group","Broad ethnicity group","categorical","Asian",258,10.75
+"baseline","ethnicity_group","Broad ethnicity group","categorical","Black",102,4.25
+"baseline","ethnicity_group","Broad ethnicity group","categorical","Mixed",62,2.58333333333333
+"baseline","ethnicity_group","Broad ethnicity group","categorical","Other",66,2.75
+"baseline","ethnicity_group","Broad ethnicity group","categorical","Asain",3,0.125
+"baseline","blood_group","ABO blood group","categorical","O",1196,49.8333333333333
+"baseline","blood_group","ABO blood group","categorical","A",897,37.375
+"baseline","blood_group","ABO blood group","categorical","B",227,9.45833333333333
+"baseline","blood_group","ABO blood group","categorical","AB",80,3.33333333333333
+"baseline","smoking_status","Current smoking history category","categorical","Never",1268,52.8333333333333
+"baseline","smoking_status","Current smoking history category","categorical","Former",795,33.125
+"baseline","smoking_status","Current smoking history category","categorical","Current",333,13.875
+"baseline","smoking_status","Current smoking history category","categorical","Currnt",4,0.166666666666667
+"baseline","inactive_under_30min","Less than 30 minutes of moderate or vigorous activity per week","binary categorical","No",1851,77.125
+"baseline","inactive_under_30min","Less than 30 minutes of moderate or vigorous activity per week","binary categorical","Yes",549,22.875
+"baseline","family_history_cvd","Family history of cardiovascular disease","binary categorical","No",1698,70.75
+"baseline","family_history_cvd","Family history of cardiovascular disease","binary categorical","Yes",702,29.25
+"baseline","family_history_diabetes","Family history of diabetes","binary categorical","No",1585,66.0416666666667
+"baseline","family_history_diabetes","Family history of diabetes","binary categorical","Yes",815,33.9583333333333
+"baseline","obesity","BMI at least 30 kg/m^2","binary categorical","No",1590,66.25
+"baseline","obesity","BMI at least 30 kg/m^2","binary categorical","Yes",808,33.6666666666667
+"baseline","obesity","BMI at least 30 kg/m^2","binary categorical","Y",1,0.0416666666666667
+"baseline","obesity","BMI at least 30 kg/m^2","binary categorical","YES",1,0.0416666666666667
+"baseline","high_central_adiposity","Waist-to-height ratio at least 0.6","binary categorical","No",1810,75.4166666666667
+"baseline","high_central_adiposity","Waist-to-height ratio at least 0.6","binary categorical","Yes",590,24.5833333333333
+"baseline","measured_hypertension","Measured hypertension or antihypertensive treatment","binary categorical","No",999,41.625
+"baseline","measured_hypertension","Measured hypertension or antihypertensive treatment","binary categorical","Yes",1401,58.375
+"baseline","type2_diabetes","Simulated type 2 diabetes status based on glycaemic profile","binary categorical","No",2204,91.8333333333333
+"baseline","type2_diabetes","Simulated type 2 diabetes status based on glycaemic profile","binary categorical","Yes",196,8.16666666666667
+"baseline","prediabetes","Prediabetes or non-diabetic hyperglycaemia","binary categorical","No",1665,69.375
+"baseline","prediabetes","Prediabetes or non-diabetic hyperglycaemia","binary categorical","Yes",735,30.625
+"baseline","raised_total_cholesterol","Total cholesterol at least 5 mmol/L","binary categorical","No",1016,42.3333333333333
+"baseline","raised_total_cholesterol","Total cholesterol at least 5 mmol/L","binary categorical","Yes",1384,57.6666666666667
+"baseline","high_total_hdl_ratio","Total-to-HDL cholesterol ratio at least 6","binary categorical","No",2319,96.625
+"baseline","high_total_hdl_ratio","Total-to-HDL cholesterol ratio at least 6","binary categorical","Yes",81,3.375
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Very bad",1094,46.3952502120441
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Bad",533,22.6039016115352
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Fair",384,16.2849872773537
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Good",209,8.86344359626802
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Very good",135,5.72519083969466
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","very good",1,0.0424088210347752
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Very Good",1,0.0424088210347752
+"baseline","self_rated_health","Self-rated overall health using UK survey wording","ordered categorical","Very good ",1,0.0424088210347752
+"baseline","longstanding_condition","Longstanding health condition","binary categorical","No",809,33.7083333333333
+"baseline","longstanding_condition","Longstanding health condition","binary categorical","Yes",1591,66.2916666666667
+"baseline","chronic_kidney_disease","Simulated chronic kidney disease status","binary categorical","No",1781,74.2083333333333
+"baseline","chronic_kidney_disease","Simulated chronic kidney disease status","binary categorical","Yes",619,25.7916666666667
+"baseline","atrial_fibrillation","Simulated atrial fibrillation history","binary categorical","No",2058,85.75
+"baseline","atrial_fibrillation","Simulated atrial fibrillation history","binary categorical","Yes",342,14.25
+"baseline","previous_mi","Previous myocardial infarction history","binary categorical","No",2075,86.4583333333333
+"baseline","previous_mi","Previous myocardial infarction history","binary categorical","Yes",325,13.5416666666667
+"baseline","previous_stroke_tia","Previous stroke or transient ischaemic attack history","binary categorical","No",2159,89.9583333333333
+"baseline","previous_stroke_tia","Previous stroke or transient ischaemic attack history","binary categorical","Yes",241,10.0416666666667
+"baseline","copd","Simulated chronic obstructive pulmonary disease status","binary categorical","No",2212,92.1666666666667
+"baseline","copd","Simulated chronic obstructive pulmonary disease status","binary categorical","Yes",188,7.83333333333333
+"baseline","cancer_history","Previous cancer diagnosis history","binary categorical","No",2100,87.5
+"baseline","cancer_history","Previous cancer diagnosis history","binary categorical","Yes",300,12.5
+"baseline","osteoarthritis","Simulated osteoarthritis status","binary categorical","No",1686,70.25
+"baseline","osteoarthritis","Simulated osteoarthritis status","binary categorical","Yes",714,29.75
+"baseline","depression_anxiety","Depression or anxiety history","binary categorical","No",2081,86.7083333333333
+"baseline","depression_anxiety","Depression or anxiety history","binary categorical","Yes",319,13.2916666666667
+"baseline","dementia_cognitive_impairment","Dementia or cognitive impairment history","binary categorical","No",2183,90.9583333333333
+"baseline","dementia_cognitive_impairment","Dementia or cognitive impairment history","binary categorical","Yes",217,9.04166666666667
+"baseline","polypharmacy_5plus","Taking five or more regular medicines","binary categorical","No",1714,71.4166666666667
+"baseline","polypharmacy_5plus","Taking five or more regular medicines","binary categorical","Yes",686,28.5833333333333
+"baseline","frailty_category","Frailty category derived from frailty index","ordered categorical","Fit",308,12.8333333333333
+"baseline","frailty_category","Frailty category derived from frailty index","ordered categorical","Mild frailty",1228,51.1666666666667
+"baseline","frailty_category","Frailty category derived from frailty index","ordered categorical","Moderate frailty",735,30.625
+"baseline","frailty_category","Frailty category derived from frailty index","ordered categorical","Severe frailty",129,5.375
+"baseline","care_home_resident","Simulated care-home residence at baseline","binary categorical","No",2232,93
+"baseline","care_home_resident","Simulated care-home residence at baseline","binary categorical","Yes",168,7
+"baseline","on_antihypertensive","Currently taking blood pressure medication","binary categorical","No",1792,74.6666666666667
+"baseline","on_antihypertensive","Currently taking blood pressure medication","binary categorical","Yes",608,25.3333333333333
+"baseline","on_statin","Currently taking statin medication","binary categorical","No",1550,64.5833333333333
+"baseline","on_statin","Currently taking statin medication","binary categorical","Yes",850,35.4166666666667
+"baseline","diagnosed_hypertension","Clinical hypertension diagnosis","binary categorical","No",1590,66.25
+"baseline","diagnosed_hypertension","Clinical hypertension diagnosis","binary categorical","Yes",810,33.75
+"baseline","high_cardiovascular_risk","Elevated cardiovascular risk category","binary categorical","No",1657,69.0416666666667
+"baseline","high_cardiovascular_risk","Elevated cardiovascular risk category","binary categorical","Yes",743,30.9583333333333
+"baseline","hospital_admission_24m","Any hospital admission during the first 24 months","binary categorical","No",2048,85.3333333333333
+"baseline","hospital_admission_24m","Any hospital admission during the first 24 months","binary categorical","Yes",352,14.6666666666667
+"baseline","hospital_admission_5y","Any hospital admission during five-year follow-up","binary categorical","No",1361,56.7083333333333
+"baseline","hospital_admission_5y","Any hospital admission during five-year follow-up","binary categorical","Yes",1039,43.2916666666667
+"baseline","metabolic_risk_group","Overall metabolic risk group","ordered categorical","Low",1157,48.2083333333333
+"baseline","metabolic_risk_group","Overall metabolic risk group","ordered categorical","Intermediate",615,25.625
+"baseline","metabolic_risk_group","Overall metabolic risk group","ordered categorical","High",628,26.1666666666667
+"baseline","lifestyle_program_enrolled","Joined the lifestyle support programme","binary categorical","No",1914,79.75
+"baseline","lifestyle_program_enrolled","Joined the lifestyle support programme","binary categorical","Yes",486,20.25
+"baseline","died_during_followup","Died during five-year follow-up","binary categorical","No",2199,91.625
+"baseline","died_during_followup","Died during five-year follow-up","binary categorical","Yes",201,8.375
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Not applicable",2199,91.625
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Cancer",35,1.45833333333333
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Dementia and neurodegenerative disease",42,1.75
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Ischaemic heart disease",34,1.41666666666667
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Respiratory disease",26,1.08333333333333
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Stroke",30,1.25
+"baseline","primary_cause_of_death","Broad simulated primary cause of death","categorical","Other",34,1.41666666666667
+"visits","visit_label","Human-readable visit label","categorical","baseline",2400,22.3630264629146
+"visits","visit_label","Human-readable visit label","categorical","12_month",1983,18.4774506149832
+"visits","visit_label","Human-readable visit label","categorical","24_month",1814,16.9027208348863
+"visits","visit_label","Human-readable visit label","categorical","36_month",1650,15.3745806932538
+"visits","visit_label","Human-readable visit label","categorical","48_month",1504,14.0141632500932
+"visits","visit_label","Human-readable visit label","categorical","60_month",1378,12.8401043607902
+"visits","visit_label","Human-readable visit label","categorical","12 month",1,0.0093179276928811
+"visits","visit_label","Human-readable visit label","categorical","12_Month",1,0.0093179276928811
+"visits","visit_label","Human-readable visit label","categorical","12month",1,0.0093179276928811
+"visits","site_code","Recruiting clinic site","categorical","Bristol",2475,23.0618710398807
+"visits","site_code","Recruiting clinic site","categorical","Birmingham",3108,28.9601192694745
+"visits","site_code","Recruiting clinic site","categorical","Leeds",2572,23.9657100260902
+"visits","site_code","Recruiting clinic site","categorical","Manchester",2575,23.9936638091688
+"visits","site_code","Recruiting clinic site","categorical","Bristl",1,0.0093179276928811
+"visits","site_code","Recruiting clinic site","categorical","bristol",1,0.0093179276928811
+"visits","smoking_status","Baseline smoking category carried forward","categorical","Never",5796,54.0067089079389
+"visits","smoking_status","Baseline smoking category carried forward","categorical","Former",3507,32.677972418934
+"visits","smoking_status","Baseline smoking category carried forward","categorical","Current",1426,13.2873648900485
+"visits","smoking_status","Baseline smoking category carried forward","categorical","former",1,0.0093179276928811
+"visits","smoking_status","Baseline smoking category carried forward","categorical","Former ",1,0.0093179276928811
+"visits","smoking_status","Baseline smoking category carried forward","categorical","Formr",1,0.0093179276928811
+"visits","lifestyle_program_enrolled","Programme enrolment carried forward","binary categorical","No",8525,79.4353335818114
+"visits","lifestyle_program_enrolled","Programme enrolment carried forward","binary categorical","Yes",2207,20.5646664181886
+"visits","frailty_category","Baseline frailty category carried forward","ordered categorical","Fit",1510,14.0700708162505
+"visits","frailty_category","Baseline frailty category carried forward","ordered categorical","Mild frailty",5729,53.3824077525158
+"visits","frailty_category","Baseline frailty category carried forward","ordered categorical","Moderate frailty",3028,28.214685054044
+"visits","frailty_category","Baseline frailty category carried forward","ordered categorical","Severe frailty",465,4.33283637718971
+"visits","self_rated_health","Self-rated health at visit","ordered categorical","Very bad",1534,14.2937010808796
+"visits","self_rated_health","Self-rated health at visit","ordered categorical","Bad",2691,25.074543421543
+"visits","self_rated_health","Self-rated health at visit","ordered categorical","Fair",3300,30.7491613865076
+"visits","self_rated_health","Self-rated health at visit","ordered categorical","Good",2269,21.1423779351472
+"visits","self_rated_health","Self-rated health at visit","ordered categorical","Very good",938,8.74021617592248
+"visits","living_status_at_visit","Living status at each observed visit","binary categorical","Alive",10732,100
+"mortality_comorbidity","sex_at_birth","Recorded sex at birth copied from baseline","binary categorical","Female",1197,49.875
+"mortality_comorbidity","sex_at_birth","Recorded sex at birth copied from baseline","binary categorical","Male",1203,50.125
+"mortality_comorbidity","frailty_category","Frailty category","ordered categorical","Fit",308,12.8333333333333
+"mortality_comorbidity","frailty_category","Frailty category","ordered categorical","Mild frailty",1226,51.0833333333333
+"mortality_comorbidity","frailty_category","Frailty category","ordered categorical","Moderate frailty",735,30.625
+"mortality_comorbidity","frailty_category","Frailty category","ordered categorical","Severe frailty",129,5.375
+"mortality_comorbidity","frailty_category","Frailty category","ordered categorical","mild frailty",1,0.0416666666666667
+"mortality_comorbidity","frailty_category","Frailty category","ordered categorical","Mild frailty ",1,0.0416666666666667
+"mortality_comorbidity","chronic_kidney_disease","Simulated chronic kidney disease status","binary categorical","No",1781,74.2083333333333
+"mortality_comorbidity","chronic_kidney_disease","Simulated chronic kidney disease status","binary categorical","Yes",619,25.7916666666667
+"mortality_comorbidity","atrial_fibrillation","Simulated atrial fibrillation history","binary categorical","No",2058,85.75
+"mortality_comorbidity","atrial_fibrillation","Simulated atrial fibrillation history","binary categorical","Yes",342,14.25
+"mortality_comorbidity","previous_mi","Previous myocardial infarction history","binary categorical","No",2075,86.4583333333333
+"mortality_comorbidity","previous_mi","Previous myocardial infarction history","binary categorical","Yes",325,13.5416666666667
+"mortality_comorbidity","previous_stroke_tia","Previous stroke or TIA history","binary categorical","No",2159,89.9583333333333
+"mortality_comorbidity","previous_stroke_tia","Previous stroke or TIA history","binary categorical","Yes",241,10.0416666666667
+"mortality_comorbidity","copd","Simulated COPD status","binary categorical","No",2212,92.1666666666667
+"mortality_comorbidity","copd","Simulated COPD status","binary categorical","Yes",188,7.83333333333333
+"mortality_comorbidity","cancer_history","Previous cancer diagnosis history","binary categorical","No",2100,87.5
+"mortality_comorbidity","cancer_history","Previous cancer diagnosis history","binary categorical","Yes",300,12.5
+"mortality_comorbidity","dementia_cognitive_impairment","Dementia or cognitive impairment history","binary categorical","No",2183,90.9583333333333
+"mortality_comorbidity","dementia_cognitive_impairment","Dementia or cognitive impairment history","binary categorical","Yes",217,9.04166666666667
+"mortality_comorbidity","polypharmacy_5plus","Taking five or more regular medicines","binary categorical","No",1714,71.4166666666667
+"mortality_comorbidity","polypharmacy_5plus","Taking five or more regular medicines","binary categorical","Yes",686,28.5833333333333
+"mortality_comorbidity","care_home_resident","Simulated care-home residence","binary categorical","No",2232,93
+"mortality_comorbidity","care_home_resident","Simulated care-home residence","binary categorical","Yes",168,7
+"mortality_comorbidity","died_during_followup","Died during five-year follow-up","binary categorical","No",2199,91.625
+"mortality_comorbidity","died_during_followup","Died during five-year follow-up","binary categorical","Yes",201,8.375
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Not applicable",2199,91.625
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Cancer",35,1.45833333333333
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Dementia and neurodegenerative disease",42,1.75
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Ischaemic heart disease",31,1.29166666666667
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Respiratory disease",26,1.08333333333333
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Stroke",30,1.25
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Other",34,1.41666666666667
+"mortality_comorbidity","primary_cause_of_death","Broad simulated primary cause of death","categorical","Ischaemic heart diesease",3,0.125
