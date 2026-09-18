@@ -24,7 +24,7 @@ right. That capability is built by writing R, not by reading R.
 
 So the deal is:
 
-::: {.callout-important appearance="simple"}
+::: {#attempt-ask-diff .callout-important appearance="simple"}
 ## Attempt → ask → diff
 1. **Attempt** it yourself first.
 2. **Ask** if you're stuck.
@@ -33,6 +33,12 @@ So the deal is:
 :::
 
 Step 3 is where learning happens and it's the one everybody skips.
+
+There are **two** reasons to be careful here, and they are different problems.
+Assistants are often [confidently wrong](#why-this-matters-more-than-it-sounds) —
+and even when they are right, leaning on them
+[costs you the learning](#the-second-reason-which-is-the-one-people-miss). The
+first is easier to argue; the second does more damage.
 
 ## Why this matters more than it sounds
 
@@ -97,6 +103,115 @@ returns a confident wrong number is how bad science happens — and you cannot
 spot any of them without understanding factors, `NA` semantics, and joins.
 
 That understanding is what this module is for.
+:::
+
+## The second reason, which is the one people miss
+
+Everything above is about the model being **wrong**. That is the easy argument to
+make, and it is the one that gets made most often.
+
+The harder argument applies when the model is **right**.
+
+Reading a correct solution feels almost exactly like working one out. It is
+quick, it makes sense as you read it, and you finish with the distinct
+impression that you now know how to do it. That impression is
+*fluency*, not learning, and the two feel identical from the inside. The
+difference shows up later — usually in an exam room, or the first time nobody
+is there to ask.
+
+Learning scientists call the effort you just skipped a **desirable difficulty**.
+Retrieving something yourself, getting it wrong, and correcting it is not an
+inefficient route to the knowledge. It is the mechanism by which the knowledge
+forms. Watching a correct answer appear bypasses that mechanism, and it does so
+silently — nothing about the experience tells you that you have been
+short-changed.
+
+::: {.callout-important appearance="simple"}
+## The loop to watch for
+1. You get stuck, and you ask.
+2. You get a working answer, and move on.
+3. You never build the knowledge that answer was made of.
+4. Next time, you are **less** able to tell a good answer from a bad one.
+5. So you ask sooner.
+
+Each step is individually reasonable. Nothing in the loop feels bad while it is
+happening. And it feeds directly back into the first problem: the less you know,
+the less able you are to catch the confident, non-erroring, wrong answer.
+:::
+
+None of this is an argument for struggling pointlessly. Being stuck for forty
+minutes on a missing bracket teaches you nothing. It is an argument for being
+deliberate about *which* difficulties you keep — which is what
+[attempt → ask → diff](#attempt-ask-diff) is for.
+
+## Which tool for which job
+
+You have access to **Gemini**, **NotebookLM** and **Elicit**. They are not
+interchangeable, and the difference that matters is **how much room each one has
+to invent**.
+
+| Tool | Grounded in | Sensible use on this module |
+|---|---|---|
+| **NotebookLM** | only the sources you upload | Revising from your own lecture notes |
+| **Elicit** | real published papers | Finding and triaging literature for the report |
+| **Gemini** | nothing in particular | General help — every caveat on this page applies |
+
+Narrower grounding means less room to invent. It does not mean "safe".
+
+### NotebookLM
+
+NotebookLM answers only from documents you give it, and cites the passage behind
+each claim so you can click through and check. That makes it the most
+*learning-friendly* of the three, because it points you back at the source
+rather than replacing it.
+
+Genuinely good uses: upload the lecture notes and ask it to explain a concept you
+did not follow; ask it to generate practice questions from a session; ask what
+the notes say about a topic before you ask a general assistant to solve it for
+you.
+
+The catch: grounding **reduces** invention, it does not eliminate it — it can
+still misread the source you handed it, and the citation will look just as
+confident either way. It is also close to useless for *"why will this code not
+run?"*, because your error is not in the documents.
+
+### Elicit
+
+Elicit searches real papers and can extract findings into a table, which is
+directly useful for MLO-5 and the report's literature.
+
+The catch is worth knowing in detail, because it is a reproducibility problem and
+this module is about reproducible pipelines. A 2026 feasibility study in
+*Research Synthesis Methods* re-ran the same extractions from different user
+accounts and compared them:
+
+- **90%** agreement on the extracted *values*
+- **46%** agreement on the supporting *quotes*
+- **30%** agreement on the *reasoning*
+
+Elicit's own documentation notes it "can miss the nuance of a paper or
+misunderstand what a number refers to", with complex tables and multi-arm studies
+especially prone to extraction errors. Independent evaluation has also found a
+large gap between benchmark screening performance and performance on realistic
+search strategies.
+
+::: {.callout-warning appearance="simple"}
+Use Elicit to **find** papers, not to **know** them. If a paper matters enough to
+cite, it matters enough to open. An extracted summary you cannot reproduce is not
+evidence, and "Elicit said so" is not a defence of an analytical choice.
+:::
+
+### Gemini
+
+A general-purpose assistant with no particular grounding, which makes it the most
+fluent and the most able to invent. Everything on this page — attempt → ask →
+diff, giving it your real data, constraining the answer, making it argue with
+itself — applies to it directly.
+
+::: {.callout-note appearance="simple"}
+Tools change faster than this page does. Treat the descriptions above as a
+starting point and check the current behaviour yourself — which is, conveniently,
+the exact habit the rest of this page is trying to build.
 :::
 
 ## Tutor mode

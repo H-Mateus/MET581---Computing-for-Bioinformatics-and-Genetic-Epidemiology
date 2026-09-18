@@ -14,7 +14,7 @@ affiliations:
   - id: cardiff
     name: Cardiff University
     city: Cardiff
-    url: www.cardiff.ac.uk
+    url: https://www.cardiff.ac.uk
   - id: dri
     name: UK Dementia Research Institute
     url: https://ukdri.ac.uk/
@@ -318,6 +318,82 @@ the only thing standing between you and a confidently wrong result.
 
 The people who get burned by these tools aren't the ones who use them. They're
 the ones who can't check them.
+
+## There is a second reason {.smaller}
+
+Everything so far was about the model being **wrong**.
+
+. . .
+
+This one applies even when it is **right**.
+
+::: {.incremental}
+- Reading a correct solution feels almost exactly like working one out
+- That feeling is not learning. It is *fluency*, and it is gone by Thursday
+- The struggle is not an obstacle to the learning. It **is** the learning
+:::
+
+. . .
+
+Learning scientists call this a *desirable difficulty*: the effort of retrieving
+something yourself is what makes it stick. Watching it appear costs you that,
+and costs you it silently.
+
+## The loop {.smaller}
+
+::: {.incremental}
+1. You get stuck, and you ask
+2. You get a working answer, and you move on
+3. You never build the knowledge that answer was made of
+4. Next time you are **less** able to tell a good answer from a bad one
+5. So you ask sooner
+:::
+
+. . .
+
+Nothing in that loop feels bad while it is happening. That is precisely the
+problem with it.
+
+. . .
+
+And you still sit the same paper in week 5, on your own.
+
+## Three tools, three risk profiles {.smaller}
+
+You have access to **Gemini**, **NotebookLM** and **Elicit**. They are not
+interchangeable. They differ in *how much room they have to invent*.
+
+| Tool | Grounded in | Best for |
+|------|-------------|----------|
+| NotebookLM | sources **you** upload | revising from your own notes |
+| Elicit | real published papers | finding literature for the report |
+| Gemini | nothing in particular | general help, with every caveat so far |
+
+. . .
+
+Narrower grounding means less room to invent. It does **not** mean "safe".
+
+## The catch with each {.smaller}
+
+**NotebookLM** — grounding cuts invention, it does not remove it. It can still
+misread the source you handed it. Good for *"what did we say about joins?"*.
+No use at all for *"why will my code not run?"*
+
+. . .
+
+**Elicit** — a 2026 feasibility study in *Research Synthesis Methods* re-ran the
+same extractions from different accounts and compared them:
+
+::: {.incremental}
+- **90%** agreement on the extracted *values*
+- **46%** on the supporting *quotes*
+- **30%** on the *reasoning*
+:::
+
+. . .
+
+An answer you cannot reproduce is not evidence — and this module is about
+reproducible pipelines. Use it to *find* papers. Then read them.
 
 ## Break {.center}
 
