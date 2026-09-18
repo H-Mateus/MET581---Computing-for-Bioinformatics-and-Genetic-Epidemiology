@@ -70,7 +70,7 @@ renamed, because renaming churns `docs/` and every sidebar href. The mapping:
 | `03_wrangling_data_1` | **Session 4** Data Wrangling in R I | dplyr verbs, the pipe, grouping |
 | `04_wrangling_data_2` | **Session 5** Data Wrangling in R II | `across`/`pick`, tidyr reshaping, joins |
 | `06_Programming_in_R` | **Session 6** Programming in R | existing purrr/conditionals **+ the functions half of `05`** |
-| *(new)* | **Session 7** Exploratory Data Analysis | mostly new authoring — see below |
+| `08_exploratory_data_analysis` | **Session 7** Exploratory Data Analysis | **drafted** — new authoring, built on the simulated cohort |
 | `07_Data_Visualisation_in_R` | **Session 8** Data Visualisation in R | ggplot2, largely as-is |
 
 Decisions behind it:
@@ -93,7 +93,32 @@ Decisions behind it:
   exactly the syllabus's "explicit constraints to ensure input validity" and
   MLO-4's reproducible-code requirement.
 
-### Session 7 (EDA) — pending dataset decision
+### Session 7 (EDA) — drafted on the simulated cohort
+
+`08_exploratory_data_analysis/` is numbered 8 because that was the next free
+number (`08_Modelling_in_R` moved to `archive/`). Directory numbers are already
+decoupled from teaching order in this repo, and the sidebar sets the real order,
+so EDA sits before Data Visualisation there despite the higher number.
+
+It reads the cohort via `here::here("Simulated_data/generated_uk/…")` and uses a
+12-column teaching subset, because the full table's 73 columns do not fit on a
+slide. **It uses base R graphics (`hist`, `boxplot`, `plot`) deliberately** —
+ggplot2 is not taught until session 8, so EDA cannot depend on it. The last slide
+signposts forward to doing it properly.
+
+The spine of the session is the planted decimal error: summarise
+`systolic_bp_mmHg` → SD 40.8 against an IQR of 17 → boxplot → find `1330` and
+`1620` → repair → SD 12.6, and the age/BP correlation goes from 0.09 to 0.29. It
+also shows median and IQR not moving at all, which is the argument for reporting
+both a robust and a non-robust summary. Every figure on those slides was verified
+against the data before the slide was written.
+
+**Do not "fix" the binary-variable slides.** `obesity` really is stored as
+character with `No`/`Yes`/`Y`/`YES`, so `mean()` on it returns `NA` with a warning
+rather than erroring. That is the point of the slide, and it matches the module's
+recurring theme.
+
+### The original dataset decision (superseded)
 
 Session 7 is essentially new authoring: central tendency and variability,
 summarising binary/categorical/continuous variables, correlation and
@@ -274,24 +299,33 @@ Outstanding:
 ### Lecture readiness audit (2026-09-18)
 
 Full render clean, 2,020 internal links checked with **0 broken**, and all 104
-external URLs resolve. Content checked against the portal syllabus wording. What
-is not ready:
+external URLs resolve. Content checked against the portal syllabus wording,
+per session rather than repo-wide — a repo-wide grep hides gaps, because a topic
+can be present in the wrong session (which is how the export gap below was
+initially missed).
 
-- **Session 7 (EDA) does not exist.** `cor()` appears in *no* non-archived source
-  at all, and the syllabus names correlation explicitly. Central tendency and
-  variability are scattered across other decks rather than taught. This is by far
-  the biggest gap and it is new authoring, not reorganisation.
-- **`switch()` is stranded.** The syllabus names it under Programming in R's
-  conditional execution, but it exists only as a one-line aside in lecture 05
-  (*"if you have a lot of if statements, check out the `switch()` function"*) —
-  the deck being dismantled. When 05 is broken up it will vanish. It needs a real
-  slide in session 6.
-- `for` loops appear once in session 6, only as the thing purrr replaces. Defensible
-  for a tidyverse-first course, but the syllabus lists "loops (while, for)", so it
-  is worth a deliberate decision rather than an accident.
-- Everything else in the syllabus for sessions 3–8 is covered. `stopifnot()` is
-  properly taught over two slides, so "explicit constraints to ensure input
-  validity" is genuinely met.
+Three gaps were found. **All three are now drafted:**
+
+- ~~Session 7 (EDA) did not exist~~ — now `08_exploratory_data_analysis/`, 44
+  slides. Note this was never lost work: the old MET581 module had no EDA lecture,
+  and `02_explore_r` only *sounds* like one (it is Quarto, tibbles and readr).
+  The session is a new syllabus requirement with no predecessor.
+- ~~`switch()` was stranded~~ — it existed only as a one-line aside in lecture 05,
+  the deck being dismantled. Now three slides in session 6, paired with
+  `match.arg()` so it also covers the syllabus's "explicit constraints to ensure
+  input validity".
+- ~~Exporting data missing from session 3~~ — the syllabus says "importing **and
+  exporting** data"; `write_csv` and friends appeared only in session 6's
+  workshop. Now three slides in `02_explore_r`, including the csv-vs-rds
+  type-preservation point.
+
+Still worth a decision (not a gap):
+
+- `for` loops appear once in session 6, only as the thing purrr replaces.
+  Defensible for a tidyverse-first course, but the syllabus lists "loops (while,
+  for)", so make it a deliberate choice rather than an accident.
+
+Everything else in the syllabus for sessions 3–8 is covered.
 
 ## Theming (`_brand.yml`)
 
