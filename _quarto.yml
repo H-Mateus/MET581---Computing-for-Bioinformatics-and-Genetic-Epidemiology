@@ -26,12 +26,6 @@ website:
     style: "docked"
     search: true
     contents:
-      - section: "Working with AI assistants"
-        contents:
-          - text: "Guide"
-            href: 00_llm_use/using_ai_assistants.qmd
-          - text: "Slides"
-            href: 00_llm_use/met581_llm_demo_slides.qmd
       - section: "Introduction to R"
         contents:
           - text: "Slides"
@@ -86,6 +80,12 @@ website:
             href: 10_resources/02_reference/factors_with_forcats.qmd
           - text: "Dates with lubridate"
             href: 10_resources/02_reference/dates_with_lubridate.qmd
+      - section: "Working with AI assistants"
+        contents:
+          - text: "Guide"
+            href: 00_llm_use/using_ai_assistants.qmd
+          - text: "Slides"
+            href: 00_llm_use/met581_llm_demo_slides.qmd
 
 execute: 
   freeze: auto
