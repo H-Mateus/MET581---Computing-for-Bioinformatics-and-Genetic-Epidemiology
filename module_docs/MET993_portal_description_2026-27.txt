@@ -1,0 +1,227 @@
+MET993: Data for Life Sciences 1
+School 	School of Medicine
+Department Code 	MEDIC
+Module Code 	MET993
+External Subject Code 	100869 (bioinformatics)
+Number of Credits 	20
+Level 	Level 7 Masters (L7)
+Language of Delivery 	English
+Module Leader 	Dr STEPHEN GREENWOOD
+Semester 	Year YAR
+Academic Year 	2026/7
+Outline Description of Module
+
+This module provides a comprehensive introduction to data science, focusing on the practical skills and theoretical foundations needed for robust, reproducible, and insightful data analysis using R. Designed for learners new to programming or data science, it builds competency in data wrangling, visualisation, exploratory analysis, statistical inference, and predictive modelling. 
+
+ 
+
+This module is suitable for postgraduate students in bioinformatics, health data science, and related disciplines seeking to develop foundational skills in data science and statistical programming. 
+
+  
+
+The module begins by exploring the nature of data and code within the context of reproducible research. Students develop proficiency in using R for importing, transforming, and visualising data, supported by good programming practices. Statistical concepts are introduced progressively, beginning with probability and sampling, moving through hypothesis testing, and culminating in regression-based prediction. 
+
+ 
+
+Throughout, the emphasis is on applied problem-solving in biological data science, enabling students to explore real-world datasets, produce reproducible code, and interpret statistical results with confidence. By the end of the module, students will be able to design, implement, and communicate data-driven investigations using contemporary tools and methods in R. 
+On completion of the module a student should be able to
+
+Upon successful completion of this module, students will be able to: 
+
+ 
+
+    MLO-1. Critically apply R tools to manipulate, transform, and visualise complex biological datasets, demonstrating autonomy in problem-solving and data handling. 
+    MLO-2. Evaluate and implement appropriate data visualisation strategies to interpret and communicate patterns and relationships in life sciences data for diverse audiences. 
+    MLO-3. Interrogate data structures and statistical assumptions and select and apply appropriate statistical techniques using R to derive robust and reproducible insights from biological data. 
+    MLO-4. Produce a fully annotated and reproducible analysis pipeline, integrating data wrangling, visualisation, and statistical testing, suitable for peer review and open science principles. 
+    MLO-5. Defend analytical choices and methodological approaches within the context of a data science project, drawing on relevant literature, statistical reasoning, and critical reflection.
+
+How the module will be delivered
+
+This 20-credit module is delivered over a 5-week teaching block. Teaching is face-to-face and is supplemented by guided learning tutorials to consolidate knowledge. A scheduled assessment period runs in the final week of the programme and allows the students focused time for completing summative assignments. Across the module the students are allocated ~ 40 hours / week of effort that is split between in-person teaching, tutorials, self-directed study and completion of formative and summative assessments.   
+
+ 
+
+Total Student Effort 
+
+~200 hours 
+
+Classroom Teaching 
+
+~40 hours 
+
+Guided Tutorials 
+
+~20 hours 
+
+Formative Assessments 
+
+~20 hours 
+
+Self-Directed Study 
+
+~60 hours 
+
+Summative Assessments 
+
+~60 hours 
+
+ 
+
+This design of this programme follows a 5-week modular block system where students focus on one subject at a time. All assignments are set and completed within the block. The benefits of this model include deep engagement with fewer competing priorities; improved retention through intensive, focused study; reduced stress from overlapping deadlines; easier scheduling for both students and staff; real-world preparation for high-intensity work environments, and enhanced time management through structured learning. 
+
+ 
+
+Teaching is research-led and grounded in active learning. Sessions combine a range of theoretical input (e.g. blackboard teaching), group discussions, collaborative tasks, hands-on computer practical, tutorials, guided exercises, and peer feedback. Students also give progress presentations. Formative feedback is embedded throughout to support both learning and engagement. Moreover, students are expected to apply new skills independently between sessions. To support this, we provide guided learning tutorials with support from the teaching team. 
+Skills that will be practised and developed
+
+Subject-specific skills: 
+
+ 
+
+    Data wrangling, transformation, and cleaning using R  
+    Exploratory data analysis and statistical inference including hypothesis testing and statistical significance. 
+    Data visualisation using R 
+    Application of statistical models, including distributions, sampling and regression 
+
+ 
+
+Professional & practical skills: 
+
+ 
+
+    Scripted data analysis using R and an R IDE (interactive development environment) 
+    Creating reproducible and well-documented code using markdown 
+    Navigating bioinformatics tools, databases, and analysis environments 
+    Communicating analytical processes clearly in technical writing 
+    Planning and managing project workflows with attention to quality and deadlines 
+
+ 
+
+Transferable/employability skills: 
+
+ 
+
+    Critical thinking and structured problem solving 
+    Interpretation and communication of quantitative data 
+    Independent learning and confident use of open-source tools 
+    Clear visual and written communication of complex ideas 
+    Time management and self-directed working in data-driven tasks
+
+How the module will be assessed
+
+ 
+
+Short Answer Questions: Programming in R (25%): This summative task requires students to answer a set of short tasks/exercises designed to test understanding and application of skills in R and their applications in bioinformatics.  These would cover module learning outcomes MLO-1, MLO-2 and MLO-4. Reassessment: The resit will be the same as the original assessment. 
+
+ 
+
+Short Answer Questions: Applied Statistics (25%):  This summative task requires students to answer a set of short tasks/exercises designed to test understanding and application of skills in statistics and their applications in biological data. These would cover module learning outcomes MLO-3, MLO-4 and MLO-5. Reassessment: The resit will be the same as the original assessment. 
+ 
+
+ 
+Report: Pipelines for Applied Statistical Analysis in R (50%):  This summative assessment requires students to complete an end-to-end data analysis project that demonstrates their ability to address a research question using real-world data. The project aligns to all five module learning outcomes. Students will define a clear hypothesis and develop an investigation plan that outlines the statistical tests to be used in R. The dataset must be described, visualised, and, if necessary, transformed to ensure it is fit for analysis. The investigation plan should then be implemented as an R-based analysis pipeline, with results clearly presented and interpreted. The final report should describe the pipeline, summarise the results, evaluate the effectiveness of the investigation, and reflect on alternative approaches that could have been taken. Reassessment: The resit will be the same as the original assessment. 
+
+ 
+
+Resit and Repeat Rules 
+
+Reassessment will be offered according to your programme’s resit and repeat rules. Students with be required to repeat and resubmit the failed assessment. You will be informed of your eligibility after the Examining Board has met. 
+
+    If you have failed credits within the resit threshold, you will be allowed to resit the assessment during the resit period, before the start of the next academic year. 
+    If you have failed credits beyond the resit limit but within the repeat threshold, you will be required to repeat the assessment in the following academic year. 
+    If you have failed credits beyond the repeat threshold, you will be required to withdraw from the programme. 
+
+Assessment Type      Assessment Title                 Weighting     Duration/WC    Approx Date
+
+CW                            SAQ Programming in R        25%             WC 1000        Set Week 1/Due week 5
+
+CW                            SAQ Applied Stats                25%             WC 1000        Set Week 2/Due Week 5
+
+RP                             Report Pipelines for applied  50%             WC 2000        Set Week 3/Due Week 5
+
+                                  Statistical Analysis in R    
+
+ 
+
+ 
+
+ 
+Assessment Breakdown
+Type 	% 	Title 	Duration(hrs)
+Written Assessment 	25 	Short Answer Questions: Programming in R 	N/A
+Written Assessment 	25 	Short Answer Questions: Applied Statistics 	N/A
+Written Assessment 	50 	Report: Pipelines for Applied Statistical Analysis in R 	N/A
+Syllabus content
+
+To achieve the MLO set out in this module you will be taught session on the following content 
+
+ 
+
+    Introduction to Data Science - Data and Code 
+    Introduction to R 
+    Data Wrangling in R 
+    Programming in R  
+    Exploratory Data Analysis in R  
+    Data Visualisation in R 
+    Probability, Distribution and Data Sampling in R 
+    Statistical Experiments and Significance Testing in R 
+    Regression and Prediction in R 
+
+ 
+
+Introduction to Data Science - Data and Code  
+
+This mandatory learning block introduces foundational concepts and tools in data science, with a focus on their application in bioinformatics. Students will explore the scope of data science and its role in robust and reproducible research. Key topics include the nature and structure of data, the role of code in scientific analysis, and how bioinformatics projects are typically structured. The block also introduces tools for managing research workflows, effective documentation and note-taking. 
+
+ 
+
+Introduction to R 
+
+This mandatory session introduces students to the R programming language and its application in data science and bioinformatics. Students will gain familiarity with R and an R IDE (interactive development environment, covering fundamental data types and structures. The session also introduces practical skills such as importing and exporting data, installing packages, and accessing documentation. 
+
+ 
+
+Data Wrangling in R 
+
+This mandatory block focuses on core data wrangling techniques packages in R. Students will learn how to transform, group, reshape, and join datasets functions. The use of pipes (|>) for readable and efficient code is emphasized throughout. The block also introduces principles for writing reproducible data wrangling scripts as part of a robust analysis workflow. 
+
+ 
+
+Programming in R 
+
+This mandatory block introduces foundational programming techniques in R, with a focus on writing clear, functional, and modular code. Students will learn to control program flow using conditional execution (if, else, switch) and loops (while, for). The block covers writing user-defined functions, including how to define arguments, set defaults, and apply explicit constraints to ensure input validity. Students will gain fluency in common shortcuts, understand when to use functional approaches over loops, and practice creating reusable, elegant code for data analysis tasks. 
+
+ 
+
+Exploratory Data Analysis in R 
+
+This mandatory session introduces key concepts and techniques for Exploratory Data Analysis (EDA) in R. Students will examine data structure and types, explore measures of central tendency and variability, and learn how to summarise and interpret binary, categorical, and continuous variables. The session also introduces methods for assessing relationships between variables, including correlation and cross tabulation. 
+
+ 
+
+Data Visualisation in R 
+
+This mandatory block introduces data visualisation techniques in R. Students will learn to create informative plots, build layered visualisations, and customise aesthetics to effectively communicate data insights. The focus is on producing clear, reproducible visual outputs suitable for exploratory analysis and reporting. 
+
+ 
+
+Probability, Distribution and Data Sampling in R 
+
+These mandatory sessions explore key statistical concepts related to probability, sampling and data distributions using R. Students will be introduced to the basic ideas around probability. This will be extended to introduce probability distributions including the binomial and normal distributions and their usefulness in data analysis. The notion of random sampling from a population will be examined including assessment of the data sample in terms of identifying selection bias and determining central tendency and variability through confidence intervals. The confidence intervals will be calculated through both the parametric characteristics of the distribution and through re-sampling approaches including bootstrap. 
+
+ 
+
+Statistical Experiments and Significance Testing in R 
+
+This mandatory block introduces core methods for designing and analysing statistical experiments using R. Students will learn principles of hypothesis testing through A/B testing, resampling, and evaluating statistical significance. The block covers t-tests, ANOVA, chi-squared tests, and addresses multiple testing and degrees of freedom. The non-parametric equivalents of these tests will also be covered. Concepts of statistical power and sample size estimation are introduced to support robust experimental design. 
+
+ 
+
+ 
+
+ 
+
+Regression and Prediction in R 
+
+This mandatory block introduces linear and logistic regression techniques for modelling and prediction using R. Students will explore simple and multiple linear regression, including the use of factor variables. The block covers how to make predictions from models, assess model fit, and perform basic regression diagnostics to evaluate assumptions and model quality. The ideas behind logistic regression will be introduced at a basic level to get over the means of binary outcome prediction. 

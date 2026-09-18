@@ -53,3 +53,8 @@ rsconnect/
 
 # Quarto execution cache - a cold render takes ~100s, so this is not worth committing
 _freeze/
+
+# Simulated teaching dataset: answer keys must never reach this PUBLIC repo.
+# The cohort CSVs, codebook and student brief are safe to publish; the keys are not.
+Simulated_data/**/data_cleaning_instructor_key.md
+Simulated_data/**/data_cleaning_issue_key.csv

@@ -9,12 +9,29 @@ Harrington on a Cardiff University bioinformatics MSc. Quarto website, source
 The repo is named for the **old** module, `MET581 - Computing for Bioinformatics
 and Genetic Epidemiology`, in which this material filled **9 lectures**.
 
-The new module is **`Data Science for Life Sciences I`** (code TBC — the module
-description says `METXX1`, the syllabus filename says `MET993`; both are in
-`module_docs/`). Key facts:
+The new module code is **`MET993`** (confirmed 2026-09; the module description
+PDF's `METXX1` placeholder is superseded).
+
+**The module *title* is unresolved** and the two official sources disagree:
+
+| Source | Title | Module leader |
+|--------|-------|---------------|
+| `module_docs/` description PDF | Data **Science** for Life Sciences **I** | W. John Watkins, Mateus Bernardo-Harrington |
+| Student learning portal (`current_module_description.txt`, 2026/7) | Data for Life Sciences **1** | Dr Stephen Greenwood |
+
+Everything student-facing in this repo currently says **Data Science for Life
+Sciences I**, taken from the PDF. The portal is what students actually see, so if
+the portal wording is the registered title, every deck footer, the site title,
+`README.md` and `index.qmd` need changing. **Confirm before the module runs** —
+this is a one-line fix now and an embarrassing inconsistency later. The portal
+also names a different module leader, which is probably an administrative
+placeholder but is worth checking at the same time.
+
+Key facts:
 
 - 20 credits, Level 7, Autumn, **5-week intensive block**, max 30 students.
-- Module leads: W. John Watkins and Mateus Bernardo-Harrington.
+- Module leads: W. John Watkins and Mateus Bernardo-Harrington (per the PDF; but
+  see the discrepancy above).
 - 14 sessions total across the teaching team. **Mateus delivers 6: sessions 3–8.**
 - Assessment: 25% short-answer *Programming in R* (set wk1, due wk5), 25%
   short-answer *Applied Statistics* (set wk2, due wk5), 50% report
@@ -218,8 +235,13 @@ Resolved:
   `10_resources/00_images/` (39 files). Every image reference across all
   non-archived `.qmd` files now resolves.
 - ~~Missing `10_resources/styles.css`~~ — recovered; lecture 03's `css:` now
-  resolves. **04 and 05 still reference a bare `styles.css` in their own
-  directories, which does not exist anywhere.**
+  resolves. 04 and 05 referenced a bare `styles.css` that existed nowhere; both
+  now point at the shared `../10_resources/styles.css`, which is what they wanted
+  (all three use `df-print: kable`, and that file is the compact-table CSS).
+- ~~Affiliation URL rendered as a dead relative link~~ — the author YAML had
+  `url: www.cardiff.ac.uk` with no scheme, so Quarto emitted it relative and it
+  404'd from every deck. Now `https://`. The archived decks still have the old
+  form; they are excluded from the render, so it does not matter.
 - ~~Homework answers for 03/04/05 source-less~~ — the real `.qmd` sources were
   recovered from the Dropbox copy (no reconstruction from HTML needed) and are
   now linked in the sidebar.
@@ -248,6 +270,28 @@ Outstanding:
 - `data/eukaryotes.tsv` (10.5 MB, full NCBI dump, 37,951 rows) was recovered but
   **nothing references it** — the programming workshop reads a smaller subset from
   a GitHub raw URL. Probably delete.
+
+### Lecture readiness audit (2026-09-18)
+
+Full render clean, 2,020 internal links checked with **0 broken**, and all 104
+external URLs resolve. Content checked against the portal syllabus wording. What
+is not ready:
+
+- **Session 7 (EDA) does not exist.** `cor()` appears in *no* non-archived source
+  at all, and the syllabus names correlation explicitly. Central tendency and
+  variability are scattered across other decks rather than taught. This is by far
+  the biggest gap and it is new authoring, not reorganisation.
+- **`switch()` is stranded.** The syllabus names it under Programming in R's
+  conditional execution, but it exists only as a one-line aside in lecture 05
+  (*"if you have a lot of if statements, check out the `switch()` function"*) —
+  the deck being dismantled. When 05 is broken up it will vanish. It needs a real
+  slide in session 6.
+- `for` loops appear once in session 6, only as the thing purrr replaces. Defensible
+  for a tidyverse-first course, but the syllabus lists "loops (while, for)", so it
+  is worth a deliberate decision rather than an accident.
+- Everything else in the syllabus for sessions 3–8 is covered. `stopifnot()` is
+  properly taught over two slides, so "explicit constraints to ensure input
+  validity" is genuinely met.
 
 ## Theming (`_brand.yml`)
 
