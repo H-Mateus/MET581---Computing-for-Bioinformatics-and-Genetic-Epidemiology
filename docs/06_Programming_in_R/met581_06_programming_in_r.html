@@ -212,7 +212,7 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <a href="mailto:bernardo-harringtong@cardiff.ac.uk">bernardo-harringtong@cardiff.ac.uk</a>
 </div>
         <p class="quarto-title-affiliation">
-            <a href="www.cardiff.ac.uk">
+            <a href="https://www.cardiff.ac.uk">
             Cardiff University
             </a>
           </p>
@@ -563,18 +563,18 @@ Missing values: 573</code></pre>
 <span id="cb27-2"><a aria-label="2"></a><span class="fu">map_dbl</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.62 0.43 0.55 0.68 </code></pre>
+0.60 0.42 0.48 0.71 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-label="1"></a><span class="fu">map_dbl</span>(df, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.35 0.37 0.35 0.31 </code></pre>
+0.32 0.26 0.33 0.30 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-label="1"></a><span class="co"># And here's the native R sapply equivalent</span></span>
 <span id="cb31-2"><a aria-label="2"></a><span class="fu">sapply</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.62 0.43 0.55 0.68 </code></pre>
+0.60 0.42 0.48 0.71 </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -585,7 +585,7 @@ Missing values: 573</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-label="1"></a><span class="fu">map_dbl</span>(df, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.62 0.43 0.55 0.68 </code></pre>
+0.60 0.42 0.48 0.71 </code></pre>
 </div>
 </div>
 </div>
@@ -691,9 +691,9 @@ Missing values: 573</code></pre>
 <span id="cb44-6"><a aria-label="6"></a>  <span class="fu">str</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 3.56 5.12 4.31 6.25 4.43
- $ : num [1:5] 14.11 9.29 17.58 10.35 9.84
- $ : num [1:5] 9.01 4.73 1.69 3.88 9.04</code></pre>
+ $ : num [1:5] 5.5 7.68 5.14 4.97 3.34
+ $ : num [1:5] 8.55 10.3 13.9 12.75 14.13
+ $ : num [1:5] 2.569 -10.909 -7.53 -0.918 4.096</code></pre>
 </div>
 </div>
 </section>
@@ -720,9 +720,9 @@ Missing values: 573</code></pre>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num 5.19
- $ : num [1:3] 7.44 11.44 11.71
- $ : num [1:5] -11.118 -12.257 7.978 7.869 -0.882</code></pre>
+ $ : num 5.53
+ $ : num [1:3] 1.56 1.82 8
+ $ : num [1:5] -24.72 -15.97 -2.76 -2.52 -23.23</code></pre>
 </div>
 </div></div>
 <ul>
@@ -736,9 +736,9 @@ Missing values: 573</code></pre>
 <span id="cb48-5"><a aria-label="5"></a>  <span class="fu">str</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] -0.9863 0.0303 0.4452 0.4108 -0.8494
- $ : num [1:5] -2.43 -12.117 -2.313 -12.254 -0.615
- $ : int [1:5] 9 14 13 20 12</code></pre>
+ $ : num [1:5] 0.2674 -0.9372 -0.9378 -0.615 -0.0677
+ $ : num [1:5] -0.268 1.033 4.401 3.252 -3.903
+ $ : int [1:5] 10 10 11 4 5</code></pre>
 </div>
 </div>
 </section>
@@ -801,9 +801,9 @@ Missing values: 573</code></pre>
 <span id="cb53-13"><a aria-label="13"></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
 <span id="cb53-14"><a aria-label="14"></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The Mazda RX4 has a manual transmission and gets 21 mpgs."
-[1] "The Toyota Corolla has a manual transmission and gets 33.9 mpgs."
-[1] "The Pontiac Firebird has a auto transmission and gets 19.2 mpgs."</code></pre>
+<pre><code>[1] "The Mazda RX4 Wag has a manual transmission and gets 21 mpgs."
+[1] "The Dodge Challenger has a auto transmission and gets 15.5 mpgs."
+[1] "The Honda Civic has a manual transmission and gets 30.4 mpgs."</code></pre>
 </div>
 </div>
 </section>
@@ -831,7 +831,7 @@ Missing values: 573</code></pre>
 <span id="cb55-14"><a aria-label="14"></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of flips to get 3 heads in a row:  3</code></pre>
+<pre><code>Number of flips to get 3 heads in a row:  4</code></pre>
 </div>
 </div></div>
 <ul>

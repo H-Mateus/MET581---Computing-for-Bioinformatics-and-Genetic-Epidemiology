@@ -2339,7 +2339,7 @@
     "href": "02_explore_r/MET581_lecture_02-Explore-R.html#homework-answers---continued",
     "title": "Explore R",
     "section": "Homework answers - continued",
-    "text": "Homework answers - continued\n\nwomen$ages &lt;- sample(18:90, nrow(women), replace = TRUE)\nhead(women)\n\n  height weight ages\n1     58    115   32\n2     59    117   41\n3     60    120   88\n4     61    123   36\n5     62    126   85\n6     63    129   53\n\n\n\nsum(women$height)\n\n[1] 975\n\nsum(women$weight)\n\n[1] 2051\n\nsum(women$ages)\n\n[1] 746\n\n# A more elegant way to apply a function to all columns!\nsapply(women, mean)\n\n        height         weight           ages \n 65.0000000000 136.7333333333  49.7333333333",
+    "text": "Homework answers - continued\n\nwomen$ages &lt;- sample(18:90, nrow(women), replace = TRUE)\nhead(women)\n\n  height weight ages\n1     58    115   37\n2     59    117   79\n3     60    120   85\n4     61    123   77\n5     62    126   55\n6     63    129   71\n\n\n\nsum(women$height)\n\n[1] 975\n\nsum(women$weight)\n\n[1] 2051\n\nsum(women$ages)\n\n[1] 928\n\n# A more elegant way to apply a function to all columns!\nsapply(women, mean)\n\n        height         weight           ages \n 65.0000000000 136.7333333333  61.8666666667",
     "crumbs": [
       "Home",
       "Explore R",
@@ -2783,7 +2783,7 @@
     "href": "00_llm_use/using_ai_assistants.html",
     "title": "Working with AI assistants",
     "section": "",
-    "text": "You may use AI assistants on this module. There is no ban, and I’m not interested in policing it.\nBut: the market rate for “can ask a model for R code” is zero, because everyone can do that. Your value — in the rest of this MSc, in your project, and in a job — is in being able to look at generated code and know whether it’s right. That capability is built by writing R, not by reading R.\nSo the deal is:\n\n\n\n\n\n\nImportantAttempt → ask → diff\n\n\n\n\nAttempt it yourself first.\nAsk if you’re stuck.\nDiff — compare what you wrote to what you were given, and work out why they differ.\n\n\n\nStep 3 is where learning happens and it’s the one everybody skips.",
+    "text": "You may use AI assistants on this module. There is no ban, and I’m not interested in policing it.\nBut: the market rate for “can ask a model for R code” is zero, because everyone can do that. Your value — in the rest of this MSc, in your project, and in a job — is in being able to look at generated code and know whether it’s right. That capability is built by writing R, not by reading R.\nSo the deal is:\n\n\n\n\n\n\nImportantAttempt → ask → diff\n\n\n\n\nAttempt it yourself first.\nAsk if you’re stuck.\nDiff — compare what you wrote to what you were given, and work out why they differ.\n\n\n\nStep 3 is where learning happens and it’s the one everybody skips.\nThere are two reasons to be careful here, and they are different problems. Assistants are often confidently wrong — and even when they are right, leaning on them costs you the learning. The first is easier to argue; the second does more damage.",
     "crumbs": [
       "Home",
       "Working with AI assistants",
@@ -2795,7 +2795,7 @@
     "href": "00_llm_use/using_ai_assistants.html#the-short-version",
     "title": "Working with AI assistants",
     "section": "",
-    "text": "You may use AI assistants on this module. There is no ban, and I’m not interested in policing it.\nBut: the market rate for “can ask a model for R code” is zero, because everyone can do that. Your value — in the rest of this MSc, in your project, and in a job — is in being able to look at generated code and know whether it’s right. That capability is built by writing R, not by reading R.\nSo the deal is:\n\n\n\n\n\n\nImportantAttempt → ask → diff\n\n\n\n\nAttempt it yourself first.\nAsk if you’re stuck.\nDiff — compare what you wrote to what you were given, and work out why they differ.\n\n\n\nStep 3 is where learning happens and it’s the one everybody skips.",
+    "text": "You may use AI assistants on this module. There is no ban, and I’m not interested in policing it.\nBut: the market rate for “can ask a model for R code” is zero, because everyone can do that. Your value — in the rest of this MSc, in your project, and in a job — is in being able to look at generated code and know whether it’s right. That capability is built by writing R, not by reading R.\nSo the deal is:\n\n\n\n\n\n\nImportantAttempt → ask → diff\n\n\n\n\nAttempt it yourself first.\nAsk if you’re stuck.\nDiff — compare what you wrote to what you were given, and work out why they differ.\n\n\n\nStep 3 is where learning happens and it’s the one everybody skips.\nThere are two reasons to be careful here, and they are different problems. Assistants are often confidently wrong — and even when they are right, leaning on them costs you the learning. The first is easier to argue; the second does more damage.",
     "crumbs": [
       "Home",
       "Working with AI assistants",
@@ -2808,6 +2808,30 @@
     "title": "Working with AI assistants",
     "section": "Why this matters more than it sounds",
     "text": "Why this matters more than it sounds\nHere is R code of the kind an assistant will cheerfully produce. It does not error. It returns numbers of the right shape and a plausible size. It is wrong.\n\nlibrary(tidyverse)\n\n\nThe argument that doesn’t exist\n\nx &lt;- c(1, 2, NA, 4)\nmean(x, na.omit = TRUE)\n\n[1] NA\n\n\nna.omit is not an argument to mean(). It was absorbed by ... and ignored. The argument is na.rm. No warning was issued.\n\n\nThe factor that became its own level codes\n\ncounts &lt;- factor(c(\"10\", \"20\", \"5\"))\nas.numeric(counts)\n\n[1] 1 2 3\n\n\n1 2 3 — the internal level codes, not your data. You need as.numeric(as.character(counts)). This class of bug has reached publication more than once.\n\n\nThe join that quietly duplicated your samples\n\nsamples &lt;- tibble(id = c(1, 2, 3), sample = c(\"s1\", \"s2\", \"s3\"))\npheno   &lt;- tibble(id = c(1, 1, 2), measure = c(4.1, 9.9, 5.2))\n\njoined &lt;- left_join(samples, pheno, by = \"id\")\nc(before = nrow(samples), after = nrow(joined))\n\nbefore  after \n     3      4 \n\n\nThree rows in, four out, because id == 1 was duplicated in pheno. Every mean you compute downstream is now wrong. Check nrow() before and after every join — an assistant will rarely do this for you.\n\n\nThe filter that silently ate your missing data\n\ndf &lt;- tibble(group = c(\"a\", \"b\", NA, \"a\"), value = 1:4)\ndf |&gt; filter(group != \"a\")\n\n# A tibble: 1 × 2\n  group value\n  &lt;chr&gt; &lt;int&gt;\n1 b         2\n\n\nOne row, not two — NA != \"a\" evaluates to NA, and filter() keeps only TRUE. If you wanted the missing group kept: filter(group != \"a\" | is.na(group)).\n\n\n\n\n\n\nNote\n\n\n\nThere are more of these in the session 3 slides. The common thread is that none of them error. Code that crashes is a minor annoyance; code that returns a confident wrong number is how bad science happens — and you cannot spot any of them without understanding factors, NA semantics, and joins.\nThat understanding is what this module is for.",
+    "crumbs": [
+      "Home",
+      "Working with AI assistants",
+      "Guide"
+    ]
+  },
+  {
+    "objectID": "00_llm_use/using_ai_assistants.html#the-second-reason-which-is-the-one-people-miss",
+    "href": "00_llm_use/using_ai_assistants.html#the-second-reason-which-is-the-one-people-miss",
+    "title": "Working with AI assistants",
+    "section": "The second reason, which is the one people miss",
+    "text": "The second reason, which is the one people miss\nEverything above is about the model being wrong. That is the easy argument to make, and it is the one that gets made most often.\nThe harder argument applies when the model is right.\nReading a correct solution feels almost exactly like working one out. It is quick, it makes sense as you read it, and you finish with the distinct impression that you now know how to do it. That impression is fluency, not learning, and the two feel identical from the inside. The difference shows up later — usually in an exam room, or the first time nobody is there to ask.\nLearning scientists call the effort you just skipped a desirable difficulty. Retrieving something yourself, getting it wrong, and correcting it is not an inefficient route to the knowledge. It is the mechanism by which the knowledge forms. Watching a correct answer appear bypasses that mechanism, and it does so silently — nothing about the experience tells you that you have been short-changed.\n\n\n\n\n\n\nImportantThe loop to watch for\n\n\n\n\nYou get stuck, and you ask.\nYou get a working answer, and move on.\nYou never build the knowledge that answer was made of.\nNext time, you are less able to tell a good answer from a bad one.\nSo you ask sooner.\n\nEach step is individually reasonable. Nothing in the loop feels bad while it is happening. And it feeds directly back into the first problem: the less you know, the less able you are to catch the confident, non-erroring, wrong answer.\n\n\nNone of this is an argument for struggling pointlessly. Being stuck for forty minutes on a missing bracket teaches you nothing. It is an argument for being deliberate about which difficulties you keep — which is what attempt → ask → diff is for.",
+    "crumbs": [
+      "Home",
+      "Working with AI assistants",
+      "Guide"
+    ]
+  },
+  {
+    "objectID": "00_llm_use/using_ai_assistants.html#which-tool-for-which-job",
+    "href": "00_llm_use/using_ai_assistants.html#which-tool-for-which-job",
+    "title": "Working with AI assistants",
+    "section": "Which tool for which job",
+    "text": "Which tool for which job\nYou have access to Gemini, NotebookLM and Elicit. They are not interchangeable, and the difference that matters is how much room each one has to invent.\n\n\n\n\n\n\n\n\nTool\nGrounded in\nSensible use on this module\n\n\n\n\nNotebookLM\nonly the sources you upload\nRevising from your own lecture notes\n\n\nElicit\nreal published papers\nFinding and triaging literature for the report\n\n\nGemini\nnothing in particular\nGeneral help — every caveat on this page applies\n\n\n\nNarrower grounding means less room to invent. It does not mean “safe”.\n\nNotebookLM\nNotebookLM answers only from documents you give it, and cites the passage behind each claim so you can click through and check. That makes it the most learning-friendly of the three, because it points you back at the source rather than replacing it.\nGenuinely good uses: upload the lecture notes and ask it to explain a concept you did not follow; ask it to generate practice questions from a session; ask what the notes say about a topic before you ask a general assistant to solve it for you.\nThe catch: grounding reduces invention, it does not eliminate it — it can still misread the source you handed it, and the citation will look just as confident either way. It is also close to useless for “why will this code not run?”, because your error is not in the documents.\n\n\nElicit\nElicit searches real papers and can extract findings into a table, which is directly useful for MLO-5 and the report’s literature.\nThe catch is worth knowing in detail, because it is a reproducibility problem and this module is about reproducible pipelines. A 2026 feasibility study in Research Synthesis Methods re-ran the same extractions from different user accounts and compared them:\n\n90% agreement on the extracted values\n46% agreement on the supporting quotes\n30% agreement on the reasoning\n\nElicit’s own documentation notes it “can miss the nuance of a paper or misunderstand what a number refers to”, with complex tables and multi-arm studies especially prone to extraction errors. Independent evaluation has also found a large gap between benchmark screening performance and performance on realistic search strategies.\n\n\n\n\n\n\nUse Elicit to find papers, not to know them. If a paper matters enough to cite, it matters enough to open. An extracted summary you cannot reproduce is not evidence, and “Elicit said so” is not a defence of an analytical choice.\n\n\n\n\n\nGemini\nA general-purpose assistant with no particular grounding, which makes it the most fluent and the most able to invent. Everything on this page — attempt → ask → diff, giving it your real data, constraining the answer, making it argue with itself — applies to it directly.\n\n\n\n\n\n\nTools change faster than this page does. Treat the descriptions above as a starting point and check the current behaviour yourself — which is, conveniently, the exact habit the rest of this page is trying to build.",
     "crumbs": [
       "Home",
       "Working with AI assistants",
@@ -3060,6 +3084,54 @@
     "title": "Working with AI assistants",
     "section": "Which is the actual argument",
     "text": "Which is the actual argument\nYou cannot check what a model gives you unless you know:\n\nwhat a factor is, and what’s underneath one\nwhat NA does to a comparison\nwhat a join does to row counts\nwhat “type stable” means and why you’d want it\n\nThat’s this module. Not because R is precious, but because that knowledge is the only thing standing between you and a confidently wrong result.\n\nThe people who get burned by these tools aren’t the ones who use them. They’re the ones who can’t check them.",
+    "crumbs": [
+      "Home",
+      "Working with AI assistants",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "00_llm_use/met581_llm_demo_slides.html#there-is-a-second-reason",
+    "href": "00_llm_use/met581_llm_demo_slides.html#there-is-a-second-reason",
+    "title": "Working with AI assistants",
+    "section": "There is a second reason",
+    "text": "There is a second reason\nEverything so far was about the model being wrong.\n\nThis one applies even when it is right.\n\nReading a correct solution feels almost exactly like working one out\nThat feeling is not learning. It is fluency, and it is gone by Thursday\nThe struggle is not an obstacle to the learning. It is the learning\n\n\n\nLearning scientists call this a desirable difficulty: the effort of retrieving something yourself is what makes it stick. Watching it appear costs you that, and costs you it silently.",
+    "crumbs": [
+      "Home",
+      "Working with AI assistants",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "00_llm_use/met581_llm_demo_slides.html#the-loop",
+    "href": "00_llm_use/met581_llm_demo_slides.html#the-loop",
+    "title": "Working with AI assistants",
+    "section": "The loop",
+    "text": "The loop\n\nYou get stuck, and you ask\nYou get a working answer, and you move on\nYou never build the knowledge that answer was made of\nNext time you are less able to tell a good answer from a bad one\nSo you ask sooner\n\n\nNothing in that loop feels bad while it is happening. That is precisely the problem with it.\n\n\nAnd you still sit the same paper in week 5, on your own.",
+    "crumbs": [
+      "Home",
+      "Working with AI assistants",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "00_llm_use/met581_llm_demo_slides.html#three-tools-three-risk-profiles",
+    "href": "00_llm_use/met581_llm_demo_slides.html#three-tools-three-risk-profiles",
+    "title": "Working with AI assistants",
+    "section": "Three tools, three risk profiles",
+    "text": "Three tools, three risk profiles\nYou have access to Gemini, NotebookLM and Elicit. They are not interchangeable. They differ in how much room they have to invent.\n\n\n\n\n\n\n\n\nTool\nGrounded in\nBest for\n\n\n\n\nNotebookLM\nsources you upload\nrevising from your own notes\n\n\nElicit\nreal published papers\nfinding literature for the report\n\n\nGemini\nnothing in particular\ngeneral help, with every caveat so far\n\n\n\n\nNarrower grounding means less room to invent. It does not mean “safe”.",
+    "crumbs": [
+      "Home",
+      "Working with AI assistants",
+      "Slides"
+    ]
+  },
+  {
+    "objectID": "00_llm_use/met581_llm_demo_slides.html#the-catch-with-each",
+    "href": "00_llm_use/met581_llm_demo_slides.html#the-catch-with-each",
+    "title": "Working with AI assistants",
+    "section": "The catch with each",
+    "text": "The catch with each\nNotebookLM — grounding cuts invention, it does not remove it. It can still misread the source you handed it. Good for “what did we say about joins?”. No use at all for “why will my code not run?”\n\nElicit — a 2026 feasibility study in Research Synthesis Methods re-ran the same extractions from different accounts and compared them:\n\n90% agreement on the extracted values\n46% on the supporting quotes\n30% on the reasoning\n\n\n\nAn answer you cannot reproduce is not evidence — and this module is about reproducible pipelines. Use it to find papers. Then read them.",
     "crumbs": [
       "Home",
       "Working with AI assistants",
@@ -3515,7 +3587,7 @@
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#why-this-is-useful",
     "title": "Introduction to R",
     "section": "Why this is useful",
-    "text": "Why this is useful\nThis is handy because it lets us do math with logicals!\n\n# Get a random sequence of 10 values between 1 and 100\nnumbers &lt;- sample(1:100, size = 10)\nprint(numbers)\n\n [1] 79 66 37 45 59  9 15 28 38 22\n\n# How many values are below 50?\nnumbers &lt; 50\n\n [1] FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE\n\n\n\n\nWe can just add up the logicals\n\n\nsum(numbers &lt; 50)\n\n[1] 7",
+    "text": "Why this is useful\nThis is handy because it lets us do math with logicals!\n\n# Get a random sequence of 10 values between 1 and 100\nnumbers &lt;- sample(1:100, size = 10)\nprint(numbers)\n\n [1] 78 34  8 19 16 22 77 45  3 43\n\n# How many values are below 50?\nnumbers &lt; 50\n\n [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n\n\n\n\nWe can just add up the logicals\n\n\nsum(numbers &lt; 50)\n\n[1] 8",
     "crumbs": [
       "Home",
       "Introduction to R",
@@ -4739,7 +4811,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.62 0.43 0.55 0.68 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.35 0.37 0.35 0.31 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.62 0.43 0.55 0.68 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.62 0.43 0.55 0.68",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.60 0.42 0.48 0.71 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.32 0.26 0.33 0.30 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.60 0.42 0.48 0.71 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.60 0.42 0.48 0.71",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4799,7 +4871,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 3.56 5.12 4.31 6.25 4.43\n $ : num [1:5] 14.11 9.29 17.58 10.35 9.84\n $ : num [1:5] 9.01 4.73 1.69 3.88 9.04",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 5.5 7.68 5.14 4.97 3.34\n $ : num [1:5] 8.55 10.3 13.9 12.75 14.13\n $ : num [1:5] 2.569 -10.909 -7.53 -0.918 4.096",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4823,7 +4895,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 5.19\n $ : num [1:3] 7.44 11.44 11.71\n $ : num [1:5] -11.118 -12.257 7.978 7.869 -0.882\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] -0.9863 0.0303 0.4452 0.4108 -0.8494\n $ : num [1:5] -2.43 -12.117 -2.313 -12.254 -0.615\n $ : int [1:5] 9 14 13 20 12",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 5.53\n $ : num [1:3] 1.56 1.82 8\n $ : num [1:5] -24.72 -15.97 -2.76 -2.52 -23.23\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.2674 -0.9372 -0.9378 -0.615 -0.0677\n $ : num [1:5] -0.268 1.033 4.401 3.252 -3.903\n $ : int [1:5] 10 10 11 4 5",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4859,7 +4931,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
     "title": "Programming in R",
     "section": "pwalk",
-    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Mazda RX4 has a manual transmission and gets 21 mpgs.\"\n[1] \"The Toyota Corolla has a manual transmission and gets 33.9 mpgs.\"\n[1] \"The Pontiac Firebird has a auto transmission and gets 19.2 mpgs.\"",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Mazda RX4 Wag has a manual transmission and gets 21 mpgs.\"\n[1] \"The Dodge Challenger has a auto transmission and gets 15.5 mpgs.\"\n[1] \"The Honda Civic has a manual transmission and gets 30.4 mpgs.\"",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -4871,7 +4943,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
     "title": "Programming in R",
     "section": "While loops",
-    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  3\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  4\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
     "crumbs": [
       "Home",
       "Programming in R",
