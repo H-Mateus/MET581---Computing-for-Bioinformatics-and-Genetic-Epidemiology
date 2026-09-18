@@ -112,6 +112,60 @@ myFunction <- function(x) {
 }
 ```
 
+## Conditional Execution | `switch()`
+
+-   A chain of `else if` branches that all test the *same* variable is a common pattern, and an ugly one:
+
+``` r
+if (how == "mean") {
+  mean(x)
+} else if (how == "median") {
+  median(x)
+} else if (how == "sd") {
+  sd(x)
+}
+```
+
+-   `switch()` does the same job in a fraction of the space
+
+## `switch()` {.smaller}
+
+-   It takes a value, then one named branch per possible value
+
+```{r}
+summarise_by <- function(x, how = c("mean", "median", "sd")) {
+  how <- match.arg(how)
+  switch(how,
+    mean   = mean(x),
+    median = median(x),
+    sd     = sd(x)
+  )
+}
+
+v <- c(2, 4, 4, 4, 5, 5, 7, 9)
+
+summarise_by(v, "median")
+```
+
+-   `match.arg()` is doing the input validation for you: it accepts only the listed options, and defaults to the first
+
+## `switch()` - why bother {.smaller}
+
+-   Ask for something that isn't on the list:
+
+```{r}
+#| error: true
+summarise_by(v, "mode")
+```
+
+-   You get a clear error naming the valid options, and you did not have to write a single check yourself
+-   Compare that with an `else if` chain that has no final `else`: it silently returns `NULL`
+
+. . .
+
+**The general principle again:** prefer the construct that fails immediately and
+loudly over the one that fails quietly later.
+
 ## Defining Function Arguments
 
 -   There are two types of arguments: **Mandatory** and **Optional**

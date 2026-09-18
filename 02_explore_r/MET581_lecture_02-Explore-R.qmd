@@ -541,6 +541,44 @@ Why use the readr functions?
 -   They are more reproducible. Base R functions inherit some behaviour from your operating system and environment variables, so code that works on your computer might not work on someone else's.
 
 
+## Getting data back out
+
+-   Importing is only half of it — an analysis that can't be handed on isn't reproducible
+-   Every `read_` function in readr has a matching `write_` function
+
+```{r}
+#| eval: false
+write_csv(my_data, "results/cleaned_pheno.csv")
+write_tsv(my_data, "results/cleaned_pheno.tsv")
+```
+
+-   Note the argument order: **data first, then the path**. The base R equivalents take them the other way round, which catches everyone at least once
+
+## Which format should you write?
+
+-   **`write_csv()`** — plain text, opens anywhere, readable by a human and by Excel
+    -   Use it whenever someone else, or some other tool, has to read the file
+    -   But: it cannot store what a column *is*, so factors and dates come back as text
+-   **`write_rds()`** — R's own format, preserves the object exactly
+
+```{r}
+#| eval: false
+write_rds(my_data, "results/cleaned_pheno.rds")
+my_data <- read_rds("results/cleaned_pheno.rds")
+```
+
+-   Only R can read it, but a tibble written with `write_rds()` comes back identical — types, factor levels and all
+
+## Writing data - practice
+
+1.    Read in "pheno.txt", then write it back out as a `.csv`. Open both in a text editor and compare them
+2.    Convert a column to a factor, write it with `write_csv()`, read it back in. What type is it now?
+3.    Repeat step 2 using `write_rds()` and `read_rds()`. What is different?
+
+**Extra practice**
+
+4.    Never write output into the same folder as your raw data. Why not?
+
 ## Additional Resources
 
 -   Extra reading from [R for Data Science](https://r4ds.hadley.nz/):
