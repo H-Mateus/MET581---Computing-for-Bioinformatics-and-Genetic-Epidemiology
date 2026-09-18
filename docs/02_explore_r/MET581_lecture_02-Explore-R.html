@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Gabriel Mateus Bernardo Harrington">
-  <title>Data Science for Life Sciences I – Explore R</title>
+  <title>Data for Life Sciences 1 – Explore R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -294,12 +294,12 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 <span id="cb11-2"><a aria-label="2"></a><span class="fu">head</span>(women)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  height weight ages
-1     58    115   72
-2     59    117   23
-3     60    120   27
-4     61    123   66
-5     62    126   47
-6     63    129   73</code></pre>
+1     58    115   24
+2     59    117   78
+3     60    120   40
+4     61    123   29
+5     62    126   55
+6     63    129   40</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -313,13 +313,13 @@ Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-361
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a aria-label="1"></a><span class="fu">sum</span>(women<span class="sc">$</span>ages)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 762</code></pre>
+<pre><code>[1] 674</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a aria-label="1"></a><span class="co"># A more elegant way to apply a function to all columns!</span></span>
 <span id="cb19-2"><a aria-label="2"></a><span class="fu">sapply</span>(women, mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       height        weight          ages 
- 65.000000000 136.733333333  50.800000000 </code></pre>
+<pre><code>        height         weight           ages 
+ 65.0000000000 136.7333333333  44.9333333333 </code></pre>
 </div>
 </div>
 </section>
@@ -945,7 +945,7 @@ R4 13 14 15 16</code></pre>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="../10_resources/00_images/combined_logos.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>Data Science for Life Sciences I - Slides and code available <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
+<p>Data for Life Sciences 1 - Slides and code available <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
 </div>
 </div></div>
 

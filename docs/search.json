@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Welcome!",
     "section": "",
-    "text": "This website houses the R lecture materials for Data Science for Life Sciences I, delivered on the Cardiff University bioinformatics MSc.\nUse the side bar to navigate to lecture materials.\nIf you are wondering how to use AI assistants such as ChatGPT or Claude on this module, start with Working with AI assistants — the short answer is that you are welcome to, but they will confidently give you R that runs and is wrong, so you need to be able to check them.\nYou can find the source files for this website and the lecture materials in GitHub here.\n\n\n\n\n\n\nNote\n\n\n\nThe repository is still named for the module’s previous incarnation, MET581 - Computing for Bioinformatics and Genetic Epidemiology. The material is the same; only the module has been restructured."
+    "text": "This website houses the R lecture materials for Data for Life Sciences 1 (MET993), delivered on the Cardiff University bioinformatics MSc.\nUse the side bar to navigate to lecture materials.\nIf you are wondering how to use AI assistants such as ChatGPT or Claude on this module, start with Working with AI assistants — the short answer is that you are welcome to, but they will confidently give you R that runs and is wrong, so you need to be able to check them.\nYou can find the source files for this website and the lecture materials in GitHub here.\n\n\n\n\n\n\nNote\n\n\n\nThe repository is still named for the module’s previous incarnation, MET581 - Computing for Bioinformatics and Genetic Epidemiology. The material is the same; only the module has been restructured."
   },
   {
     "objectID": "10_resources/02_reference/factors_with_forcats.html",
@@ -1103,7 +1103,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#the-map-family-1",
     "title": "Programming in R",
     "section": "The map family",
-    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.51 0.42 0.50 0.47 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.33 0.27 0.32 0.28 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.51 0.42 0.50 0.47 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.51 0.42 0.50 0.47",
+    "text": "The map family\n\n\nWe can use the map function to compute the mean and standard deviation of previous dataset.\n\n\n# I'm using round here so we don't get so many decimal places printed\nmap_dbl(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.52 0.52 0.67 0.48 \n\nmap_dbl(df, sd) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.35 0.35 0.30 0.32 \n\n# And here's the native R sapply equivalent\nsapply(df, mean) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.52 0.52 0.67 0.48 \n\n\n\n\nAnd if you see the help page for map_dbl() you’ll notice the ... which allows us to pass function arguments:\n\n\nmap_dbl(df, mean, na.rm = TRUE) |&gt; round(digits = 2)\n\n   a    b    c    d \n0.52 0.52 0.67 0.48",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -1163,7 +1163,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 3.6 5.14 5.92 5.86 4.4\n $ : num [1:5] 8.73 4.76 16.92 8.88 9.3\n $ : num [1:5] -11.86 -9.925 0.567 -2.52 -2.672",
+    "text": "Multiple Arguments\n\n\npurrr gives us the option to include more than one input in parallel with map2() and pmap().\nImagine we would like to simulate some random normal distributions with different means, and each vary, we could do:\n\n\n# Define input lists\nmu &lt;- list(5, 10, -3)\nsigma &lt;- list(1, 5, 10)\n# Generate distributions\nmap2(mu, sigma, rnorm, n = 5) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 5.37 4.3 3.87 6.2 3.33\n $ : num [1:5] 5.05 16.39 -3.88 9.91 8.56\n $ : num [1:5] -10.031 -13.66 -17.547 -4.676 0.223",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -1187,7 +1187,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#multiple-arguments-2",
     "title": "Programming in R",
     "section": "Multiple Arguments",
-    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 4.33\n $ : num [1:3] 6.71 1.57 3.58\n $ : num [1:5] 12.86 13.56 -4.09 -13.8 -20.28\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] -0.6247 0.3224 0.397 0.7631 -0.0814\n $ : num [1:5] 4.71 -5.01 -7.8 1.12 -2.48\n $ : int [1:5] 9 7 11 7 7",
+    "text": "Multiple Arguments\n\nThere is no map3 or map4, so what if we want more than 2 arguments? purrr has the function pmap() for an arbitrary number of args.\n\n\n\nn &lt;- list(1, 3, 5)\narguments &lt;- list(n, mu, sigma)\n\narguments |&gt;\n  pmap(rnorm) |&gt;\n  str()\n\n\nList of 3\n $ : num 3.89\n $ : num [1:3] 19.67 8.51 5.7\n $ : num [1:5] 0.11 6.71 -4.483 0.172 -9.308\n\n\n\nWe can go even further by increasing the complexity of the problem using the exec() function.\n\n\nfuncs &lt;- c(\"runif\", \"rnorm\", \"rpois\")\nparams &lt;- list(list(min = -1, max = 1), list(sd = 5), list(lambda = 10))\n\nmap2(funcs, params, \\(fn, args) exec(fn, !!!args, n = 5)) |&gt;\n  str()\n\nList of 3\n $ : num [1:5] 0.502 0.196 0.103 -0.81 0.332\n $ : num [1:5] -1.339 7.587 0.799 6.594 -8.41\n $ : int [1:5] 12 7 10 12 5",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -1223,7 +1223,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#pwalk",
     "title": "Programming in R",
     "section": "pwalk",
-    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The Mazda RX4 has a manual transmission and gets 21 mpgs.\"\n[1] \"The Merc 280C has a auto transmission and gets 17.8 mpgs.\"\n[1] \"The Hornet Sportabout has a auto transmission and gets 18.7 mpgs.\"",
+    "text": "pwalk\n\npmap() and pwalk() allow you to provide any number of arguments in a list.\n\n\n# Let's set-up a dataframe and function to use with pwalk\nds_mt &lt;-\n  mtcars |&gt;\n  rownames_to_column(\"model\") |&gt;\n  mutate(am = factor(am, labels = c(\"auto\", \"manual\"))) |&gt;\n  select(model, mpg, wt, cyl, am) |&gt;\n  sample_n(3)\nfoo &lt;- function(model, am, mpg) {\n  print(paste(\"The\", model, \"has a\", am, \"transmission and gets\", mpg, \"mpgs.\"))\n}\n# Now we can use pwalk\nds_mt |&gt;\n  select(model, am, mpg) |&gt;\n  pwalk(.l = _, .f = foo)\n\n[1] \"The AMC Javelin has a auto transmission and gets 15.2 mpgs.\"\n[1] \"The Ferrari Dino has a manual transmission and gets 19.7 mpgs.\"\n[1] \"The Ford Pantera L has a manual transmission and gets 15.8 mpgs.\"",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -1235,7 +1235,7 @@
     "href": "06_Programming_in_R/met581_06_programming_in_r.html#while-loops",
     "title": "Programming in R",
     "section": "While loops",
-    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  38\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
+    "text": "While loops\n\nYou’re unlikely to every use them in a data analysis context (I never have!), but they evaluate their body code until a condition is met\nExample: see how many times we need to flip a coin to get three heads in a row:\n\n\n\nflip_coin &lt;- function() {\n  sample(c(\"T\", \"H\"), 1)\n}\nnumFlips &lt;- 0\nnumHeads &lt;- 0\nwhile (numHeads &lt; 3) {\n  if (flip_coin() == \"H\") {\n    numHeads &lt;- numHeads + 1\n  } else {\n    numHeads &lt;- 0\n  }\n  numFlips &lt;- numFlips + 1\n}\ncat(\"Number of flips to get 3 heads in a row: \", numFlips)\n\n\nNumber of flips to get 3 heads in a row:  30\n\n\n\nBeware that while loops can crash if the condition being evaluated never becomes false!",
     "crumbs": [
       "Home",
       "Programming in R",
@@ -2387,7 +2387,7 @@
     "href": "01_intro_to_r/MET581_lecture_01_slides.html#why-this-is-useful",
     "title": "Introduction to R",
     "section": "Why this is useful",
-    "text": "Why this is useful\nThis is handy because it lets us do math with logicals!\n\n# Get a random sequence of 10 values between 1 and 100\nnumbers &lt;- sample(1:100, size = 10)\nprint(numbers)\n\n [1] 78 34  8 19 16 22 77 45  3 43\n\n# How many values are below 50?\nnumbers &lt; 50\n\n [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE\n\n\n\n\nWe can just add up the logicals\n\n\nsum(numbers &lt; 50)\n\n[1] 8",
+    "text": "Why this is useful\nThis is handy because it lets us do math with logicals!\n\n# Get a random sequence of 10 values between 1 and 100\nnumbers &lt;- sample(1:100, size = 10)\nprint(numbers)\n\n [1] 28 91 66 74 94 23 76 59 40 67\n\n# How many values are below 50?\nnumbers &lt; 50\n\n [1]  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE\n\n\n\n\nWe can just add up the logicals\n\n\nsum(numbers &lt; 50)\n\n[1] 3",
     "crumbs": [
       "Home",
       "Introduction to R",
@@ -3131,7 +3131,7 @@
     "href": "02_explore_r/MET581_lecture_02-Explore-R.html#homework-answers---continued",
     "title": "Explore R",
     "section": "Homework answers - continued",
-    "text": "Homework answers - continued\n\nwomen$ages &lt;- sample(18:90, nrow(women), replace = TRUE)\nhead(women)\n\n  height weight ages\n1     58    115   72\n2     59    117   23\n3     60    120   27\n4     61    123   66\n5     62    126   47\n6     63    129   73\n\n\n\nsum(women$height)\n\n[1] 975\n\nsum(women$weight)\n\n[1] 2051\n\nsum(women$ages)\n\n[1] 762\n\n# A more elegant way to apply a function to all columns!\nsapply(women, mean)\n\n       height        weight          ages \n 65.000000000 136.733333333  50.800000000",
+    "text": "Homework answers - continued\n\nwomen$ages &lt;- sample(18:90, nrow(women), replace = TRUE)\nhead(women)\n\n  height weight ages\n1     58    115   24\n2     59    117   78\n3     60    120   40\n4     61    123   29\n5     62    126   55\n6     63    129   40\n\n\n\nsum(women$height)\n\n[1] 975\n\nsum(women$weight)\n\n[1] 2051\n\nsum(women$ages)\n\n[1] 674\n\n# A more elegant way to apply a function to all columns!\nsapply(women, mean)\n\n        height         weight           ages \n 65.0000000000 136.7333333333  44.9333333333",
     "crumbs": [
       "Home",
       "Explore R",

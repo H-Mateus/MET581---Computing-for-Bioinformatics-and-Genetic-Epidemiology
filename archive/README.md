@@ -2,7 +2,7 @@
 
 Material from the old **MET581 - Computing for Bioinformatics and Genetic
 Epidemiology** module that is no longer taught in
-**Data Science for Life Sciences I**.
+**Data for Life Sciences 1**.
 
 Nothing in here is rendered: `_quarto.yml` excludes `archive/` from the
 project render, and the corresponding output has been removed from `docs/`.

@@ -3,8 +3,8 @@ title: "Welcome!"
 author: "Gabriel Mateus Bernardo Harrington"
 ---
 
-This website houses the R lecture materials for **Data Science for Life Sciences
-I**, delivered on the Cardiff University bioinformatics MSc.
+This website houses the R lecture materials for **Data for Life Sciences 1**
+(MET993), delivered on the Cardiff University bioinformatics MSc.
 
 Use the side bar to navigate to lecture materials.
 

@@ -11,7 +11,7 @@ project:
     - "!archive/"
 
 website:
-  title: "Data Science for Life Sciences I"
+  title: "Data for Life Sciences 1"
   repo-url: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology
   issue-url: https://github.com/H-Mateus/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/issues/new/choose
   repo-actions: [edit, issue]

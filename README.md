@@ -1,6 +1,6 @@
-# Data Science for Life Sciences I — R lecture material
+# Data for Life Sciences 1 — R lecture material
 
-R lecture materials for the **Data Science for Life Sciences I** module on the
+R lecture materials for the **Data for Life Sciences 1** module on the
 Cardiff University bioinformatics MSc, delivered by Gabriel Mateus Bernardo
 Harrington.
 

@@ -12,20 +12,23 @@ and Genetic Epidemiology`, in which this material filled **9 lectures**.
 The new module code is **`MET993`** (confirmed 2026-09; the module description
 PDF's `METXX1` placeholder is superseded).
 
-**The module *title* is unresolved** and the two official sources disagree:
+The module title is **`Data for Life Sciences 1`** — note *no* "Science", and an
+Arabic `1` rather than a Roman `I`. The two official sources disagree:
 
 | Source | Title | Module leader |
 |--------|-------|---------------|
 | `module_docs/` description PDF | Data **Science** for Life Sciences **I** | W. John Watkins, Mateus Bernardo-Harrington |
-| Student learning portal (`current_module_description.txt`, 2026/7) | Data for Life Sciences **1** | Dr Stephen Greenwood |
+| Student learning portal (`module_docs/MET993_portal_description_2026-27.txt`, 2026/7) | Data for Life Sciences **1** | Dr Stephen Greenwood |
 
-Everything student-facing in this repo currently says **Data Science for Life
-Sciences I**, taken from the PDF. The portal is what students actually see, so if
-the portal wording is the registered title, every deck footer, the site title,
-`README.md` and `index.qmd` need changing. **Confirm before the module runs** —
-this is a one-line fix now and an embarrassing inconsistency later. The portal
-also names a different module leader, which is probably an administrative
-placeholder but is worth checking at the same time.
+**The portal wording wins**, on the grounds that it is both more recent and the
+thing students actually see. Everything student-facing now uses it: the site
+title, all seven deck footers, `_brand.yml`, `README.md` and `index.qmd`. If you
+ever need to change it again, grep for the whole phrase — it wraps across a line
+break in `index.qmd`, so a line-oriented search misses one occurrence.
+
+**Still unresolved:** the portal names Dr Stephen Greenwood as module leader where
+the PDF names Watkins and Mateus. Probably an administrative placeholder, but
+worth checking. Nothing in this repo depends on it.
 
 Key facts:
 

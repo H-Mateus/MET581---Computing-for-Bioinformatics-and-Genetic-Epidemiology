@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Gabriel Mateus Bernardo Harrington">
-  <title>Data Science for Life Sciences I – Programming in R</title>
+  <title>Data for Life Sciences 1 – Programming in R</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -625,18 +625,18 @@ Missing values: 573</code></pre>
 <span id="cb32-2"><a aria-label="2"></a><span class="fu">map_dbl</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.51 0.42 0.50 0.47 </code></pre>
+0.52 0.52 0.67 0.48 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-label="1"></a><span class="fu">map_dbl</span>(df, sd) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.33 0.27 0.32 0.28 </code></pre>
+0.35 0.35 0.30 0.32 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a aria-label="1"></a><span class="co"># And here's the native R sapply equivalent</span></span>
 <span id="cb36-2"><a aria-label="2"></a><span class="fu">sapply</span>(df, mean) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.51 0.42 0.50 0.47 </code></pre>
+0.52 0.52 0.67 0.48 </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -647,7 +647,7 @@ Missing values: 573</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-label="1"></a><span class="fu">map_dbl</span>(df, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   a    b    c    d 
-0.51 0.42 0.50 0.47 </code></pre>
+0.52 0.52 0.67 0.48 </code></pre>
 </div>
 </div>
 </div>
@@ -753,9 +753,9 @@ Missing values: 573</code></pre>
 <span id="cb49-6"><a aria-label="6"></a>  <span class="fu">str</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] 3.6 5.14 5.92 5.86 4.4
- $ : num [1:5] 8.73 4.76 16.92 8.88 9.3
- $ : num [1:5] -11.86 -9.925 0.567 -2.52 -2.672</code></pre>
+ $ : num [1:5] 5.37 4.3 3.87 6.2 3.33
+ $ : num [1:5] 5.05 16.39 -3.88 9.91 8.56
+ $ : num [1:5] -10.031 -13.66 -17.547 -4.676 0.223</code></pre>
 </div>
 </div>
 </section>
@@ -782,9 +782,9 @@ Missing values: 573</code></pre>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num 4.33
- $ : num [1:3] 6.71 1.57 3.58
- $ : num [1:5] 12.86 13.56 -4.09 -13.8 -20.28</code></pre>
+ $ : num 3.89
+ $ : num [1:3] 19.67 8.51 5.7
+ $ : num [1:5] 0.11 6.71 -4.483 0.172 -9.308</code></pre>
 </div>
 </div></div>
 <ul>
@@ -798,9 +798,9 @@ Missing values: 573</code></pre>
 <span id="cb53-5"><a aria-label="5"></a>  <span class="fu">str</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 3
- $ : num [1:5] -0.6247 0.3224 0.397 0.7631 -0.0814
- $ : num [1:5] 4.71 -5.01 -7.8 1.12 -2.48
- $ : int [1:5] 9 7 11 7 7</code></pre>
+ $ : num [1:5] 0.502 0.196 0.103 -0.81 0.332
+ $ : num [1:5] -1.339 7.587 0.799 6.594 -8.41
+ $ : int [1:5] 12 7 10 12 5</code></pre>
 </div>
 </div>
 </section>
@@ -863,9 +863,9 @@ Missing values: 573</code></pre>
 <span id="cb58-13"><a aria-label="13"></a>  <span class="fu">select</span>(model, am, mpg) <span class="sc">|&gt;</span></span>
 <span id="cb58-14"><a aria-label="14"></a>  <span class="fu">pwalk</span>(<span class="at">.l =</span> _, <span class="at">.f =</span> foo)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "The Mazda RX4 has a manual transmission and gets 21 mpgs."
-[1] "The Merc 280C has a auto transmission and gets 17.8 mpgs."
-[1] "The Hornet Sportabout has a auto transmission and gets 18.7 mpgs."</code></pre>
+<pre><code>[1] "The AMC Javelin has a auto transmission and gets 15.2 mpgs."
+[1] "The Ferrari Dino has a manual transmission and gets 19.7 mpgs."
+[1] "The Ford Pantera L has a manual transmission and gets 15.8 mpgs."</code></pre>
 </div>
 </div>
 </section>
@@ -893,7 +893,7 @@ Missing values: 573</code></pre>
 <span id="cb60-14"><a aria-label="14"></a><span class="fu">cat</span>(<span class="st">"Number of flips to get 3 heads in a row: "</span>, numFlips)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of flips to get 3 heads in a row:  38</code></pre>
+<pre><code>Number of flips to get 3 heads in a row:  30</code></pre>
 </div>
 </div></div>
 <ul>
@@ -913,7 +913,7 @@ Missing values: 573</code></pre>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src=".././10_resources/00_images/combined_logos.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>Data Science for Life Sciences I - Slides and code available <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
+<p>Data for Life Sciences 1 - Slides and code available <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
 </div>
 </div></div>
 
