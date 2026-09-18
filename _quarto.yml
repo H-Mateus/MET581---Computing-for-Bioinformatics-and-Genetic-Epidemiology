@@ -68,6 +68,10 @@ website:
             href: 06_Programming_in_R/met581_programming_in_r_workshop.qmd
           - text: "Workshop answers"
             href: 10_resources/01_workshop_answers/met581_programming_in_r_workshop_answers.qmd
+      - section: "Exploratory Data Analysis in R"
+        contents:
+          - text: "Slides"
+            href: 08_exploratory_data_analysis/met581_08_exploratory_data_analysis.qmd
       - section: "Data Visualisation in R"
         contents:
           - text: "Slides"

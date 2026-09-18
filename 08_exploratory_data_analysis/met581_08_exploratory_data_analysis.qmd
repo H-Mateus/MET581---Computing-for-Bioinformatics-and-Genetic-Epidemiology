@@ -1,0 +1,724 @@
+---
+title: "Exploratory Data Analysis in R"
+author:
+  - name: "Gabriel Mateus Bernardo Harrington"
+    orcid: 0000-0001-6075-3619
+    email: bernardo-harringtong@cardiff.ac.uk
+    affiliations:
+      - ref: cardiff
+      - ref: dri
+    degrees:
+      - PhD
+affiliations:
+  - id: cardiff
+    name: Cardiff University
+    city: Cardiff
+    url: https://www.cardiff.ac.uk
+  - id: dri
+    name: UK Dementia Research Institute
+    url: https://ukdri.ac.uk/
+format:
+  revealjs:
+    logo: /./10_resources/00_images/combined_logos.png
+    footer: "Data Science for Life Sciences I - Slides and code available [here](https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/)"
+    theme: [dark, ../styles.scss, brand]
+    brand-mode: dark
+    margin: 0.05
+    drop:
+      engine: webr
+      webr:
+        packages:
+          - tidyverse
+          - conflicted
+revealjs-plugins:
+  - drop
+execute:
+  echo: true
+---
+
+## Exploratory Data Analysis {.center}
+
+```{r}
+#| include: false
+library(tidyverse)
+library(conflicted)
+conflicts_prefer(dplyr::filter)
+
+cohort <- read_csv(
+  here::here("Simulated_data/generated_uk/bioinformatics_msc_stats_baseline.csv"),
+  show_col_types = FALSE
+) |>
+  select(
+    participant_id, age_years, sex_at_birth, imd_quintile, smoking_status,
+    self_rated_health, height_cm, bmi_kg_m2, systolic_bp_mmHg,
+    crp_mg_L, obesity, type2_diabetes
+  )
+```
+
+## Todays Aims
+
+- Get to know a dataset before you do anything clever with it
+- Choose the right summary for the shape of the data you actually have
+- Find the problems **before** they reach your results
+- Describe relationships between variables honestly
+
+## Learning Objectives
+
+By the end of this session you should be able to:
+
+- Classify a variable as continuous, binary, categorical or ordered
+- Summarise each type appropriately, and justify the choice
+- Recognise skew, outliers and missingness, and say what to do about them
+- Produce and interpret a cross-tabulation and a correlation
+
+## What EDA actually is
+
+Not a step you tick off. It's the habit of **looking at your data before you
+trust it**.
+
+::: {.incremental}
+- What is in here, and what type is each thing?
+- What is the typical value, and how spread out is it?
+- What is broken, missing, or impossible?
+- What looks related to what?
+:::
+
+. . .
+
+Every statistical test you meet in sessions 9–14 assumes you have already done
+this. None of them will tell you if you haven't.
+
+## The rule for this session {.smaller}
+
+> **Look at the data. Then look again. Then compute something.**
+
+. . .
+
+The expensive mistakes in data analysis are almost never "I used the wrong test".
+
+. . .
+
+They are "I didn't notice that column was a character", or "I didn't notice two
+rows were duplicated", or — as you'll see in about ten minutes — "I didn't notice
+two values were ten times too big".
+
+## Our dataset {.smaller}
+
+A **simulated** cohort of 2,400 older adults in England: demographics,
+deprivation, lifestyle, and clinical measurements.
+
+- It is entirely made up. No real patients.
+- It is the **same dataset** you'll use in the statistics sessions
+- It is deliberately **not clean**, because real data never is
+
+```{r}
+dim(cohort)
+```
+
+::: {.notes}
+The full table has 73 columns; this is a teaching subset of 12 so that output
+fits on a slide. Show the full one live if there's time.
+:::
+
+## First contact {.smaller}
+
+Before anything else — how big is it, and what is in it?
+
+```{r}
+glimpse(cohort)
+```
+
+## What `glimpse()` just told you {.smaller}
+
+::: {.incremental}
+- `<dbl>` — a number (double). Age, BMI, blood pressure.
+- `<chr>` — text. Sex, smoking status, self-rated health.
+- 2,400 rows, 12 columns
+:::
+
+. . .
+
+Note what is **not** there: nothing is a factor yet, and `obesity` is stored as a
+number even though it only takes two values.
+
+. . .
+
+R will happily let you take the mean of a 0/1 column, or sort text
+alphabetically when you meant "worst to best". Knowing the type is how you avoid
+both.
+
+## Variable types {.smaller}
+
+| Type | Looks like | Example here |
+|------|-----------|--------------|
+| **Continuous** | any value in a range | `age_years`, `bmi_kg_m2` |
+| **Binary** | exactly two outcomes | `obesity`, `type2_diabetes` |
+| **Categorical** (nominal) | unordered groups | `sex_at_birth`, `smoking_status` |
+| **Ordered** (ordinal) | groups with a rank | `imd_quintile`, `self_rated_health` |
+
+. . .
+
+**Classify first, compute second.** The type decides the summary, the plot, and
+later the test.
+
+## Practice! {.smaller}
+
+Without running anything, classify each of these:
+
+- `height_cm`
+- `sex_at_birth`
+- `self_rated_health`
+- `type2_diabetes`
+- `imd_quintile`
+
+. . .
+
+Then check yourself with `glimpse()` — and notice where R's *storage* type
+disagrees with the *conceptual* type.
+
+# Continuous variables
+
+## Central tendency {.smaller}
+
+Two ways to say "the typical value":
+
+```{r}
+cohort |>
+  summarise(
+    mean   = mean(age_years),
+    median = median(age_years)
+  )
+```
+
+. . .
+
+Nearly identical — which tells you the distribution is roughly symmetric.
+
+When they **disagree**, that disagreement is information.
+
+## Variability {.smaller}
+
+"Typical" is useless without "how spread out".
+
+```{r}
+cohort |>
+  summarise(
+    sd    = sd(age_years),
+    IQR   = IQR(age_years),
+    range = max(age_years) - min(age_years)
+  )
+```
+
+::: {.incremental}
+- **SD** — average distance from the mean. Uses every value.
+- **IQR** — width of the middle 50%. Ignores the tails.
+- **Range** — max minus min. Entirely decided by two values.
+:::
+
+## Now do it for blood pressure {.smaller}
+
+```{r}
+cohort |>
+  summarise(
+    n      = n(),
+    mean   = mean(systolic_bp_mmHg),
+    median = median(systolic_bp_mmHg),
+    sd     = sd(systolic_bp_mmHg),
+    IQR    = IQR(systolic_bp_mmHg),
+    min    = min(systolic_bp_mmHg),
+    max    = max(systolic_bp_mmHg)
+  )
+```
+
+. . .
+
+**Something here is wrong. What?**
+
+## Spot it {.smaller}
+
+::: {.incremental}
+- Mean 140, median 139 — fine, that is a plausible systolic blood pressure
+- IQR 17 — fine
+- **SD 40.8** — for a variable whose middle 50% spans 17 mmHg?
+- **Max 1620** — no.
+:::
+
+. . .
+
+A standard deviation more than twice the IQR is a red flag on its own. You did
+not need the `max` to know something was wrong.
+
+. . .
+
+This is why you compute **both** a robust and a non-robust summary.
+
+## Look at it {.smaller}
+
+```{r}
+#| fig-height: 3.5
+boxplot(cohort$systolic_bp_mmHg,
+        horizontal = TRUE,
+        xlab = "Systolic BP (mmHg)")
+```
+
+. . .
+
+The entire distribution is squashed against the left edge by two points.
+
+## Find it {.smaller}
+
+```{r}
+cohort |>
+  filter(systolic_bp_mmHg > 250) |>
+  select(participant_id, age_years, systolic_bp_mmHg)
+```
+
+. . .
+
+`1330` and `1620`. Those are `133.0` and `162.0` with a misplaced decimal point —
+a data entry error, and a very common one.
+
+## Fix it {.smaller}
+
+```{r}
+cohort_clean <- cohort |>
+  mutate(
+    systolic_bp_mmHg = if_else(
+      systolic_bp_mmHg > 250,
+      systolic_bp_mmHg / 10,
+      systolic_bp_mmHg
+    )
+  )
+
+cohort_clean |>
+  summarise(mean = mean(systolic_bp_mmHg), sd = sd(systolic_bp_mmHg))
+```
+
+. . .
+
+SD falls from **40.8** to **12.6**. The mean barely moves.
+
+::: {.callout-warning appearance="simple"}
+Never silently delete a row. Record what you changed and why — that is what makes
+a pipeline reproducible, and it is marked.
+:::
+
+## Robust vs non-robust {.smaller}
+
+Watch which summaries even noticed:
+
+| | with the error | after the fix |
+|---|---|---|
+| mean | 140.0 | 138.9 |
+| **median** | **139** | **139** |
+| sd | 40.8 | 12.6 |
+| **IQR** | **17** | **17** |
+
+. . .
+
+The median and IQR did not move at all. They are **robust** — built from ranks,
+so extreme values carry no extra weight.
+
+. . .
+
+That is the argument for reporting both. Where they disagree, look.
+
+## What it cost {.smaller}
+
+Two bad cells out of 2,400. Here is the correlation between age and blood
+pressure, before and after:
+
+```{r}
+c(
+  raw     = cor(cohort$age_years,       cohort$systolic_bp_mmHg),
+  cleaned = cor(cohort_clean$age_years, cohort_clean$systolic_bp_mmHg)
+) |> round(3)
+```
+
+. . .
+
+**0.09 to 0.29.** A real, moderate association was hidden entirely by two typos.
+
+. . .
+
+Had you skipped EDA you would have reported "no relationship between age and
+blood pressure" — confidently, and wrongly.
+
+## Practice! {.smaller}
+
+Using `cohort`:
+
+- Summarise `bmi_kg_m2` with mean, median, SD and IQR. Do any disagree?
+- Find the minimum and maximum. Are both plausible for an adult?
+- Produce a boxplot of `crp_mg_L`. What do you notice?
+
+**Extra practice**
+
+- Write a small check that flags any column whose SD is more than twice its IQR
+
+## Skew {.smaller}
+
+Compare two continuous variables:
+
+```{r}
+cohort |>
+  summarise(
+    across(
+      c(height_cm, crp_mg_L),
+      list(mean = ~ mean(.x, na.rm = TRUE), median = ~ median(.x, na.rm = TRUE))
+    )
+  ) |>
+  round(2)
+```
+
+. . .
+
+Height: mean ≈ median. Symmetric.
+
+CRP: mean **above** median. A long right tail is dragging the mean up.
+
+## Seeing skew {.smaller}
+
+```{r}
+#| fig-height: 3.5
+#| layout-ncol: 2
+hist(cohort$height_cm, main = "height_cm", xlab = NULL)
+hist(cohort$crp_mg_L,  main = "crp_mg_L",  xlab = NULL)
+```
+
+## Which summary do you report? {.smaller}
+
+::: {.incremental}
+- **Symmetric** — mean and SD are fine, and use all the data
+- **Skewed** — median and IQR describe it far better
+- Reporting a mean for a strongly skewed variable is not *wrong*, it is
+  **misleading**, which is worse
+:::
+
+. . .
+
+You will meet this again in sessions 11–12: the same shape decides whether a
+parametric test is appropriate.
+
+## Break {.center}
+
+# Missing data
+
+## Where is it missing? {.smaller}
+
+```{r}
+cohort |>
+  summarise(across(everything(), ~ sum(is.na(.x)))) |>
+  pivot_longer(everything(), names_to = "variable", values_to = "n_missing") |>
+  filter(n_missing > 0) |>
+  arrange(desc(n_missing))
+```
+
+## Two different kinds of missing {.smaller}
+
+::: {.incremental}
+- **Sporadic** — a blood sample was not taken. A few percent, scattered.
+- **Structural** — the value cannot exist for that person.
+:::
+
+. . .
+
+In the full dataset, `age_at_death` is missing for 91.6% of people. Not a data
+quality problem — those people did not die.
+
+. . .
+
+Treating those two the same way is a classic and expensive error. Always ask
+**why** a value is missing before deciding what to do with it.
+
+## `NA` will not warn you {.smaller}
+
+```{r}
+mean(cohort$crp_mg_L)
+```
+
+. . .
+
+```{r}
+mean(cohort$crp_mg_L, na.rm = TRUE)
+```
+
+. . .
+
+The first is arguably the better behaviour — R is telling you something is
+missing. `na.rm = TRUE` says *"I know, and I've decided to ignore them"*.
+
+Make sure that is actually a decision you made.
+
+# Categorical and binary variables
+
+## Counting {.smaller}
+
+The whole toolkit for a categorical variable starts here:
+
+```{r}
+cohort |> count(smoking_status)
+```
+
+. . .
+
+**Four** categories for a three-category variable.
+
+## The levels are not clean {.smaller}
+
+```{r}
+cohort |> count(self_rated_health, sort = TRUE)
+```
+
+. . .
+
+`Very Good`, `Very good` and `very good` are three spellings of one category.
+`count()` found them because it does not guess.
+
+## Why this matters {.smaller}
+
+If you had gone straight to a test, `Very good` (136 people) and `very good`
+(1 person) would have been compared as **different groups**.
+
+. . .
+
+::: {.incremental}
+- Nothing errors
+- The output has the right shape
+- Your degrees of freedom are quietly wrong
+:::
+
+. . .
+
+Repairing these is a job for `case_when()` and `forcats` — session 5, and the
+[factors reference page](../10_resources/02_reference/factors_with_forcats.qmd).
+
+## Binary variables {.smaller}
+
+`obesity` has two possible values, so its summary is just a proportion. Let's
+take the mean:
+
+```{r}
+mean(cohort$obesity)
+```
+
+. . .
+
+`NA` — because it is **text**, not 0/1. `glimpse()` told us that earlier: `<chr>`.
+
+. . .
+
+Note that it did **not** error. You get `NA`, a warning you can easily scroll
+past, and a pipeline that carries on.
+
+## And it is not even clean {.smaller}
+
+```{r}
+cohort |> count(obesity)
+```
+
+. . .
+
+**Four** values for a two-value variable. `Y` and `YES` are one person each.
+
+. . .
+
+If you had filtered on `obesity == "Yes"` you would have silently dropped two
+people. No error, no warning.
+
+## Clean, then summarise {.smaller}
+
+```{r}
+cohort_clean <- cohort_clean |>
+  mutate(
+    obese = str_to_sentence(str_trim(obesity)),
+    obese = obese %in% c("Y", "Yes")
+  )
+
+cohort_clean |> count(obesity, obese)
+```
+
+## Now the proportion {.smaller}
+
+```{r}
+cohort_clean |>
+  summarise(
+    n          = n(),
+    n_obese    = sum(obese),
+    prevalence = mean(obese)
+  )
+```
+
+. . .
+
+`mean()` of a `TRUE`/`FALSE` column **is** the proportion — `TRUE` counts as 1.
+
+. . .
+
+33.8%. Which you could only compute *after* knowing the type and fixing the
+levels. That is the entire argument for this session in one slide.
+
+## Practice! {.smaller}
+
+Using `cohort`:
+
+- How many people are in each `imd_quintile`? Is any level unexpected?
+- What proportion have `type2_diabetes`?
+- Count `sex_at_birth`. Does anything need cleaning?
+
+**Extra practice**
+
+- Write one pipeline that returns the number of distinct values of every
+  character column, and use it to spot which need attention
+
+# Relationships between variables
+
+## Cross-tabulation {.smaller}
+
+Two categorical variables at once:
+
+```{r}
+cohort_clean |>
+  count(sex_at_birth, obese) |>
+  pivot_wider(names_from = obese, values_from = n, names_prefix = "obese_")
+```
+
+. . .
+
+Counts alone are hard to compare when the groups are different sizes.
+
+## Proportions within groups {.smaller}
+
+```{r}
+cohort_clean |>
+  group_by(sex_at_birth) |>
+  summarise(n = n(), obesity_prevalence = mean(obese)) |>
+  arrange(desc(n))
+```
+
+. . .
+
+Now the comparison is fair — and look at the third row. The three `female`
+records are being reported as a separate group with 0% prevalence.
+
+. . .
+
+One uncleaned capital letter has invented a third sex category with an
+eye-catching and completely meaningless result.
+
+::: {.callout-note appearance="simple"}
+**Always ask which way the percentages run.** "60% of obese people are female"
+and "60% of females are obese" are completely different claims.
+:::
+
+## Correlation {.smaller}
+
+For two continuous variables:
+
+```{r}
+cor(cohort_clean$age_years, cohort_clean$systolic_bp_mmHg)
+```
+
+. . .
+
+Pearson's *r* runs from −1 to +1:
+
+::: {.incremental}
+- **sign** — direction. Positive: both rise together.
+- **magnitude** — strength. 0 is no *linear* relationship.
+:::
+
+. . .
+
+0.29 is a moderate positive association. Older people tend to have higher blood
+pressure — but the relationship is loose.
+
+## Correlation with missing values {.smaller}
+
+```{r}
+cor(cohort$bmi_kg_m2, cohort$crp_mg_L)
+```
+
+. . .
+
+`NA`, because some CRP values are missing.
+
+```{r}
+cor(cohort$bmi_kg_m2, cohort$crp_mg_L, use = "complete.obs")
+```
+
+. . .
+
+`use = "complete.obs"` drops incomplete pairs. As ever — that is a decision, so
+know that you made it.
+
+## What correlation does not tell you {.smaller}
+
+::: {.incremental}
+- It does not imply **causation**
+- It only measures a **straight-line** relationship
+- It is badly distorted by **outliers** — as you saw, 0.09 vs 0.29
+- A **significant** correlation can still be a tiny one
+:::
+
+. . .
+
+On 2,400 people, *r* = 0.09 is statistically significant. It is also almost
+completely useless for predicting anything.
+
+. . .
+
+**Always plot it before you believe it.**
+
+## Plot it {.smaller}
+
+```{r}
+#| fig-height: 3.5
+plot(cohort_clean$age_years, cohort_clean$systolic_bp_mmHg,
+     pch = 16, col = rgb(0.56, 0.66, 1, 0.3),
+     xlab = "Age (years)", ylab = "Systolic BP (mmHg)")
+```
+
+. . .
+
+A real trend, and a lot of scatter. That is what *r* = 0.29 looks like.
+
+## Practice! {.smaller}
+
+Using `cohort_clean`:
+
+- Correlate `bmi_kg_m2` with `systolic_bp_mmHg`. Plot it. Does the number match
+  what you see?
+- Compare mean `bmi_kg_m2` across `smoking_status` groups
+- Cross-tabulate `imd_quintile` against `type2_diabetes` as proportions
+
+**Extra practice**
+
+- Find the pair of continuous variables in the full dataset with the strongest
+  correlation. Is it interesting, or just two versions of the same measurement?
+
+## An EDA checklist {.smaller}
+
+Before any test, on any dataset:
+
+::: {.incremental}
+1. `dim()` and `glimpse()` — size and types
+2. Classify each variable you plan to use
+3. Summarise continuous variables **both** ways — mean/SD and median/IQR
+4. `count()` every categorical variable, and read the levels
+5. Count the missing values, and ask *why* they are missing
+6. Plot anything you intend to claim a relationship about
+:::
+
+. . .
+
+It takes ten minutes and it is the difference between an analysis you can defend
+and one you cannot.
+
+## Additional Resources
+
+- [R for Data Science 2e — Exploratory Data Analysis](https://r4ds.hadley.nz/eda)
+- [`skimr`](https://docs.ropensci.org/skimr/) — fast, readable summaries of a
+  whole data frame
+- [`naniar`](https://naniar.njtierney.com/) — tools for exploring missing data
+- Next session: doing all of this **properly**, with `ggplot2`
