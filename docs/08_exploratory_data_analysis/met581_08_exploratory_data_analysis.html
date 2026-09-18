@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../10_resources/00_images/cardiff_uni_logo.png" rel="icon" type="image/png">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Gabriel Mateus Bernardo Harrington">
+  <title>Data Science for Life Sciences I – Exploratory Data Analysis in R</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-20790e11dfe6ae5b285ea12fad23ce71.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-drop/drop-runtime.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-dark">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Exploratory Data Analysis in R</h1>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Gabriel Mateus Bernardo Harrington <a href="https://orcid.org/0000-0001-6075-3619" class="quarto-title-author-orcid" aria-label="ORCID profile for Gabriel Mateus Bernardo Harrington"> <img alt="" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a>
+</div>
+<div class="quarto-title-author-email">
+<a href="mailto:bernardo-harringtong@cardiff.ac.uk">bernardo-harringtong@cardiff.ac.uk</a>
+</div>
+        <p class="quarto-title-affiliation">
+            <a href="https://www.cardiff.ac.uk">
+            Cardiff University
+            </a>
+          </p>
+        <p class="quarto-title-affiliation">
+            <a href="https://ukdri.ac.uk/">
+            UK Dementia Research Institute
+            </a>
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="exploratory-data-analysis" class="slide level2 center">
+<h2>Exploratory Data Analysis</h2>
+</section>
+<section id="todays-aims" class="slide level2">
+<h2>Todays Aims</h2>
+<ul>
+<li>Get to know a dataset before you do anything clever with it</li>
+<li>Choose the right summary for the shape of the data you actually have</li>
+<li>Find the problems <strong>before</strong> they reach your results</li>
+<li>Describe relationships between variables honestly</li>
+</ul>
+</section>
+<section id="learning-objectives" class="slide level2">
+<h2>Learning Objectives</h2>
+<p>By the end of this session you should be able to:</p>
+<ul>
+<li>Classify a variable as continuous, binary, categorical or ordered</li>
+<li>Summarise each type appropriately, and justify the choice</li>
+<li>Recognise skew, outliers and missingness, and say what to do about them</li>
+<li>Produce and interpret a cross-tabulation and a correlation</li>
+</ul>
+</section>
+<section id="what-eda-actually-is" class="slide level2">
+<h2>What EDA actually is</h2>
+<p>Not a step you tick off. It’s the habit of <strong>looking at your data before you trust it</strong>.</p>
+<ul>
+<li class="fragment">What is in here, and what type is each thing?</li>
+<li class="fragment">What is the typical value, and how spread out is it?</li>
+<li class="fragment">What is broken, missing, or impossible?</li>
+<li class="fragment">What looks related to what?</li>
+</ul>
+<div class="fragment">
+<p>Every statistical test you meet in sessions 9–14 assumes you have already done this. None of them will tell you if you haven’t.</p>
+</div>
+</section>
+<section id="the-rule-for-this-session" class="slide level2 smaller">
+<h2>The rule for this session</h2>
+<blockquote>
+<p><strong>Look at the data. Then look again. Then compute something.</strong></p>
+</blockquote>
+<div class="fragment">
+<p>The expensive mistakes in data analysis are almost never “I used the wrong test”.</p>
+</div>
+<div class="fragment">
+<p>They are “I didn’t notice that column was a character”, or “I didn’t notice two rows were duplicated”, or — as you’ll see in about ten minutes — “I didn’t notice two values were ten times too big”.</p>
+</div>
+</section>
+<section id="our-dataset" class="slide level2 smaller">
+<h2>Our dataset</h2>
+<p>A <strong>simulated</strong> cohort of 2,400 older adults in England: demographics, deprivation, lifestyle, and clinical measurements.</p>
+<ul>
+<li>It is entirely made up. No real patients.</li>
+<li>It is the <strong>same dataset</strong> you’ll use in the statistics sessions</li>
+<li>It is deliberately <strong>not clean</strong>, because real data never is</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-label="1"></a><span class="fu">dim</span>(cohort)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2400   12</code></pre>
+</div>
+</div>
+<aside class="notes">
+<p>The full table has 73 columns; this is a teaching subset of 12 so that output fits on a slide. Show the full one live if there’s time.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="first-contact" class="slide level2 smaller">
+<h2>First contact</h2>
+<p>Before anything else — how big is it, and what is in it?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a aria-label="1"></a><span class="fu">glimpse</span>(cohort)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,400
+Columns: 12
+$ participant_id    &lt;chr&gt; "BIO00001", "BIO00002", "BIO00003", "BIO00004", "BIO…
+$ age_years         &lt;dbl&gt; 68, 74, 77, 81, 83, 81, 67, 66, 66, 67, 84, 77, 79, …
+$ sex_at_birth      &lt;chr&gt; "female", "Male", "female", "female", "Male", "Femal…
+$ imd_quintile      &lt;dbl&gt; 3, 1, 4, 1, 1, 2, 2, 2, 4, 3, 1, 2, 9, 3, 3, 5, 5, 5…
+$ smoking_status    &lt;chr&gt; "Never", "Never", "Former", "Former", "Former", "For…
+$ self_rated_health &lt;chr&gt; "Good", "Fair", "Very bad", "Fair", "Fair", "Very ba…
+$ height_cm         &lt;dbl&gt; 166.0, 172.5, 163.1, 158.6, 180.2, 163.6, 175.9, 150…
+$ bmi_kg_m2         &lt;dbl&gt; 23.7, 28.7, 20.0, 24.1, 27.1, 28.1, 31.4, 25.1, 36.5…
+$ systolic_bp_mmHg  &lt;dbl&gt; 1330, 1620, 142, 136, 137, 155, 141, 147, 162, 150, …
+$ crp_mg_L          &lt;dbl&gt; 0.73, 1.02, 0.47, NA, 3.30, 1.72, 1.46, 0.67, 2.06, …
+$ obesity           &lt;chr&gt; "No", "No", "No", "No", "No", "No", "YES", "No", "Y"…
+$ type2_diabetes    &lt;chr&gt; "No", "No", "No", "No", "No", "No", "No", "No", "No"…</code></pre>
+</div>
+</div>
+</section>
+<section id="what-glimpse-just-told-you" class="slide level2 smaller">
+<h2>What <code>glimpse()</code> just told you</h2>
+<ul>
+<li class="fragment"><code>&lt;dbl&gt;</code> — a number (double). Age, BMI, blood pressure.</li>
+<li class="fragment"><code>&lt;chr&gt;</code> — text. Sex, smoking status, self-rated health.</li>
+<li class="fragment">2,400 rows, 12 columns</li>
+</ul>
+<div class="fragment">
+<p>Note what is <strong>not</strong> there: nothing is a factor yet, and <code>obesity</code> is stored as a number even though it only takes two values.</p>
+</div>
+<div class="fragment">
+<p>R will happily let you take the mean of a 0/1 column, or sort text alphabetically when you meant “worst to best”. Knowing the type is how you avoid both.</p>
+</div>
+</section>
+<section id="variable-types" class="slide level2 smaller">
+<h2>Variable types</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 35%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Looks like</th>
+<th>Example here</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Continuous</strong></td>
+<td>any value in a range</td>
+<td><code>age_years</code>, <code>bmi_kg_m2</code></td>
+</tr>
+<tr class="even">
+<td><strong>Binary</strong></td>
+<td>exactly two outcomes</td>
+<td><code>obesity</code>, <code>type2_diabetes</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Categorical</strong> (nominal)</td>
+<td>unordered groups</td>
+<td><code>sex_at_birth</code>, <code>smoking_status</code></td>
+</tr>
+<tr class="even">
+<td><strong>Ordered</strong> (ordinal)</td>
+<td>groups with a rank</td>
+<td><code>imd_quintile</code>, <code>self_rated_health</code></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Classify first, compute second.</strong> The type decides the summary, the plot, and later the test.</p>
+</div>
+</section>
+<section id="practice" class="slide level2 smaller">
+<h2>Practice!</h2>
+<p>Without running anything, classify each of these:</p>
+<ul>
+<li><code>height_cm</code></li>
+<li><code>sex_at_birth</code></li>
+<li><code>self_rated_health</code></li>
+<li><code>type2_diabetes</code></li>
+<li><code>imd_quintile</code></li>
+</ul>
+<div class="fragment">
+<p>Then check yourself with <code>glimpse()</code> — and notice where R’s <em>storage</em> type disagrees with the <em>conceptual</em> type.</p>
+</div>
+</section>
+<section>
+<section id="continuous-variables" class="title-slide slide level1 center">
+<h1>Continuous variables</h1>
+
+</section>
+<section id="central-tendency" class="slide level2 smaller">
+<h2>Central tendency</h2>
+<p>Two ways to say “the typical value”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-3"><a aria-label="3"></a>    <span class="at">mean   =</span> <span class="fu">mean</span>(age_years),</span>
+<span id="cb5-4"><a aria-label="4"></a>    <span class="at">median =</span> <span class="fu">median</span>(age_years)</span>
+<span id="cb5-5"><a aria-label="5"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   mean median
+  &lt;dbl&gt;  &lt;dbl&gt;
+1  70.6     71</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Nearly identical — which tells you the distribution is roughly symmetric.</p>
+<p>When they <strong>disagree</strong>, that disagreement is information.</p>
+</div>
+</section>
+<section id="variability" class="slide level2 smaller">
+<h2>Variability</h2>
+<p>“Typical” is useless without “how spread out”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb7-3"><a aria-label="3"></a>    <span class="at">sd    =</span> <span class="fu">sd</span>(age_years),</span>
+<span id="cb7-4"><a aria-label="4"></a>    <span class="at">IQR   =</span> <span class="fu">IQR</span>(age_years),</span>
+<span id="cb7-5"><a aria-label="5"></a>    <span class="at">range =</span> <span class="fu">max</span>(age_years) <span class="sc">-</span> <span class="fu">min</span>(age_years)</span>
+<span id="cb7-6"><a aria-label="6"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+     sd   IQR range
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  8.45    13    38</code></pre>
+</div>
+</div>
+<ul>
+<li class="fragment"><strong>SD</strong> — average distance from the mean. Uses every value.</li>
+<li class="fragment"><strong>IQR</strong> — width of the middle 50%. Ignores the tails.</li>
+<li class="fragment"><strong>Range</strong> — max minus min. Entirely decided by two values.</li>
+</ul>
+</section>
+<section id="now-do-it-for-blood-pressure" class="slide level2 smaller">
+<h2>Now do it for blood pressure</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb9-3"><a aria-label="3"></a>    <span class="at">n      =</span> <span class="fu">n</span>(),</span>
+<span id="cb9-4"><a aria-label="4"></a>    <span class="at">mean   =</span> <span class="fu">mean</span>(systolic_bp_mmHg),</span>
+<span id="cb9-5"><a aria-label="5"></a>    <span class="at">median =</span> <span class="fu">median</span>(systolic_bp_mmHg),</span>
+<span id="cb9-6"><a aria-label="6"></a>    <span class="at">sd     =</span> <span class="fu">sd</span>(systolic_bp_mmHg),</span>
+<span id="cb9-7"><a aria-label="7"></a>    <span class="at">IQR    =</span> <span class="fu">IQR</span>(systolic_bp_mmHg),</span>
+<span id="cb9-8"><a aria-label="8"></a>    <span class="at">min    =</span> <span class="fu">min</span>(systolic_bp_mmHg),</span>
+<span id="cb9-9"><a aria-label="9"></a>    <span class="at">max    =</span> <span class="fu">max</span>(systolic_bp_mmHg)</span>
+<span id="cb9-10"><a aria-label="10"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+      n  mean median    sd   IQR   min   max
+  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1  2400  140.    139  40.8    17    91  1620</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Something here is wrong. What?</strong></p>
+</div>
+</section>
+<section id="spot-it" class="slide level2 smaller">
+<h2>Spot it</h2>
+<ul>
+<li class="fragment">Mean 140, median 139 — fine, that is a plausible systolic blood pressure</li>
+<li class="fragment">IQR 17 — fine</li>
+<li class="fragment"><strong>SD 40.8</strong> — for a variable whose middle 50% spans 17 mmHg?</li>
+<li class="fragment"><strong>Max 1620</strong> — no.</li>
+</ul>
+<div class="fragment">
+<p>A standard deviation more than twice the IQR is a red flag on its own. You did not need the <code>max</code> to know something was wrong.</p>
+</div>
+<div class="fragment">
+<p>This is why you compute <strong>both</strong> a robust and a non-robust summary.</p>
+</div>
+</section>
+<section id="look-at-it" class="slide level2 smaller">
+<h2>Look at it</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a aria-label="1"></a><span class="fu">boxplot</span>(cohort<span class="sc">$</span>systolic_bp_mmHg,</span>
+<span id="cb11-2"><a aria-label="2"></a>        <span class="at">horizontal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb11-3"><a aria-label="3"></a>        <span class="at">xlab =</span> <span class="st">"Systolic BP (mmHg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="met581_08_exploratory_data_analysis_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>The entire distribution is squashed against the left edge by two points.</p>
+</div>
+</section>
+<section id="find-it" class="slide level2 smaller">
+<h2>Find it</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a aria-label="2"></a>  <span class="fu">filter</span>(systolic_bp_mmHg <span class="sc">&gt;</span> <span class="dv">250</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a aria-label="3"></a>  <span class="fu">select</span>(participant_id, age_years, systolic_bp_mmHg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  participant_id age_years systolic_bp_mmHg
+  &lt;chr&gt;              &lt;dbl&gt;            &lt;dbl&gt;
+1 BIO00001              68             1330
+2 BIO00002              74             1620</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>1330</code> and <code>1620</code>. Those are <code>133.0</code> and <code>162.0</code> with a misplaced decimal point — a data entry error, and a very common one.</p>
+</div>
+</section>
+<section id="fix-it" class="slide level2 smaller">
+<h2>Fix it</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-label="1"></a>cohort_clean <span class="ot">&lt;-</span> cohort <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-3"><a aria-label="3"></a>    <span class="at">systolic_bp_mmHg =</span> <span class="fu">if_else</span>(</span>
+<span id="cb14-4"><a aria-label="4"></a>      systolic_bp_mmHg <span class="sc">&gt;</span> <span class="dv">250</span>,</span>
+<span id="cb14-5"><a aria-label="5"></a>      systolic_bp_mmHg <span class="sc">/</span> <span class="dv">10</span>,</span>
+<span id="cb14-6"><a aria-label="6"></a>      systolic_bp_mmHg</span>
+<span id="cb14-7"><a aria-label="7"></a>    )</span>
+<span id="cb14-8"><a aria-label="8"></a>  )</span>
+<span id="cb14-9"><a aria-label="9"></a></span>
+<span id="cb14-10"><a aria-label="10"></a>cohort_clean <span class="sc">|&gt;</span></span>
+<span id="cb14-11"><a aria-label="11"></a>  <span class="fu">summarise</span>(<span class="at">mean =</span> <span class="fu">mean</span>(systolic_bp_mmHg), <span class="at">sd =</span> <span class="fu">sd</span>(systolic_bp_mmHg))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   mean    sd
+  &lt;dbl&gt; &lt;dbl&gt;
+1  139.  12.6</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>SD falls from <strong>40.8</strong> to <strong>12.6</strong>. The mean barely moves.</p>
+<div class="callout callout-warning callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p>Never silently delete a row. Record what you changed and why — that is what makes a pipeline reproducible, and it is marked.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="robust-vs-non-robust" class="slide level2 smaller">
+<h2>Robust vs non-robust</h2>
+<p>Watch which summaries even noticed:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>with the error</th>
+<th>after the fix</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>mean</td>
+<td>140.0</td>
+<td>138.9</td>
+</tr>
+<tr class="even">
+<td><strong>median</strong></td>
+<td><strong>139</strong></td>
+<td><strong>139</strong></td>
+</tr>
+<tr class="odd">
+<td>sd</td>
+<td>40.8</td>
+<td>12.6</td>
+</tr>
+<tr class="even">
+<td><strong>IQR</strong></td>
+<td><strong>17</strong></td>
+<td><strong>17</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>The median and IQR did not move at all. They are <strong>robust</strong> — built from ranks, so extreme values carry no extra weight.</p>
+</div>
+<div class="fragment">
+<p>That is the argument for reporting both. Where they disagree, look.</p>
+</div>
+</section>
+<section id="what-it-cost" class="slide level2 smaller">
+<h2>What it cost</h2>
+<p>Two bad cells out of 2,400. Here is the correlation between age and blood pressure, before and after:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a aria-label="1"></a><span class="fu">c</span>(</span>
+<span id="cb16-2"><a aria-label="2"></a>  <span class="at">raw     =</span> <span class="fu">cor</span>(cohort<span class="sc">$</span>age_years,       cohort<span class="sc">$</span>systolic_bp_mmHg),</span>
+<span id="cb16-3"><a aria-label="3"></a>  <span class="at">cleaned =</span> <span class="fu">cor</span>(cohort_clean<span class="sc">$</span>age_years, cohort_clean<span class="sc">$</span>systolic_bp_mmHg)</span>
+<span id="cb16-4"><a aria-label="4"></a>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    raw cleaned 
+  0.093   0.293 </code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>0.09 to 0.29.</strong> A real, moderate association was hidden entirely by two typos.</p>
+</div>
+<div class="fragment">
+<p>Had you skipped EDA you would have reported “no relationship between age and blood pressure” — confidently, and wrongly.</p>
+</div>
+</section>
+<section id="practice-1" class="slide level2 smaller">
+<h2>Practice!</h2>
+<p>Using <code>cohort</code>:</p>
+<ul>
+<li>Summarise <code>bmi_kg_m2</code> with mean, median, SD and IQR. Do any disagree?</li>
+<li>Find the minimum and maximum. Are both plausible for an adult?</li>
+<li>Produce a boxplot of <code>crp_mg_L</code>. What do you notice?</li>
+</ul>
+<p><strong>Extra practice</strong></p>
+<ul>
+<li>Write a small check that flags any column whose SD is more than twice its IQR</li>
+</ul>
+</section>
+<section id="skew" class="slide level2 smaller">
+<h2>Skew</h2>
+<p>Compare two continuous variables:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-3"><a aria-label="3"></a>    <span class="fu">across</span>(</span>
+<span id="cb18-4"><a aria-label="4"></a>      <span class="fu">c</span>(height_cm, crp_mg_L),</span>
+<span id="cb18-5"><a aria-label="5"></a>      <span class="fu">list</span>(<span class="at">mean =</span> <span class="sc">~</span> <span class="fu">mean</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">median =</span> <span class="sc">~</span> <span class="fu">median</span>(.x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb18-6"><a aria-label="6"></a>    )</span>
+<span id="cb18-7"><a aria-label="7"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb18-8"><a aria-label="8"></a>  <span class="fu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  height_cm_mean height_cm_median crp_mg_L_mean crp_mg_L_median
+           &lt;dbl&gt;            &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
+1           169.             168.          2.44            2.01</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Height: mean ≈ median. Symmetric.</p>
+<p>CRP: mean <strong>above</strong> median. A long right tail is dragging the mean up.</p>
+</div>
+</section>
+<section id="seeing-skew" class="slide level2 smaller">
+<h2>Seeing skew</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a aria-label="1"></a><span class="fu">hist</span>(cohort<span class="sc">$</span>height_cm, <span class="at">main =</span> <span class="st">"height_cm"</span>, <span class="at">xlab =</span> <span class="cn">NULL</span>)</span>
+<span id="cb20-2"><a aria-label="2"></a><span class="fu">hist</span>(cohort<span class="sc">$</span>crp_mg_L,  <span class="at">main =</span> <span class="st">"crp_mg_L"</span>,  <span class="at">xlab =</span> <span class="cn">NULL</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="met581_08_exploratory_data_analysis_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img data-src="met581_08_exploratory_data_analysis_files/figure-revealjs/unnamed-chunk-12-2.png" width="960"></p>
+</div>
+</div>
+</div>
+</section>
+<section id="which-summary-do-you-report" class="slide level2 smaller">
+<h2>Which summary do you report?</h2>
+<ul>
+<li class="fragment"><strong>Symmetric</strong> — mean and SD are fine, and use all the data</li>
+<li class="fragment"><strong>Skewed</strong> — median and IQR describe it far better</li>
+<li class="fragment">Reporting a mean for a strongly skewed variable is not <em>wrong</em>, it is <strong>misleading</strong>, which is worse</li>
+</ul>
+<div class="fragment">
+<p>You will meet this again in sessions 11–12: the same shape decides whether a parametric test is appropriate.</p>
+</div>
+</section>
+<section id="break" class="slide level2 center">
+<h2>Break</h2>
+</section></section>
+<section>
+<section id="missing-data" class="title-slide slide level1 center">
+<h1>Missing data</h1>
+
+</section>
+<section id="where-is-it-missing" class="slide level2 smaller">
+<h2>Where is it missing?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.x)))) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a aria-label="3"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), <span class="at">names_to =</span> <span class="st">"variable"</span>, <span class="at">values_to =</span> <span class="st">"n_missing"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a aria-label="4"></a>  <span class="fu">filter</span>(n_missing <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a aria-label="5"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n_missing))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  variable          n_missing
+  &lt;chr&gt;                 &lt;int&gt;
+1 crp_mg_L                 93
+2 self_rated_health        42</code></pre>
+</div>
+</div>
+</section>
+<section id="two-different-kinds-of-missing" class="slide level2 smaller">
+<h2>Two different kinds of missing</h2>
+<ul>
+<li class="fragment"><strong>Sporadic</strong> — a blood sample was not taken. A few percent, scattered.</li>
+<li class="fragment"><strong>Structural</strong> — the value cannot exist for that person.</li>
+</ul>
+<div class="fragment">
+<p>In the full dataset, <code>age_at_death</code> is missing for 91.6% of people. Not a data quality problem — those people did not die.</p>
+</div>
+<div class="fragment">
+<p>Treating those two the same way is a classic and expensive error. Always ask <strong>why</strong> a value is missing before deciding what to do with it.</p>
+</div>
+</section>
+<section id="na-will-not-warn-you" class="slide level2 smaller">
+<h2><code>NA</code> will not warn you</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-label="1"></a><span class="fu">mean</span>(cohort<span class="sc">$</span>crp_mg_L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-label="1"></a><span class="fu">mean</span>(cohort<span class="sc">$</span>crp_mg_L, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.43918508886</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>The first is arguably the better behaviour — R is telling you something is missing. <code>na.rm = TRUE</code> says <em>“I know, and I’ve decided to ignore them”</em>.</p>
+<p>Make sure that is actually a decision you made.</p>
+</div>
+</section></section>
+<section>
+<section id="categorical-and-binary-variables" class="title-slide slide level1 center">
+<h1>Categorical and binary variables</h1>
+
+</section>
+<section id="counting" class="slide level2 smaller">
+<h2>Counting</h2>
+<p>The whole toolkit for a categorical variable starts here:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span> <span class="fu">count</span>(smoking_status)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  smoking_status     n
+  &lt;chr&gt;          &lt;int&gt;
+1 Current          333
+2 Currnt             4
+3 Former           795
+4 Never           1268</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Four</strong> categories for a three-category variable.</p>
+</div>
+</section>
+<section id="the-levels-are-not-clean" class="slide level2 smaller">
+<h2>The levels are not clean</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span> <span class="fu">count</span>(self_rated_health, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 2
+  self_rated_health     n
+  &lt;chr&gt;             &lt;int&gt;
+1 Very bad           1094
+2 Bad                 533
+3 Fair                384
+4 Good                209
+5 Very good           136
+6 &lt;NA&gt;                 42
+7 Very Good             1
+8 very good             1</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>Very Good</code>, <code>Very good</code> and <code>very good</code> are three spellings of one category. <code>count()</code> found them because it does not guess.</p>
+</div>
+</section>
+<section id="why-this-matters" class="slide level2 smaller">
+<h2>Why this matters</h2>
+<p>If you had gone straight to a test, <code>Very good</code> (136 people) and <code>very good</code> (1 person) would have been compared as <strong>different groups</strong>.</p>
+<div class="fragment">
+<ul>
+<li class="fragment">Nothing errors</li>
+<li class="fragment">The output has the right shape</li>
+<li class="fragment">Your degrees of freedom are quietly wrong</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Repairing these is a job for <code>case_when()</code> and <code>forcats</code> — session 5, and the <a href="../10_resources/02_reference/factors_with_forcats.html">factors reference page</a>.</p>
+</div>
+</section>
+<section id="binary-variables" class="slide level2 smaller">
+<h2>Binary variables</h2>
+<p><code>obesity</code> has two possible values, so its summary is just a proportion. Let’s take the mean:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-label="1"></a><span class="fu">mean</span>(cohort<span class="sc">$</span>obesity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>NA</code> — because it is <strong>text</strong>, not 0/1. <code>glimpse()</code> told us that earlier: <code>&lt;chr&gt;</code>.</p>
+</div>
+<div class="fragment">
+<p>Note that it did <strong>not</strong> error. You get <code>NA</code>, a warning you can easily scroll past, and a pipeline that carries on.</p>
+</div>
+</section>
+<section id="and-it-is-not-even-clean" class="slide level2 smaller">
+<h2>And it is not even clean</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-label="1"></a>cohort <span class="sc">|&gt;</span> <span class="fu">count</span>(obesity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  obesity     n
+  &lt;chr&gt;   &lt;int&gt;
+1 No       1590
+2 Y           1
+3 YES         1
+4 Yes       808</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Four</strong> values for a two-value variable. <code>Y</code> and <code>YES</code> are one person each.</p>
+</div>
+<div class="fragment">
+<p>If you had filtered on <code>obesity == "Yes"</code> you would have silently dropped two people. No error, no warning.</p>
+</div>
+</section>
+<section id="clean-then-summarise" class="slide level2 smaller">
+<h2>Clean, then summarise</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-label="1"></a>cohort_clean <span class="ot">&lt;-</span> cohort_clean <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a aria-label="2"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb35-3"><a aria-label="3"></a>    <span class="at">obese =</span> <span class="fu">str_to_sentence</span>(<span class="fu">str_trim</span>(obesity)),</span>
+<span id="cb35-4"><a aria-label="4"></a>    <span class="at">obese =</span> obese <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Y"</span>, <span class="st">"Yes"</span>)</span>
+<span id="cb35-5"><a aria-label="5"></a>  )</span>
+<span id="cb35-6"><a aria-label="6"></a></span>
+<span id="cb35-7"><a aria-label="7"></a>cohort_clean <span class="sc">|&gt;</span> <span class="fu">count</span>(obesity, obese)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  obesity obese     n
+  &lt;chr&gt;   &lt;lgl&gt; &lt;int&gt;
+1 No      FALSE  1590
+2 Y       TRUE      1
+3 YES     TRUE      1
+4 Yes     TRUE    808</code></pre>
+</div>
+</div>
+</section>
+<section id="now-the-proportion" class="slide level2 smaller">
+<h2>Now the proportion</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a aria-label="1"></a>cohort_clean <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a aria-label="2"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb37-3"><a aria-label="3"></a>    <span class="at">n          =</span> <span class="fu">n</span>(),</span>
+<span id="cb37-4"><a aria-label="4"></a>    <span class="at">n_obese    =</span> <span class="fu">sum</span>(obese),</span>
+<span id="cb37-5"><a aria-label="5"></a>    <span class="at">prevalence =</span> <span class="fu">mean</span>(obese)</span>
+<span id="cb37-6"><a aria-label="6"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+      n n_obese prevalence
+  &lt;int&gt;   &lt;int&gt;      &lt;dbl&gt;
+1  2400     810      0.338</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>mean()</code> of a <code>TRUE</code>/<code>FALSE</code> column <strong>is</strong> the proportion — <code>TRUE</code> counts as 1.</p>
+</div>
+<div class="fragment">
+<p>33.8%. Which you could only compute <em>after</em> knowing the type and fixing the levels. That is the entire argument for this session in one slide.</p>
+</div>
+</section>
+<section id="practice-2" class="slide level2 smaller">
+<h2>Practice!</h2>
+<p>Using <code>cohort</code>:</p>
+<ul>
+<li>How many people are in each <code>imd_quintile</code>? Is any level unexpected?</li>
+<li>What proportion have <code>type2_diabetes</code>?</li>
+<li>Count <code>sex_at_birth</code>. Does anything need cleaning?</li>
+</ul>
+<p><strong>Extra practice</strong></p>
+<ul>
+<li>Write one pipeline that returns the number of distinct values of every character column, and use it to spot which need attention</li>
+</ul>
+</section></section>
+<section>
+<section id="relationships-between-variables" class="title-slide slide level1 center">
+<h1>Relationships between variables</h1>
+
+</section>
+<section id="cross-tabulation" class="slide level2 smaller">
+<h2>Cross-tabulation</h2>
+<p>Two categorical variables at once:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-label="1"></a>cohort_clean <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a aria-label="2"></a>  <span class="fu">count</span>(sex_at_birth, obese) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a aria-label="3"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> obese, <span class="at">values_from =</span> n, <span class="at">names_prefix =</span> <span class="st">"obese_"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  sex_at_birth obese_FALSE obese_TRUE
+  &lt;chr&gt;              &lt;int&gt;      &lt;int&gt;
+1 Female               811        383
+2 Male                 776        427
+3 female                 3         NA</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Counts alone are hard to compare when the groups are different sizes.</p>
+</div>
+</section>
+<section id="proportions-within-groups" class="slide level2 smaller">
+<h2>Proportions within groups</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-label="1"></a>cohort_clean <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a aria-label="2"></a>  <span class="fu">group_by</span>(sex_at_birth) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a aria-label="3"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">obesity_prevalence =</span> <span class="fu">mean</span>(obese)) <span class="sc">|&gt;</span></span>
+<span id="cb41-4"><a aria-label="4"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  sex_at_birth     n obesity_prevalence
+  &lt;chr&gt;        &lt;int&gt;              &lt;dbl&gt;
+1 Male          1203              0.355
+2 Female        1194              0.321
+3 female           3              0    </code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Now the comparison is fair — and look at the third row. The three <code>female</code> records are being reported as a separate group with 0% prevalence.</p>
+</div>
+<div class="fragment">
+<p>One uncleaned capital letter has invented a third sex category with an eye-catching and completely meaningless result.</p>
+<div class="callout callout-note callout-style-simple">
+<div class="callout-body">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-content">
+<p><strong>Always ask which way the percentages run.</strong> “60% of obese people are female” and “60% of females are obese” are completely different claims.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="correlation" class="slide level2 smaller">
+<h2>Correlation</h2>
+<p>For two continuous variables:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a aria-label="1"></a><span class="fu">cor</span>(cohort_clean<span class="sc">$</span>age_years, cohort_clean<span class="sc">$</span>systolic_bp_mmHg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.292824996636</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Pearson’s <em>r</em> runs from −1 to +1:</p>
+<ul>
+<li class="fragment"><strong>sign</strong> — direction. Positive: both rise together.</li>
+<li class="fragment"><strong>magnitude</strong> — strength. 0 is no <em>linear</em> relationship.</li>
+</ul>
+</div>
+<div class="fragment">
+<p>0.29 is a moderate positive association. Older people tend to have higher blood pressure — but the relationship is loose.</p>
+</div>
+</section>
+<section id="correlation-with-missing-values" class="slide level2 smaller">
+<h2>Correlation with missing values</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a aria-label="1"></a><span class="fu">cor</span>(cohort<span class="sc">$</span>bmi_kg_m2, cohort<span class="sc">$</span>crp_mg_L)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p><code>NA</code>, because some CRP values are missing.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-label="1"></a><span class="fu">cor</span>(cohort<span class="sc">$</span>bmi_kg_m2, cohort<span class="sc">$</span>crp_mg_L, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.360645713861</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><code>use = "complete.obs"</code> drops incomplete pairs. As ever — that is a decision, so know that you made it.</p>
+</div>
+</section>
+<section id="what-correlation-does-not-tell-you" class="slide level2 smaller">
+<h2>What correlation does not tell you</h2>
+<ul>
+<li class="fragment">It does not imply <strong>causation</strong></li>
+<li class="fragment">It only measures a <strong>straight-line</strong> relationship</li>
+<li class="fragment">It is badly distorted by <strong>outliers</strong> — as you saw, 0.09 vs 0.29</li>
+<li class="fragment">A <strong>significant</strong> correlation can still be a tiny one</li>
+</ul>
+<div class="fragment">
+<p>On 2,400 people, <em>r</em> = 0.09 is statistically significant. It is also almost completely useless for predicting anything.</p>
+</div>
+<div class="fragment">
+<p><strong>Always plot it before you believe it.</strong></p>
+</div>
+</section>
+<section id="plot-it" class="slide level2 smaller">
+<h2>Plot it</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a aria-label="1"></a><span class="fu">plot</span>(cohort_clean<span class="sc">$</span>age_years, cohort_clean<span class="sc">$</span>systolic_bp_mmHg,</span>
+<span id="cb49-2"><a aria-label="2"></a>     <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="fu">rgb</span>(<span class="fl">0.56</span>, <span class="fl">0.66</span>, <span class="dv">1</span>, <span class="fl">0.3</span>),</span>
+<span id="cb49-3"><a aria-label="3"></a>     <span class="at">xlab =</span> <span class="st">"Age (years)"</span>, <span class="at">ylab =</span> <span class="st">"Systolic BP (mmHg)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="met581_08_exploratory_data_analysis_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"><div class="fragment">
+<p>A real trend, and a lot of scatter. That is what <em>r</em> = 0.29 looks like.</p>
+</div>
+</section>
+<section id="practice-3" class="slide level2 smaller">
+<h2>Practice!</h2>
+<p>Using <code>cohort_clean</code>:</p>
+<ul>
+<li>Correlate <code>bmi_kg_m2</code> with <code>systolic_bp_mmHg</code>. Plot it. Does the number match what you see?</li>
+<li>Compare mean <code>bmi_kg_m2</code> across <code>smoking_status</code> groups</li>
+<li>Cross-tabulate <code>imd_quintile</code> against <code>type2_diabetes</code> as proportions</li>
+</ul>
+<p><strong>Extra practice</strong></p>
+<ul>
+<li>Find the pair of continuous variables in the full dataset with the strongest correlation. Is it interesting, or just two versions of the same measurement?</li>
+</ul>
+</section>
+<section id="an-eda-checklist" class="slide level2 smaller">
+<h2>An EDA checklist</h2>
+<p>Before any test, on any dataset:</p>
+<ol type="1">
+<li class="fragment"><code>dim()</code> and <code>glimpse()</code> — size and types</li>
+<li class="fragment">Classify each variable you plan to use</li>
+<li class="fragment">Summarise continuous variables <strong>both</strong> ways — mean/SD and median/IQR</li>
+<li class="fragment"><code>count()</code> every categorical variable, and read the levels</li>
+<li class="fragment">Count the missing values, and ask <em>why</em> they are missing</li>
+<li class="fragment">Plot anything you intend to claim a relationship about</li>
+</ol>
+<div class="fragment">
+<p>It takes ten minutes and it is the difference between an analysis you can defend and one you cannot.</p>
+</div>
+</section>
+<section id="additional-resources" class="slide level2">
+<h2>Additional Resources</h2>
+<ul>
+<li><a href="https://r4ds.hadley.nz/eda">R for Data Science 2e — Exploratory Data Analysis</a></li>
+<li><a href="https://docs.ropensci.org/skimr/"><code>skimr</code></a> — fast, readable summaries of a whole data frame</li>
+<li><a href="https://naniar.njtierney.com/"><code>naniar</code></a> — tools for exploring missing data</li>
+<li>Next session: doing all of this <strong>properly</strong>, with <code>ggplot2</code></li>
+</ul>
+
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src=".././10_resources/00_images/combined_logos.png" class="slide-logo"></p>
+<div class="footer footer-default">
+<p>Data Science for Life Sciences I - Slides and code available <a href="https://h-mateus.github.io/MET581---Computing-for-Bioinformatics-and-Genetic-Epidemiology/">here</a></p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-drop/drop-runtime.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'drop': {"button":true,"shortcut":"`","engine":"webr","webr":{"packages":["tidyverse","conflicted"]},"pyodide":{"packages":[]}},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: false,
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 5.0e-2,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealDrop, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
