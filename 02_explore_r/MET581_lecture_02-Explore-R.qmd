@@ -15,7 +15,7 @@ affiliations:
   - id: cardiff
     name: Cardiff University
     city: Cardiff
-    url: www.cardiff.ac.uk
+    url: https://www.cardiff.ac.uk
   - id: dri
     name: UK Dementia Research Institue
     url: https://ukdri.ac.uk/

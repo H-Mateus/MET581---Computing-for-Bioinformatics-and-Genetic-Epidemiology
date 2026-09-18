@@ -10,7 +10,7 @@ format:
     margin: 0.05
     autosize: true
     df-print: kable
-    css: styles.css
+    css: ../10_resources/styles.css
     embed-resources: true
     self-contained: true
 execute:

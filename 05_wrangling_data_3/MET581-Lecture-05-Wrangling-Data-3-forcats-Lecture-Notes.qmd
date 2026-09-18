@@ -857,7 +857,7 @@ testthat::test_that("my_multiply() works as expected",
 
 # Further Reading
 
-- [A history of stringsAsFactors](https://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/). We didn't cover this, as we have mainly been using `readr` or `fread`, but R has a long history of debate and frustration over reading-in strings as factors in base R.
+- [A history of stringsAsFactors](https://simplystatistics.org/posts/2015-07-24-stringsasfactors-an-unauthorized-biography/). We didn't cover this, as we have mainly been using `readr` or `fread`, but R has a long history of debate and frustration over reading-in strings as factors in base R.
 - [Background to factors](https://peerj.com/preprints/3163/). A lot of the thinking around forcats is laid out here.
 - [Anonymous functions](https://www.r-bloggers.com/anonymous-functions-in-r-and-python/). Anonymous functions (those without a name) can be used to pass small, quick functions as arguments. You should use them if a function isn't worth naming. It's normally worth naming functions.
 - [Unit tests](http://r-pkgs.had.co.nz/tests.html). This will take you through testing your code. If you think you will incorporate this, test-driven data analysis is worth looking into. You should unit test even if you consider your code more 'data science' and less hardcore programming. If people depend on your work, write unit tests. If only you depend on your work, write unit tests. Write. Unit. Tests.
